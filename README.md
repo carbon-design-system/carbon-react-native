@@ -1,4 +1,4 @@
-# carbon-react-native
+# Carbon React Native Library
 Carbon React Native Library
 ## Installation
 
@@ -9,21 +9,13 @@ npm install carbon-react-native
 ## Usage
 
 ```js
-import { CarbonReactNativeView } from "carbon-react-native";
+import { Button } from "carbon-react-native";
 
 // ...
 
-<CarbonReactNativeView color="tomato" />
+<Button kind="primary" text="My Button" onPress={() => {}} />
 ```
 
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
