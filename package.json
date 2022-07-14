@@ -1,7 +1,7 @@
 {
   "name": "carbon-react-native",
   "version": "0.1.0",
-  "description": "test",
+  "description": "Carbon React Native Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -36,7 +36,7 @@
     "android"
   ],
   "repository": "https://github.ibm.com/Aspera/carbon-react-native",
-  "author": "IBM <david.bradshaw@ibm.com> (https://github.com/dabrad26)",
+  "author": "IBM <david.bradshaw@ibm.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.ibm.com/Aspera/carbon-react-native/issues"
