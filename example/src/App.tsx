@@ -1,25 +1,43 @@
 import * as React from 'react';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { getColor } from 'carbon-react-native';
+import TestButton from './Views/Button';
+import TestHome from './Views/Home';
+import TestText from './Views/Text';
 
-import { StyleSheet, View } from 'react-native';
-import { CarbonReactNativeView } from 'carbon-react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <CarbonReactNativeView color="#32a852" style={styles.box} />
-    </View>
-  );
-}
+export type ViewType = 'home'|'text'|'button';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+    flexGrow: 1,
+    backgroundColor: getColor('background'),
   },
 });
+
+export default class App extends React.Component {
+  state = {
+    view: 'home' as ViewType,
+  }
+
+  private changeView = (view: ViewType): void => {
+    this.setState({view});
+  }
+
+  private get mainView(): React.ReactNode {
+    const {view} = this.state;
+
+    switch (view) {
+      case 'button':
+        return <TestButton />
+      case 'text':
+        return <TestText />
+      case 'home':
+      default:
+        return <TestHome changeView={this.changeView} />;
+    }
+  }
+
+  render(): React.ReactNode {
+    return <SafeAreaView style={styles.container}>{this.mainView}</SafeAreaView>;
+  }
+}
