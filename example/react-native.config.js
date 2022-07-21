@@ -6,4 +6,5 @@ module.exports = {
       root: path.join(__dirname, '..'),
     },
   },
+  assets: ['../src/assets/fonts/'],
 };
