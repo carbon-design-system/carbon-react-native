@@ -5,10 +5,12 @@ import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
 export type ButtonProps = {
-  /** Text to render */
-  text?: string;
+  /** Text to render (for iconOnlyMode use descriptive text) */
+  text: string;
   /** Icon to render (size 20) */
   icon?: unknown;
+  /** Indicate if icon only mode should be used (text is not rendered) */
+  iconOnlyMode?: boolean;
   /** Indicate if button is disabled */
   disabled?: boolean;
   /** Button kind. Primary is default */
@@ -44,7 +46,7 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const {kind, style, disabled, text, icon} = this.props;
+    const {kind, style, disabled, iconOnlyMode, icon} = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -78,7 +80,7 @@ export class Button extends React.Component<ButtonProps> {
           break;
     }
 
-    if (icon && !text) {
+    if (icon && iconOnlyMode) {
       finalStyle.paddingRight = 16;
       finalStyle.paddingLeft = 16;
       finalStyle.maxWidth = 52;
@@ -142,11 +144,11 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const {text, disabled, onLongPress, componentProps, icon} = this.props;
+    const {text, disabled, onLongPress, componentProps, icon, iconOnlyMode} = this.props;
 
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
-        {text && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
+        {!iconOnlyMode && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
         {icon && <View style={styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
     );
