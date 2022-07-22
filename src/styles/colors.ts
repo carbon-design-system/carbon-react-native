@@ -1,6 +1,7 @@
 import { Appearance } from 'react-native';
 import * as g10 from '@carbon/themes/src/g10.js';
 import * as g100 from '@carbon/themes/src/g100.js';
+import { logIssue } from '../helpers';
 
 /**
  * Indicate if dark mode should be used for theming.
@@ -9,12 +10,6 @@ import * as g100 from '@carbon/themes/src/g100.js';
 export const useDarkMode = (): boolean => {
   return Appearance.getColorScheme() === 'dark';
 };
-
-/**
- * This locks the colors returned by getColor to what is on load.
- * This avoids theme changing midway in app life and loading both colors.
- */
-const lockedUseDarkModeFlag = useDarkMode();
 
 /** Button colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
 const buttonG10: {[key: string]: string} = {
@@ -66,18 +61,18 @@ export const getColor = (token: string, overrideTheme?: 'light'|'dark'): string 
   let foundDarkColor = g100[token] || buttonG100[token];
 
   if (!foundLightColor) {
-    console.warn('getColor: could not find requested color in light theme.', {token});
+    logIssue('getColor: could not find requested color in light theme.', {token});
     foundLightColor = '#161616';
   }
 
   if (!foundDarkColor) {
-    console.warn('getColor: could not find requested color in dark theme.', {token});
+    logIssue('getColor: could not find requested color in dark theme.', {token});
     foundLightColor = '#f4f4f4';
   }
 
   if (overrideTheme) {
     return overrideTheme === 'dark' ? foundDarkColor : foundLightColor;
   } else {
-    return lockedUseDarkModeFlag ? foundDarkColor : foundLightColor;
+    return useDarkMode() ? foundDarkColor : foundLightColor;
   }
 };

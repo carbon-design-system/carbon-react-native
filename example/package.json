@@ -11,9 +11,12 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@carbon/icon-helpers": "^10.31.0",
+    "@carbon/icons": "^11.6.0",
     "@carbon/themes": "^11.4.0",
     "react": "17.0.2",
-    "react-native": "0.68.2"
+    "react-native": "0.68.2",
+    "react-native-svg": "^12.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

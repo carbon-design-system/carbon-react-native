@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text } from 'carbon-react-native';
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ export default class TestText extends React.Component {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Text style={{marginBottom: 16}} type="heading-04" text="Text" />
-        {this.textTypes.map(type => <Text style={{marginBottom: 16}} type={type as any} text={type.replace('-', ' ')} />)}
+        {this.textTypes.map(type => <Text key={type} style={{marginBottom: 16}} type={type as any} text={type.replace('-', ' ')} />)}
       </ScrollView>
     );
   }

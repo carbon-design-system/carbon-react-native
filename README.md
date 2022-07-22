@@ -5,18 +5,22 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
 1. Install the package in your project `npm install @carbon/react-native` or `yarn add @carbon/react-native`
 2. Go into the `ios` directory and use `pod install` (be sure to use the system Ruby on Mac if you are using rvm or similar tool)
 3. Create or edit `react-native.config.js` file to be:
-``` javascript
-module.exports = {
-  project: {
-    ios: {},
-    android: {},
-  },
-  assets: [
-    './node_modules/@carbon/react-native/assets/fonts/'  // This needs to be added if file already exists
-  ],
-};
-```
+    ``` javascript
+    module.exports = {
+      project: {
+        ios: {},
+        android: {},
+      },
+      assets: [
+        './node_modules/@carbon/react-native/assets/fonts/'  // This needs to be added if file already exists
+      ],
+    };
+    ```
 4. Run `npx react-native link` to link the fonts.
+5. Install the following peer dependencies as needed:
+    - @carbon/themes
+    - @carbon/icons
+    - react-native-svg
 
 ## Usage
 
@@ -42,6 +46,20 @@ const styles = StyleSheet.create({
     backgroundColor: getColor('background'),
   },
 });
+```
+
+### Icons
+
+You can use icons from `@carbon/icons` to pass to components.  We do not bundle all icons in this library to reduce size. You can import specific icons from that library directly as needed.  An example of how to pass icons to the React Native components is below.
+
+``` javascript
+import AddIcon from '@carbon/icons/es/add/20';
+
+// Using an icon with a component that supports Carbon Icons.
+<Button icon={AddIcon} />
+
+// Using an icon directly in your own component. You can use our helper.  See `createIcon` params for options.
+<View>{createIcon(icon, 20, 20)}</View>
 ```
 
 ## Contributing

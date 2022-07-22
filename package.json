@@ -48,6 +48,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@babel/eslint-parser": "^7.18.2",
+    "@carbon/icon-helpers": "^10.31.0",
     "@carbon/themes": "^11.4.0",
     "@commitlint/config-conventional": "^17.0.2",
     "@react-native-community/eslint-config": "^3.0.2",
@@ -72,9 +73,12 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
+    "@carbon/icons": "*",
+    "@carbon/icon-helpers": "*",
     "@carbon/themes": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-svg": "*"
   },
   "jest": {
     "preset": "react-native",
@@ -149,5 +153,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "react-native-svg": "^12.4.0"
   }
 }

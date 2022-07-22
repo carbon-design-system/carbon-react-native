@@ -1,11 +1,14 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { createIcon } from '../../helpers';
 import { getColor } from '../../styles/colors';
-import {Text} from '../Text';
+import { Text } from '../Text';
 
 export type ButtonProps = {
   /** Text to render */
   text?: string;
+  /** Icon to render (size 20) */
+  icon?: unknown;
   /** Indicate if button is disabled */
   disabled?: boolean;
   /** Button kind. Primary is default */
@@ -22,16 +25,26 @@ export type ButtonProps = {
   componentProps?: PressableProps;
 }
 
+const styles = StyleSheet.create({
+  iconStyle: {
+    position: 'absolute',
+    top: 14,
+    right: 16,
+  },
+});
+
 export class Button extends React.Component<ButtonProps> {
   private basicButton: StyleProp<ViewStyle> = {
     padding: 16,
     paddingTop: 13,
     paddingBottom: 13,
     paddingRight: 32,
+    minHeight: 48,
+    position: 'relative',
   };
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const {kind, style, disabled} = this.props;
+    const {kind, style, disabled, text, icon} = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -43,7 +56,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'tertiary':
         finalStyle = Object.assign({}, {
           backgroundColor: 'transparent',
-          borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonPrimary'),
+          borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
           borderWidth: 1,
         }, this.basicButton);
         break;
@@ -65,18 +78,40 @@ export class Button extends React.Component<ButtonProps> {
           break;
     }
 
+    if (icon && !text) {
+      finalStyle.paddingRight = 16;
+      finalStyle.paddingLeft = 16;
+      finalStyle.maxWidth = 52;
+    }
+
     return StyleSheet.create(Object.assign(finalStyle, style));
   }
 
-  private get textStyle(): StyleProp<TextStyle> {
+  private get iconTextColor(): string {
     const {kind, disabled} = this.props;
+
+    switch (kind) {
+      case 'tertiary':
+        return getColor(disabled ? 'textDisabled' : 'buttonTertiary');
+      case 'ghost':
+        return getColor(disabled ? 'textDisabled' : 'interactive');
+      case 'primary':
+      case 'secondary':
+      case 'danger':
+      default:
+        return getColor(disabled ? 'textOnColorDisabled' : 'textOnColor');
+    }
+  }
+
+  private get textStyle(): StyleProp<TextStyle> {
+    const {kind} = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
       case 'tertiary':
       case 'ghost':
         finalStyle = Object.assign({}, {
-          color: getColor(disabled ? 'textOnColorDisabled' : 'textOnColor'),
+          color: this.iconTextColor,
           textAlign: 'left',
         });
         break;
@@ -85,7 +120,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'danger':
       default:
         finalStyle = Object.assign({}, {
-          color: getColor(disabled ? 'textDisabled' : 'buttonTertiary'),
+          color: this.iconTextColor,
           textAlign: 'left',
         });
         break;
@@ -107,11 +142,12 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const {text, disabled, onLongPress, componentProps} = this.props;
+    const {text, disabled, onLongPress, componentProps, icon} = this.props;
 
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
-        <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />
+        {text && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
+        {icon && <View style={styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
     );
   }

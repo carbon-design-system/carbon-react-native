@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
-import {Button, Text} from 'carbon-react-native'
-import type { ViewType } from '../App';
+import { StyleSheet, ScrollView } from 'react-native';
+import { Button, Text } from 'carbon-react-native'
 
 interface TestHomeProps {
-  changeView: (view: ViewType) => void;
+  changeView: (view: string) => void;
+  views: [string, React.ReactNode][];
 }
 
 const styles = StyleSheet.create({
@@ -20,13 +20,12 @@ const styles = StyleSheet.create({
 
 export default class TestHome extends React.Component<TestHomeProps> {
   render(): React.ReactNode {
-    const {changeView} = this.props;
+    const {changeView, views} = this.props;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Text style={{marginBottom: 16}} type="heading-04" text="Components" />
-        <Button style={{marginBottom: 8}} onPress={() => changeView('text')} text="Text" />
-        <Button style={{marginBottom: 8}} onPress={() => changeView('button')} text="Button" />
+        {views.map(view => <Button key={view[0]} style={{marginBottom: 8}} onPress={() => changeView(view[0])} text={view[0]} />)}
       </ScrollView>
     );
   }

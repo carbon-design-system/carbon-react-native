@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Button, Text } from 'carbon-react-native';
+import AddIcon from '@carbon/icons/es/add/20';
 
 const styles = StyleSheet.create({
   view: {
@@ -31,6 +32,16 @@ export default class TestButton extends React.Component {
         <Button style={itemStyle} disabled={disabled} text="Tertiary" kind="tertiary" onPress={() => {console.info('Pressed tertiary')}} onLongPress={() => {console.info('Long pressed tertiary')}} />
         <Button style={itemStyle} disabled={disabled} text="Ghost" kind="ghost" onPress={() => {console.info('Pressed ghost')}} onLongPress={() => {console.info('Long pressed ghost')}} />
         <Button style={itemStyle} disabled={disabled} text="Danger" kind="danger" onPress={() => {console.info('Pressed danger')}} onLongPress={() => {console.info('Long pressed danger')}} />
+        <Button style={itemStyle} disabled={disabled} kind="primary" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="secondary" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="tertiary" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="ghost" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="danger" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="primary" text="With icon" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="secondary" text="With icon" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="tertiary" text="With icon" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="ghost" text="With icon" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
+        <Button style={itemStyle} disabled={disabled} kind="danger" text="With icon" icon={AddIcon} onPress={() => {console.info('Pressed icon')}} onLongPress={() => {console.info('Long pressed icon')}} />
         <Button style={itemStyle} text="Toggle disabled" kind="primary" onPress={() => {this.setState({disabled: !disabled})}} />
       </ScrollView>
     );
