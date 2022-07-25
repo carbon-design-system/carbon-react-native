@@ -1,6 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
-import { createIcon } from '../../helpers';
+import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
@@ -21,9 +21,11 @@ export type ButtonProps = {
   onLongPress?: (event: GestureResponderEvent) => void;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
-  /** Style to set on the text */
-  style?: StyleProp<TextStyle>;
-  /** Direct props to set on the React Text component (including iOS and Android specific props). Most use cases should not need this. */
+  /** Style to set on the item */
+  style?: StyleProp<ViewStyle>;
+  /** Override text or icon color for edge cases */
+  overrideColor?: string;
+  /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
 }
 
@@ -42,6 +44,7 @@ export class Button extends React.Component<ButtonProps> {
     paddingBottom: 13,
     paddingRight: 32,
     minHeight: 48,
+    width: '100%',
     position: 'relative',
   };
 
@@ -51,30 +54,30 @@ export class Button extends React.Component<ButtonProps> {
 
     switch (kind) {
       case 'secondary':
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonSecondary'),
         }, this.basicButton);
         break;
       case 'tertiary':
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           backgroundColor: 'transparent',
           borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
           borderWidth: 1,
         }, this.basicButton);
         break;
       case 'danger':
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerPrimary'),
         }, this.basicButton);
         break;
       case 'ghost':
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           backgroundColor: 'transparent',
         }, this.basicButton);
         break;
       case 'primary':
         default:
-          finalStyle = Object.assign({}, {
+          finalStyle = styleReferenceBreaker({
             backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonPrimary')
           }, this.basicButton);
           break;
@@ -90,18 +93,18 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private get iconTextColor(): string {
-    const {kind, disabled} = this.props;
+    const {kind, disabled, overrideColor} = this.props;
 
     switch (kind) {
       case 'tertiary':
-        return getColor(disabled ? 'textDisabled' : 'buttonTertiary');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonTertiary');
       case 'ghost':
-        return getColor(disabled ? 'textDisabled' : 'interactive');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'interactive');
       case 'primary':
       case 'secondary':
       case 'danger':
       default:
-        return getColor(disabled ? 'textOnColorDisabled' : 'textOnColor');
+        return overrideColor || getColor(disabled ? 'textOnColorDisabled' : 'textOnColor');
     }
   }
 
@@ -112,7 +115,7 @@ export class Button extends React.Component<ButtonProps> {
     switch (kind) {
       case 'tertiary':
       case 'ghost':
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           color: this.iconTextColor,
           textAlign: 'left',
         });
@@ -121,14 +124,14 @@ export class Button extends React.Component<ButtonProps> {
       case 'secondary':
       case 'danger':
       default:
-        finalStyle = Object.assign({}, {
+        finalStyle = styleReferenceBreaker({
           color: this.iconTextColor,
           textAlign: 'left',
         });
         break;
     }
 
-    return StyleSheet.create(Object.assign(finalStyle));
+    return StyleSheet.create(finalStyle);
   }
 
   private onPress = (event: GestureResponderEvent): void => {

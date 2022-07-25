@@ -35,3 +35,18 @@ export const createIcon = (icon: unknown, width?: string|number, height?: string
     return <SvgXml color={color || getColor('iconPrimary')} xml={backupIcon} width={width || '100%'} height={height || '100%'} />;
   }
 };
+
+/**
+ * This breaks reference to the original object for style manipulation.
+ * TODO: find out prper flow from community.
+ *
+ * @param style - Style to break reference to
+ * @param extraStyle - Style to break reference to
+ * @returns - broken reference for the style
+ */
+export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
+  let finalStyle = Object.assign({}, style);
+  finalStyle = Object.assign(finalStyle, extraStyle || {});
+
+  return finalStyle;
+};

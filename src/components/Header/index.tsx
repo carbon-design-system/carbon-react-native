@@ -79,7 +79,7 @@ export class Header extends React.Component<HeaderProps> {
       <View style={styles.header} accessibilityRole="header">
         <View style={styles.textWrapper}>
           <View style={styles.mainName}>
-            <Text style={styles.mainNameText} text={mainName} />
+            <Text type="body-01" style={styles.mainNameText} text={mainName} />
           </View>
           <View style={styles.secondaryName}>
             <Text type="heading-01" style={styles.secondaryNameText} text={secondaryName} breakMode="tail" />
