@@ -15,10 +15,11 @@ export const logIssue = (issue: string, data: unknown): void => {
 
 /**
  * Renders an icon from @Carbon/icons for React Native
+ * Most have a slight padding in the SVG.  You can avoid this by adding a few extra pixels to size. For example 20 base icons can be 22 to compensate and match lineHeight for some compact font styles.
  *
  * @param icon - the icon to render (`import AddIcon from '@carbon/icons/es/add/20'` for example)
- * @param width - width of the icon, defaults to 100% (numbers are pixels but percent in string format are supported)
- * @param height - height of the icon, defaults to 100% (numbers are pixels but percent in string format are supported)
+ * @param width - width of the icon, defaults to 100% (numbers are pixels but percent in string format are supported).
+ * @param height - height of the icon, defaults to 100% (numbers are pixels but percent in string format are supported).
  * @param color - color of the icon, deafults to `icon-primary` from Carbon colors for the current theme.
  *
  * @returns - React Node to render on the screen.  If the icon fails to be created an X icon is rendered.
@@ -45,7 +46,7 @@ export const createIcon = (icon: unknown, width?: string|number, height?: string
  * @returns - broken reference for the style
  */
 export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
-  let finalStyle = Object.assign({}, style);
+  let finalStyle = Object.assign({}, style || {});
   finalStyle = Object.assign(finalStyle, extraStyle || {});
 
   return finalStyle;

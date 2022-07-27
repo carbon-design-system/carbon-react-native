@@ -13,6 +13,9 @@ import TestLink from './Views/Link';
 import TestTextInput from './Views/TextInput';
 import TestTextArea from './Views/TextArea';
 import TestPasswordInput from './Views/PasswordInput';
+import TestCheckbox from './Views/Checkbox';
+import TestRadioButton from './Views/RadioButton';
+import TestToggle from './Views/Toggle';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,6 +66,9 @@ export default class App extends React.Component {
     ['Text Input', <TestTextInput />],
     ['Text Area', <TestTextArea />],
     ['Password Input', <TestPasswordInput />],
+    ['Checkbox', <TestCheckbox />],
+    ['Radio Button', <TestRadioButton />],
+    ['Toggle', <TestToggle />],
     // Views
     ['Landing View', <TestLandinView goHome={this.goHome} />],
   ];
