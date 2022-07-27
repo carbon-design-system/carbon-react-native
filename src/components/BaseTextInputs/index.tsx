@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import { Text } from '../Text';
 import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
+import { defaultText } from '../../constants/defaultText';
 
 /** Shared props for Text, Password and TextArea */
 export type TextInputProps = {
@@ -62,7 +63,7 @@ const baseTextBox = {
   paddingLeft: 18,
 };
 
-const styles = StyleSheet.create({
+export const textInputStyles = StyleSheet.create({
   wrapper: {
     paddingTop: 22,
   },
@@ -152,22 +153,22 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     const {revealPassword} = this.state;
     const {togglePasswordText, disabled} = this.props;
 
-    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || 'Show/hide password'} onPress={() => this.setState({revealPassword: !revealPassword})} />;
+    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={textInputStyles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({revealPassword: !revealPassword})} />;
   }
 
   render(): React.ReactNode {
     const {label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight} = this.props;
     const {hasFocus, dirty, revealPassword} = this.state;
     const password = type === 'password';
-    let textBoxStyle = styleReferenceBreaker(styles.textBox);
+    let textBoxStyle = styleReferenceBreaker(textInputStyles.textBox);
     const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
 
     if (disabled) {
-      textBoxStyle = styleReferenceBreaker(styles.textBoxDisabled);
+      textBoxStyle = styleReferenceBreaker(textInputStyles.textBoxDisabled);
     } else if (error) {
-      textBoxStyle = styleReferenceBreaker(styles.textBoxError);
+      textBoxStyle = styleReferenceBreaker(textInputStyles.textBoxError);
     } else if (hasFocus) {
-      textBoxStyle = styleReferenceBreaker(styles.textBoxActive);
+      textBoxStyle = styleReferenceBreaker(textInputStyles.textBoxActive);
     }
 
     if (type === 'text-area') {
@@ -177,9 +178,9 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     }
 
     return (
-      <View style={styleReferenceBreaker(style || {}, styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
-        {!!label && <Text style={styles.label} type="label-02" text={label} />}
-        <View style={styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
+      <View style={styleReferenceBreaker(style || {}, textInputStyles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
+        {!!label && <Text style={textInputStyles.label} type="label-02" text={label} />}
+        <View style={textInputStyles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
           <ReactTextInput
             editable={!disabled}
             secureTextEntry={revealPassword ? false : password}
@@ -200,8 +201,8 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
           />
           {password && this.passwordReveal}
         </View>
-        {!!(helperText && !error) && <Text style={styles.helperText} type="helper-text-02" text={helperText} />}
-        {!!(typeof getErrorText === 'function' && error) && <Text style={styles.errorText} type="helper-text-02" text={getErrorText(value)} />}
+        {!!(helperText && !error) && <Text style={textInputStyles.helperText} type="helper-text-02" text={helperText} />}
+        {!!(typeof getErrorText === 'function' && error) && <Text style={textInputStyles.errorText} type="helper-text-02" text={getErrorText(value)} />}
       </View>
     );
   }

@@ -32,8 +32,8 @@ export type ButtonProps = {
 const styles = StyleSheet.create({
   iconStyle: {
     position: 'absolute',
-    top: 14,
-    right: 16,
+    top: 13,
+    right: 15,
   },
 });
 
@@ -152,7 +152,7 @@ export class Button extends React.Component<ButtonProps> {
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!iconOnlyMode && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
-        {icon && <View style={styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
+        {icon && <View style={styles.iconStyle}>{createIcon(icon, 22, 22, this.iconTextColor)}</View>}
       </Pressable>
     );
   }
