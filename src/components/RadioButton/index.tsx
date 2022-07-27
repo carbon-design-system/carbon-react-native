@@ -82,7 +82,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
     const {disabled, componentProps, label, radioButtonText, hideLabel, style} = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(styles.wrapper, style)} disabled={disabled} accessibilityLabel={`${radioButtonText || defaultText.radioButton} - ${label}`} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={styleReferenceBreaker(styles.wrapper, style)} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

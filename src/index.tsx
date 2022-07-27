@@ -10,6 +10,8 @@ export * from './components/PasswordInput';
 export * from './components/Checkbox';
 export * from './components/RadioButton';
 export * from './components/Toggle';
+export * from './components/Loading';
+export * from './components/FileUploaderItem';
 
 // Style exports
 export * from './styles/colors';
