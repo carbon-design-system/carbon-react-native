@@ -16,6 +16,8 @@ import TestPasswordInput from './Views/PasswordInput';
 import TestCheckbox from './Views/Checkbox';
 import TestRadioButton from './Views/RadioButton';
 import TestToggle from './Views/Toggle';
+import TestLoading from './Views/Loading';
+import TestFileUploaderItem from './Views/FileUploaderItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -69,6 +71,8 @@ export default class App extends React.Component {
     ['Checkbox', <TestCheckbox />],
     ['Radio Button', <TestRadioButton />],
     ['Toggle', <TestToggle />],
+    ['Loading', <TestLoading />],
+    ['File Uploader Item', <TestFileUploaderItem />],
     // Views
     ['Landing View', <TestLandinView goHome={this.goHome} />],
   ];
