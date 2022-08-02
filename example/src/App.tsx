@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, SafeAreaView, StatusBar, Alert } from 'react-native';
-import { getColor, Header, HeaderAction } from 'carbon-react-native';
+import { getColor, Header, HeaderAction, LandingView } from 'carbon-react-native';
 import TestButton from './Views/Button';
 import TestHome from './Views/Home';
 import TestText from './Views/Text';
@@ -24,11 +24,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: getColor('background'),
   },
+  containerNoHeader: {
+    position: 'relative',
+    backgroundColor: '#000000',
+    flexGrow: 1,
+  }
 });
 
 export default class App extends React.Component {
   state = {
     view: 'Home',
+    firstLoad: true,
   }
 
   private headerActions: HeaderAction[] = [
@@ -36,7 +42,7 @@ export default class App extends React.Component {
       text: 'Information',
       icon: InformationIcon,
       onPress: () => {
-        Alert.alert('Carbon React Native test app', 'This test app is for testing Carbon React Native components.');
+        Alert.alert('Carbon for Mobile', 'This test app is for testing Carbon React Native components.');
       }
     },
     {
@@ -85,17 +91,41 @@ export default class App extends React.Component {
     return this.viewMap.get(view) || <TestHome views={this.viewList} changeView={this.changeView} />;
   }
 
+  private onPrivacyPolicy = (): void => {
+
+  };
+
   render(): React.ReactNode {
-    const {view} = this.state;
+    const {view, firstLoad} = this.state;
+
+    if (firstLoad) {
+      return (
+        <SafeAreaView style={styles.containerNoHeader}>
+          <LandingView
+            productImage={require('./assets/productImage.png')}
+            companyImage={require('./assets/companyImage.png')}
+            longProductName="Carbon for Mobile"
+            versionText="Version 1.0.0 (1)"
+            copyrightText="Copyright © 2022 IBM"
+            continueText="Continue"
+            continueOnPress={() => {
+              this.setState({firstLoad: false});
+            }}
+            privacyPolicyText="Privacy Policy"
+            privacyPolicyOnPress={this.onPrivacyPolicy}
+          />
+        </SafeAreaView>
+      );
+    }
 
     if (this.fullScreenTestViews.includes(view)) {
-      return <SafeAreaView style={styles.container}>{this.viewMap.get(view)}</SafeAreaView>;
+      return <SafeAreaView style={styles.containerNoHeader}>{this.viewMap.get(view)}</SafeAreaView>;
     }
 
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={getColor('layerSelectedInverse', 'light')} barStyle="light-content" />
-        <Header mainName="Carbon" secondaryName="React Native" actions={this.headerActions} />
+        <Header mainName="IBM" secondaryName="Carbon" actions={this.headerActions} />
         {this.mainView}
       </SafeAreaView>
     );

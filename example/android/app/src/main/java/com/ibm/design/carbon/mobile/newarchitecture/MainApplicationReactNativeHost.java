@@ -1,4 +1,4 @@
-package com.example.carbonreactnative.newarchitecture;
+package com.ibm.design.carbon.mobile.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -16,12 +16,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.UIManager;
 import com.facebook.react.fabric.ComponentFactory;
 import com.facebook.react.fabric.CoreComponentsRegistry;
-import com.facebook.react.fabric.EmptyReactNativeConfig;
+import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.example.carbonreactnative.BuildConfig;
-import com.example.carbonreactnative.newarchitecture.components.MainComponentsRegistry;
-import com.example.carbonreactnative.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.ibm.design.carbon.mobile.BuildConfig;
+import com.ibm.design.carbon.mobile.newarchitecture.components.MainComponentsRegistry;
+import com.ibm.design.carbon.mobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
                 return new FabricJSIModuleProvider(
                     reactApplicationContext,
                     componentFactory,
-                    new EmptyReactNativeConfig(),
+                    ReactNativeConfig.DEFAULT_CONFIG,
                     viewManagerRegistry);
               }
             });

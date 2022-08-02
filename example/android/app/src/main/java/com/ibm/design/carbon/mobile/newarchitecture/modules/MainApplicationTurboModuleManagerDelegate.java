@@ -1,4 +1,4 @@
-package com.example.carbonreactnative.newarchitecture.modules;
+package com.ibm.design.carbon.mobile.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

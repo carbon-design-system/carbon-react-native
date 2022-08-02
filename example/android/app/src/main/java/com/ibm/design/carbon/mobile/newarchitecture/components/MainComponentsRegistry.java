@@ -1,4 +1,4 @@
-package com.example.carbonreactnative.newarchitecture.components;
+package com.ibm.design.carbon.mobile.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
