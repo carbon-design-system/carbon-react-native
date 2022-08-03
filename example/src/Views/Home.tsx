@@ -4,7 +4,8 @@ import { Button, Text } from 'carbon-react-native'
 
 interface TestHomeProps {
   changeView: (view: string) => void;
-  views: [string, React.ReactNode][];
+  componentViews: [string, React.ReactNode][];
+  flowViews: [string, React.ReactNode][];
 }
 
 const styles = StyleSheet.create({
@@ -19,13 +20,22 @@ const styles = StyleSheet.create({
 });
 
 export default class TestHome extends React.Component<TestHomeProps> {
+  private sortList = (itemA: [string, React.ReactNode], itemB: [string, React.ReactNode]): number => {
+    const textA = (itemA[0] || '').toUpperCase();
+    const textB = (itemB[0] || '').toUpperCase();
+
+    return textA < textB ? -1 : textA > textB ? 1 : 0;
+  };
+
   render(): React.ReactNode {
-    const {changeView, views} = this.props;
+    const {changeView, componentViews, flowViews} = this.props;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Text style={{marginBottom: 16}} type="heading-04" text="Components" />
-        {views.map(view => <Button key={view[0]} style={{marginBottom: 8}} onPress={() => changeView(view[0])} text={view[0]} />)}
+        {componentViews.sort(this.sortList).map(view => <Button key={view[0]} style={{marginBottom: 8}} onPress={() => changeView(view[0])} text={view[0]} />)}
+        <Text style={{marginBottom: 16, marginTop: 20}} type="heading-04" text="Flows" />
+        {flowViews.sort(this.sortList).map(view => <Button key={view[0]} style={{marginBottom: 8}} onPress={() => changeView(view[0])} text={view[0]} />)}
       </ScrollView>
     );
   }

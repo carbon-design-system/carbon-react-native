@@ -1,11 +1,13 @@
 import React from 'react';
-import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
+import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable } from 'react-native';
+import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
 import { Text } from '../Text';
 import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
+import SubtractIcon from '@carbon/icons/es/subtract/20';
+import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
 
 /** Shared props for Text, Password and TextArea */
@@ -44,8 +46,13 @@ export type TextInputProps = {
   maxLength?: number;
   /** minHeight for text area */
   textAreaMinHeight?: number;
-  /** Text to use for toggle password button (accessibility). Defaults to ENGLISH "Show/hide password" */
+  /** @remarks password only. Text to use for toggle password button (accessibility). Defaults to ENGLISH "Show/hide password" */
   togglePasswordText?: string;
+  /** @remarks number only. Min and Max for numbers. If not set any number (including negative is valid) */
+  numberRules?: {
+    min?: number;
+    max?: number;
+  }
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
@@ -107,6 +114,23 @@ export const textInputStyles = StyleSheet.create({
     top: 0,
     right: 0,
   },
+  numberActions: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    flexDirection: 'row',
+  },
+  numberActionsDivider: {
+    backgroundColor: getColor('layer02'),
+    width: 1,
+    height: 20,
+    marginTop: 14,
+
+  },
+  numberActionsButton: {
+    padding: 13,
+
+  },
 });
 
 /**
@@ -114,7 +138,7 @@ export const textInputStyles = StyleSheet.create({
  * This allows a shared code base for all text input systems and validation rules
  * This component is not exported. It is used by `TextInput`, `TextArea` and `PasswordInput`.
  */
-export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'password'}&TextInputProps> {
+export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'password'|'number'}&TextInputProps> {
   state = {
     dirty: false,
     hasFocus: false,
@@ -140,7 +164,24 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
   }
 
   private onChange = (value: string): void => {
-    const {onChangeText} = this.props;
+    const {onChangeText, type, numberRules} = this.props;
+
+    if (type === 'number' && value) {
+      if (Number.isNaN(Number(value))) {
+        value = String(numberRules?.min || 0);
+      }
+
+      const invalidMin = (typeof numberRules?.min === 'number') ? numberRules.min >= Number(value) : false;
+      const invalidMax = (typeof numberRules?.max === 'number') ? numberRules.max <= Number(value) : false;
+
+      if (invalidMin) {
+        value = String(numberRules?.min || 0);
+      }
+
+      if (invalidMax) {
+        value = String(numberRules?.max || 0);
+      }
+    }
 
     if (typeof onChangeText === 'function') {
       onChangeText(value);
@@ -156,10 +197,49 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={textInputStyles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({revealPassword: !revealPassword})} />;
   }
 
+  private incrementNumber = (): void => {
+    const {value} = this.props;
+
+    const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
+
+    this.onChange(String(valueNumber + 1));
+  };
+
+  private decrementNumber = (): void => {
+    const {value} = this.props;
+
+    const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
+
+    this.onChange(String(valueNumber - 1));
+  };
+
+  private get numberActions(): React.ReactNode {
+    const {numberRules, value, disabled} = this.props;
+
+    const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
+    const disableMin = (typeof numberRules?.min === 'number') ? numberRules.min >= valueNumber : false;
+    const disableMax = (typeof numberRules?.max === 'number') ? numberRules.max <= valueNumber : false;
+
+
+    const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown): React.ReactNode => {
+      const finalDisabled = pressableDisabled || disabled || false;
+      return <Pressable style={textInputStyles.numberActionsButton} onPress={onPress} disabled={finalDisabled}>{createIcon(icon, 22, 22, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}</Pressable>
+    };
+
+    return (
+      <View style={textInputStyles.numberActions}>
+        {getPressable(this.decrementNumber, disableMin, SubtractIcon)}
+        <View style={textInputStyles.numberActionsDivider} />
+        {getPressable(this.incrementNumber, disableMax, AddIcon)}
+      </View>
+    )
+  }
+
   render(): React.ReactNode {
     const {label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight} = this.props;
     const {hasFocus, dirty, revealPassword} = this.state;
     const password = type === 'password';
+    const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(textInputStyles.textBox);
     const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
 
@@ -175,6 +255,8 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
       textBoxStyle.height = textAreaMinHeight || 96;
     } else if (type === 'password') {
       textBoxStyle.paddingRight = 50;
+    } else if (type === 'number') {
+      textBoxStyle.paddingRight = 100;
     }
 
     return (
@@ -200,6 +282,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
             {...(componentProps || {})}
           />
           {password && this.passwordReveal}
+          {number && this.numberActions}
         </View>
         {!!(helperText && !error) && <Text style={textInputStyles.helperText} type="helper-text-02" text={helperText} />}
         {!!(typeof getErrorText === 'function' && error) && <Text style={textInputStyles.errorText} type="helper-text-02" text={getErrorText(value)} />}

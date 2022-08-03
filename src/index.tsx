@@ -12,6 +12,12 @@ export * from './components/RadioButton';
 export * from './components/Toggle';
 export * from './components/Loading';
 export * from './components/FileUploaderItem';
+export * from './components/NumberInput';
+export * from './components/Menu';
+export * from './components/MenuItem';
+export * from './components/Tile';
+export * from './components/Dropdown';
+export * from './components/ActionSheet';
 
 // Style exports
 export * from './styles/colors';

@@ -18,6 +18,11 @@ import TestRadioButton from './Views/RadioButton';
 import TestToggle from './Views/Toggle';
 import TestLoading from './Views/Loading';
 import TestFileUploaderItem from './Views/FileUploaderItem';
+import TestNumberInput from './Views/NumberInput';
+import TestMenu from './Views/Menu';
+import TestTile from './Views/Tile';
+import TestDropdown from './Views/Dropdown';
+import TestActionSheet from './Views/ActionSheet';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +47,7 @@ export default class App extends React.Component {
       text: 'Information',
       icon: InformationIcon,
       onPress: () => {
-        Alert.alert('Carbon for Mobile', 'This test app is for testing Carbon React Native components.');
+        Alert.alert('Carbon for Mobile', 'Use this app to view and interact with components and flows. Tap a component or flow to open its test page. Use the home icon at the top to return to the list.');
       }
     },
     {
@@ -64,8 +69,7 @@ export default class App extends React.Component {
 
   private fullScreenTestViews = ['Landing View'];
 
-  private viewList: [string, React.ReactNode][] = [
-    // Components
+  private componentViewList: [string, React.ReactNode][] = [
     ['Button', <TestButton />],
     ['Text', <TestText />],
     ['Icons', <TestIcons />],
@@ -79,16 +83,23 @@ export default class App extends React.Component {
     ['Toggle', <TestToggle />],
     ['Loading', <TestLoading />],
     ['File Uploader Item', <TestFileUploaderItem />],
-    // Views
+    ['Number Input', <TestNumberInput />],
+    ['Menu', <TestMenu />],
+    ['Tile', <TestTile />],
+    ['Dropdown', <TestDropdown />],
+    ['Action Sheet', <TestActionSheet />]
+  ];
+
+  private flowViewList: [string, React.ReactNode][] = [
     ['Landing View', <TestLandinView goHome={this.goHome} />],
   ];
 
-  private viewMap: Map<string, React.ReactNode> = new Map(this.viewList);
+  private viewMap: Map<string, React.ReactNode> = new Map([...this.componentViewList, ...this.flowViewList]);
 
   private get mainView(): React.ReactNode {
     const {view} = this.state;
 
-    return this.viewMap.get(view) || <TestHome views={this.viewList} changeView={this.changeView} />;
+    return this.viewMap.get(view) || <TestHome componentViews={this.componentViewList} flowViews={this.flowViewList} changeView={this.changeView} />;
   }
 
   private onPrivacyPolicy = (): void => {

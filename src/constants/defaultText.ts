@@ -7,6 +7,7 @@ export const defaultText = {
   passwordRevealButton: 'Show/hide password',
   checkbox: 'Checkbox',
   radioButton: 'Radio button',
+  tile: 'Tile',
   loading: 'Loading',
   deleteFile: 'Delete',
 };
