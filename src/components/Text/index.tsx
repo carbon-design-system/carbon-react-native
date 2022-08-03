@@ -5,6 +5,7 @@ import { getColor } from '../../styles/colors';
 import { Body01, Body02, BodyCompact01, BodyCompact02, Code01, Code02, Heading01, Heading02, Heading03, Heading04, Heading05, Heading06, Heading07, HeadingCompact01, HeadingCompact02, HelperText01, HelperText02, Label01, Label02, Legal01, Legal02 } from '../../styles/typography';
 
 export type TextTypes = 'code-01'|'code-02'|'label-01'|'label-02'|'helper-text-01'|'helper-text-02'|'legal-01'|'legal-02'|'body-compact-01'|'body-compact-02'|'body-01'|'body-02'|'heading-compact-01'|'heading-compact-02'|'heading-01'|'heading-02'|'heading-03'|'heading-04'|'heading-05'|'heading-06'|'heading-07';
+export type TextBreakModes = 'head' | 'middle' | 'tail';
 
 export type TextProps = {
   /** Text to render */
@@ -12,7 +13,7 @@ export type TextProps = {
   /** Type of text to render (style of Carbon) body-02 is default */
   type?: TextTypes;
   /** If set will not wrap text and use break mode (tail is normal use) */
-  breakMode?: 'head' | 'middle' | 'tail';
+  breakMode?: TextBreakModes;
   /** Style to set on the item */
   style?: StyleProp<TextStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
