@@ -70,8 +70,8 @@ export default class TestMenu extends React.Component {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Text style={{marginBottom: 16}} type="heading-04" text="Menu" />
-        <View style={itemStyle}><Menu menuItems={this.regular} /></View>
-        <View style={itemStyle}><Menu menuItems={this.many} /></View>
+        <View style={itemStyle}><Menu items={this.regular} /></View>
+        <View style={itemStyle}><Menu items={this.many} /></View>
       </ScrollView>
     );
   }

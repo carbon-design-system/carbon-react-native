@@ -23,7 +23,7 @@ export type ButtonProps = {
   dismissKeyboardOnPress?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
-  /** Override text or icon color for edge cases */
+  /** Override text icon and border color for edge cases */
   overrideColor?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     position: 'absolute',
     top: 13,
-    right: 15,
+    right: 13,
   },
 });
 
@@ -42,14 +42,13 @@ export class Button extends React.Component<ButtonProps> {
     padding: 16,
     paddingTop: 13,
     paddingBottom: 13,
-    paddingRight: 32,
+    paddingRight: 48,
     minHeight: 48,
-    width: '100%',
-    position: 'relative',
+    minWidth: 48,
   };
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const {kind, style, disabled, iconOnlyMode, icon} = this.props;
+    const {kind, style, disabled, iconOnlyMode, icon, overrideColor} = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -86,7 +85,11 @@ export class Button extends React.Component<ButtonProps> {
     if (icon && iconOnlyMode) {
       finalStyle.paddingRight = 16;
       finalStyle.paddingLeft = 16;
-      finalStyle.maxWidth = 52;
+      finalStyle.maxWidth = 48;
+    }
+
+    if (overrideColor) {
+      finalStyle.borderColor = overrideColor;
     }
 
     return StyleSheet.create(Object.assign(finalStyle, style));
