@@ -11,8 +11,8 @@ export const useDarkMode = (): boolean => {
   return Appearance.getColorScheme() === 'dark';
 };
 
-/** Button colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const buttonG10: {[key: string]: string} = {
+/** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
+const componentsG10: {[key: string]: string} = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -28,10 +28,30 @@ const buttonG10: {[key: string]: string} = {
   buttonDangerActive: '#750e13',
   buttonSeparator: '#e0e0e0',
   buttonDisabled: '#c6c6c6',
+  tagBackgroundRed: '#Ffd7D9',
+  tagColorRed: '#750e13',
+  tagBackgroundMagenta: '#ffd6e8',
+  tagColorMagenta: '#740937',
+  tagBackgroundPurple: '#e8daff',
+  tagColorPurple: '#491d8b',
+  tagBackgroundBlue: '#d0e2ff',
+  tagColorBlue: '#002d9c',
+  tagBackgroundCyan: '#bae6ff',
+  tagColorCyan: '#003a6d',
+  tagBackgroundTeal: '#9ef0f0',
+  tagColorTeal: '#004144',
+  tagBackgroundGreen: '#a7f0ba',
+  tagColorGreen: '#044317',
+  tagBackgroundGray: '#e0e0e0',
+  tagColorGray: '#393939',
+  tagBackgroundCoolGray: '#dde1e6',
+  tagColorCoolGray: '#343a3f',
+  tagBackgroundWarmGray: '#e5e0df',
+  tagColorWarmGray: '#3c3838',
 };
 
-/** Button colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const buttonG100: {[key: string]: string} = {
+/** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
+const componentsG100: {[key: string]: string} = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -47,6 +67,26 @@ const buttonG100: {[key: string]: string} = {
   buttonDangerActive: '#750e13',
   buttonSeparator: '#161616',
   buttonDisabled: '#525252',
+  tagBackgroundRed: '#a2191f',
+  tagColorRed: '#ffd7d9',
+  tagBackgroundMagenta: '#9f1853',
+  tagColorMagenta: '#ffd6e8',
+  tagBackgroundPurple: '#6929c4',
+  tagColorPurple: '#e8daff',
+  tagBackgroundBlue: '#0043ce',
+  tagColorBlue: '#d0e2ff',
+  tagBackgroundCyan: '#00539a',
+  tagColorCyan: '#bae6ff',
+  tagBackgroundTeal: '#005d5d',
+  tagColorTeal: '#9ef0f0',
+  tagBackgroundGreen: '#0e6027',
+  tagColorGreen: '#a7f0ba',
+  tagBackgroundGray: '#525252',
+  tagColorGray: '#e0e0e0',
+  tagBackgroundCoolGray: '#4d5358',
+  tagColorCoolGray: '#dde1e6',
+  tagBackgroundWarmGray: '#565151',
+  tagColorWarmGray: '#e5e0df',
 };
 
 /**
@@ -57,8 +97,8 @@ const buttonG100: {[key: string]: string} = {
  * @param overrideTheme - force return of specific theme color (will ignore system)
  */
 export const getColor = (token: string, overrideTheme?: 'light'|'dark'): string => {
-  let foundLightColor = g10[token] || buttonG10[token];
-  let foundDarkColor = g100[token] || buttonG100[token];
+  let foundLightColor = g10[token] || componentsG10[token];
+  let foundDarkColor = g100[token] || componentsG100[token];
 
   if (!foundLightColor) {
     logIssue('getColor: could not find requested color in light theme.', {token});

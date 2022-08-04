@@ -23,6 +23,9 @@ import TestMenu from './Views/Menu';
 import TestTile from './Views/Tile';
 import TestDropdown from './Views/Dropdown';
 import TestActionSheet from './Views/ActionSheet';
+import TestModal from './Views/Modal';
+import TestAccordion from './Views/Accordion';
+import TestTag from './Views/Tag';
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +90,10 @@ export default class App extends React.Component {
     ['Menu', <TestMenu />],
     ['Tile', <TestTile />],
     ['Dropdown', <TestDropdown />],
-    ['Action Sheet', <TestActionSheet />]
+    ['Action Sheet', <TestActionSheet />],
+    ['Modal', <TestModal />],
+    ['Accordion', <TestAccordion />],
+    ['Tag', <TestTag />],
   ];
 
   private flowViewList: [string, React.ReactNode][] = [

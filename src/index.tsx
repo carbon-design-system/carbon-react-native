@@ -18,6 +18,9 @@ export * from './components/MenuItem';
 export * from './components/Tile';
 export * from './components/Dropdown';
 export * from './components/ActionSheet';
+export * from './components/Modal';
+export * from './components/Accordion';
+export * from './components/Tag';
 
 // Style exports
 export * from './styles/colors';
@@ -28,3 +31,4 @@ export * from './helpers';
 
 // Constant exports
 export *from './constants/defaultText';
+export *from './constants/constants';
