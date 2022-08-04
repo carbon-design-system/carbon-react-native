@@ -22,6 +22,10 @@ export type LinkProps = {
   componentProps?: PressableProps;
 }
 
+/**
+ * To not have a link be pressable 100% of screen format parent or pass style appropriately.
+ * alignSelf: 'flex-start' is useful for this
+ */
 export class Link extends React.Component<LinkProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const {disabled} = this.props;

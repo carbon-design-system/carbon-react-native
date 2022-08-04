@@ -8,6 +8,7 @@ import { Text, TextBreakModes, TextTypes } from '../Text';
 import type { MenuItemProps } from '../MenuItem';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
+import { modalPresentations } from '../../constants/constants';
 
 export type DropdownItem = {
   /** ID for tracking items */
@@ -120,7 +121,7 @@ export class Dropdown extends React.Component<DropdownProps> {
             {this.dropdownIcon}
           </Pressable>
           {open && (
-            <Modal transparent={true} onRequestClose={() => this.setState({open: false})}>
+            <Modal supportedOrientations={modalPresentations} transparent={true} animationType="slide" onRequestClose={() => this.setState({open: false})}>
               <SafeAreaView>
                 <Menu style={styles.menuWrapper} menuItems={itemList} />
               </SafeAreaView>
