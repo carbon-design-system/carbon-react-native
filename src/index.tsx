@@ -21,6 +21,11 @@ export * from './components/ActionSheet';
 export * from './components/Modal';
 export * from './components/Accordion';
 export * from './components/Tag';
+export * from './components/Notification';
+export * from './components/ContentSwitcher';
+export * from './components/Tabs';
+export * from './components/ProgressIndicator';
+export * from './components/List';
 
 // Style exports
 export * from './styles/colors';

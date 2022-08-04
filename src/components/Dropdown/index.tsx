@@ -123,7 +123,7 @@ export class Dropdown extends React.Component<DropdownProps> {
           {open && (
             <Modal supportedOrientations={modalPresentations} transparent={true} animationType="slide" onRequestClose={() => this.setState({open: false})}>
               <SafeAreaView>
-                <Menu style={styles.menuWrapper} menuItems={itemList} />
+                <Menu style={styles.menuWrapper} items={itemList} />
               </SafeAreaView>
             </Modal>
           )}

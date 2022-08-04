@@ -26,6 +26,11 @@ import TestActionSheet from './Views/ActionSheet';
 import TestModal from './Views/Modal';
 import TestAccordion from './Views/Accordion';
 import TestTag from './Views/Tag';
+import TestNotification from './Views/Notification';
+import TestContentSwitcher from './Views/ContentSwitcher';
+import TestTabs from './Views/Tabs';
+import TestProgressIndicator from './Views/ProgressIndicator';
+import TestList from './Views/List';
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +99,11 @@ export default class App extends React.Component {
     ['Modal', <TestModal />],
     ['Accordion', <TestAccordion />],
     ['Tag', <TestTag />],
+    ['Notification', <TestNotification />],
+    ['Content Switcher', <TestContentSwitcher />],
+    ['Tabs', <TestTabs />],
+    ['Progress Indicator', <TestProgressIndicator />],
+    ['List', <TestList />],
   ];
 
   private flowViewList: [string, React.ReactNode][] = [

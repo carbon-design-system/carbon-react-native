@@ -48,6 +48,10 @@ const componentsG10: {[key: string]: string} = {
   tagColorCoolGray: '#343a3f',
   tagBackgroundWarmGray: '#e5e0df',
   tagColorWarmGray: '#3c3838',
+  notificationBackgroundError: '#fff1f1',
+  notificationBackgroundWarning: '#fdf6dd',
+  notificationBackgroundSuccess: '#defbe6',
+  notificationBackgroundInfo: '#edf5ff',
 };
 
 /** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
@@ -87,6 +91,10 @@ const componentsG100: {[key: string]: string} = {
   tagColorCoolGray: '#dde1e6',
   tagBackgroundWarmGray: '#565151',
   tagColorWarmGray: '#e5e0df',
+  notificationBackgroundError: '#fff1f1',
+  notificationBackgroundWarning: '#fdf6dd',
+  notificationBackgroundSuccess: '#defbe6',
+  notificationBackgroundInfo: '#edf5ff',
 };
 
 /**

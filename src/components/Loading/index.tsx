@@ -7,7 +7,7 @@ import { defaultText } from '../../constants/defaultText';
 export type LoadingProps = {
   /** Indicates type of loading spinner (large is default) */
   type?: 'large'|'medium'|'small';
-  /** Text to use for radio button (accessibility). Defaults to ENGLISH "Loading" */
+  /** Text to use for loader (accessibility). Defaults to ENGLISH "Loading" */
   loadingText?: string;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;

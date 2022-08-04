@@ -10,4 +10,5 @@ export const defaultText = {
   tile: 'Tile',
   loading: 'Loading',
   deleteFile: 'Delete',
+  close: 'Close',
 };

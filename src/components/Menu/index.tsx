@@ -6,7 +6,7 @@ import { MenuItem, MenuItemProps } from '../MenuItem';
 
 export type MenuProps = {
   /** Items to render in the menu */
-  menuItems: MenuItemProps[];
+  items: MenuItemProps[];
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
 
 export class Menu extends React.Component<MenuProps> {
   render(): React.ReactNode {
-    const {menuItems, componentProps, style} = this.props;
+    const {items, componentProps, style} = this.props;
 
     return (
       <ScrollView bounces={false} style={styleReferenceBreaker(styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
-        {(menuItems || []).map((item, index) => <MenuItem key={index} {...item} />)}
+        {(items || []).map((item, index) => <MenuItem key={index} {...item} />)}
       </ScrollView>
     );
   }

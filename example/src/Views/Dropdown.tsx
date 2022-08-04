@@ -65,7 +65,7 @@ export default class TestDropdown extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Text Area" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Dropdown" />
         <View style={itemStyle}><Dropdown items={this.items} label="Text box" value={value1} helperText="I am helper text" onChange={value => this.changeText('value1', value)} /></View>
         <View style={itemStyle}><Dropdown items={this.items} label="Text box with really long label that is probably going to wrap on most screens" value={value2} onChange={value => this.changeText('value2', value)} /></View>
         <View style={itemStyle}><Dropdown items={this.items} label="I should have placeholder text" value={value3} onChange={value => this.changeText('value3', value)} /></View>
