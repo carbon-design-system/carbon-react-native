@@ -22,26 +22,28 @@ export type TagProps = {
   componentProps?: ViewProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    alignSelf: 'flex-start',
-    padding: 8,
-    paddingLeft: 12,
-    paddingRight: 12,
-    borderRadius: 32,
-    backgroundColor: getColor('tagBackgroundGray'),
-    flexDirection: 'row',
-  },
-  textStyle: {
-    lineHeight: 16,
-  },
-  action: {
-    paddingLeft: 8,
-    alignSelf: 'center',
-  },
-});
-
 export class Tag extends React.Component<TagProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        alignSelf: 'flex-start',
+        padding: 8,
+        paddingLeft: 12,
+        paddingRight: 12,
+        borderRadius: 32,
+        backgroundColor: getColor('tagBackgroundGray'),
+        flexDirection: 'row',
+      },
+      textStyle: {
+        lineHeight: 16,
+      },
+      action: {
+        paddingLeft: 8,
+        alignSelf: 'center',
+      },
+    });
+  }
+
   private get textColor(): string {
     const {disabled, tagType} = this.props;
 
@@ -111,7 +113,7 @@ export class Tag extends React.Component<TagProps> {
 
     if (typeof onClosePress === 'function') {
       return (
-        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={styles.action}>
+        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={this.styles.action}>
           {createIcon(CloseIcon, 16, 16, this.textColor)}
         </Pressable>
       );
@@ -122,8 +124,8 @@ export class Tag extends React.Component<TagProps> {
 
   render(): React.ReactNode {
     const {title, componentProps, style} = this.props;
-    const textStyle = styleReferenceBreaker(styles.textStyle);
-    const wrapperStyle = styleReferenceBreaker(styles.wrapper, style);
+    const textStyle = styleReferenceBreaker(this.styles.textStyle);
+    const wrapperStyle = styleReferenceBreaker(this.styles.wrapper, style);
     wrapperStyle.backgroundColor = this.backgroundColor;
     textStyle.color = this.textColor;
 

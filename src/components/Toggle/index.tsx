@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleProp, StyleSheet, Switch, SwitchProps, View, ViewStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
-import { textInputStyles } from '../BaseTextInputs';
+import { getTextInputStyle } from '../BaseTextInputs';
 import { Text } from '../Text';
 
 export type ToggleProps = {
@@ -29,25 +29,31 @@ export type ToggleProps = {
   componentProps?: SwitchProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    paddingTop: 22,
-  },
-  switchWrapper: {
-    flexDirection: 'row',
-  },
-  selectedText: {
-    marginLeft: 12,
-    marginTop: 4,
-  },
-});
-
 /**
  * This component utilizes Native Switch from iOS and Android.
  * It is styled to be similar to Carbon.
  * But relies on the final styling from the OS.
  */
 export class Toggle extends React.Component<ToggleProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        paddingTop: 22,
+      },
+      switchWrapper: {
+        flexDirection: 'row',
+      },
+      selectedText: {
+        marginLeft: 12,
+        marginTop: 4,
+      },
+    });
+  }
+
+  private get textInputStyles() {
+    return getTextInputStyle();
+  }
+
   private get trackColor(): {false: string; true: string} {
     return {
       false: getColor('toggleOff'),
@@ -67,13 +73,13 @@ export class Toggle extends React.Component<ToggleProps> {
     const {disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled} = this.props;
 
     return (
-      <View style={styleReferenceBreaker(style || {}, styles.wrapper)} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>
-        {!!(label && !hideLabel) && <Text style={textInputStyles.label} type="label-02" text={label} />}
-        <View style={styles.switchWrapper}>
+      <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>
+        {!!(label && !hideLabel) && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
+        <View style={this.styles.switchWrapper}>
           <Switch value={toggled} onValueChange={this.onChange} disabled={disabled} trackColor={this.trackColor} thumbColor={getColor('iconOnColor')} {...(componentProps || {})} />
-          {!!selectedLabelText && <Text style={styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} type="body-compact-02" />}
+          {!!selectedLabelText && <Text style={this.styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} type="body-compact-02" />}
         </View>
-        {!!helperText && <Text style={textInputStyles.helperText} type="helper-text-02" text={helperText} />}
+        {!!helperText && <Text style={this.textInputStyles.helperText} type="helper-text-02" text={helperText} />}
       </View>
     );
   }

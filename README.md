@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
 });
 ```
 
+Color scheme will follow the OS. You can request specific colors at any point via second param on get Color. If you wish to use a theme for your app you will need to set the theme globally. This means that any color you use in your own styling will need to be done via a getter (and have this component reload its state). For changing your own colors on the fly you need to ensure getters are used for those styles using color.  You can use the `forceTheme` function to change the theme and trigger a state update to change the color.
+
 ### Icons
 
 You can use icons from `@carbon/icons` to pass to components.  We do not bundle all icons in this library to reduce size. You can import specific icons from that library directly as needed.  An example of how to pass icons to the React Native components is below.

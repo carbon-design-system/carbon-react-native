@@ -30,31 +30,33 @@ export type ContentSwitcherProps = {
   componentProps?: ViewProps;
 }
 
-const basicStyle = {
-  padding: 16,
-  paddingTop: 11,
-  paddingBottom: 11,
-  flex: 1,
-};
-
-const styles = StyleSheet.create({
-  wrapper: {
-    minHeight: 40,
-    flexDirection: 'row',
-  },
-  item: {
-    ...basicStyle,
-    backgroundColor: getColor('layer02'),
-  },
-  activeItem: {
-    ...basicStyle,
-    backgroundColor: getColor('backgroundInverse'),
-  },
-});
-
 export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   state = {
     currentIndex: 0,
+  }
+
+  private get styles() {
+    const basicStyle = {
+      padding: 16,
+      paddingTop: 11,
+      paddingBottom: 11,
+      flex: 1,
+    };
+
+    return StyleSheet.create({
+      wrapper: {
+        minHeight: 40,
+        flexDirection: 'row',
+      },
+      item: {
+        ...basicStyle,
+        backgroundColor: getColor('layer03'),
+      },
+      activeItem: {
+        ...basicStyle,
+        backgroundColor: getColor('backgroundInverse'),
+      },
+    });
   }
 
   private changeItem = (item: SwitcherItem, index: number): void => {
@@ -71,7 +73,7 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     const {currentIndex} = this.state;
     const {items} = this.props;
     const active = index === currentIndex;
-    const finalStyle = styleReferenceBreaker(active ? styles.activeItem : styles.item);
+    const finalStyle = styleReferenceBreaker(active ? this.styles.activeItem : this.styles.item);
     const textStyle = {color: active ? getColor('textInverse') : getColor('textSecondary')}
 
     if (item.disabled) {
@@ -116,7 +118,7 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     const {items, componentProps, style} = this.props;
 
     return (
-      <View style={styleReferenceBreaker(styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         {(items || []).map((item, index) => this.getSwitcher(item, index))}
       </View>
     );

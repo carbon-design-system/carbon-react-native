@@ -31,61 +31,63 @@ export type FileUploaderItemProps = {
   componentProps?: ViewProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: getColor('layer01'),
-  },
-  mainWrapper: {
-    flexDirection: 'row',
-    minHeight: 48,
-  },
-  text: {
-    padding: 13,
-    paddingRight: 16,
-    paddingLeft: 16,
-    flex: 1,
-  },
-  indicator: {
-    paddingLeft: 12,
-    paddingTop: 13,
-    height: 48,
-    width: 48,
-  },
-  loadingIndicator: {
-    marginTop: 4,
-    marginLeft: 3,
-  },
-  errorWrapper: {
-    borderTopColor: getColor('borderSubtle01'),
-    borderTopWidth: 1,
-    padding: 16,
-    paddingTop: 15,
-    paddingBottom: 15,
-  },
-  errorTitle: {
-    color: getColor('supportError'),
-  },
-});
-
 export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        backgroundColor: getColor('layer01'),
+      },
+      mainWrapper: {
+        flexDirection: 'row',
+        minHeight: 48,
+      },
+      text: {
+        padding: 13,
+        paddingRight: 16,
+        paddingLeft: 16,
+        flex: 1,
+      },
+      indicator: {
+        paddingLeft: 12,
+        paddingTop: 13,
+        height: 48,
+        width: 48,
+      },
+      loadingIndicator: {
+        marginTop: 4,
+        marginLeft: 3,
+      },
+      errorWrapper: {
+        borderTopColor: getColor('borderSubtle01'),
+        borderTopWidth: 1,
+        padding: 16,
+        paddingTop: 15,
+        paddingBottom: 15,
+      },
+      errorTitle: {
+        color: getColor('supportError'),
+      },
+    });
+  }
+
   private get visualIndicator(): React.ReactNode {
     const {status, invalid} = this.props;
 
     if (invalid) {
       return (
-        <View style={styles.indicator}>
+        <View style={this.styles.indicator}>
           {createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}
         </View>
       );
     } else if (status === 'uploading') {
       return (
-        <View style={styles.indicator}>
-          <Loading style={styles.loadingIndicator} type="small" />
+        <View style={this.styles.indicator}>
+          <Loading style={this.styles.loadingIndicator} type="small" />
         </View>
       );
     } else if (status === 'complete') {
       return (
-        <View style={styles.indicator}>
+        <View style={this.styles.indicator}>
           {createIcon(CheckmarkFilledIcon, 22, 22, getColor('supportInfo'))}
         </View>
       );
@@ -111,8 +113,8 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
 
     if (invalid && (errorDetails || errorTitle)) {
       return (
-        <View style={styles.errorWrapper}>
-          {!!errorTitle && <Text style={styles.errorTitle} type="body-compact-02" text={errorTitle} />}
+        <View style={this.styles.errorWrapper}>
+          {!!errorTitle && <Text style={this.styles.errorTitle} type="body-compact-02" text={errorTitle} />}
           {!!errorDetails && <Text type="body-compact-02" text={errorDetails} />}
         </View>
       );
@@ -125,9 +127,9 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     const {componentProps, style, name} = this.props;
 
     return (
-      <View style={styleReferenceBreaker(styles.wrapper, style)} {...(componentProps || {})}>
-        <View style={styles.mainWrapper}>
-          <Text style={styles.text} type="body-compact-02" text={name} breakMode="middle" />
+      <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
+        <View style={this.styles.mainWrapper}>
+          <Text style={this.styles.text} type="body-compact-02" text={name} breakMode="middle" />
           {this.visualIndicator}
           {this.deleteItem}
         </View>

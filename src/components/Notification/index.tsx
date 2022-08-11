@@ -36,40 +36,42 @@ export type NotificationProps = {
   componentProps?: ViewProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    borderLeftWidth: 3,
-    padding: 16,
-    paddingRight: 0,
-    paddingTop: 0,
-    flexDirection: 'row',
-  },
-  icon: {
-    paddingTop: 16,
-    marginRight: 16,
-  },
-  content: {
-    paddingTop: 16,
-    paddingRight: 16,
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  textWrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  actionWrapper: {
-  },
-  close: {},
-});
-
 /**
  * Notification component is "InlineNotification" by default and can be
  * used as "ToastNotification" by using multiLine flag and setting max width (follow Carbon web for Toast).
  */
 export class Notification extends React.Component<NotificationProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        borderLeftWidth: 3,
+        padding: 16,
+        paddingRight: 0,
+        paddingTop: 0,
+        flexDirection: 'row',
+      },
+      icon: {
+        paddingTop: 16,
+        marginRight: 16,
+      },
+      content: {
+        paddingTop: 16,
+        paddingRight: 16,
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+      textWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+      actionWrapper: {
+      },
+      close: {},
+    });
+  }
+
   private get accentColor(): string {
     const {lowContrast, kind} = this.props;
 
@@ -146,8 +148,8 @@ export class Notification extends React.Component<NotificationProps> {
   private get notificationContent(): React.ReactNode {
     const {title, subTitle, actionArea, multiLine} = this.props;
     const textStype = {color: this.textColor, marginRight: 16};
-    const wrapper = styleReferenceBreaker(styles.content);
-    const textWrapper = styleReferenceBreaker(styles.textWrapper);
+    const wrapper = styleReferenceBreaker(this.styles.content);
+    const textWrapper = styleReferenceBreaker(this.styles.textWrapper);
     const hasAction = !!actionArea;
 
     if (multiLine) {
@@ -167,7 +169,7 @@ export class Notification extends React.Component<NotificationProps> {
           <Text style={textStype} type="heading-compact-01" text={title} />
           {!!subTitle && <Text style={textStype} type="body-compact-01" text={subTitle} />}
         </View>
-        {hasAction && <View style={styles.actionWrapper}>{actionArea}</View>}
+        {hasAction && <View style={this.styles.actionWrapper}>{actionArea}</View>}
       </View>
     )
   }
@@ -176,7 +178,7 @@ export class Notification extends React.Component<NotificationProps> {
     const {onDismiss, onDismissText} = this.props;
 
     if (typeof onDismiss === 'function') {
-      return (<View style={styles.close}>
+      return (<View style={this.styles.close}>
         <Button kind="ghost" overrideColor={this.textColor} iconOnlyMode={true} onPress={onDismiss} text={onDismissText || defaultText.close} icon={CloseIcon} />
       </View>);
     }
@@ -186,13 +188,13 @@ export class Notification extends React.Component<NotificationProps> {
 
   render(): React.ReactNode {
     const {componentProps, style} = this.props;
-    const finalStyle = styleReferenceBreaker(styles.wrapper);
+    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
     finalStyle.backgroundColor = this.backgroundColor;
     finalStyle.borderLeftColor = this.accentColor;
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} accessibilityRole="alert" {...(componentProps || {})}>
-        <View style={styles.icon}>
+        <View style={this.styles.icon}>
           {this.icon}
         </View>
         {this.notificationContent}

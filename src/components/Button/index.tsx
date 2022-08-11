@@ -29,14 +29,6 @@ export type ButtonProps = {
   componentProps?: PressableProps;
 }
 
-const styles = StyleSheet.create({
-  iconStyle: {
-    position: 'absolute',
-    top: 13,
-    right: 13,
-  },
-});
-
 export class Button extends React.Component<ButtonProps> {
   private basicButton: StyleProp<ViewStyle> = {
     padding: 16,
@@ -46,6 +38,16 @@ export class Button extends React.Component<ButtonProps> {
     minHeight: 48,
     minWidth: 48,
   };
+
+  private get styles() {
+    return StyleSheet.create({
+      iconStyle: {
+        position: 'absolute',
+        top: 13,
+        right: 13,
+      },
+    });
+  }
 
   private get buttonStyle(): StyleProp<ViewStyle> {
     const {kind, style, disabled, iconOnlyMode, icon, overrideColor} = this.props;
@@ -155,7 +157,7 @@ export class Button extends React.Component<ButtonProps> {
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!iconOnlyMode && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
-        {icon && <View style={styles.iconStyle}>{createIcon(icon, 22, 22, this.iconTextColor)}</View>}
+        {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 22, 22, this.iconTextColor)}</View>}
       </Pressable>
     );
   }

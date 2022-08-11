@@ -30,16 +30,18 @@ export type RadioButtonProps = {
   componentProps?: PressableProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    padding: 13,
-    paddingRight: 0,
-    alignContent: 'flex-start',
-  },
-});
-
 export class RadioButton extends React.Component<RadioButtonProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        flexDirection: 'row',
+        padding: 13,
+        paddingRight: 0,
+        alignContent: 'flex-start',
+      },
+    });
+  }
+
   private get textStyle(): StyleProp<TextStyle> {
     const {disabled} = this.props;
 
@@ -82,7 +84,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
     const {disabled, componentProps, label, radioButtonText, hideLabel, style} = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(styles.wrapper, style)} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

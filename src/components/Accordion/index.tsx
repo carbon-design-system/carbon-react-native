@@ -26,34 +26,36 @@ export type AccordionProps = {
   children?: React.ReactNode;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    borderBottomColor: getColor('layerAccentActive03'),
-    borderBottomWidth: 1,
-  },
-  content: {
-    padding: 16,
-    paddingTop: 8,
-    paddingRight: 64,
-    paddingBottom: 24,
-  },
-  action: {
-    position: 'relative',
-    height: 48,
-    padding: 13,
-    paddingLeft: 16,
-    paddingRight: 50,
-  },
-  iconStyle: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-  },
-});
-
 export class Accordion extends React.Component<AccordionProps> {
   state = {
     open: false,
+  }
+
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        borderBottomColor: getColor('layerAccentActive03'),
+        borderBottomWidth: 1,
+      },
+      content: {
+        padding: 16,
+        paddingTop: 8,
+        paddingRight: 64,
+        paddingBottom: 24,
+      },
+      action: {
+        position: 'relative',
+        height: 48,
+        padding: 13,
+        paddingLeft: 16,
+        paddingRight: 50,
+      },
+      iconStyle: {
+        position: 'absolute',
+        top: 12,
+        right: 12,
+      },
+    });
   }
 
   private get itemColor(): string {
@@ -66,7 +68,7 @@ export class Accordion extends React.Component<AccordionProps> {
     const {open} = this.state;
 
     return (
-      <View style={styles.iconStyle}>
+      <View style={this.styles.iconStyle}>
         {createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}
       </View>
     );
@@ -96,7 +98,7 @@ export class Accordion extends React.Component<AccordionProps> {
   render(): React.ReactNode {
     const {componentProps, style, disabled, title, children, firstAccordion} = this.props;
     const {open} = this.state;
-    const finalStyle = styleReferenceBreaker(styles.wrapper);
+    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstAccordion) {
       finalStyle.borderTopColor = getColor('layerAccentActive03');
@@ -105,11 +107,11 @@ export class Accordion extends React.Component<AccordionProps> {
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
-        <Pressable style={styles.action} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
+        <Pressable style={this.styles.action} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           <Text style={{color: this.itemColor}} text={title} />
           {this.accordionIcon}
         </Pressable>
-        {open && <View style={styles.content}>{children}</View>}
+        {open && <View style={this.styles.content}>{children}</View>}
       </View>
     );
   }

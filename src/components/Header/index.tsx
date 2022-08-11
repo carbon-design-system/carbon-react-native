@@ -25,71 +25,73 @@ export type HeaderProps = {
   secondaryName: string;
 }
 
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: getColor('layerSelectedInverse', 'light'),
-    borderBottomColor: getColor('backgroundInverse', 'light'),
-    borderBottomWidth: 1,
-    height: 48,
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'row',
-    paddingLeft: 16,
-    paddingRight: 0,
-  },
-  textWrapper: {
-    paddingTop: 16,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    minWidth: 1,
-  },
-  actionWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  actionButton: {
-    width: 48,
-    padding: 14,
-    height: 48,
-  },
-  actionButtonImage: {
-    width: 20,
-    height: 20,
-  },
-  mainName: {
-    marginRight: 6,
-  },
-  mainNameText: {
-    color: getColor('textOnColor', 'light'),
-  },
-  secondaryName: {
-    flex: 1,
-  },
-  secondaryNameText: {
-    color: getColor('textOnColor', 'light'),
-  },
-});
-
 export class Header extends React.Component<HeaderProps> {
+  private get styles() {
+    return StyleSheet.create({
+      header: {
+        backgroundColor: getColor('layerSelectedInverse', 'light'),
+        borderBottomColor: getColor('backgroundInverse', 'light'),
+        borderBottomWidth: 1,
+        height: 48,
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'row',
+        paddingLeft: 16,
+        paddingRight: 0,
+      },
+      textWrapper: {
+        paddingTop: 16,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        minWidth: 1,
+      },
+      actionWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+      },
+      actionButton: {
+        width: 48,
+        padding: 14,
+        height: 48,
+      },
+      actionButtonImage: {
+        width: 20,
+        height: 20,
+      },
+      mainName: {
+        marginRight: 6,
+      },
+      mainNameText: {
+        color: getColor('textOnColor', 'light'),
+      },
+      secondaryName: {
+        flex: 1,
+      },
+      secondaryNameText: {
+        color: getColor('textOnColor', 'light'),
+      },
+    });
+  }
+
   render(): React.ReactNode {
     const {mainName, secondaryName, actions} = this.props;
 
     return (
-      <View style={styles.header} accessibilityRole="header">
-        <View style={styles.textWrapper}>
-          <View style={styles.mainName}>
-            <Text type="body-01" style={styles.mainNameText} text={mainName} />
+      <View style={this.styles.header} accessibilityRole="header">
+        <View style={this.styles.textWrapper}>
+          <View style={this.styles.mainName}>
+            <Text type="body-01" style={this.styles.mainNameText} text={mainName} />
           </View>
-          <View style={styles.secondaryName}>
-            <Text type="heading-01" style={styles.secondaryNameText} text={secondaryName} breakMode="tail" />
+          <View style={this.styles.secondaryName}>
+            <Text type="heading-01" style={this.styles.secondaryNameText} text={secondaryName} breakMode="tail" />
           </View>
         </View>
         {!!(actions && actions.length) && actions.map((action, index) => {
           return (
-            <View style={styles.actionWrapper} key={index}>
-              <Pressable style={styles.actionButton} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
-                <View style={styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
+            <View style={this.styles.actionWrapper} key={index}>
+              <Pressable style={this.styles.actionButton} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
+                <View style={this.styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
               </Pressable>
             </View>
           );

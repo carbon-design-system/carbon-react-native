@@ -25,16 +25,18 @@ export type MenuItemProps = {
   componentProps?: PressableProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    marginRight: 16,
-    marginLeft: 16,
-    paddingTop: 13,
-    paddingBottom: 13,
-  },
-});
-
 export class MenuItem extends React.Component<MenuItemProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        marginRight: 16,
+        marginLeft: 16,
+        paddingTop: 13,
+        paddingBottom: 13,
+      },
+    });
+  }
+
   private get textStyle(): StyleProp<TextStyle> {
     const {disabled} = this.props;
 
@@ -61,7 +63,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
     const {text, disabled, onLongPress, componentProps, textType, style, textBreakMode} = this.props;
 
     return (
-      <Pressable disabled={disabled} style={styleReferenceBreaker(styles.wrapper, style)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         <Text breakMode={textBreakMode} type={textType} style={this.textStyle} text={text} />
       </Pressable>
     );

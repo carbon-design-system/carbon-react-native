@@ -21,27 +21,30 @@ export type TileProps = {
   children?: React.ReactNode;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    minHeight: 64,
-    minWidth: 128,
-    backgroundColor: getColor('layer01'),
-    padding: 16,
-  },
-  scrollContent: {
-    padding: 16,
-  },
-});
 
 export class Tile extends React.Component<TileProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        minHeight: 64,
+        minWidth: 128,
+        backgroundColor: getColor('layer01'),
+        padding: 16,
+      },
+      scrollContent: {
+        padding: 16,
+      },
+    });
+  }
+
   render(): React.ReactNode {
     const {children, componentProps, style, type, onPress, onLongPress, tileText} = this.props;
-    const finalStyles = styleReferenceBreaker(styles.wrapper, style);
+    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     switch (type) {
       case 'scroll':
         finalStyles.padding = undefined;
-        return <ScrollView bounces={false} style={finalStyles} contentContainerStyle={styles.scrollContent} {...(componentProps || {})}>{children}</ScrollView>;
+        return <ScrollView bounces={false} style={finalStyles} contentContainerStyle={this.styles.scrollContent} {...(componentProps || {})}>{children}</ScrollView>;
       case 'clickable':
         return <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={finalStyles} {...(componentProps || {})}>{children}</Pressable>;
       case 'default':
