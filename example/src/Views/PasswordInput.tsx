@@ -34,7 +34,7 @@ export default class TestPasswordInput extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Password Input" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Password input" />
         <View style={itemStyle}><PasswordInput label="Text box" value={value1} helperText="I am helper text" onChangeText={value => this.changeText('value1', value)} /></View>
         <View style={itemStyle}><PasswordInput label="Text box with really long label that is probably going to wrap on most screens" value={value2} onChangeText={value => this.changeText('value2', value)} /></View>
         <View style={itemStyle}><PasswordInput label="I should have placeholder text" value={value3} placeholder="I am placeholder text" onChangeText={value => this.changeText('value3', value)} /></View>

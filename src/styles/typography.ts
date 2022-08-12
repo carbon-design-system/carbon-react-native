@@ -34,7 +34,7 @@ export const Label01 = {
 
 /** Label-02 text style (Expressive) */
 export const Label02 = {
-  fontSize: 12,
+  fontSize: 14,
   lineHeight: 18,
   fontWeight: '400',
   letterSpacing: 0.16,
@@ -171,9 +171,9 @@ export const Heading04 = {
 export const Heading05 = {
   fontSize: 32,
   lineHeight: 40,
-  fontWeight: '400',
+  fontWeight: '300',
   letterSpacing: 0,
-  fontFamily: 'IBMPlexSans-Regular',
+  fontFamily: 'IBMPlexSans-Light',
 };
 
 /** Heading-06 text style (Productive) */

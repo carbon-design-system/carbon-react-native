@@ -36,9 +36,10 @@ export class Tabs extends React.Component<TabsProps> {
   private get styles() {
     const basicStyle = {
       padding: 16,
-      paddingTop: 11,
+      paddingTop: 15,
       paddingBottom: 11,
       flex: 1,
+      minHeight: 48,
       borderBottomWidth: 3,
       borderBottomColor: getColor('layer01'),
     };
@@ -82,7 +83,7 @@ export class Tabs extends React.Component<TabsProps> {
     }
 
     if (active) {
-      finalStyle.borderBottomColor = getColor('interactive');
+      finalStyle.borderBottomColor = getColor('borderInteractive');
     }
 
     return (

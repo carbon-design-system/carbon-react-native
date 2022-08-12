@@ -27,11 +27,11 @@ export default class TestRadioButton extends React.Component {
 
   render(): React.ReactNode {
     const {value1, value2, value3, value4} = this.state;
-    const itemStyle = {};
+    const itemStyle = {marginBottom: 20};
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Radio Button" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Radio button" />
         <View style={itemStyle}><RadioButton id="check-box-1" label="Radio button" checked={value1} onPress={value => this.changeText('value1', value)} /></View>
         <View style={itemStyle}><RadioButton id="check-box-1" label="Radio button no label" hideLabel={true} checked={value2} onPress={value => this.changeText('value2', value)} /></View>
         <View style={itemStyle}><RadioButton id="check-box-2" label="Radio button disabled" disabled={true} checked={value3} onPress={value => this.changeText('value3', value)} /></View>

@@ -8,7 +8,7 @@ export type LinkProps = {
   text: string;
   /** Indicate if link is disabled */
   disabled?: boolean;
-  /** Text type to render (Standard is default.  Normally only body 01 or 02 should be used)  */
+  /** Text type to render (Standard is default)  */
   textType?: TextTypes;
   /** onPress event */
   onPress: (event: GestureResponderEvent) => void;
@@ -31,7 +31,7 @@ export class Link extends React.Component<LinkProps> {
     const {disabled} = this.props;
 
     let finalStyle: any = {
-      color: getColor(disabled ? 'textDisabled' : 'interactive'),
+      color: getColor(disabled ? 'textDisabled' : 'linkPrimary'),
     };
 
     return StyleSheet.create(finalStyle);

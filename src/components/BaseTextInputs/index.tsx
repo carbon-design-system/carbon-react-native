@@ -1,14 +1,16 @@
 import React from 'react';
-import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable } from 'react-native';
+import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable, Platform } from 'react-native';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
-import { Text } from '../Text';
+import { Text, TextBreakModes } from '../Text';
 import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
 import SubtractIcon from '@carbon/icons/es/subtract/20';
+import WarningFilledIcon from '@carbon/icons/es/warning--filled/20';
 import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
+import { BodyCompact02, Body02 } from '../../styles/typography';
 
 /** Shared props for Text, Password and TextArea */
 export type TextInputProps = {
@@ -28,6 +30,8 @@ export type TextInputProps = {
   required?: boolean;
   /** Indicate if disabled */
   disabled?: boolean;
+  /** Label break mode */
+  labelBreakMode?: TextBreakModes;
   /** Change event when text changed */
   onChangeText: (value: string) => void;
   /** Blur event when focus is lost */
@@ -60,16 +64,26 @@ export type TextInputProps = {
 }
 
 export const getTextInputStyle = () => {
-  const baseTextBox = {
+  // React Native on iOS
+  const baseTextBox: any = {
+    ...BodyCompact02,
     height: 48,
     backgroundColor: getColor('field01'),
     borderColor: getColor('field01'),
     color: getColor('textPrimary'),
     borderBottomColor: getColor('borderStrong02'),
-    borderWidth: 1,
+    borderWidth: 2,
+    borderBottomWidth: 1,
     paddingRight: 16,
     paddingLeft: 18,
   };
+
+  if (Platform.OS == 'ios') {
+    // https://github.com/facebook/react-native/issues/29068
+    // This seems to hide it but very hacky.
+    baseTextBox.overflow = 'hidden';
+    baseTextBox.paddingBottom = 2;
+  }
 
   return StyleSheet.create({
     wrapper: {
@@ -99,6 +113,7 @@ export const getTextInputStyle = () => {
       borderColor: getColor('focus'),
       borderBottomColor: getColor('focus'),
       paddingRight: 14,
+      borderBottomWidth: 2,
     },
     textBoxError: {
       ...baseTextBox,
@@ -106,12 +121,19 @@ export const getTextInputStyle = () => {
       borderColor: getColor('supportError'),
       borderBottomColor: getColor('supportError'),
       paddingRight: 14,
+      borderBottomWidth: 2,
     },
     textBoxWrapper: {
       position: 'relative',
     },
     passwordRevealButton: {
       position: 'absolute',
+      top: 0,
+      right: 0,
+    },
+    errorIcon: {
+      position: 'absolute',
+      padding: 13,
       top: 0,
       right: 0,
     },
@@ -126,7 +148,6 @@ export const getTextInputStyle = () => {
       width: 1,
       height: 20,
       marginTop: 14,
-
     },
     numberActionsButton: {
       padding: 13,
@@ -202,6 +223,23 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({revealPassword: !revealPassword})} />;
   }
 
+  private get errorIndicator(): React.ReactNode {
+    const {type} = this.props;
+    let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
+
+    if (type === 'password') {
+      errorIconStyle.right = 48;
+    } else if (type === 'number') {
+      errorIconStyle.right = 97;
+    }
+
+    return (
+      <View style={errorIconStyle}>
+        {createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}
+      </View>
+    );
+  }
+
   private incrementNumber = (): void => {
     const {value} = this.props;
 
@@ -241,7 +279,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
   }
 
   render(): React.ReactNode {
-    const {label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight} = this.props;
+    const {label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode} = this.props;
     const {hasFocus, dirty, revealPassword} = this.state;
     const password = type === 'password';
     const number = type === 'number';
@@ -257,16 +295,23 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     }
 
     if (type === 'text-area') {
-      textBoxStyle.height = textAreaMinHeight || 96;
+      textBoxStyle.height = textAreaMinHeight || 144;
+      textBoxStyle.paddingTop = 12;
+      textBoxStyle.paddingBottom = 12;
+      textBoxStyle = styleReferenceBreaker(textBoxStyle, Body02);
     } else if (type === 'password') {
       textBoxStyle.paddingRight = 50;
     } else if (type === 'number') {
       textBoxStyle.paddingRight = 100;
     }
 
+    if (error) {
+      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 50;
+    }
+
     return (
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
-        {!!label && <Text style={this.styles.label} type="label-02" text={label} />}
+        {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
           <ReactTextInput
             editable={!disabled}
@@ -286,6 +331,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
             multiline={type === 'text-area'}
             {...(componentProps || {})}
           />
+          {error && this.errorIndicator}
           {password && this.passwordReveal}
           {number && this.numberActions}
         </View>

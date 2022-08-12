@@ -27,7 +27,7 @@ export default class TestProgressIndicator extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Progress Indicator" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Progress indicator" />
         <ProgressIndicator title="I am first. And already opened." status="complete" open={true} firstStep={true}><Text text="I am the content of this accordion" /></ProgressIndicator>
         <ProgressIndicator title="I am disabled" status="complete" disabled={true}><Text text="I am the content of this accordion" /></ProgressIndicator>
         <ProgressIndicator title="I am invalid" status="invalid"><Text text="I am the content of this accordion" /></ProgressIndicator>

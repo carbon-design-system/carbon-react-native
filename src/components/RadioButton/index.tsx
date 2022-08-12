@@ -35,8 +35,6 @@ export class RadioButton extends React.Component<RadioButtonProps> {
     return StyleSheet.create({
       wrapper: {
         flexDirection: 'row',
-        padding: 13,
-        paddingRight: 0,
         alignContent: 'flex-start',
       },
     });
@@ -47,7 +45,8 @@ export class RadioButton extends React.Component<RadioButtonProps> {
 
     let finalStyle: any = {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
-      marginLeft: 10,
+      marginLeft: 8,
+      lineHeight: 20,
     };
 
     return StyleSheet.create(finalStyle);
@@ -55,7 +54,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
 
   private get radioButton(): React.ReactNode {
     const {checked, disabled} = this.props;
-    const finalParams = [22, 22, disabled ? getColor('iconDisabled') : getColor('iconPrimary')];
+    const finalParams = [20, 20, disabled ? getColor('iconDisabled') : getColor('iconPrimary')];
 
     return (
       <View>

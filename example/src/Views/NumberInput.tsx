@@ -34,7 +34,7 @@ export default class TestNumberInput extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Number Input" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Number input" />
         <View style={itemStyle}><NumberInput label="Text box" value={value1} helperText="I am helper text" onChangeText={value => this.changeText('value1', value)} /></View>
         <View style={itemStyle}><NumberInput numberRules={{min: 0}} label="Text box with really long label that is probably going to wrap on most screens" value={value2} onChangeText={value => this.changeText('value2', value)} /></View>
         <View style={itemStyle}><NumberInput numberRules={{min: 1, max: 10}} label="I should have placeholder text" value={value3} placeholder="I am placeholder text" onChangeText={value => this.changeText('value3', value)} /></View>

@@ -28,7 +28,8 @@
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn && yarn example pods"
+    "bootstrap": "yarn example && yarn && yarn example pods",
+    "bump:example": "node ./scripts/bump-example.js"
   },
   "keywords": [
     "react-native",
@@ -50,7 +51,7 @@
     "@babel/eslint-parser": "^7.18.2",
     "@carbon/icon-helpers": "^10.31.0",
     "@carbon/icons": "^11.6.0",
-    "@carbon/themes": "^11.4.0",
+    "@carbon/themes": "^11.6.0",
     "@commitlint/config-conventional": "^17.0.2",
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
