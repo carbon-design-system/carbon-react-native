@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, Alert } from 'react-native';
-import { getColor, Header, HeaderAction, LandingView } from 'carbon-react-native';
+import { StyleSheet, SafeAreaView, StatusBar, Alert, Appearance, View } from 'react-native';
+import { getColor, Header, HeaderAction, LandingView, forceTheme, ThemeChoices, Loading } from 'carbon-react-native';
 import TestButton from './Views/Button';
 import TestHome from './Views/Home';
 import TestText from './Views/Text';
 import TestIcons from './Views/Icons';
 import InformationIcon from '@carbon/icons/es/information/20';
 import HomeIcon from '@carbon/icons/es/home/20';
+import AsleepIcon from '@carbon/icons/es/asleep/20';
+import AwakeIcon from '@carbon/icons/es/awake/20';
 import TestHeader from './Views/Header';
 import TestLandinView from './Views/LandingView';
 import TestLink from './Views/Link';
@@ -32,40 +34,69 @@ import TestTabs from './Views/Tabs';
 import TestProgressIndicator from './Views/ProgressIndicator';
 import TestList from './Views/List';
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: getColor('background'),
-  },
-  containerNoHeader: {
-    position: 'relative',
-    backgroundColor: '#000000',
-    flexGrow: 1,
-  }
-});
-
 export default class App extends React.Component {
   state = {
+    loading: false,
     view: 'Home',
     firstLoad: true,
+    theme: 'light' as ThemeChoices,
   }
 
-  private headerActions: HeaderAction[] = [
-    {
-      text: 'Information',
-      icon: InformationIcon,
-      onPress: () => {
-        Alert.alert('Carbon for Mobile', 'Use this app to view and interact with components and flows. Tap a component or flow to open its test page. Use the home icon at the top to return to the list.');
+  private get styles() {
+    return StyleSheet.create({
+      container: {
+        flexGrow: 1,
+        backgroundColor: getColor('layerSelectedInverse', 'light'),
+      },
+      containerNoHeader: {
+        position: 'relative',
+        backgroundColor: '#000000',
+        flexGrow: 1,
+      },
+      loading: {
+        marginTop: 64,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+      },
+      mainView: {
+        backgroundColor: getColor('background'),
+        flexGrow: 1,
+      },
+    });
+  }
+
+  private get headerActions(): HeaderAction[] {
+    const {theme} = this.state;
+
+    return [
+      {
+        text: 'Information',
+        icon: InformationIcon,
+        onPress: () => {
+          Alert.alert('Carbon for Mobile', 'Use this app to view and interact with components and flows. Tap a component or flow to open its test page. Use the home icon at the top to return to the list.');
+        }
+      },
+      {
+        text: 'Change theme',
+        icon: theme === 'dark' ? AwakeIcon : AsleepIcon,
+        onPress: () => {
+          const newTheme = theme === 'dark' ? 'light' : 'dark';
+          forceTheme(newTheme);
+          this.setState({theme: newTheme, loading: true});
+          setTimeout(() => {
+            this.setState({loading: false});
+          }, 100);
+        }
+      },
+      {
+        text: 'Go home',
+        icon: HomeIcon,
+        onPress: () => {
+          this.changeView('Home');
+        }
       }
-    },
-    {
-      text: 'Go home',
-      icon: HomeIcon,
-      onPress: () => {
-        this.changeView('Home');
-      }
-    }
-  ];
+    ];
+  }
 
   private changeView = (view: string): void => {
     this.setState({view});
@@ -115,19 +146,35 @@ export default class App extends React.Component {
   private get mainView(): React.ReactNode {
     const {view} = this.state;
 
-    return this.viewMap.get(view) || <TestHome componentViews={this.componentViewList} flowViews={this.flowViewList} changeView={this.changeView} />;
+    return (
+      <View style={this.styles.mainView}>
+        {this.viewMap.get(view) || <TestHome componentViews={this.componentViewList} flowViews={this.flowViewList} changeView={this.changeView} />}
+      </View>
+    );
   }
 
   private onPrivacyPolicy = (): void => {
 
   };
 
+  componentDidMount(): void {
+    this.setState({theme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light'});
+  }
+
   render(): React.ReactNode {
-    const {view, firstLoad} = this.state;
+    const {view, firstLoad, loading} = this.state;
+
+    if (loading) {
+      return (
+        <SafeAreaView style={this.styles.containerNoHeader}>
+          <Loading style={this.styles.loading} />
+        </SafeAreaView>
+      )
+    }
 
     if (firstLoad) {
       return (
-        <SafeAreaView style={styles.containerNoHeader}>
+        <SafeAreaView style={this.styles.containerNoHeader}>
           <LandingView
             productImage={require('./assets/productImage.png')}
             companyImage={require('./assets/companyImage.png')}
@@ -146,11 +193,11 @@ export default class App extends React.Component {
     }
 
     if (this.fullScreenTestViews.includes(view)) {
-      return <SafeAreaView style={styles.containerNoHeader}>{this.viewMap.get(view)}</SafeAreaView>;
+      return <SafeAreaView style={this.styles.containerNoHeader}>{this.viewMap.get(view)}</SafeAreaView>;
     }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={this.styles.container}>
         <StatusBar backgroundColor={getColor('layerSelectedInverse', 'light')} barStyle="light-content" />
         <Header mainName="IBM" secondaryName="Carbon" actions={this.headerActions} />
         {this.mainView}

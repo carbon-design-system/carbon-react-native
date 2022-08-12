@@ -30,16 +30,18 @@ export type CheckboxProps = {
   componentProps?: PressableProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    padding: 13,
-    paddingRight: 0,
-    alignContent: 'flex-start',
-  },
-});
-
 export class Checkbox extends React.Component<CheckboxProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        flexDirection: 'row',
+        padding: 13,
+        paddingRight: 0,
+        alignContent: 'flex-start',
+      },
+    });
+  }
+
   private get textStyle(): StyleProp<TextStyle> {
     const {disabled} = this.props;
 
@@ -82,7 +84,7 @@ export class Checkbox extends React.Component<CheckboxProps> {
     const {disabled, componentProps, label, checkboxText, hideLabel, style} = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(styles.wrapper, style)} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.checkbox}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

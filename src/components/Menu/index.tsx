@@ -13,19 +13,21 @@ export type MenuProps = {
   componentProps?: ViewProps;
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    maxHeight: 280,
-    backgroundColor: getColor('layer01'),
-  },
-});
-
 export class Menu extends React.Component<MenuProps> {
+  private get styles() {
+    return StyleSheet.create({
+      wrapper: {
+        maxHeight: 280,
+        backgroundColor: getColor('layer01'),
+      },
+    });
+  }
+
   render(): React.ReactNode {
     const {items, componentProps, style} = this.props;
 
     return (
-      <ScrollView bounces={false} style={styleReferenceBreaker(styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         {(items || []).map((item, index) => <MenuItem key={index} {...item} />)}
       </ScrollView>
     );

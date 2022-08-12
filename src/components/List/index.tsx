@@ -5,7 +5,7 @@ import { Text, TextTypes } from '../Text';
 export type ListProps = {
   /** Type of list (default is unordered) */
   type?: 'unordered'|'ordered';
-  /** Items to render. If strings will apply proper typeface. If passing element you need to set styles. */
+  /** Items to render. If strings will apply proper typeface. If passing element you need to set this.styles. */
   items: (string|React.ReactNode)[];
   /** Indicate if list is nested in another list */
   nested?: boolean;
@@ -17,21 +17,23 @@ export type ListProps = {
   componentProps?: ViewProps;
 }
 
-const styles = StyleSheet.create({
-  itemWrapper: {
-    flexDirection: 'row',
-    paddingBottom: 4,
-  },
-  indicator: {
-    marginRight: 10,
-  },
-  content: {
-    flex: 1,
-  },
-});
-
 export class List extends React.Component<ListProps> {
   private letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+  private get styles() {
+    return StyleSheet.create({
+      itemWrapper: {
+        flexDirection: 'row',
+        paddingBottom: 4,
+      },
+      indicator: {
+        marginRight: 10,
+      },
+      content: {
+        flex: 1,
+      },
+    });
+  }
 
   private getIndicator(index: number): React.ReactNode {
     const {type, nested} = this.props;
@@ -64,9 +66,9 @@ export class List extends React.Component<ListProps> {
     const {textType} = this.props;
 
     return (
-      <View key={index} style={styles.itemWrapper}>
-        <View style={styles.indicator}>{this.getIndicator(index)}</View>
-        <View style={styles.content}>{typeof item === 'string' ? <Text type={textType} text={item} /> : item}</View>
+      <View key={index} style={this.styles.itemWrapper}>
+        <View style={this.styles.indicator}>{this.getIndicator(index)}</View>
+        <View style={this.styles.content}>{typeof item === 'string' ? <Text type={textType} text={item} /> : item}</View>
       </View>
     );
   }

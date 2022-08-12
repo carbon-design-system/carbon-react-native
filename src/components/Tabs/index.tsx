@@ -28,35 +28,37 @@ export type TabsProps = {
   componentProps?: ViewProps;
 }
 
-const basicStyle = {
-  padding: 16,
-  paddingTop: 11,
-  paddingBottom: 11,
-  flex: 1,
-  borderBottomWidth: 3,
-  borderBottomColor: getColor('layer01'),
-};
-
-const styles = StyleSheet.create({
-  scrollWrapper: {
-    // Space for scrollbar
-    paddingBottom: 16,
-    flexGrow: 1,
-  },
-  wrapper: {
-    minHeight: 48,
-    flexDirection: 'row',
-    width: '100%',
-  },
-  item: {
-    ...basicStyle,
-    backgroundColor: getColor('layer01'),
-  },
-});
-
 export class Tabs extends React.Component<TabsProps> {
   state = {
     currentIndex: 0,
+  }
+
+  private get styles() {
+    const basicStyle = {
+      padding: 16,
+      paddingTop: 11,
+      paddingBottom: 11,
+      flex: 1,
+      borderBottomWidth: 3,
+      borderBottomColor: getColor('layer01'),
+    };
+
+    return StyleSheet.create({
+      scrollWrapper: {
+        // Space for scrollbar
+        paddingBottom: 16,
+        flexGrow: 1,
+      },
+      wrapper: {
+        minHeight: 48,
+        flexDirection: 'row',
+        width: '100%',
+      },
+      item: {
+        ...basicStyle,
+        backgroundColor: getColor('layer01'),
+      },
+    });
   }
 
   private changeItem = (item: TabItem, index: number): void => {
@@ -72,7 +74,7 @@ export class Tabs extends React.Component<TabsProps> {
   private getTab(item: TabItem, index: number): React.ReactNode {
     const {currentIndex} = this.state;
     const active = index === currentIndex;
-    const finalStyle = styleReferenceBreaker(styles.item);
+    const finalStyle = styleReferenceBreaker(this.styles.item);
     const textStyle = {color: active ? getColor('textPrimary') : getColor('textSecondary')}
 
     if (item.disabled) {
@@ -112,14 +114,14 @@ export class Tabs extends React.Component<TabsProps> {
 
     if (scrollMode) {
       return (
-        <ScrollView contentContainerStyle={styles.scrollWrapper} bounces={false} horizontal={true} style={styleReferenceBreaker(styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
+        <ScrollView contentContainerStyle={this.styles.scrollWrapper} bounces={false} horizontal={true} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
           {content}
         </ScrollView>
       );
     }
 
     return (
-      <View style={styleReferenceBreaker(styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
+      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
         {content}
       </View>
     );

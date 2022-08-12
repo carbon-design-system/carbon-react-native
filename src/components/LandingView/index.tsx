@@ -42,54 +42,56 @@ export type LandingViewProps = {
   continueOnLongPress?: (event: GestureResponderEvent) => void;
 }
 
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: getColor('background'),
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 32,
-  },
-  logoArea: {
-    backgroundColor: '#000000',
-    height: 192,
-  },
-  companyImage: {
-    width: 61,
-    height: 24,
-    position: 'absolute',
-    top: 16,
-    right: 16,
-  },
-  productImage: {
-    height: 96,
-    width: 96,
-    position: 'absolute',
-    bottom: 16,
-    left: 16,
-  },
-  privacyPolicyLink: {
-    alignSelf: 'flex-start',
-  },
-  title: {
-    marginBottom: 16,
-  },
-  helperContent: {
-    marginBottom: 16,
-  },
-  contentWrapper: {
-    flex: 1,
-    flexGrow: 1,
-  },
-  actionWrapper: {
-    marginTop: 32,
-  },
-});
-
 export class LandingView extends React.Component<LandingViewProps> {
   private resizeEvent: EmitterSubscription | undefined;
+
+  private get styles() {
+    return StyleSheet.create({
+      view: {
+        flex: 1,
+        backgroundColor: getColor('background'),
+      },
+      container: {
+        flex: 1,
+        padding: 16,
+        paddingBottom: 32,
+      },
+      logoArea: {
+        backgroundColor: '#000000',
+        height: 192,
+      },
+      companyImage: {
+        width: 61,
+        height: 24,
+        position: 'absolute',
+        top: 16,
+        right: 16,
+      },
+      productImage: {
+        height: 96,
+        width: 96,
+        position: 'absolute',
+        bottom: 16,
+        left: 16,
+      },
+      privacyPolicyLink: {
+        alignSelf: 'flex-start',
+      },
+      title: {
+        marginBottom: 16,
+      },
+      helperContent: {
+        marginBottom: 16,
+      },
+      contentWrapper: {
+        flex: 1,
+        flexGrow: 1,
+      },
+      actionWrapper: {
+        marginTop: 32,
+      },
+    });
+  }
 
   private get heightSafe(): boolean {
     const height = Dimensions.get('window').height;
@@ -99,8 +101,8 @@ export class LandingView extends React.Component<LandingViewProps> {
 
   private get banner(): React.ReactNode {
     const {companyImage, productImage, productImageSize, companyImageSize} = this.props;
-    const companyImageStyle = styleReferenceBreaker(styles.companyImage);
-    const productImageStyle = styleReferenceBreaker(styles.productImage);
+    const companyImageStyle = styleReferenceBreaker(this.styles.companyImage);
+    const productImageStyle = styleReferenceBreaker(this.styles.productImage);
 
     if (companyImageSize) {
       companyImageStyle.width = companyImageSize.width;
@@ -113,7 +115,7 @@ export class LandingView extends React.Component<LandingViewProps> {
     }
 
     return (
-      <View style={styles.logoArea}>
+      <View style={this.styles.logoArea}>
         {companyImage && <Image resizeMode="contain" style={companyImageStyle} source={companyImage} />}
         <Image resizeMode="contain" style={productImageStyle} source={productImage} />
       </View>
@@ -136,22 +138,22 @@ export class LandingView extends React.Component<LandingViewProps> {
     const {longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress} = this.props;
 
     return (
-      <View style={styles.view}>
+      <View style={this.styles.view}>
         {this.heightSafe && this.banner}
-        <View style={styles.container}>
-          <ScrollView style={styles.contentWrapper} bounces={false}>
-            <View style={styles.title}>
+        <View style={this.styles.container}>
+          <ScrollView style={this.styles.contentWrapper} bounces={false}>
+            <View style={this.styles.title}>
               <Text text={longProductName} type="heading-04" />
             </View>
-            <View style={styles.helperContent}>
+            <View style={this.styles.helperContent}>
               <Text text={versionText} type="body-compact-02" />
               <Text text={copyrightText} type="body-compact-02" />
             </View>
             <View>
-              {!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}
+              {!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}
             </View>
           </ScrollView>
-          <View style={styles.actionWrapper}>
+          <View style={this.styles.actionWrapper}>
             <Button kind="primary" icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />
           </View>
         </View>

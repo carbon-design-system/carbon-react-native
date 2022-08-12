@@ -3,11 +3,33 @@ import * as g10 from '@carbon/themes/src/g10.js';
 import * as g100 from '@carbon/themes/src/g100.js';
 import { logIssue } from '../helpers';
 
+/** Theme choices available */
+export type ThemeChoices = 'light'|'dark';
+
+let themeOverride: ThemeChoices|null = null;
+
+/**
+ * Set the theme to use for all subsequent calls to the color getter.
+ * To change themes on the fly you must have your style declarations retrieved on loads.
+ * So you can destroy the view and reload after changing theem.
+ *
+ * To lock a theme (no auto themes) call this in your entry point (index or App [before any components])
+ *
+ * @param theme - the theme to force to. Use null to use system
+ */
+export const forceTheme = (theme: ThemeChoices|null): void => {
+  themeOverride = theme;
+};
+
 /**
  * Indicate if dark mode should be used for theming.
  * @returns boolean indicating if dark mode is used for the system
  */
 export const useDarkMode = (): boolean => {
+  if (themeOverride) {
+    return themeOverride === 'dark';
+  }
+
   return Appearance.getColorScheme() === 'dark';
 };
 
@@ -104,7 +126,7 @@ const componentsG100: {[key: string]: string} = {
  * @param token - the Carbon (@carbon/theme you have installed) token name in camel case.
  * @param overrideTheme - force return of specific theme color (will ignore system)
  */
-export const getColor = (token: string, overrideTheme?: 'light'|'dark'): string => {
+export const getColor = (token: string, overrideTheme?: ThemeChoices): string => {
   let foundLightColor = g10[token] || componentsG10[token];
   let foundDarkColor = g100[token] || componentsG100[token];
 
