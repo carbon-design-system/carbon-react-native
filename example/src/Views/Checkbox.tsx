@@ -27,7 +27,7 @@ export default class TestCheckbox extends React.Component {
 
   render(): React.ReactNode {
     const {value1, value2, value3, value4} = this.state;
-    const itemStyle = {};
+    const itemStyle = {marginBottom: 20};
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
