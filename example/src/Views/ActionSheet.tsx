@@ -68,7 +68,7 @@ export default class TestActionSheet extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Action Sheet" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Action sheet" />
         <Checkbox checked={showBody} id="subtext" onPress={value => this.setState({showBody: value})} label="Show body" />
         <Checkbox checked={forceCustom} id="force" onPress={value => this.setState({forceCustom: value})} label="Force custom action sheeet" />
         <Checkbox checked={lotItems} id="lot" onPress={value => this.setState({lotItems: value})} label="Load lots of items" />

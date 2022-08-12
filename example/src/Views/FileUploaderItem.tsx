@@ -25,7 +25,7 @@ export default class TestFileUploaderItem extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="File Uploader Item" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="File uploader item" />
         <View style={itemStyle}><FileUploaderItem name="Filename.jpg" /></View>
         {!deletedItem && <View style={itemStyle}><FileUploaderItem name="Filename.jpg" onDelete={() => this.setState({deletedItem: true})} /></View>}
         <View style={itemStyle}><FileUploaderItem name="Filename.jpg" status="complete" /></View>

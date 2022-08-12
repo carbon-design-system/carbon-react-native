@@ -33,6 +33,8 @@ import TestContentSwitcher from './Views/ContentSwitcher';
 import TestTabs from './Views/Tabs';
 import TestProgressIndicator from './Views/ProgressIndicator';
 import TestList from './Views/List';
+import { versionCode } from './constants/versionCode';
+import { version } from '../package.json';
 
 export default class App extends React.Component {
   state = {
@@ -114,26 +116,26 @@ export default class App extends React.Component {
     ['Icons', <TestIcons />],
     ['Header', <TestHeader />],
     ['Link', <TestLink />],
-    ['Text Input', <TestTextInput />],
-    ['Text Area', <TestTextArea />],
-    ['Password Input', <TestPasswordInput />],
+    ['Text input', <TestTextInput />],
+    ['Text area', <TestTextArea />],
+    ['Password input', <TestPasswordInput />],
     ['Checkbox', <TestCheckbox />],
-    ['Radio Button', <TestRadioButton />],
+    ['Radio button', <TestRadioButton />],
     ['Toggle', <TestToggle />],
     ['Loading', <TestLoading />],
-    ['File Uploader Item', <TestFileUploaderItem />],
-    ['Number Input', <TestNumberInput />],
+    ['File uploader item', <TestFileUploaderItem />],
+    ['Number input', <TestNumberInput />],
     ['Menu', <TestMenu />],
     ['Tile', <TestTile />],
     ['Dropdown', <TestDropdown />],
-    ['Action Sheet', <TestActionSheet />],
+    ['Action sheet', <TestActionSheet />],
     ['Modal', <TestModal />],
     ['Accordion', <TestAccordion />],
     ['Tag', <TestTag />],
     ['Notification', <TestNotification />],
-    ['Content Switcher', <TestContentSwitcher />],
+    ['Content switcher', <TestContentSwitcher />],
     ['Tabs', <TestTabs />],
-    ['Progress Indicator', <TestProgressIndicator />],
+    ['Progress indicator', <TestProgressIndicator />],
     ['List', <TestList />],
   ];
 
@@ -176,10 +178,10 @@ export default class App extends React.Component {
       return (
         <SafeAreaView style={this.styles.containerNoHeader}>
           <LandingView
-            productImage={require('./assets/productImage.png')}
+            productImage={require('./assets/app_icon.png')}
             companyImage={require('./assets/companyImage.png')}
             longProductName="Carbon for Mobile"
-            versionText="Version 1.0.0 (1)"
+            versionText={`Version ${version} (${versionCode})`}
             copyrightText="Copyright © 2022 IBM"
             continueText="Continue"
             continueOnPress={() => {

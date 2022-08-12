@@ -82,7 +82,7 @@ export class Tabs extends React.Component<TabsProps> {
     }
 
     if (active) {
-      finalStyle.borderBottomColor = getColor('interactive');
+      finalStyle.borderBottomColor = getColor('borderInteractive');
     }
 
     return (

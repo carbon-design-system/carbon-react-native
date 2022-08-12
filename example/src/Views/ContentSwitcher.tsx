@@ -88,7 +88,7 @@ export default class TestContentSwitcher extends React.Component {
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Content Switcher" />
+        <Text style={{marginBottom: 16}} type="heading-04" text="Content switcher" />
         <Checkbox checked={disableSecond} id="subtext" onPress={value => this.setState({disableSecond: value})} label="Make second one disabled" />
         <Button style={itemStyle} onPress={() => {this.setState({currentIndexA: 1, currentIndexB: 1, currentIndexC: 1})}} text="Make second one active for all" />
         <View style={itemStyle}><ContentSwitcher items={this.twoOptions} onChange={this.onChange} selectedIndex={currentIndexA} /></View>

@@ -104,7 +104,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'tertiary':
         return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonTertiary');
       case 'ghost':
-        return overrideColor || getColor(disabled ? 'textDisabled' : 'interactive');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'linkPrimary');
       case 'primary':
       case 'secondary':
       case 'danger':

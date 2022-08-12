@@ -10,7 +10,7 @@ export type TextBreakModes = 'head' | 'middle' | 'tail';
 export type TextProps = {
   /** Text to render */
   text?: string;
-  /** Type of text to render (style of Carbon) body-02 is default */
+  /** Type of text to render (style of Carbon) body-compact-02 is default */
   type?: TextTypes;
   /** If set will not wrap text and use break mode (tail is normal use) */
   breakMode?: TextBreakModes;
@@ -53,11 +53,11 @@ export class Text extends React.Component<TextProps> {
       case 'body-compact-01':
         finalStyle = styleReferenceBreaker(BodyCompact01);
         break;
-      case 'body-compact-02':
-        finalStyle = styleReferenceBreaker(BodyCompact02);
-        break;
       case 'body-01':
         finalStyle = styleReferenceBreaker(Body01);
+        break;
+      case 'body-02':
+        finalStyle = styleReferenceBreaker(Body02);
         break;
       case 'heading-compact-01':
         finalStyle = styleReferenceBreaker(HeadingCompact01);
@@ -86,10 +86,10 @@ export class Text extends React.Component<TextProps> {
       case 'heading-07':
         finalStyle = styleReferenceBreaker(Heading07);
         break;
-      case 'body-02':
+      case 'body-compact-02':
       default:
-          finalStyle = styleReferenceBreaker(Body02);
-          break;
+        finalStyle = styleReferenceBreaker(BodyCompact02);
+        break;
     }
 
     return StyleSheet.create(Object.assign(finalStyle, {color: getColor('textPrimary')}, style));
