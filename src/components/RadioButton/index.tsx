@@ -34,6 +34,8 @@ export class RadioButton extends React.Component<RadioButtonProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
+        paddingTop: 14,
+        paddingBottom: 14,
         flexDirection: 'row',
         alignContent: 'flex-start',
       },

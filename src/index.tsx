@@ -26,6 +26,7 @@ export * from './components/ContentSwitcher';
 export * from './components/Tabs';
 export * from './components/ProgressIndicator';
 export * from './components/List';
+export * from './components/Overlay';
 
 // Style exports
 export * from './styles/colors';

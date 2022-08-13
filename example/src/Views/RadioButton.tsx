@@ -27,7 +27,7 @@ export default class TestRadioButton extends React.Component {
 
   render(): React.ReactNode {
     const {value1, value2, value3, value4} = this.state;
-    const itemStyle = {marginBottom: 20};
+    const itemStyle = {};
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>

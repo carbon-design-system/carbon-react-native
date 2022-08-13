@@ -1,12 +1,16 @@
 import React from 'react';
-import {ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal, SafeAreaView} from 'react-native';
+import {ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView} from 'react-native';
+import { styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
+import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 
 export type ActionSheetItem = {
   /** Name for button */
   text: string;
+  /** Indicate if item is dangerous. When using System iOS action sheet only ONE item can be dangerous. */
+  danger?: boolean;
   /** Indicate if hidden (won't show) */
   hidden?: boolean;
   /** Press event (this will also automatically close the ActionSheet as well) */
@@ -40,6 +44,11 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         flexGrow: 1,
         flexDirection: 'row-reverse',
       },
+      containerWrapper: {
+        flexGrow: 1,
+        flexDirection: 'row-reverse',
+        margin: 16,
+      },
       blurBackground: {
         zIndex: -1,
         position: 'absolute',
@@ -48,8 +57,6 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         left: 0,
         bottom: 0,
         flex: 1,
-        backgroundColor: getColor('background'),
-        opacity: 0.4,
       },
       wrapper: {
         backgroundColor: getColor('layer01'),
@@ -60,7 +67,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         padding: 16,
         paddingBottom: 0,
         paddingTop: 23,
-        borderBottomColor: getColor('layerAccentActive03'),
+        borderBottomColor: getColor('borderSubtle01'),
         borderBottomWidth: 1,
       },
       title: {
@@ -76,12 +83,12 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         flexGrow: 0,
       },
       option: {
-        padding: 12,
+        padding: 13,
         paddingLeft: 16,
       },
       cancelButton: {
         backgroundColor: getColor('buttonSecondary'),
-        padding: 12,
+        padding: 13,
         paddingLeft: 16,
       },
       cancelButtonText: {
@@ -94,10 +101,12 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     const {open, title, body, items, cancelButtonIndex} = this.props;
 
     const options = items.filter(item => !item.hidden);
+    const dangerIndex = options.findIndex(item => item.danger);
 
     if (open) {
       ActionSheetIOS.showActionSheetWithOptions(
         {
+          destructiveButtonIndex: dangerIndex > -1 ? dangerIndex : undefined,
           options: options.map(item => item.text),
           title: title,
           message: body,
@@ -131,44 +140,52 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     }
 
     return (
-      <Modal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({open: false})} animationType="slide">
+      <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({open: false})}>
+        <Overlay style={this.styles.blurBackground} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <View style={this.styles.blurBackground} />
-          <View style={this.styles.wrapper}>
-            <View style={this.styles.textArea}>
-              <Text style={this.styles.title} type="heading-01" text={title} />
-              {!!body && <Text style={this.styles.body} type="helper-text-01" text={body} />}
+          <View style={this.styles.containerWrapper}>
+            <View style={this.styles.wrapper}>
+              <View style={this.styles.textArea}>
+                <Text style={this.styles.title} type="heading-01" text={title} />
+                {!!body && <Text style={this.styles.body} type="helper-text-01" text={body} />}
+              </View>
+              <View style={this.styles.optionsWrapper}>
+                <ScrollView bounces={false} style={this.styles.options}>
+                  {options.map((item, index) => {
+                    const finalStyle = styleReferenceBreaker(this.styles.option);
+
+                    if (item.danger) {
+                      finalStyle.backgroundColor = getColor('buttonDangerPrimary');
+                    }
+
+                    return (
+                      <Pressable
+                        style={finalStyle}
+                        accessibilityLabel={item.text}
+                        key={index}
+                        onPress={() => {
+                          item.onPress();
+                        }}
+                      >
+                        <Text text={item.text} />
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+              <Pressable
+                style={this.styles.cancelButton}
+                accessibilityLabel={cancel.text}
+                onPress={() => {
+                  cancel.onPress();
+                }}
+              >
+                <Text style={this.styles.cancelButtonText} text={cancel.text} />
+              </Pressable>
             </View>
-            <View style={this.styles.optionsWrapper}>
-              <ScrollView bounces={false} style={this.styles.options}>
-                {options.map((item, index) => {
-                  return (
-                    <Pressable
-                      style={this.styles.option}
-                      accessibilityLabel={item.text}
-                      key={index}
-                      onPress={() => {
-                        item.onPress();
-                      }}
-                    >
-                      <Text text={item.text} />
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
-            </View>
-            <Pressable
-              style={this.styles.cancelButton}
-              accessibilityLabel={cancel.text}
-              onPress={() => {
-                cancel.onPress();
-              }}
-            >
-              <Text style={this.styles.cancelButtonText} text={cancel.text} />
-            </Pressable>
           </View>
         </SafeAreaView>
-      </Modal>
+      </ReactModal>
     );
   }
 
