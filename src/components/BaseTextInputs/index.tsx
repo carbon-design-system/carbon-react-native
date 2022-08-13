@@ -81,7 +81,6 @@ export const getTextInputStyle = () => {
   if (Platform.OS == 'ios') {
     // https://github.com/facebook/react-native/issues/29068
     // This seems to hide it but very hacky.
-    baseTextBox.overflow = 'hidden';
     baseTextBox.paddingBottom = 2;
   }
 

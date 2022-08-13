@@ -2,6 +2,7 @@ import React from 'react';
 import {Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView} from 'react-native';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
+import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 
 export type ModalProps = {
@@ -45,8 +46,6 @@ export class Modal extends React.Component<ModalProps> {
         left: 0,
         bottom: 0,
         flex: 1,
-        backgroundColor: getColor('background'),
-        opacity: 0.4,
       },
       wrapper: {
         marginTop: 'auto',
@@ -103,9 +102,9 @@ export class Modal extends React.Component<ModalProps> {
     const hasSecondary = typeof secondaryActionOnPress === 'function' && !!secondaryActionText;
 
     return (
-      <ReactModal supportedOrientations={modalPresentations} transparent={true} animationType="slide">
+      <ReactModal supportedOrientations={modalPresentations} transparent={true}>
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <View style={this.styles.blurBackground} />
+          <Overlay style={this.styles.blurBackground} />
           <View style={this.styles.wrapper}>
             <View style={this.styles.headerArea}>
               <Text type="heading-03" text={title} />

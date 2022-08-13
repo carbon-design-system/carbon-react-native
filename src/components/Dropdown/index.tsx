@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal, SafeAreaView } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, SafeAreaView } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { Menu } from '../Menu';
@@ -127,11 +127,11 @@ export class Dropdown extends React.Component<DropdownProps> {
             {this.dropdownIcon}
           </Pressable>
           {open && (
-            <Modal supportedOrientations={modalPresentations} transparent={true} animationType="slide" onRequestClose={() => this.setState({open: false})}>
+            <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({open: false})}>
               <SafeAreaView>
                 <Menu style={this.styles.menuWrapper} items={itemList} />
               </SafeAreaView>
-            </Modal>
+            </ReactModal>
           )}
         </View>
         {!!helperText && <Text style={this.textInputStyles.helperText} type="helper-text-02" text={helperText} />}
