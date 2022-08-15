@@ -49,7 +49,7 @@ export class Pagination extends React.Component<PaginationProps> {
     const {currentPage} = this.props;
     const page = index + 1;
 
-    return <Pressable style={this.styles.item} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>{createIcon(CircleIcon, 8, 8, currentPage === page ? getColor('iconOnColor') : getColor('iconOnColorDisabled'))}</Pressable>
+    return <Pressable style={this.styles.item} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>{createIcon(CircleIcon, 8, 8, currentPage === page ? getColor('buttonTertiary') : getColor('iconOnColorDisabled'))}</Pressable>
   }
 
   render(): React.ReactNode {

@@ -25,7 +25,6 @@ export type DataTableCellProps = {
   componentProps?: ViewProps;
 }
 
-
 export class DataTableCell extends React.Component<DataTableCellProps> {
   private get styles() {
     return StyleSheet.create({
@@ -61,7 +60,7 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     if (type === 'header') {
-      finalStyles.backgroundColor = getColor('layer02');
+      finalStyles.backgroundColor = getColor('layerAccent01');
     }
 
     finalStyles.maxWidth = width;
