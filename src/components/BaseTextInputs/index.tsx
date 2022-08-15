@@ -228,8 +228,12 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
 
     if (type === 'password') {
       errorIconStyle.right = 48;
+      errorIconStyle.paddingRight = 0;
+      errorIconStyle.paddingLeft = 0;
     } else if (type === 'number') {
       errorIconStyle.right = 97;
+      errorIconStyle.paddingRight = 0;
+      errorIconStyle.paddingLeft = 0;
     }
 
     return (
@@ -305,7 +309,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
     }
 
     if (error) {
-      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 50;
+      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 25;
     }
 
     return (

@@ -36,6 +36,8 @@ import TestList from './Views/List';
 import { versionCode } from './constants/versionCode';
 import { version } from '../package.json';
 import TestOverlay from './Views/Overlay';
+import TestPagination from './Views/Pagination';
+import TestDataTable from './Views/DataTable';
 
 export default class App extends React.Component {
   state = {
@@ -139,6 +141,8 @@ export default class App extends React.Component {
     ['Progress indicator', <TestProgressIndicator />],
     ['List', <TestList />],
     ['Overlay', <TestOverlay />],
+    ['Pagination', <TestPagination />],
+    ['Data table', <TestDataTable />],
   ];
 
   private flowViewList: [string, React.ReactNode][] = [

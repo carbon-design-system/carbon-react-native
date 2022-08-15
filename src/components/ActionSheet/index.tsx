@@ -66,15 +66,16 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       textArea: {
         padding: 16,
         paddingBottom: 0,
-        paddingTop: 23,
+        paddingTop: 22,
         borderBottomColor: getColor('borderSubtle01'),
         borderBottomWidth: 1,
       },
-      title: {
+      titleNoBody: {
         marginBottom: 8,
       },
       body: {
         marginBottom: 8,
+        color: getColor('textHelper'),
       },
       optionsWrapper: {
         maxHeight: '50%',
@@ -146,7 +147,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
           <View style={this.styles.containerWrapper}>
             <View style={this.styles.wrapper}>
               <View style={this.styles.textArea}>
-                <Text style={this.styles.title} type="heading-01" text={title} />
+                <Text style={!!body ? undefined : this.styles.titleNoBody} type="heading-compact-01" text={title} />
                 {!!body && <Text style={this.styles.body} type="helper-text-01" text={body} />}
               </View>
               <View style={this.styles.optionsWrapper}>
