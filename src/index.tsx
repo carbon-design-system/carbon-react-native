@@ -27,6 +27,8 @@ export * from './components/Tabs';
 export * from './components/ProgressIndicator';
 export * from './components/List';
 export * from './components/Overlay';
+export * from './components/Pagination';
+export * from './components/DataTable';
 
 // Style exports
 export * from './styles/colors';

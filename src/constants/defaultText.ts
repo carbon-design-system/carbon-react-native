@@ -11,4 +11,5 @@ export const defaultText = {
   loading: 'Loading',
   deleteFile: 'Delete',
   close: 'Close',
+  pagination: 'Pagination',
 };
