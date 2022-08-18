@@ -4,9 +4,9 @@ import { Text, TextTypes } from '../Text';
 
 export type ListProps = {
   /** Type of list (default is unordered) */
-  type?: 'unordered'|'ordered';
+  type?: 'unordered' | 'ordered';
   /** Items to render. If strings will apply proper typeface. If passing element you need to set this.styles. */
-  items: (string|React.ReactNode)[];
+  items: (string | React.ReactNode)[];
   /** Indicate if list is nested in another list */
   nested?: boolean;
   /** Text type to render (Standard is default.  Normally only body 01 or 02 should be used)  */
@@ -15,10 +15,10 @@ export type ListProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class List extends React.Component<ListProps> {
-  private letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+  private letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
   private get styles() {
     return StyleSheet.create({
@@ -36,7 +36,7 @@ export class List extends React.Component<ListProps> {
   }
 
   private getIndicator(index: number): React.ReactNode {
-    const {type, nested} = this.props;
+    const { type, nested } = this.props;
 
     if (type === 'ordered') {
       if (nested) {
@@ -62,8 +62,8 @@ export class List extends React.Component<ListProps> {
     }
   }
 
-  private getListItem(item: string|React.ReactNode, index: number): React.ReactNode {
-    const {textType} = this.props;
+  private getListItem(item: string | React.ReactNode, index: number): React.ReactNode {
+    const { textType } = this.props;
 
     return (
       <View key={index} style={this.styles.itemWrapper}>
@@ -74,7 +74,7 @@ export class List extends React.Component<ListProps> {
   }
 
   render(): React.ReactNode {
-    const {items, componentProps, style} = this.props;
+    const { items, componentProps, style } = this.props;
 
     return (
       <View style={style} {...(componentProps || {})}>

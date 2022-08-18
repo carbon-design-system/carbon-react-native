@@ -15,8 +15,7 @@ export type DataTableRowProps = {
   rowText?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
-}
-
+};
 
 export class DataTableRow extends React.Component<DataTableRowProps> {
   private get styles() {
@@ -31,9 +30,13 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
     });
   }
   render(): React.ReactNode {
-    const {componentProps, style, onPress, onLongPress, rowText, children} = this.props;
+    const { componentProps, style, onPress, onLongPress, rowText, children } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
-    return <Pressable style={finalStyles} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>{children}</Pressable>;
+    return (
+      <Pressable style={finalStyles} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>
+        {children}
+      </Pressable>
+    );
   }
 }

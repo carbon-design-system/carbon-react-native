@@ -23,7 +23,7 @@ export type DropdownItem = {
   textType?: TextTypes;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
-}
+};
 
 export type DropdownProps = {
   /** Current value to show on dropdown */
@@ -44,7 +44,7 @@ export type DropdownProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 /**
  * React Native does not allow zIndex to overlay non sibling Views.
@@ -55,6 +55,12 @@ export type DropdownProps = {
 export class Dropdown extends React.Component<DropdownProps> {
   state = {
     open: false,
+  };
+
+  private get itemColor(): string {
+    const { disabled } = this.props;
+
+    return disabled ? getColor('textDisabled') : getColor('textPrimary');
   }
 
   private get styles() {
@@ -74,46 +80,39 @@ export class Dropdown extends React.Component<DropdownProps> {
         top: 12,
         right: 12,
       },
+      dropdownText: {
+        color: this.itemColor,
+      },
     });
   }
 
   private get textInputStyles() {
-    const {light} = this.props;
+    const { light } = this.props;
 
     return getTextInputStyle(light);
   }
 
-  private get itemColor(): string {
-    const {disabled} = this.props;
-
-    return disabled ? getColor('textDisabled') : getColor('textPrimary');
-  }
-
   private get dropdownIcon(): React.ReactNode {
-    const {open} = this.state;
+    const { open } = this.state;
 
-    return (
-      <View style={this.styles.iconStyle}>
-        {createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}
-      </View>
-    );
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
   }
 
   private toggleDropdown = (): void => {
-    const {open} = this.state;
-    this.setState({open: !open});
-  }
+    const { open } = this.state;
+    this.setState({ open: !open });
+  };
 
   render(): React.ReactNode {
-    const {items, componentProps, style, label, helperText, value, onChange, disabled} = this.props;
-    const {open} = this.state;
+    const { items, componentProps, style, label, helperText, value, onChange, disabled } = this.props;
+    const { open } = this.state;
     const finalStyle = styleReferenceBreaker(disabled ? this.textInputStyles.textBoxDisabled : this.textInputStyles.textBox);
     finalStyle.paddingTop = 10;
 
-    const itemList = items.map(item => {
+    const itemList = items.map((item) => {
       const newItem = Object.assign({}, item) as MenuItemProps;
       newItem.onPress = () => {
-        this.setState({open: false});
+        this.setState({ open: false });
         if (typeof onChange === 'function') {
           onChange(item);
         }
@@ -127,11 +126,11 @@ export class Dropdown extends React.Component<DropdownProps> {
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
           <Pressable disabled={disabled} style={finalStyle} onPress={this.toggleDropdown}>
-            <Text text={value} style={{color: this.itemColor}} />
+            <Text text={value} style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>
           {open && (
-            <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({open: false})}>
+            <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
               <SafeAreaView>
                 <Menu style={this.styles.menuWrapper} items={itemList} />
               </SafeAreaView>

@@ -23,7 +23,7 @@ export type MenuItemProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
-}
+};
 
 export class MenuItem extends React.Component<MenuItemProps> {
   private get styles() {
@@ -38,7 +38,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    const {disabled} = this.props;
+    const { disabled } = this.props;
 
     let finalStyle: any = {
       color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
@@ -48,7 +48,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   }
 
   private onPress = (event: GestureResponderEvent): void => {
-    const {dismissKeyboardOnPress, onPress} = this.props;
+    const { dismissKeyboardOnPress, onPress } = this.props;
 
     if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') {
       Keyboard.dismiss();
@@ -60,7 +60,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   };
 
   render(): React.ReactNode {
-    const {text, disabled, onLongPress, componentProps, textType, style, textBreakMode} = this.props;
+    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode } = this.props;
 
     return (
       <Pressable disabled={disabled} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>

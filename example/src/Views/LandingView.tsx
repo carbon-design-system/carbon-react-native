@@ -8,9 +8,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class TestLandinView extends React.Component<{goHome: () => void}> {
+export default class TestLandinView extends React.Component<{
+  goHome: () => void;
+}> {
   private onContinue = (): void => {
-    const {goHome} = this.props;
+    const { goHome } = this.props;
     Alert.alert('Continue pressed', 'Do you want to go back home or stay here?', [
       {
         text: 'Stay here',
@@ -30,17 +32,7 @@ export default class TestLandinView extends React.Component<{goHome: () => void}
   render(): React.ReactNode {
     return (
       <View style={styles.view}>
-        <LandingView
-          productImage={require('../assets/productImage.png')}
-          companyImage={require('../assets/companyImage.png')}
-          longProductName="IBM Carbon React Native Test App"
-          versionText="Version 12.23.98 (152669)"
-          copyrightText="Copyright © 2022 IBM"
-          continueText="Continue"
-          continueOnPress={this.onContinue}
-          privacyPolicyText="Privacy Policy"
-          privacyPolicyOnPress={this.onPrivacyPolicy}
-        />
+        <LandingView productImage={require('../assets/productImage.png')} companyImage={require('../assets/companyImage.png')} longProductName="IBM Carbon React Native Test App" versionText="Version 12.23.98 (152669)" copyrightText="Copyright © 2022 IBM" continueText="Continue" continueOnPress={this.onContinue} privacyPolicyText="Privacy Policy" privacyPolicyOnPress={this.onPrivacyPolicy} />
       </View>
     );
   }

@@ -6,7 +6,7 @@ import { defaultText } from '../../constants/defaultText';
 
 export type TileProps = {
   /** Type of tile */
-  type?: 'default'|'scroll'|'clickable';
+  type?: 'default' | 'scroll' | 'clickable';
   /** onPress event for clickable tile */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event for clickable tile */
@@ -19,8 +19,7 @@ export type TileProps = {
   componentProps?: ViewProps;
   /** Children to render */
   children?: React.ReactNode;
-}
-
+};
 
 export class Tile extends React.Component<TileProps> {
   private get styles() {
@@ -38,18 +37,30 @@ export class Tile extends React.Component<TileProps> {
   }
 
   render(): React.ReactNode {
-    const {children, componentProps, style, type, onPress, onLongPress, tileText} = this.props;
+    const { children, componentProps, style, type, onPress, onLongPress, tileText } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     switch (type) {
       case 'scroll':
         finalStyles.padding = undefined;
-        return <ScrollView bounces={false} style={finalStyles} contentContainerStyle={this.styles.scrollContent} {...(componentProps || {})}>{children}</ScrollView>;
+        return (
+          <ScrollView bounces={false} style={finalStyles} contentContainerStyle={this.styles.scrollContent} {...(componentProps || {})}>
+            {children}
+          </ScrollView>
+        );
       case 'clickable':
-        return <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={finalStyles} {...(componentProps || {})}>{children}</Pressable>;
+        return (
+          <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={finalStyles} {...(componentProps || {})}>
+            {children}
+          </Pressable>
+        );
       case 'default':
       default:
-        return <View style={finalStyles} {...(componentProps || {})}>{children}</View>;
+        return (
+          <View style={finalStyles} {...(componentProps || {})}>
+            {children}
+          </View>
+        );
     }
   }
 }

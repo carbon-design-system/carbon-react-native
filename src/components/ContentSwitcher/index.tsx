@@ -15,7 +15,7 @@ export type SwitcherItem = {
   textType?: TextTypes;
   /** Any additional data needed to store for the callback */
   data?: unknown;
-}
+};
 
 export type ContentSwitcherProps = {
   /** Items to render in the content switcher (should try and keep under 3. Anything larger gets hard to read on mobile) */
@@ -30,15 +30,15 @@ export type ContentSwitcherProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   state = {
     currentIndex: 0,
-  }
+  };
 
   private get styles() {
-    const {light} = this.props;
+    const { light } = this.props;
 
     const basicStyle = {
       padding: 16,
@@ -66,21 +66,22 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   }
 
   private changeItem = (item: SwitcherItem, index: number): void => {
-    const {onChange} = this.props;
-    this.setState({currentIndex: index}, () => {
+    const { onChange } = this.props;
+    this.setState({ currentIndex: index }, () => {
       if (typeof onChange === 'function') {
         onChange(index, item);
       }
     });
-
-  }
+  };
 
   private getSwitcher(item: SwitcherItem, index: number): React.ReactNode {
-    const {currentIndex} = this.state;
-    const {items} = this.props;
+    const { currentIndex } = this.state;
+    const { items } = this.props;
     const active = index === currentIndex;
     const finalStyle = styleReferenceBreaker(active ? this.styles.activeItem : this.styles.item);
-    const textStyle = {color: active ? getColor('textInverse') : getColor('textSecondary')}
+    const textStyle = {
+      color: active ? getColor('textInverse') : getColor('textSecondary'),
+    };
 
     if (item.disabled) {
       finalStyle.backgroundColor = getColor('layer02');
@@ -101,27 +102,27 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
       <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={finalStyle} accessibilityLabel={item.text} accessibilityRole="menuitem">
         <Text type={item.textType || 'body-compact-01'} style={textStyle} breakMode={item.textBreakMode} text={item.text} />
       </Pressable>
-    )
+    );
   }
 
   componentDidUpdate(previousProps: ContentSwitcherProps): void {
-    const {selectedIndex} = this.props;
+    const { selectedIndex } = this.props;
 
     if (typeof selectedIndex === 'number' && previousProps.selectedIndex !== selectedIndex) {
-      this.setState({currentIndex: selectedIndex});
+      this.setState({ currentIndex: selectedIndex });
     }
   }
 
   componentDidMount(): void {
-    const {selectedIndex} = this.props;
+    const { selectedIndex } = this.props;
 
     if (typeof selectedIndex === 'number') {
-      this.setState({currentIndex: selectedIndex});
+      this.setState({ currentIndex: selectedIndex });
     }
   }
 
   render(): React.ReactNode {
-    const {items, componentProps, style} = this.props;
+    const { items, componentProps, style } = this.props;
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>

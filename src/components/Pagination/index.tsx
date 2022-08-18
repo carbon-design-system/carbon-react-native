@@ -18,7 +18,7 @@ export type PaginationProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class Pagination extends React.Component<PaginationProps> {
   private get styles() {
@@ -38,7 +38,7 @@ export class Pagination extends React.Component<PaginationProps> {
   }
 
   private changePage = (page: number): void => {
-    const {onPageChange} = this.props;
+    const { onPageChange } = this.props;
 
     if (typeof onPageChange === 'function') {
       onPageChange(page);
@@ -46,23 +46,27 @@ export class Pagination extends React.Component<PaginationProps> {
   };
 
   private getPageItem(index: number): React.ReactNode {
-    const {currentPage} = this.props;
+    const { currentPage } = this.props;
     const page = index + 1;
 
-    return <Pressable style={this.styles.item} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>{createIcon(CircleIcon, 8, 8, currentPage === page ? getColor('buttonTertiary') : getColor('iconOnColorDisabled'))}</Pressable>
+    return (
+      <Pressable style={this.styles.item} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>
+        {createIcon(CircleIcon, 8, 8, currentPage === page ? getColor('buttonTertiary') : getColor('iconOnColorDisabled'))}
+      </Pressable>
+    );
   }
 
   render(): React.ReactNode {
-    const {componentProps, style, paginationText, totalPages} = this.props;
+    const { componentProps, style, paginationText, totalPages } = this.props;
     const elements: React.ReactNode[] = [];
 
-    for (let i = 0;  i< totalPages; i++) {
+    for (let i = 0; i < totalPages; i++) {
       elements.push(this.getPageItem(i));
     }
 
     return (
       <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} contentContainerStyle={this.styles.wrapperContent} {...(componentProps || {})} accessibilityLabel={paginationText || defaultText.pagination} horizontal={true}>
-        {elements.map(item => item)}
+        {elements.map((item) => item)}
       </ScrollView>
     );
   }

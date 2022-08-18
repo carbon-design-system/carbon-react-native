@@ -4,9 +4,9 @@ import * as g100 from '@carbon/themes/src/g100.js';
 import { logIssue } from '../helpers';
 
 /** Theme choices available */
-export type ThemeChoices = 'light'|'dark';
+export type ThemeChoices = 'light' | 'dark';
 
-let themeOverride: ThemeChoices|null = null;
+let themeOverride: ThemeChoices | null = null;
 
 /**
  * Set the theme to use for all subsequent calls to the color getter.
@@ -17,7 +17,7 @@ let themeOverride: ThemeChoices|null = null;
  *
  * @param theme - the theme to force to. Use null to use system
  */
-export const forceTheme = (theme: ThemeChoices|null): void => {
+export const forceTheme = (theme: ThemeChoices | null): void => {
   themeOverride = theme;
 };
 
@@ -34,7 +34,7 @@ export const useDarkMode = (): boolean => {
 };
 
 /** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const componentsG10: {[key: string]: string} = {
+const componentsG10: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -77,7 +77,7 @@ const componentsG10: {[key: string]: string} = {
 };
 
 /** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const componentsG100: {[key: string]: string} = {
+const componentsG100: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -131,12 +131,16 @@ export const getColor = (token: string, overrideTheme?: ThemeChoices): string =>
   let foundDarkColor = g100[token] || componentsG100[token];
 
   if (!foundLightColor) {
-    logIssue('getColor: could not find requested color in light theme.', {token});
+    logIssue('getColor: could not find requested color in light theme.', {
+      token,
+    });
     foundLightColor = '#161616';
   }
 
   if (!foundDarkColor) {
-    logIssue('getColor: could not find requested color in dark theme.', {token});
+    logIssue('getColor: could not find requested color in dark theme.', {
+      token,
+    });
     foundLightColor = '#f4f4f4';
   }
 

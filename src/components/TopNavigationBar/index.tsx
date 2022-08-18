@@ -28,8 +28,7 @@ export type TopNavigationBarProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
-
+};
 
 export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
   private get styles() {
@@ -83,11 +82,20 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
         paddingLeft: 16,
         paddingRight: 16,
         paddingBottom: 16,
-      }
+      },
+      leftLink: {
+        paddingTop: 13,
+        paddingLeft: 16,
+      },
+      rightLink: {
+        paddingTop: 13,
+        paddingRight: 16,
+        marginLeft: 'auto',
+      },
     });
   }
 
-  private getItems(items: NavigationButton[], type: 'right'|'left'): React.ReactNode {
+  private getItems(items: NavigationButton[], type: 'right' | 'left'): React.ReactNode {
     const finalWrapperStyles = styleReferenceBreaker(this.styles.itemWrapper);
 
     if (type === 'right') {
@@ -115,51 +123,43 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
           );
         })}
       </View>
-    )
+    );
   }
 
   private get headerTitleArea(): React.ReactNode {
-    const {title, subTitle, headerMode} = this.props;
+    const { title, subTitle, headerMode } = this.props;
 
     return (
       <View style={this.styles.headerTitleWrapper}>
         {!headerMode && <Text style={this.styles.headerTitle} type="heading-compact-02" text={title} breakMode="tail" />}
-        {(!!subTitle && !headerMode) && <Text style={this.styles.headerSubTitle} type="helper-text-01" text={subTitle} breakMode="tail" />}
+        {!!subTitle && !headerMode && <Text style={this.styles.headerSubTitle} type="helper-text-01" text={subTitle} breakMode="tail" />}
       </View>
     );
   }
 
   private get baseHeader(): React.ReactNode {
-    const {leftItems, leftLink, rightItems, rightLink} = this.props;
+    const { leftItems, leftLink, rightItems, rightLink } = this.props;
     const wrapperStyle = styleReferenceBreaker(this.styles.headerItemWrapper);
 
     if (!leftLink && !rightLink) {
       if ((!leftItems || !leftItems?.length) && (!rightItems || !rightItems?.length)) {
         wrapperStyle.minWidth = 0;
-      } else if (
-        (leftItems?.length === 1 && rightItems?.length === 1) ||
-        (leftItems?.length === 1 && !rightItems?.length) ||
-        (!leftItems?.length && rightItems?.length === 1)
-      ) {
+      } else if ((leftItems?.length === 1 && rightItems?.length === 1) || (leftItems?.length === 1 && !rightItems?.length) || (!leftItems?.length && rightItems?.length === 1)) {
         wrapperStyle.minWidth = 50;
       }
     }
 
     return (
       <View style={this.styles.headerWrapper}>
-        <View style={wrapperStyle}>
-          {!!leftLink ? <Link {...leftLink} style={{paddingTop: 13, paddingLeft: 16}} textBreakMode="tail" /> : this.getItems(leftItems || [], 'left')}
-        </View>
+        <View style={wrapperStyle}>{leftLink ? <Link {...leftLink} style={this.styles.leftLink} textBreakMode="tail" /> : this.getItems(leftItems || [], 'left')}</View>
         {this.headerTitleArea}
-        <View style={wrapperStyle}>
-          {!!rightLink ? <Link {...rightLink} style={{paddingTop: 13, paddingRight: 16, marginLeft: 'auto'}} textBreakMode="tail" /> : this.getItems(rightItems || [], 'right')}
-        </View>
+        <View style={wrapperStyle}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" /> : this.getItems(rightItems || [], 'right')}</View>
       </View>
     );
-  };
+  }
 
   private get pageHeader(): React.ReactNode {
-    const {title, subTitle} = this.props;
+    const { title, subTitle } = this.props;
 
     return (
       <View style={this.styles.pageTitleWrapper}>
@@ -170,17 +170,13 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
   }
 
   private get additionalContent(): React.ReactNode {
-    const {additionalHeaderContent} = this.props;
+    const { additionalHeaderContent } = this.props;
 
-    return (
-      <View style={this.styles.additionalContent}>
-        {additionalHeaderContent}
-      </View>
-    )
+    return <View style={this.styles.additionalContent}>{additionalHeaderContent}</View>;
   }
 
   private get mainView(): React.ReactNode {
-    const {headerMode, additionalHeaderContent} = this.props;
+    const { headerMode, additionalHeaderContent } = this.props;
 
     return (
       <>
@@ -192,7 +188,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (

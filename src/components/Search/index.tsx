@@ -45,55 +45,55 @@ export type SearchProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
   componentProps?: ReactTextInputProps;
-}
+};
 
 export class Search extends React.Component<SearchProps> {
   state = {
     hasFocus: false,
-  }
+  };
 
   private get styles() {
-    const {light} = this.props;
+    const { light } = this.props;
 
     return getTextInputStyle(light);
   }
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
-    const {onFocus} = this.props;
+    const { onFocus } = this.props;
 
     if (typeof onFocus === 'function') {
       onFocus(event);
     }
-    this.setState({hasFocus: true});
-  }
+    this.setState({ hasFocus: true });
+  };
 
   private onBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
-    const {onBlur} = this.props;
+    const { onBlur } = this.props;
 
     if (typeof onBlur === 'function') {
       onBlur(event);
     }
-    this.setState({hasFocus: false});
-  }
+    this.setState({ hasFocus: false });
+  };
 
   private onChange = (value: string): void => {
-    const {onChangeText} = this.props;
+    const { onChangeText } = this.props;
 
     if (typeof onChangeText === 'function') {
       onChangeText(value);
     }
 
     this.setState({});
-  }
+  };
 
   private get clearText(): React.ReactNode {
-    const {disabled, clearTextButtonText} = this.props;
+    const { disabled, clearTextButtonText } = this.props;
 
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={CloseIcon} text={clearTextButtonText || defaultText.clear} onPress={() => this.onChange('')} />;
   }
 
   private get searchIcon(): React.ReactNode {
-    const {disabled, searchIconText, onSubmitEditing} = this.props;
+    const { disabled, searchIconText, onSubmitEditing } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.passwordRevealButton);
 
     finalStyle.right = undefined;
@@ -103,8 +103,8 @@ export class Search extends React.Component<SearchProps> {
   }
 
   render(): React.ReactNode {
-    const {label, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, disabled, labelBreakMode} = this.props;
-    const {hasFocus} = this.state;
+    const { label, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, disabled, labelBreakMode } = this.props;
+    const { hasFocus } = this.state;
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
 
     if (disabled) {
@@ -120,22 +120,7 @@ export class Search extends React.Component<SearchProps> {
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessibilityLabel={label}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.styles.textBoxWrapper} accessibilityLabel={label}>
-          <ReactTextInput
-            editable={!disabled}
-            autoCapitalize={autoCapitalize}
-            style={textBoxStyle}
-            value={value}
-            onSubmitEditing={onSubmitEditing}
-            onChangeText={this.onChange}
-            autoCorrect={autoCorrect}
-            placeholder={placeholder}
-            placeholderTextColor={getColor('textPlaceholder')}
-            onBlur={this.onBlur}
-            onFocus={this.onFocus}
-            maxLength={maxLength}
-            textAlignVertical="top"
-            {...(componentProps || {})}
-            />
+          <ReactTextInput editable={!disabled} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" {...(componentProps || {})} />
           {this.searchIcon}
           {!!value && this.clearText}
         </View>

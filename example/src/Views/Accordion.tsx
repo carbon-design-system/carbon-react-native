@@ -20,21 +20,26 @@ const styles = StyleSheet.create({
 export default class TestAccordion extends React.Component {
   state = {
     openControl: false,
-  }
+  };
 
   render(): React.ReactNode {
-    const {openControl} = this.state;
+    const { openControl } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Accordion" />
-        <Accordion title="I am first. You can open me." firstAccordion={true}><Text text="I am the content of this accordion" /></Accordion>
-        <Accordion title="I am disabled" disabled={true}><Text text="I am the content of this accordion" /></Accordion>
+        <Accordion title="I am first. You can open me." firstAccordion={true}>
+          <Text text="I am the content of this accordion" />
+        </Accordion>
+        <Accordion title="I am disabled" disabled={true}>
+          <Text text="I am the content of this accordion" />
+        </Accordion>
         <Accordion title="I am already opened on load" open={true}>
           <Text text="I am the content of this accordion" />
-          <Button text="Click me to toggle the one below" onPress={() => this.setState({openControl: !openControl})} />
+          <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} />
         </Accordion>
-        <Accordion title="I can be controlled" open={openControl}><Text text="I am the content of this accordion" /></Accordion>
+        <Accordion title="I can be controlled" open={openControl}>
+          <Text text="I am the content of this accordion" />
+        </Accordion>
       </ScrollView>
     );
   }

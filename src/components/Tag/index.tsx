@@ -5,7 +5,7 @@ import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
-export type TagTypes = 'red'|'magenta'|'purple'|'blue'|'cyan'|'teal'|'green'|'gray'|'cool-gray'|'warm-gray';
+export type TagTypes = 'red' | 'magenta' | 'purple' | 'blue' | 'cyan' | 'teal' | 'green' | 'gray' | 'cool-gray' | 'warm-gray';
 
 export type TagProps = {
   /** Title of tag to render */
@@ -20,7 +20,7 @@ export type TagProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class Tag extends React.Component<TagProps> {
   private get styles() {
@@ -45,7 +45,7 @@ export class Tag extends React.Component<TagProps> {
   }
 
   private get textColor(): string {
-    const {disabled, tagType} = this.props;
+    const { disabled, tagType } = this.props;
 
     if (disabled) {
       return getColor('textDisabled');
@@ -77,7 +77,7 @@ export class Tag extends React.Component<TagProps> {
   }
 
   private get backgroundColor(): string {
-    const {disabled, tagType} = this.props;
+    const { disabled, tagType } = this.props;
 
     if (disabled) {
       return getColor('layer01');
@@ -109,7 +109,7 @@ export class Tag extends React.Component<TagProps> {
   }
 
   private get closeAction(): React.ReactNode {
-    const {onClosePress, title, disabled} = this.props;
+    const { onClosePress, title, disabled } = this.props;
 
     if (typeof onClosePress === 'function') {
       return (
@@ -123,7 +123,7 @@ export class Tag extends React.Component<TagProps> {
   }
 
   render(): React.ReactNode {
-    const {title, componentProps, style} = this.props;
+    const { title, componentProps, style } = this.props;
     const textStyle = styleReferenceBreaker(this.styles.textStyle);
     const wrapperStyle = styleReferenceBreaker(this.styles.wrapper, style);
     wrapperStyle.backgroundColor = this.backgroundColor;

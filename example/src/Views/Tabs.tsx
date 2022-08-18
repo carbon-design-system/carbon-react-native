@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Checkbox, Tabs, TabItem, Text, Button } from 'carbon-react-native';
+import { Checkbox, Tabs, TabItem, Button } from 'carbon-react-native';
 
 const styles = StyleSheet.create({
   view: {
@@ -11,22 +11,25 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  itemStyle: {
+    marginBottom: 48,
+  },
 });
 
 export default class TestTabs extends React.Component {
   state = {
-    currentIndexA: undefined as number|undefined,
-    currentIndexB: undefined as number|undefined,
-    currentIndexC: undefined as number|undefined,
+    currentIndexA: undefined as number | undefined,
+    currentIndexB: undefined as number | undefined,
+    currentIndexC: undefined as number | undefined,
     disableSecond: false,
-  }
+  };
   private onChange = (index: number, item: TabItem): void => {
     console.log(`Pressed to tab to ${item.text}`);
-    this.setState({[item.data as string]: index});
-  }
+    this.setState({ [item.data as string]: index });
+  };
 
   private get twoOptions(): TabItem[] {
-    const {disableSecond} = this.state;
+    const { disableSecond } = this.state;
 
     return [
       {
@@ -38,11 +41,11 @@ export default class TestTabs extends React.Component {
         data: 'currentIndexA',
         disabled: disableSecond,
       },
-    ]
+    ];
   }
 
   private get manyOptions(): TabItem[] {
-    const {disableSecond} = this.state;
+    const { disableSecond } = this.state;
 
     return [
       {
@@ -70,11 +73,11 @@ export default class TestTabs extends React.Component {
         text: 'Item 6',
         data: 'currentIndexB',
       },
-    ]
+    ];
   }
 
   private get longTextOptions(): TabItem[] {
-    const {disableSecond} = this.state;
+    const { disableSecond } = this.state;
 
     return [
       {
@@ -90,21 +93,35 @@ export default class TestTabs extends React.Component {
         text: 'Item 3 with really long text that will wrap and be kind of odd on the screen',
         data: 'currentIndexC',
       },
-    ]
+    ];
   }
 
   render(): React.ReactNode {
-    const {disableSecond, currentIndexA, currentIndexB, currentIndexC} = this.state;
-    const itemStyle = {marginBottom: 48};
+    const { disableSecond, currentIndexA, currentIndexB, currentIndexC } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Tabs" />
-        <Checkbox checked={disableSecond} id="subtext" onPress={value => this.setState({disableSecond: value})} label="Make second one disabled" />
-        <Button style={itemStyle} onPress={() => {this.setState({currentIndexA: 1, currentIndexB: 1, currentIndexC: 1})}} text="Make second one active for all" />
-        <View style={itemStyle}><Tabs items={this.twoOptions} onChange={this.onChange} selectedIndex={currentIndexA} /></View>
-        <View style={itemStyle}><Tabs items={this.manyOptions} scrollMode={true} onChange={this.onChange} selectedIndex={currentIndexB} /></View>
-        <View style={itemStyle}><Tabs items={this.longTextOptions} onChange={this.onChange} selectedIndex={currentIndexC} /></View>
+        <Checkbox checked={disableSecond} id="subtext" onPress={(value) => this.setState({ disableSecond: value })} label="Make second one disabled" />
+        <Button
+          style={styles.itemStyle}
+          onPress={() => {
+            this.setState({
+              currentIndexA: 1,
+              currentIndexB: 1,
+              currentIndexC: 1,
+            });
+          }}
+          text="Make second one active for all"
+        />
+        <View style={styles.itemStyle}>
+          <Tabs items={this.twoOptions} onChange={this.onChange} selectedIndex={currentIndexA} />
+        </View>
+        <View style={styles.itemStyle}>
+          <Tabs items={this.manyOptions} scrollMode={true} onChange={this.onChange} selectedIndex={currentIndexB} />
+        </View>
+        <View style={styles.itemStyle}>
+          <Tabs items={this.longTextOptions} onChange={this.onChange} selectedIndex={currentIndexC} />
+        </View>
       </ScrollView>
     );
   }
