@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, SafeAreaView, StatusBar, Alert, Appearance, View } from 'react-native';
-import { getColor, Header, HeaderAction, LandingView, forceTheme, ThemeChoices, Loading } from 'carbon-react-native';
+import { getColor, WebHeader, WebHeaderAction, LandingView, forceTheme, ThemeChoices, Loading } from 'carbon-react-native';
 import TestButton from './Views/Button';
 import TestHome from './Views/Home';
 import TestText from './Views/Text';
@@ -9,7 +9,7 @@ import InformationIcon from '@carbon/icons/es/information/20';
 import HomeIcon from '@carbon/icons/es/home/20';
 import AsleepIcon from '@carbon/icons/es/asleep/20';
 import AwakeIcon from '@carbon/icons/es/awake/20';
-import TestHeader from './Views/Header';
+import TestWebHeader from './Views/WebHeader';
 import TestLandinView from './Views/LandingView';
 import TestLink from './Views/Link';
 import TestTextInput from './Views/TextInput';
@@ -38,6 +38,11 @@ import { version } from '../package.json';
 import TestOverlay from './Views/Overlay';
 import TestPagination from './Views/Pagination';
 import TestDataTable from './Views/DataTable';
+import TestBottomNavigationBar from './Views/BottomNavigationBar';
+import TestBottomToolbar from './Views/BottomToolbar';
+import TestBottomToolbarPrimaryAction from './Views/BottomToolbarPrimaryAction';
+import TestSearch from './Views/Search';
+import TestTopNavigationBar from './Views/TopNavigationBar';
 
 export default class App extends React.Component {
   state = {
@@ -70,7 +75,7 @@ export default class App extends React.Component {
     });
   }
 
-  private get headerActions(): HeaderAction[] {
+  private get headerActions(): WebHeaderAction[] {
     const {theme} = this.state;
 
     return [
@@ -117,7 +122,7 @@ export default class App extends React.Component {
     ['Button', <TestButton />],
     ['Text', <TestText />],
     ['Icons', <TestIcons />],
-    ['Header', <TestHeader />],
+    ['Web header', <TestWebHeader />],
     ['Link', <TestLink />],
     ['Text input', <TestTextInput />],
     ['Text area', <TestTextArea />],
@@ -130,6 +135,11 @@ export default class App extends React.Component {
     ['Number input', <TestNumberInput />],
     ['Menu', <TestMenu />],
     ['Tile', <TestTile />],
+    ['Bottom navigation bar', <TestBottomNavigationBar />],
+    ['Top navigation bar', <TestTopNavigationBar />],
+    ['Bottom toolbar', <TestBottomToolbar />],
+    ['Bottom toolbar primary action', <TestBottomToolbarPrimaryAction />],
+    ['Search', <TestSearch />],
     ['Dropdown', <TestDropdown />],
     ['Action sheet', <TestActionSheet />],
     ['Modal', <TestModal />],
@@ -207,7 +217,7 @@ export default class App extends React.Component {
     return (
       <SafeAreaView style={this.styles.container}>
         <StatusBar backgroundColor={getColor('layerSelectedInverse', 'light')} barStyle="light-content" />
-        <Header mainName="IBM" secondaryName="Carbon" actions={this.headerActions} />
+        <WebHeader mainName="IBM" secondaryName="Carbon" actions={this.headerActions} />
         {this.mainView}
       </SafeAreaView>
     );

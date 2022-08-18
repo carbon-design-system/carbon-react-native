@@ -2,6 +2,7 @@ import React from 'react';
 import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
+import type { CarbonIcon } from '../types/shared';
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -24,7 +25,7 @@ export const logIssue = (issue: string, data: unknown): void => {
  *
  * @returns - React Node to render on the screen.  If the icon fails to be created an X icon is rendered.
  */
-export const createIcon = (icon: unknown, width?: string|number, height?: string|number, color?: string): React.ReactNode => {
+export const createIcon = (icon: CarbonIcon, width?: string|number, height?: string|number, color?: string): React.ReactNode => {
   try {
     const iconString = toString(icon) as string;
 

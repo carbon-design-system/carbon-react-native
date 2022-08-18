@@ -24,6 +24,8 @@ export type ContentSwitcherProps = {
   onChange?: (index: number, item: SwitcherItem) => void;
   /** Selected index */
   selectedIndex?: number;
+  /** Indicate if content switcher is used on layer */
+  light?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -36,6 +38,8 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   }
 
   private get styles() {
+    const {light} = this.props;
+
     const basicStyle = {
       padding: 16,
       paddingTop: 11,
@@ -51,6 +55,8 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
       item: {
         ...basicStyle,
         backgroundColor: getColor('layer03'),
+        borderWidth: light ? 1 : undefined,
+        borderColor: light ? getColor('backgroundInverse') : undefined,
       },
       activeItem: {
         ...basicStyle,

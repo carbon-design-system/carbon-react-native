@@ -1,5 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import type { CarbonIcon } from '../../types/shared';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
@@ -8,7 +9,7 @@ export type ButtonProps = {
   /** Text to render (for iconOnlyMode use descriptive text) */
   text: string;
   /** Icon to render (size 20) */
-  icon?: unknown;
+  icon?: CarbonIcon;
   /** Indicate if icon only mode should be used (text is not rendered) */
   iconOnlyMode?: boolean;
   /** Indicate if button is disabled */
@@ -16,7 +17,7 @@ export type ButtonProps = {
   /** Button kind. Primary is default */
   kind?: 'primary'|'secondary'|'tertiary'|'danger'|'ghost';
   /** onPress event */
-  onPress: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event */
   onLongPress?: (event: GestureResponderEvent) => void;
   /** Indicate if keyboard should be dismissed onPress */

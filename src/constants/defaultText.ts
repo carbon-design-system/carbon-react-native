@@ -12,4 +12,6 @@ export const defaultText = {
   deleteFile: 'Delete',
   close: 'Close',
   pagination: 'Pagination',
+  clear: 'Clear',
+  search: 'Search',
 };

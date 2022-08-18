@@ -38,6 +38,8 @@ export type DropdownProps = {
   helperText?: string;
   /** Indicate if disabled */
   disabled?: boolean;
+  /** Indicate if dropdown is used on layer */
+  light?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -76,7 +78,9 @@ export class Dropdown extends React.Component<DropdownProps> {
   }
 
   private get textInputStyles() {
-    return getTextInputStyle();
+    const {light} = this.props;
+
+    return getTextInputStyle(light);
   }
 
   private get itemColor(): string {

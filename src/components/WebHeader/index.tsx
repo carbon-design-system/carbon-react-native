@@ -1,12 +1,13 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { createIcon } from '../../helpers';
+import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native';
+import type { CarbonIcon } from '../../types/shared';
+import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
-export type HeaderAction = {
+export type WebHeaderAction = {
   /** Icon to render (size 20) */
-  icon: unknown;
+  icon: CarbonIcon;
   /** Text to describe icon */
   text: string;
   /** On press event */
@@ -16,16 +17,20 @@ export type HeaderAction = {
 };
 
 
-export type HeaderProps = {
+export type WebHeaderProps = {
   /** actions to render to the right side */
-  actions?: HeaderAction[];
+  actions?: WebHeaderAction[];
   /** Name to show first */
   mainName: string;
   /** Secondary name to show after mainName (in bold) */
   secondaryName: string;
+  /** Style to set on the item */
+  style?: StyleProp<ViewStyle>;
+  /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
+  componentProps?: ViewProps;
 }
 
-export class Header extends React.Component<HeaderProps> {
+export class WebHeader extends React.Component<WebHeaderProps> {
   private get styles() {
     return StyleSheet.create({
       header: {
@@ -75,10 +80,10 @@ export class Header extends React.Component<HeaderProps> {
   }
 
   render(): React.ReactNode {
-    const {mainName, secondaryName, actions} = this.props;
+    const {mainName, secondaryName, actions, style, componentProps} = this.props;
 
     return (
-      <View style={this.styles.header} accessibilityRole="header">
+      <View style={styleReferenceBreaker(this.styles.header, style)} accessibilityRole="header" {...(componentProps || {})}>
         <View style={this.styles.textWrapper}>
           <View style={this.styles.mainName}>
             <Text type="body-01" style={this.styles.mainNameText} text={mainName} />
