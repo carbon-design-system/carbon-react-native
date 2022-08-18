@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  baseSpacing: {
+    marginBottom: 16,
+  },
 });
 
 export default class TestText extends React.Component {
@@ -19,8 +22,9 @@ export default class TestText extends React.Component {
   render(): React.ReactNode {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Text" />
-        {this.textTypes.map(type => <Text key={type} style={{marginBottom: 16}} type={type as any} text={type.replace('-', ' ')} />)}
+        {this.textTypes.map((type) => (
+          <Text key={type} style={styles.baseSpacing} type={type as any} text={type.replace('-', ' ')} />
+        ))}
       </ScrollView>
     );
   }

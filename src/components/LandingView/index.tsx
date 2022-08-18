@@ -40,7 +40,7 @@ export type LandingViewProps = {
   continueOnPress: (event: GestureResponderEvent) => void;
   /** onLongPress event when Continue pressed */
   continueOnLongPress?: (event: GestureResponderEvent) => void;
-}
+};
 
 export class LandingView extends React.Component<LandingViewProps> {
   private resizeEvent: EmitterSubscription | undefined;
@@ -100,7 +100,7 @@ export class LandingView extends React.Component<LandingViewProps> {
   }
 
   private get banner(): React.ReactNode {
-    const {companyImage, productImage, productImageSize, companyImageSize} = this.props;
+    const { companyImage, productImage, productImageSize, companyImageSize } = this.props;
     const companyImageStyle = styleReferenceBreaker(this.styles.companyImage);
     const productImageStyle = styleReferenceBreaker(this.styles.productImage);
 
@@ -135,7 +135,7 @@ export class LandingView extends React.Component<LandingViewProps> {
   }
 
   render(): React.ReactNode {
-    const {longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress} = this.props;
+    const { longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress } = this.props;
 
     return (
       <View style={this.styles.view}>
@@ -149,9 +149,7 @@ export class LandingView extends React.Component<LandingViewProps> {
               <Text text={versionText} type="body-compact-02" />
               <Text text={copyrightText} type="body-compact-02" />
             </View>
-            <View>
-              {!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}
-            </View>
+            <View>{!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}</View>
           </ScrollView>
           <View style={this.styles.actionWrapper}>
             <Button kind="primary" icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />

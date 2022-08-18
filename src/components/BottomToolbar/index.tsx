@@ -13,8 +13,7 @@ export type BottomToolbarProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
-
+};
 
 export class BottomToolbar extends React.Component<BottomToolbarProps> {
   private get styles() {
@@ -42,7 +41,7 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
   }
 
   private get items(): React.ReactNode {
-    const {items} = this.props;
+    const { items } = this.props;
 
     return items.map((item, index) => {
       const iconMode = !!item.icon;
@@ -69,19 +68,20 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
 
       return (
         <View style={finalStyles} key={index}>
-          {iconMode ?
-            <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> :
-            <Link disabled={item.disabled} textStyle={{textAlign: item.alignItem || 'center'}} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />
-          }
+          {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} textStyle={{ textAlign: item.alignItem || 'center' }} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
         </View>
       );
     });
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
-    return <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>{this.items}</View>;
+    return (
+      <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>
+        {this.items}
+      </View>
+    );
   }
 }

@@ -113,12 +113,14 @@
   },
   "eslintConfig": {
     "root": true,
-    "parser": "@babel/eslint-parser",
+    "parser": "@typescript-eslint/parser",
     "extends": [
       "@react-native-community",
       "prettier"
     ],
     "rules": {
+      "react-hooks/rules-of-hooks": "off",
+      "no-unused-vars": "error",
       "prettier/prettier": [
         "error",
         {
@@ -126,7 +128,8 @@
           "singleQuote": true,
           "tabWidth": 2,
           "trailingComma": "es5",
-          "useTabs": false
+          "useTabs": false,
+          "printWidth": 20000
         }
       ]
     }

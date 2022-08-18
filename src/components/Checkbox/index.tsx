@@ -28,7 +28,7 @@ export type CheckboxProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
-}
+};
 
 export class Checkbox extends React.Component<CheckboxProps> {
   private get styles() {
@@ -43,7 +43,7 @@ export class Checkbox extends React.Component<CheckboxProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    const {disabled} = this.props;
+    const { disabled } = this.props;
 
     let finalStyle: any = {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
@@ -55,34 +55,30 @@ export class Checkbox extends React.Component<CheckboxProps> {
   }
 
   private get checkbox(): React.ReactNode {
-    const {checked, disabled} = this.props;
+    const { checked, disabled } = this.props;
     const finalParams = [20, 20, disabled ? getColor('iconDisabled') : getColor('iconPrimary')];
 
-    return (
-      <View>
-        {checked ? createIcon(CheckboxCheckedIcon, ...finalParams) : createIcon(CheckboxIcon, ...finalParams)}
-      </View>
-    )
+    return <View>{checked ? createIcon(CheckboxCheckedIcon, ...finalParams) : createIcon(CheckboxIcon, ...finalParams)}</View>;
   }
 
   private onPress = (event: GestureResponderEvent): void => {
-    const {onPress, checked, id} = this.props;
+    const { onPress, checked, id } = this.props;
 
     if (typeof onPress === 'function') {
       onPress(!checked, id, event);
     }
-  }
+  };
 
   private onLongPress = (event: GestureResponderEvent): void => {
-    const {onLongPress, id} = this.props;
+    const { onLongPress, id } = this.props;
 
     if (typeof onLongPress === 'function') {
       onLongPress(id, event);
     }
-  }
+  };
 
   render(): React.ReactNode {
-    const {disabled, componentProps, label, checkboxText, hideLabel, style} = this.props;
+    const { disabled, componentProps, label, checkboxText, hideLabel, style } = this.props;
 
     return (
       <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>

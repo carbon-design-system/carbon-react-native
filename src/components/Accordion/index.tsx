@@ -6,7 +6,6 @@ import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { Text } from '../Text';
 
-
 export type AccordionProps = {
   /** Title to show for the accordion  */
   title: string;
@@ -24,11 +23,17 @@ export type AccordionProps = {
   componentProps?: ViewProps;
   /** Children to render */
   children?: React.ReactNode;
-}
+};
 
 export class Accordion extends React.Component<AccordionProps> {
   state = {
     open: false,
+  };
+
+  private get itemColor(): string {
+    const { disabled } = this.props;
+
+    return disabled ? getColor('textDisabled') : getColor('textPrimary');
   }
 
   private get styles() {
@@ -55,49 +60,42 @@ export class Accordion extends React.Component<AccordionProps> {
         top: 12,
         right: 12,
       },
+      textItem: {
+        color: this.itemColor,
+      },
     });
   }
 
-  private get itemColor(): string {
-    const {disabled} = this.props;
-
-    return disabled ? getColor('textDisabled') : getColor('textPrimary');
-  }
-
   private get accordionIcon(): React.ReactNode {
-    const {open} = this.state;
+    const { open } = this.state;
 
-    return (
-      <View style={this.styles.iconStyle}>
-        {createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}
-      </View>
-    );
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
   }
 
   private toggleDropdown = (): void => {
-    const {open} = this.state;
-    this.setState({open: !open});
-  }
+    const { open } = this.state;
+    this.setState({ open: !open });
+  };
 
   componentDidUpdate(previosuProps: AccordionProps): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (open !== previosuProps.open && typeof open === 'boolean') {
-      this.setState({open: open});
+      this.setState({ open: open });
     }
   }
 
   componentDidMount(): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (open) {
-      this.setState({open: true});
+      this.setState({ open: true });
     }
   }
 
   render(): React.ReactNode {
-    const {componentProps, style, disabled, title, children, firstAccordion} = this.props;
-    const {open} = this.state;
+    const { componentProps, style, disabled, title, children, firstAccordion } = this.props;
+    const { open } = this.state;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstAccordion) {
@@ -108,7 +106,7 @@ export class Accordion extends React.Component<AccordionProps> {
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
         <Pressable style={this.styles.action} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
-          <Text style={{color: this.itemColor}} text={title} />
+          <Text style={this.styles.textItem} text={title} />
           {this.accordionIcon}
         </Pressable>
         {open && <View style={this.styles.content}>{children}</View>}

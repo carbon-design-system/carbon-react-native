@@ -11,7 +11,7 @@ import CloseIcon from '@carbon/icons/es/close/20';
 import { Button } from '../Button';
 import { defaultText } from '../../constants/defaultText';
 
-export type NotificationTypes = 'info'|'error'|'warning'|'success';
+export type NotificationTypes = 'info' | 'error' | 'warning' | 'success';
 
 export type NotificationProps = {
   /** Notification kind (defeault is info)  */
@@ -34,7 +34,7 @@ export type NotificationProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 /**
  * Notification component is "InlineNotification" by default and can be
@@ -66,14 +66,13 @@ export class Notification extends React.Component<NotificationProps> {
         flexDirection: 'row',
         flexWrap: 'wrap',
       },
-      actionWrapper: {
-      },
+      actionWrapper: {},
       close: {},
     });
   }
 
   private get accentColor(): string {
-    const {lowContrast, kind} = this.props;
+    const { lowContrast, kind } = this.props;
 
     if (lowContrast) {
       switch (kind) {
@@ -103,14 +102,14 @@ export class Notification extends React.Component<NotificationProps> {
   }
 
   private get textColor(): string {
-    const {lowContrast} = this.props;
+    const { lowContrast } = this.props;
 
     // textPrimary is listed for the text color but dark mode does not work. Forcing light for all themes
-    return lowContrast ? getColor('textPrimary', 'light') : getColor('textInverse')
+    return lowContrast ? getColor('textPrimary', 'light') : getColor('textInverse');
   }
 
   private get backgroundColor(): string {
-    const {lowContrast, kind} = this.props;
+    const { lowContrast, kind } = this.props;
 
     if (lowContrast) {
       switch (kind) {
@@ -130,7 +129,7 @@ export class Notification extends React.Component<NotificationProps> {
   }
 
   private get icon(): React.ReactNode {
-    const {kind} = this.props;
+    const { kind } = this.props;
 
     switch (kind) {
       case 'error':
@@ -146,8 +145,8 @@ export class Notification extends React.Component<NotificationProps> {
   }
 
   private get notificationContent(): React.ReactNode {
-    const {title, subTitle, actionArea, multiLine} = this.props;
-    const textStype = {color: this.textColor, marginRight: 16};
+    const { title, subTitle, actionArea, multiLine } = this.props;
+    const textStype = { color: this.textColor, marginRight: 16 };
     const wrapper = styleReferenceBreaker(this.styles.content);
     const textWrapper = styleReferenceBreaker(this.styles.textWrapper);
     const hasAction = !!actionArea;
@@ -171,32 +170,32 @@ export class Notification extends React.Component<NotificationProps> {
         </View>
         {hasAction && <View style={this.styles.actionWrapper}>{actionArea}</View>}
       </View>
-    )
+    );
   }
 
   private get dismissArea(): React.ReactNode {
-    const {onDismiss, onDismissText} = this.props;
+    const { onDismiss, onDismissText } = this.props;
 
     if (typeof onDismiss === 'function') {
-      return (<View style={this.styles.close}>
-        <Button kind="ghost" overrideColor={this.textColor} iconOnlyMode={true} onPress={onDismiss} text={onDismissText || defaultText.close} icon={CloseIcon} />
-      </View>);
+      return (
+        <View style={this.styles.close}>
+          <Button kind="ghost" overrideColor={this.textColor} iconOnlyMode={true} onPress={onDismiss} text={onDismissText || defaultText.close} icon={CloseIcon} />
+        </View>
+      );
     }
 
     return null;
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
     finalStyle.backgroundColor = this.backgroundColor;
     finalStyle.borderLeftColor = this.accentColor;
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} accessibilityRole="alert" {...(componentProps || {})}>
-        <View style={this.styles.icon}>
-          {this.icon}
-        </View>
+        <View style={this.styles.icon}>{this.icon}</View>
         {this.notificationContent}
         {this.dismissArea}
       </View>

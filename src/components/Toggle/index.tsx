@@ -27,7 +27,7 @@ export type ToggleProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: SwitchProps;
-}
+};
 
 /**
  * This component utilizes Native Switch from iOS and Android.
@@ -54,23 +54,23 @@ export class Toggle extends React.Component<ToggleProps> {
     return getTextInputStyle();
   }
 
-  private get trackColor(): {false: string; true: string} {
+  private get trackColor(): { false: string; true: string } {
     return {
       false: getColor('toggleOff'),
       true: getColor('supportSuccess'),
-    }
+    };
   }
 
   private onChange = (value: boolean): void => {
-    const {onChange} = this.props;
+    const { onChange } = this.props;
 
     if (typeof onChange === 'function') {
       onChange(value);
     }
-  }
+  };
 
   render(): React.ReactNode {
-    const {disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled} = this.props;
+    const { disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled } = this.props;
 
     return (
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>

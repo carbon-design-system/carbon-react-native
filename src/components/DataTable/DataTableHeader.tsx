@@ -13,8 +13,7 @@ export type DataTableHeaderProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
-
+};
 
 export class DataTableHeader extends React.Component<DataTableHeaderProps> {
   private get styles() {
@@ -32,7 +31,7 @@ export class DataTableHeader extends React.Component<DataTableHeaderProps> {
   }
 
   private get secondaryActions(): React.ReactNode {
-    const {secondaryActions} = this.props;
+    const { secondaryActions } = this.props;
 
     return (
       <ScrollView bounces={false} horizontal={true} style={this.styles.secondaryActions}>
@@ -40,11 +39,11 @@ export class DataTableHeader extends React.Component<DataTableHeaderProps> {
           return <Button key={index} {...item} overrideColor={item.overrideColor || getColor('iconPrimary')} kind={item.kind || 'ghost'} />;
         })}
       </ScrollView>
-    )
+    );
   }
 
   private get primaryAction(): React.ReactNode {
-    const {primaryAction} = this.props;
+    const { primaryAction } = this.props;
 
     if (primaryAction) {
       return <Button {...primaryAction} />;
@@ -54,7 +53,7 @@ export class DataTableHeader extends React.Component<DataTableHeaderProps> {
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (

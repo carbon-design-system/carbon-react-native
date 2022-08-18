@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { DataTableCell, DataTableRow, DataTableHeader, Text, DataTableHeaderProps, DataTable } from 'carbon-react-native';
+import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable } from 'carbon-react-native';
 import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
 import SearchIcon from '@carbon/icons/es/search/20';
 import SettingsIcon from '@carbon/icons/es/settings/20';
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 export default class TestDataTable extends React.Component {
   private alert = (text: string): void => {
     Alert.alert(text);
-  }
+  };
 
   private get dataTableHeaderProps(): DataTableHeaderProps {
     return {
@@ -43,13 +43,12 @@ export default class TestDataTable extends React.Component {
           onPress: () => this.alert('Pressed settings button'),
         },
       ],
-    }
+    };
   }
 
   render(): React.ReactNode {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Data table" />
         <DataTable>
           <DataTableHeader {...this.dataTableHeaderProps} />
           <DataTableRow>

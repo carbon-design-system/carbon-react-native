@@ -14,7 +14,7 @@ export type FileUploaderItemProps = {
   /** Name of the file */
   name: string;
   /** Status of the file upload (default is edit) */
-  status?: 'uploading'|'edit'|'complete';
+  status?: 'uploading' | 'edit' | 'complete';
   /** Error text to show when invalid */
   errorTitle?: string;
   /** Error details to show when invalid */
@@ -29,7 +29,7 @@ export type FileUploaderItemProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
   private get styles() {
@@ -71,14 +71,10 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
   }
 
   private get visualIndicator(): React.ReactNode {
-    const {status, invalid} = this.props;
+    const { status, invalid } = this.props;
 
     if (invalid) {
-      return (
-        <View style={this.styles.indicator}>
-          {createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}
-        </View>
-      );
+      return <View style={this.styles.indicator}>{createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}</View>;
     } else if (status === 'uploading') {
       return (
         <View style={this.styles.indicator}>
@@ -86,18 +82,14 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
         </View>
       );
     } else if (status === 'complete') {
-      return (
-        <View style={this.styles.indicator}>
-          {createIcon(CheckmarkFilledIcon, 22, 22, getColor('supportInfo'))}
-        </View>
-      );
+      return <View style={this.styles.indicator}>{createIcon(CheckmarkFilledIcon, 22, 22, getColor('supportInfo'))}</View>;
     }
 
     return null;
   }
 
   private get deleteItem(): React.ReactNode {
-    const {status, invalid, onDelete, deleteFileButtonText} = this.props;
+    const { status, invalid, onDelete, deleteFileButtonText } = this.props;
 
     if (typeof onDelete === 'function') {
       if (invalid || !status || status === 'edit') {
@@ -109,7 +101,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
   }
 
   private get errorArea(): React.ReactNode {
-    const {errorDetails, errorTitle, invalid} = this.props;
+    const { errorDetails, errorTitle, invalid } = this.props;
 
     if (invalid && (errorDetails || errorTitle)) {
       return (
@@ -124,7 +116,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
   }
 
   render(): React.ReactNode {
-    const {componentProps, style, name} = this.props;
+    const { componentProps, style, name } = this.props;
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>

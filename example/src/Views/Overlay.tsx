@@ -20,7 +20,10 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     bottom: 0,
-  }
+  },
+  baseSpacing: {
+    marginTop: 20,
+  },
 });
 
 export default class TestOverlay extends React.Component {
@@ -29,9 +32,8 @@ export default class TestOverlay extends React.Component {
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Overlay style={styles.overlay} />
         <View style={styles.innerView}>
-          <Text style={{marginBottom: 16}} type="heading-04" text="Overlay" />
-          <Text style={{marginTop: 20}} text="I am text under the overlay" />
-          <Button style={{marginTop: 20}} text="Button under overlay" onPress={() => {}} />
+          <Text style={styles.baseSpacing} text="I am text under the overlay" />
+          <Button style={styles.baseSpacing} text="Button under overlay" onPress={() => {}} />
         </View>
       </ScrollView>
     );

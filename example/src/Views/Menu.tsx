@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { Menu, MenuItemProps, Text } from 'carbon-react-native';
+import { Menu, MenuItemProps } from 'carbon-react-native';
 
 const styles = StyleSheet.create({
   view: {
@@ -11,12 +11,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  itemStyle: {
+    marginBottom: 16,
+  },
 });
 
 export default class TestMenu extends React.Component {
   private alert = (text: string): void => {
     Alert.alert(text);
-  }
+  };
 
   private get regular(): MenuItemProps[] {
     return [
@@ -41,7 +44,7 @@ export default class TestMenu extends React.Component {
         onPress: () => this.alert('Item 4 pressed'),
         onLongPress: () => this.alert('Item 4 long pressed'),
       },
-    ]
+    ];
   }
 
   private get many(): MenuItemProps[] {
@@ -65,13 +68,14 @@ export default class TestMenu extends React.Component {
   }
 
   render(): React.ReactNode {
-    const itemStyle = {marginBottom: 16};
-
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Menu" />
-        <View style={itemStyle}><Menu items={this.regular} /></View>
-        <View style={itemStyle}><Menu items={this.many} /></View>
+        <View style={styles.itemStyle}>
+          <Menu items={this.regular} />
+        </View>
+        <View style={styles.itemStyle}>
+          <Menu items={this.many} />
+        </View>
       </ScrollView>
     );
   }

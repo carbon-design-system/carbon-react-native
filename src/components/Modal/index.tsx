@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView} from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView } from 'react-native';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
@@ -80,11 +80,11 @@ export class Modal extends React.Component<ModalProps> {
       },
       buttonText: {
         color: getColor('textOnColor'),
-      }
+      },
     });
   }
   componentDidUpdate(previousProps: ModalProps): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (previousProps.open !== open) {
       this.setState({});
@@ -92,7 +92,7 @@ export class Modal extends React.Component<ModalProps> {
   }
 
   render(): React.ReactNode {
-    const {open, title, description, primaryActionOnPress, primaryActionText, secondaryActionOnPress, secondaryActionText, children} = this.props;
+    const { open, title, description, primaryActionOnPress, primaryActionText, secondaryActionOnPress, secondaryActionText, children } = this.props;
 
     if (!open) {
       return null;
@@ -115,8 +115,16 @@ export class Modal extends React.Component<ModalProps> {
             </ScrollView>
             {(hasPrimary || hasSecondary) && (
               <View style={this.styles.actions}>
-                {hasSecondary && <Pressable onPress={secondaryActionOnPress} style={this.styles.secondaryButton} accessibilityLabel={secondaryActionText} accessibilityRole="button"><Text style={this.styles.buttonText} text={secondaryActionText} /></Pressable>}
-                {hasPrimary && <Pressable onPress={primaryActionOnPress} style={this.styles.primaryButton} accessibilityLabel={primaryActionText} accessibilityRole="button"><Text style={this.styles.buttonText} text={primaryActionText} /></Pressable>}
+                {hasSecondary && (
+                  <Pressable onPress={secondaryActionOnPress} style={this.styles.secondaryButton} accessibilityLabel={secondaryActionText} accessibilityRole="button">
+                    <Text style={this.styles.buttonText} text={secondaryActionText} />
+                  </Pressable>
+                )}
+                {hasPrimary && (
+                  <Pressable onPress={primaryActionOnPress} style={this.styles.primaryButton} accessibilityLabel={primaryActionText} accessibilityRole="button">
+                    <Text style={this.styles.buttonText} text={primaryActionText} />
+                  </Pressable>
+                )}
               </View>
             )}
           </View>

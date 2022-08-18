@@ -15,7 +15,7 @@ export type ButtonProps = {
   /** Indicate if button is disabled */
   disabled?: boolean;
   /** Button kind. Primary is default */
-  kind?: 'primary'|'secondary'|'tertiary'|'danger'|'ghost';
+  kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost';
   /** onPress event */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event */
@@ -28,7 +28,7 @@ export type ButtonProps = {
   overrideColor?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
-}
+};
 
 export class Button extends React.Component<ButtonProps> {
   private basicButton: StyleProp<ViewStyle> = {
@@ -51,38 +51,53 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const {kind, style, disabled, iconOnlyMode, icon, overrideColor} = this.props;
+    const { kind, style, disabled, iconOnlyMode, icon, overrideColor } = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
       case 'secondary':
-        finalStyle = styleReferenceBreaker({
-          backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonSecondary'),
-        }, this.basicButton);
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonSecondary'),
+          },
+          this.basicButton
+        );
         break;
       case 'tertiary':
-        finalStyle = styleReferenceBreaker({
-          backgroundColor: 'transparent',
-          borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
-          borderWidth: 1,
-        }, this.basicButton);
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: 'transparent',
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
+            borderWidth: 1,
+          },
+          this.basicButton
+        );
         break;
       case 'danger':
-        finalStyle = styleReferenceBreaker({
-          backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerPrimary'),
-        }, this.basicButton);
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerPrimary'),
+          },
+          this.basicButton
+        );
         break;
       case 'ghost':
-        finalStyle = styleReferenceBreaker({
-          backgroundColor: 'transparent',
-        }, this.basicButton);
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: 'transparent',
+          },
+          this.basicButton
+        );
         break;
       case 'primary':
-        default:
-          finalStyle = styleReferenceBreaker({
-            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonPrimary')
-          }, this.basicButton);
-          break;
+      default:
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonPrimary'),
+          },
+          this.basicButton
+        );
+        break;
     }
 
     if (icon && iconOnlyMode) {
@@ -99,7 +114,7 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private get iconTextColor(): string {
-    const {kind, disabled, overrideColor} = this.props;
+    const { kind, disabled, overrideColor } = this.props;
 
     switch (kind) {
       case 'tertiary':
@@ -115,7 +130,7 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    const {kind} = this.props;
+    const { kind } = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -141,7 +156,7 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private onPress = (event: GestureResponderEvent): void => {
-    const {dismissKeyboardOnPress, onPress} = this.props;
+    const { dismissKeyboardOnPress, onPress } = this.props;
 
     if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') {
       Keyboard.dismiss();
@@ -153,7 +168,7 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const {text, disabled, onLongPress, componentProps, icon, iconOnlyMode} = this.props;
+    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode } = this.props;
 
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>

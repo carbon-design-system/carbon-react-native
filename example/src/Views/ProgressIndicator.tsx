@@ -20,26 +20,41 @@ const styles = StyleSheet.create({
 export default class TestProgressIndicator extends React.Component {
   state = {
     openControl: false,
-  }
+  };
 
   render(): React.ReactNode {
-    const {openControl} = this.state;
+    const { openControl } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-        <Text style={{marginBottom: 16}} type="heading-04" text="Progress indicator" />
-        <ProgressIndicator title="I am first. And already opened." status="complete" open={true} firstStep={true}><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am disabled" status="complete" disabled={true}><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am invalid" status="invalid"><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am next step" status="in-progress"><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am just a step" status="pending" subText="Optional"><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am just a step with really long text that is bad" status="pending" subText="Optional text is also really long to cause issues"><Text text="I am the content of this accordion" /></ProgressIndicator>
-        <ProgressIndicator title="I am just another step with really long text that is bad" status="pending"><Text text="I am the content of this accordion" /></ProgressIndicator>
+        <ProgressIndicator title="I am first. And already opened." status="complete" open={true} firstStep={true}>
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am disabled" status="complete" disabled={true}>
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am invalid" status="invalid">
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am next step" status="in-progress">
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am just a step" status="pending" subText="Optional">
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am just a step with really long text that is bad" status="pending" subText="Optional text is also really long to cause issues">
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
+        <ProgressIndicator title="I am just another step with really long text that is bad" status="pending">
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
         <ProgressIndicator title="I am waiting">
           <Text text="I am the content of this accordion" />
-          <Button text="Click me to toggle the one below" onPress={() => this.setState({openControl: !openControl})} />
+          <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} />
         </ProgressIndicator>
-        <ProgressIndicator title="I can be controlled" open={openControl}><Text text="I am the content of this accordion" /></ProgressIndicator>
+        <ProgressIndicator title="I can be controlled" open={openControl}>
+          <Text text="I am the content of this accordion" />
+        </ProgressIndicator>
       </ScrollView>
     );
   }

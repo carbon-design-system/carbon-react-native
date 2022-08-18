@@ -10,14 +10,13 @@ import PendingIcon from '@carbon/icons/es/circle-dash/20';
 import ActiveIcon from '@carbon/icons/es/circle--filled/20';
 import { Text } from '../Text';
 
-
 export type ProgressIndicatorProps = {
   /** Title to show for the accordion  */
   title: string;
   /** Sub text to show for the accordion (on right side)  */
   subText?: string;
   /** Status of the progress (defaults to pending) */
-  status?: 'complete'|'in-progress'|'invalid'|'pending';
+  status?: 'complete' | 'in-progress' | 'invalid' | 'pending';
   /** Indicate if item is first accordion loaded (if using group. Set true if single accordion) */
   firstStep?: boolean;
   /** Indicate if open.  Component handles open changes. */
@@ -32,11 +31,17 @@ export type ProgressIndicatorProps = {
   componentProps?: ViewProps;
   /** Children to render */
   children?: React.ReactNode;
-}
+};
 
 export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   state = {
     open: false,
+  };
+
+  private get itemColor(): string {
+    const { disabled } = this.props;
+
+    return disabled ? getColor('textDisabled') : getColor('textPrimary');
   }
 
   private get styles() {
@@ -72,27 +77,24 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
         top: 12,
         right: 12,
       },
+      mainText: {
+        color: this.itemColor,
+        flex: 1,
+      },
+      subText: {
+        color: this.itemColor,
+      },
     });
   }
 
-  private get itemColor(): string {
-    const {disabled} = this.props;
-
-    return disabled ? getColor('textDisabled') : getColor('textPrimary');
-  }
-
   private get accordionIcon(): React.ReactNode {
-    const {open} = this.state;
+    const { open } = this.state;
 
-    return (
-      <View style={this.styles.iconStyle}>
-        {createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}
-      </View>
-    );
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
   }
 
   private get stepIcon(): React.ReactNode {
-    const {status} = this.props;
+    const { status } = this.props;
     let icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
 
     switch (status) {
@@ -110,37 +112,33 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
         icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
     }
 
-    return (
-      <View style={this.styles.statusIcon}>
-        {icon}
-      </View>
-    )
+    return <View style={this.styles.statusIcon}>{icon}</View>;
   }
 
   private toggleDropdown = (): void => {
-    const {open} = this.state;
-    this.setState({open: !open});
-  }
+    const { open } = this.state;
+    this.setState({ open: !open });
+  };
 
   componentDidUpdate(previosuProps: ProgressIndicatorProps): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (open !== previosuProps.open && typeof open === 'boolean') {
-      this.setState({open: open});
+      this.setState({ open: open });
     }
   }
 
   componentDidMount(): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (open) {
-      this.setState({open: true});
+      this.setState({ open: true });
     }
   }
 
   render(): React.ReactNode {
-    const {componentProps, style, disabled, title, children, firstStep, subText} = this.props;
-    const {open} = this.state;
+    const { componentProps, style, disabled, title, children, firstStep, subText } = this.props;
+    const { open } = this.state;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstStep) {
@@ -153,8 +151,8 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
         <Pressable style={this.styles.action} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           {this.stepIcon}
           <View style={this.styles.actionText}>
-            <Text style={{color: this.itemColor, flex: 1}} text={title} />
-            {!!subText && <Text style={{color: this.itemColor}} text={subText} />}
+            <Text style={this.styles.mainText} text={title} />
+            {!!subText && <Text style={this.styles.subText} text={subText} />}
           </View>
           {this.accordionIcon}
         </Pressable>

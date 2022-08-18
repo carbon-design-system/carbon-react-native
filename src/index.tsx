@@ -17,6 +17,7 @@ export * from './components/Menu';
 export * from './components/MenuItem';
 export * from './components/BottomNavigationBar';
 export * from './components/TopNavigationBar';
+export * from './components/NavigationListItem';
 export * from './components/BottomToolbar';
 export * from './components/BottomToolbarPrimaryAction';
 export * from './components/Search';

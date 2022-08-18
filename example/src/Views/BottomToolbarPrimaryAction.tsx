@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { Text, ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton } from 'carbon-react-native';
+import { ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton, getColor } from 'carbon-react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import AddIcon from '@carbon/icons/es/add/24';
@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  appBreaker: {
+    backgroundColor: getColor('tagBackgroundMagenta'),
+    height: 20,
+  },
 });
 
 export default class TestBottomToolbarPrimaryAction extends React.Component {
@@ -28,7 +32,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
   };
 
   private get items(): ToolbarButton[] {
-    const {disabled} = this.state;
+    const { disabled } = this.state;
 
     return [
       {
@@ -51,13 +55,13 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
   }
 
   render(): React.ReactNode {
-    const {disabled, type, noItems, disabledAction} = this.state;
+    const { disabled, type, noItems, disabledAction } = this.state;
 
     const textTypes: any = {
-      'center': 'Center button',
-      'left': 'Left button',
-      'right': 'Right button',
-    }
+      center: 'Center button',
+      left: 'Left button',
+      right: 'Right button',
+    };
 
     let itemsToUseLeft = this.items;
     let itemsToUseRight = this.items;
@@ -76,13 +80,15 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
     return (
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-          <Text style={{marginBottom: 16}} type="heading-04" text="Bottom toolbar with primary action" />
-          {Object.keys(textTypes).map(item => <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({type: item})} />)}
-          <Checkbox checked={disabled} id="disabled" onPress={value => this.setState({disabled: value})} label="Disable second item" />
-          <Checkbox checked={disabledAction} id="disabledAction" onPress={value => this.setState({disabledAction: value})} label="Disable primary action" />
-          <Checkbox checked={noItems} id="noItems" onPress={value => this.setState({noItems: value})} label="No items only primary action" />
+          {Object.keys(textTypes).map((item) => (
+            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({ type: item })} />
+          ))}
+          <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
+          <Checkbox checked={disabledAction} id="disabledAction" onPress={(value) => this.setState({ disabledAction: value })} label="Disable primary action" />
+          <Checkbox checked={noItems} id="noItems" onPress={(value) => this.setState({ noItems: value })} label="No items only primary action" />
         </ScrollView>
         <BottomToolbarPrimaryAction leftItems={itemsToUseLeft} disabled={disabledAction} rightItems={itemsToUseRight} position={type as any} icon={AddIcon} text="Primary action" onPress={() => Alert.alert('Pressed primary button')} />
+        <View style={styles.appBreaker} />
       </View>
     );
   }

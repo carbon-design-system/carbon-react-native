@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Text, NumberInput, BottomNavigationBar, NavigationButton, Checkbox } from 'carbon-react-native';
+import { Text, NumberInput, BottomNavigationBar, NavigationButton, Checkbox, getColor } from 'carbon-react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import ActivityIcon from '@carbon/icons/es/activity/20';
@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  appBreaker: {
+    backgroundColor: getColor('tagBackgroundMagenta'),
+    height: 20,
+  },
+  baseSpacing: {
+    marginBottom: 16,
+  },
 });
 
 export default class TestBottomNavigationBar extends React.Component {
@@ -32,7 +39,7 @@ export default class TestBottomNavigationBar extends React.Component {
   };
 
   private get items(): NavigationButton[] {
-    const {currentPage, disabled} = this.state;
+    const { currentPage, disabled } = this.state;
 
     return [
       {
@@ -40,7 +47,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: DashboardIcon,
         active: currentPage === 1,
         onPress: () => {
-          this.setState({currentPage: 1});
+          this.setState({ currentPage: 1 });
         },
       },
       {
@@ -49,7 +56,7 @@ export default class TestBottomNavigationBar extends React.Component {
         disabled: disabled,
         active: currentPage === 2,
         onPress: () => {
-          this.setState({currentPage: 2});
+          this.setState({ currentPage: 2 });
         },
       },
       {
@@ -57,7 +64,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: CollaborateIcon,
         active: currentPage === 3,
         onPress: () => {
-          this.setState({currentPage: 3});
+          this.setState({ currentPage: 3 });
         },
       },
       {
@@ -65,7 +72,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: ActivityIcon,
         active: currentPage === 4,
         onPress: () => {
-          this.setState({currentPage: 4});
+          this.setState({ currentPage: 4 });
         },
       },
       {
@@ -73,7 +80,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: FavoriteIcon,
         active: currentPage === 5,
         onPress: () => {
-          this.setState({currentPage: 5});
+          this.setState({ currentPage: 5 });
         },
       },
       {
@@ -81,7 +88,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: AccessibilityIcon,
         active: currentPage === 6,
         onPress: () => {
-          this.setState({currentPage: 6});
+          this.setState({ currentPage: 6 });
         },
       },
       {
@@ -89,7 +96,7 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: UserIcon,
         active: currentPage === 7,
         onPress: () => {
-          this.setState({currentPage: 7});
+          this.setState({ currentPage: 7 });
         },
       },
       {
@@ -97,14 +104,14 @@ export default class TestBottomNavigationBar extends React.Component {
         icon: MedicationIcon,
         active: currentPage === 8,
         onPress: () => {
-          this.setState({currentPage: 8});
+          this.setState({ currentPage: 8 });
         },
       },
     ];
   }
 
   render(): React.ReactNode {
-    const {total, currentPage, disabled} = this.state;
+    const { total, currentPage, disabled } = this.state;
 
     const itemsToUse = this.items.slice(0, Number(total));
     const currentItem = itemsToUse[currentPage - 1];
@@ -112,12 +119,12 @@ export default class TestBottomNavigationBar extends React.Component {
     return (
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-          <Text style={{marginBottom: 16}} type="heading-04" text="Bottom navigation bar" />
-          {!!currentItem && <Text style={{marginBottom: 16}} type="heading-03" text={`Current page: ${currentItem?.text}`} />}
-          <NumberInput value={total} label="Number of items to load" onChangeText={value => this.setState({total: value})} numberRules={{max: 8, min: 1}} />
-          <Checkbox checked={disabled} id="disabled" onPress={value => this.setState({disabled: value})} label="Disable second item" />
+          {!!currentItem && <Text style={styles.baseSpacing} type="heading-03" text={`Current page: ${currentItem?.text}`} />}
+          <NumberInput value={total} label="Number of items to load" onChangeText={(value) => this.setState({ total: value })} numberRules={{ max: 8, min: 1 }} />
+          <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
         </ScrollView>
         <BottomNavigationBar items={itemsToUse} />
+        <View style={styles.appBreaker} />
       </View>
     );
   }

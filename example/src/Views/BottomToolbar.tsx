@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { Text, ToolbarButton, Checkbox, BottomToolbar, RadioButton } from 'carbon-react-native';
+import { ToolbarButton, Checkbox, BottomToolbar, RadioButton, getColor } from 'carbon-react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import ActivityIcon from '@carbon/icons/es/activity/20';
@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  appBreaker: {
+    backgroundColor: getColor('tagBackgroundMagenta'),
+    height: 20,
+  },
 });
 
 export default class TestBottomToolbar extends React.Component {
@@ -28,7 +32,7 @@ export default class TestBottomToolbar extends React.Component {
   };
 
   private get items(): ToolbarButton[] {
-    const {disabled} = this.state;
+    const { disabled } = this.state;
 
     return [
       {
@@ -73,7 +77,7 @@ export default class TestBottomToolbar extends React.Component {
   }
 
   private get getThreeItems(): ToolbarButton[] {
-    const {disabled} = this.state;
+    const { disabled } = this.state;
 
     return [
       {
@@ -104,7 +108,7 @@ export default class TestBottomToolbar extends React.Component {
   }
 
   render(): React.ReactNode {
-    const {disabled, type} = this.state;
+    const { disabled, type } = this.state;
 
     const textTypes: any = {
       'even': 'Even distributed items',
@@ -112,7 +116,7 @@ export default class TestBottomToolbar extends React.Component {
       'left-right-text': 'Left right aligned text',
       'left-right-center': 'Left right and center aligned icons',
       'left-right-center-text': 'Left right and center aligned text',
-    }
+    };
 
     let itemsTouse = this.items;
 
@@ -122,22 +126,24 @@ export default class TestBottomToolbar extends React.Component {
     } else if (type === 'left-right-text') {
       itemsTouse = this.getThreeItems;
       itemsTouse.splice(1, 1);
-      itemsTouse.forEach(item => item.icon = undefined);
+      itemsTouse.forEach((item) => (item.icon = undefined));
     } else if (type === 'left-right-center') {
       itemsTouse = this.getThreeItems;
     } else if (type === 'left-right-center-text') {
       itemsTouse = this.getThreeItems;
-      itemsTouse.forEach(item => item.icon = undefined);
+      itemsTouse.forEach((item) => (item.icon = undefined));
     }
 
     return (
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
-          <Text style={{marginBottom: 16}} type="heading-04" text="Bottom toolbar" />
-          {Object.keys(textTypes).map(item => <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({type: item})} />)}
-          <Checkbox checked={disabled} id="disabled" onPress={value => this.setState({disabled: value})} label="Disable second item" />
+          {Object.keys(textTypes).map((item) => (
+            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({ type: item })} />
+          ))}
+          <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
         </ScrollView>
         <BottomToolbar items={itemsTouse} />
+        <View style={styles.appBreaker} />
       </View>
     );
   }

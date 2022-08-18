@@ -6,9 +6,9 @@ import { Text, TextBreakModes } from '../Text';
 
 export type DataTableCellProps = {
   /** Content of the cell. If string will format accordingly. If Node will not be styled. */
-  content: React.ReactNode|string;
+  content: React.ReactNode | string;
   /** Type of cell (default is default) */
-  type?: 'default'|'header';
+  type?: 'default' | 'header';
   /** Width to set. Be sure to set width of header and corresponding cell to same. Defaults to fill. */
   width?: number;
   /** Break mode used on string type content (default is tail) */
@@ -23,7 +23,7 @@ export type DataTableCellProps = {
   cellText?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class DataTableCell extends React.Component<DataTableCellProps> {
   private get styles() {
@@ -40,7 +40,7 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
   }
 
   private get content(): React.ReactNode {
-    const {content, type, breakMode} = this.props;
+    const { content, type, breakMode } = this.props;
 
     if (typeof content === 'string') {
       switch (type) {
@@ -56,7 +56,7 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
   }
 
   render(): React.ReactNode {
-    const {componentProps, style, type, onPress, onLongPress, cellText, content, width} = this.props;
+    const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     if (type === 'header') {

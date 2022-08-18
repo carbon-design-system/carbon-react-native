@@ -21,12 +21,12 @@ export type NavigationButton = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
-}
+};
 
 /**
  * Represents a toolbar button for all navigation components and flows.
  */
- export type ToolbarButton = {
+export type ToolbarButton = {
   /** Text to use for label of toolbar item. When used with icon is not shown and used for accessibility only. */
   text: string;
   /** Icon to use for toolbar item (size 20) */
@@ -34,11 +34,11 @@ export type NavigationButton = {
   /** Indicate if toolbar item is disabled */
   disabled?: boolean;
   /** Alignment (defaults to center) */
-  alignItem?: 'left'|'right'|'center';
+  alignItem?: 'left' | 'right' | 'center';
   /** onPress event for toolbar item */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event for toolbar item */
   onLongPress?: (event: GestureResponderEvent) => void;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
-}
+};

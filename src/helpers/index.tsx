@@ -12,7 +12,7 @@ import type { CarbonIcon } from '../types/shared';
  */
 export const logIssue = (issue: string, data: unknown): void => {
   console.warn(issue, data);
-}
+};
 
 /**
  * Renders an icon from @Carbon/icons for React Native
@@ -25,7 +25,7 @@ export const logIssue = (issue: string, data: unknown): void => {
  *
  * @returns - React Node to render on the screen.  If the icon fails to be created an X icon is rendered.
  */
-export const createIcon = (icon: CarbonIcon, width?: string|number, height?: string|number, color?: string): React.ReactNode => {
+export const createIcon = (icon: CarbonIcon, width?: string | number, height?: string | number, color?: string): React.ReactNode => {
   try {
     const iconString = toString(icon) as string;
 

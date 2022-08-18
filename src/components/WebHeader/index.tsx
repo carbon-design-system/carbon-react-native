@@ -16,7 +16,6 @@ export type WebHeaderAction = {
   onLongPress?: () => void;
 };
 
-
 export type WebHeaderProps = {
   /** actions to render to the right side */
   actions?: WebHeaderAction[];
@@ -28,7 +27,7 @@ export type WebHeaderProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class WebHeader extends React.Component<WebHeaderProps> {
   private get styles() {
@@ -80,7 +79,7 @@ export class WebHeader extends React.Component<WebHeaderProps> {
   }
 
   render(): React.ReactNode {
-    const {mainName, secondaryName, actions, style, componentProps} = this.props;
+    const { mainName, secondaryName, actions, style, componentProps } = this.props;
 
     return (
       <View style={styleReferenceBreaker(this.styles.header, style)} accessibilityRole="header" {...(componentProps || {})}>
@@ -92,15 +91,16 @@ export class WebHeader extends React.Component<WebHeaderProps> {
             <Text type="heading-01" style={this.styles.secondaryNameText} text={secondaryName} breakMode="tail" />
           </View>
         </View>
-        {!!(actions && actions.length) && actions.map((action, index) => {
-          return (
-            <View style={this.styles.actionWrapper} key={index}>
-              <Pressable style={this.styles.actionButton} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
-                <View style={this.styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
-              </Pressable>
-            </View>
-          );
-        })}
+        {!!(actions && actions.length) &&
+          actions.map((action, index) => {
+            return (
+              <View style={this.styles.actionWrapper} key={index}>
+                <Pressable style={this.styles.actionButton} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
+                  <View style={this.styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
+                </Pressable>
+              </View>
+            );
+          })}
       </View>
     );
   }

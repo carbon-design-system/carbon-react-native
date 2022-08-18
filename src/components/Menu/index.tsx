@@ -11,7 +11,7 @@ export type MenuProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class Menu extends React.Component<MenuProps> {
   private get styles() {
@@ -24,11 +24,13 @@ export class Menu extends React.Component<MenuProps> {
   }
 
   render(): React.ReactNode {
-    const {items, componentProps, style} = this.props;
+    const { items, componentProps, style } = this.props;
 
     return (
       <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
-        {(items || []).map((item, index) => <MenuItem key={index} {...item} />)}
+        {(items || []).map((item, index) => (
+          <MenuItem key={index} {...item} />
+        ))}
       </ScrollView>
     );
   }

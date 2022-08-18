@@ -58,12 +58,12 @@ export type TextInputProps = {
   numberRules?: {
     min?: number;
     max?: number;
-  }
+  };
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
   componentProps?: ReactTextInputProps;
-}
+};
 
 export const getTextInputStyle = (light?: boolean) => {
   // React Native on iOS
@@ -85,7 +85,7 @@ export const getTextInputStyle = (light?: boolean) => {
     baseTextBox.borderColor = getColor('field02');
   }
 
-  if (Platform.OS == 'ios') {
+  if (Platform.OS === 'ios') {
     // https://github.com/facebook/react-native/issues/29068
     // This seems to hide it but very hacky.
     baseTextBox.paddingBottom = 2;
@@ -166,47 +166,47 @@ export const getTextInputStyle = (light?: boolean) => {
  * This allows a shared code base for all text input systems and validation rules
  * This component is not exported. It is used by `TextInput`, `TextArea` and `PasswordInput`.
  */
-export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'password'|'number'}&TextInputProps> {
+export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' | 'password' | 'number' } & TextInputProps> {
   state = {
     dirty: false,
     hasFocus: false,
     revealPassword: false,
-  }
+  };
 
   private get styles() {
-    const {light} = this.props;
+    const { light } = this.props;
 
     return getTextInputStyle(light);
   }
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
-    const {onFocus} = this.props;
+    const { onFocus } = this.props;
 
     if (typeof onFocus === 'function') {
       onFocus(event);
     }
-    this.setState({hasFocus: true});
-  }
+    this.setState({ hasFocus: true });
+  };
 
   private onBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
-    const {onBlur} = this.props;
+    const { onBlur } = this.props;
 
     if (typeof onBlur === 'function') {
       onBlur(event);
     }
-    this.setState({hasFocus: false});
-  }
+    this.setState({ hasFocus: false });
+  };
 
   private onChange = (value: string): void => {
-    const {onChangeText, type, numberRules} = this.props;
+    const { onChangeText, type, numberRules } = this.props;
 
     if (type === 'number' && value) {
       if (Number.isNaN(Number(value))) {
         value = String(numberRules?.min || 0);
       }
 
-      const invalidMin = (typeof numberRules?.min === 'number') ? numberRules.min >= Number(value) : false;
-      const invalidMax = (typeof numberRules?.max === 'number') ? numberRules.max <= Number(value) : false;
+      const invalidMin = typeof numberRules?.min === 'number' ? numberRules.min >= Number(value) : false;
+      const invalidMax = typeof numberRules?.max === 'number' ? numberRules.max <= Number(value) : false;
 
       if (invalidMin) {
         value = String(numberRules?.min || 0);
@@ -221,18 +221,18 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
       onChangeText(value);
     }
 
-    this.setState({dirty: true});
-  }
+    this.setState({ dirty: true });
+  };
 
   private get passwordReveal(): React.ReactNode {
-    const {revealPassword} = this.state;
-    const {togglePasswordText, disabled} = this.props;
+    const { revealPassword } = this.state;
+    const { togglePasswordText, disabled } = this.props;
 
-    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({revealPassword: !revealPassword})} />;
+    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({ revealPassword: !revealPassword })} />;
   }
 
   private get errorIndicator(): React.ReactNode {
-    const {type} = this.props;
+    const { type } = this.props;
     let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
 
     if (type === 'password') {
@@ -245,15 +245,11 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
       errorIconStyle.paddingLeft = 0;
     }
 
-    return (
-      <View style={errorIconStyle}>
-        {createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}
-      </View>
-    );
+    return <View style={errorIconStyle}>{createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}</View>;
   }
 
   private incrementNumber = (): void => {
-    const {value} = this.props;
+    const { value } = this.props;
 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
 
@@ -261,7 +257,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
   };
 
   private decrementNumber = (): void => {
-    const {value} = this.props;
+    const { value } = this.props;
 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
 
@@ -269,16 +265,19 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
   };
 
   private get numberActions(): React.ReactNode {
-    const {numberRules, value, disabled} = this.props;
+    const { numberRules, value, disabled } = this.props;
 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
-    const disableMin = (typeof numberRules?.min === 'number') ? numberRules.min >= valueNumber : false;
-    const disableMax = (typeof numberRules?.max === 'number') ? numberRules.max <= valueNumber : false;
-
+    const disableMin = typeof numberRules?.min === 'number' ? numberRules.min >= valueNumber : false;
+    const disableMax = typeof numberRules?.max === 'number' ? numberRules.max <= valueNumber : false;
 
     const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown): React.ReactNode => {
       const finalDisabled = pressableDisabled || disabled || false;
-      return <Pressable style={this.styles.numberActionsButton} onPress={onPress} disabled={finalDisabled}>{createIcon(icon, 22, 22, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}</Pressable>
+      return (
+        <Pressable style={this.styles.numberActionsButton} onPress={onPress} disabled={finalDisabled}>
+          {createIcon(icon, 22, 22, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}
+        </Pressable>
+      );
     };
 
     return (
@@ -287,12 +286,12 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
         <View style={this.styles.numberActionsDivider} />
         {getPressable(this.incrementNumber, disableMax, AddIcon)}
       </View>
-    )
+    );
   }
 
   render(): React.ReactNode {
-    const {label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode} = this.props;
-    const {hasFocus, dirty, revealPassword} = this.state;
+    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode } = this.props;
+    const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
     const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
@@ -325,24 +324,7 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
-          <ReactTextInput
-            editable={!disabled}
-            secureTextEntry={revealPassword ? false : password}
-            autoCapitalize={autoCapitalize}
-            style={textBoxStyle}
-            value={value}
-            onSubmitEditing={onSubmitEditing}
-            onChangeText={this.onChange}
-            autoCorrect={autoCorrect}
-            placeholder={placeholder}
-            placeholderTextColor={getColor('textPlaceholder')}
-            onBlur={this.onBlur}
-            onFocus={this.onFocus}
-            maxLength={maxLength}
-            textAlignVertical="top"
-            multiline={type === 'text-area'}
-            {...(componentProps || {})}
-          />
+          <ReactTextInput editable={!disabled} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={type === 'text-area'} {...(componentProps || {})} />
           {error && this.errorIndicator}
           {password && this.passwordReveal}
           {number && this.numberActions}

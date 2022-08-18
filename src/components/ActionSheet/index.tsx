@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView} from 'react-native';
+import { ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
@@ -93,61 +93,64 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         paddingLeft: 16,
       },
       cancelButtonText: {
-        color: getColor('textOnColor')
-      }
+        color: getColor('textOnColor'),
+      },
     });
   }
 
   private handleSystemTrigger = () => {
-    const {open, title, body, items, cancelButtonIndex} = this.props;
+    const { open, title, body, items, cancelButtonIndex } = this.props;
 
-    const options = items.filter(item => !item.hidden);
-    const dangerIndex = options.findIndex(item => item.danger);
+    const options = items.filter((item) => !item.hidden);
+    const dangerIndex = options.findIndex((item) => item.danger);
 
     if (open) {
       ActionSheetIOS.showActionSheetWithOptions(
         {
           destructiveButtonIndex: dangerIndex > -1 ? dangerIndex : undefined,
-          options: options.map(item => item.text),
+          options: options.map((item) => item.text),
           title: title,
           message: body,
           cancelButtonIndex: cancelButtonIndex,
         },
-        index => {
+        (index) => {
           const action = options[index];
 
           if (action) {
             action.onPress();
           }
-        },
+        }
       );
     }
   };
 
   private get useSystemActionSheet(): boolean {
-    const {forceCustomActionSheet} = this.props;
+    const { forceCustomActionSheet } = this.props;
 
     return Platform.OS === 'ios' && !forceCustomActionSheet;
   }
 
   private get customActionSheet(): React.ReactNode {
-    const {open, title, body, items, cancelButtonIndex} = this.props;
+    const { open, title, body, items, cancelButtonIndex } = this.props;
 
-    const options = items.filter(item => !item.hidden);
-    const cancel = options.splice(cancelButtonIndex, 1)[0] || {text: '', onPress: () => {}};
+    const options = items.filter((item) => !item.hidden);
+    const cancel = options.splice(cancelButtonIndex, 1)[0] || {
+      text: '',
+      onPress: () => {},
+    };
 
     if (!open) {
       return null;
     }
 
     return (
-      <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({open: false})}>
+      <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
         <Overlay style={this.styles.blurBackground} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
           <View style={this.styles.containerWrapper}>
             <View style={this.styles.wrapper}>
               <View style={this.styles.textArea}>
-                <Text style={!!body ? undefined : this.styles.titleNoBody} type="heading-compact-01" text={title} />
+                <Text style={body ? undefined : this.styles.titleNoBody} type="heading-compact-01" text={title} />
                 {!!body && <Text style={this.styles.body} type="helper-text-01" text={body} />}
               </View>
               <View style={this.styles.optionsWrapper}>
@@ -191,7 +194,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
   }
 
   componentDidUpdate(previousProps: ActionSheetProps): void {
-    const {open} = this.props;
+    const { open } = this.props;
 
     if (previousProps.open !== open) {
       if (this.useSystemActionSheet) {

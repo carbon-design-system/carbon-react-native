@@ -9,7 +9,7 @@ import type { CarbonIcon } from '../../types/shared';
 
 export type BottomToolbarPrimaryActionProps = {
   /** Position of primary action (default is center) */
-  position?: 'center'|'right'|'left';
+  position?: 'center' | 'right' | 'left';
   /** Icon to load for the primary action (size 24) */
   icon: CarbonIcon;
   /** Text to use to describe the primary action (for accessibility) */
@@ -28,8 +28,7 @@ export type BottomToolbarPrimaryActionProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
-
+};
 
 export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPrimaryActionProps> {
   private get styles() {
@@ -70,7 +69,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
     });
   }
 
-  private getItems(items: ToolbarButton[], type: 'right'|'left'): React.ReactNode {
+  private getItems(items: ToolbarButton[], type: 'right' | 'left'): React.ReactNode {
     const finalWrapperStyles = styleReferenceBreaker(this.styles.itemWrapper);
 
     if (type === 'right') {
@@ -92,19 +91,16 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
 
           return (
             <View style={finalStyles} key={index}>
-              {iconMode ?
-                <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> :
-                <Link disabled={item.disabled} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />
-              }
+              {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
             </View>
           );
         })}
       </View>
-    )
+    );
   }
 
   private get primaryAction(): React.ReactNode {
-    const {disabled, icon, text, onPress, onLongPress} = this.props;
+    const { disabled, icon, text, onPress, onLongPress } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.primaryAction);
 
     if (disabled) {
@@ -119,7 +115,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
   }
 
   private get mainView(): React.ReactNode {
-    const {position, leftItems, rightItems} = this.props;
+    const { position, leftItems, rightItems } = this.props;
 
     switch (position) {
       case 'left':
@@ -149,7 +145,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (

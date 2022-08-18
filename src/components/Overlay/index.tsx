@@ -8,7 +8,7 @@ export type OverlayProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class Overlay extends React.Component<OverlayProps> {
   private get styles() {
@@ -22,10 +22,8 @@ export class Overlay extends React.Component<OverlayProps> {
   }
 
   render(): React.ReactNode {
-    const {componentProps, style} = this.props;
+    const { componentProps, style } = this.props;
 
-    return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})} />
-    );
+    return <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})} />;
   }
 }
