@@ -48,6 +48,8 @@ export type TextInputProps = {
   secureTextEntry?: boolean;
   /** Max length of field */
   maxLength?: number;
+  /** Indicate if text box is used on layer */
+  light?: boolean;
   /** minHeight for text area */
   textAreaMinHeight?: number;
   /** @remarks password only. Text to use for toggle password button (accessibility). Defaults to ENGLISH "Show/hide password" */
@@ -63,7 +65,7 @@ export type TextInputProps = {
   componentProps?: ReactTextInputProps;
 }
 
-export const getTextInputStyle = () => {
+export const getTextInputStyle = (light?: boolean) => {
   // React Native on iOS
   const baseTextBox: any = {
     ...BodyCompact02,
@@ -77,6 +79,11 @@ export const getTextInputStyle = () => {
     paddingRight: 16,
     paddingLeft: 18,
   };
+
+  if (light) {
+    baseTextBox.backgroundColor = getColor('field02');
+    baseTextBox.borderColor = getColor('field02');
+  }
 
   if (Platform.OS == 'ios') {
     // https://github.com/facebook/react-native/issues/29068
@@ -167,7 +174,9 @@ export class BaseTextInput extends React.Component<{type: 'text'|'text-area'|'pa
   }
 
   private get styles() {
-    return getTextInputStyle();
+    const {light} = this.props;
+
+    return getTextInputStyle(light);
   }
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {

@@ -1,7 +1,7 @@
 // Component exports
 export * from './components/Button';
 export * from './components/Text';
-export * from './components/Header';
+export * from './components/WebHeader';
 export * from './components/LandingView';
 export * from './components/Link';
 export * from './components/TextInput';
@@ -15,6 +15,11 @@ export * from './components/FileUploaderItem';
 export * from './components/NumberInput';
 export * from './components/Menu';
 export * from './components/MenuItem';
+export * from './components/BottomNavigationBar';
+export * from './components/TopNavigationBar';
+export * from './components/BottomToolbar';
+export * from './components/BottomToolbarPrimaryAction';
+export * from './components/Search';
 export * from './components/Tile';
 export * from './components/Dropdown';
 export * from './components/ActionSheet';
@@ -38,5 +43,9 @@ export * from './styles/typography';
 export * from './helpers';
 
 // Constant exports
-export *from './constants/defaultText';
-export *from './constants/constants';
+export * from './constants/defaultText';
+export * from './constants/constants';
+
+// Type exports
+export * from './types/shared';
+export * from './types/navigation';
