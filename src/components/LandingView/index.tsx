@@ -40,6 +40,8 @@ export type LandingViewProps = {
   continueOnPress: (event: GestureResponderEvent) => void;
   /** onLongPress event when Continue pressed */
   continueOnLongPress?: (event: GestureResponderEvent) => void;
+  /** Indicate that continue is disabled */
+  continueDisabled?: boolean;
 };
 
 export class LandingView extends React.Component<LandingViewProps> {
@@ -135,7 +137,7 @@ export class LandingView extends React.Component<LandingViewProps> {
   }
 
   render(): React.ReactNode {
-    const { longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress } = this.props;
+    const { longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress, continueDisabled } = this.props;
 
     return (
       <View style={this.styles.view}>
@@ -152,7 +154,7 @@ export class LandingView extends React.Component<LandingViewProps> {
             <View>{!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}</View>
           </ScrollView>
           <View style={this.styles.actionWrapper}>
-            <Button kind="primary" icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />
+            <Button kind="primary" disabled={continueDisabled} icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />
           </View>
         </View>
       </View>

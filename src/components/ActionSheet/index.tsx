@@ -5,6 +5,7 @@ import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
 import { Text } from '../Text';
+import { zIndexes } from '../../styles/z-index';
 
 export type ActionSheetItem = {
   /** Name for button */
@@ -39,6 +40,9 @@ export type ActionSheetProps = {
 export class ActionSheet extends React.Component<ActionSheetProps> {
   private get styles() {
     return StyleSheet.create({
+      modal: {
+        zIndex: zIndexes.actionSheet,
+      },
       safeAreaWrapper: {
         position: 'relative',
         flexGrow: 1,
@@ -50,7 +54,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         margin: 16,
       },
       blurBackground: {
-        zIndex: -1,
+        zIndex: zIndexes.behind,
         position: 'absolute',
         top: 0,
         right: 0,
@@ -144,7 +148,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     }
 
     return (
-      <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
+      <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
         <Overlay style={this.styles.blurBackground} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
           <View style={this.styles.containerWrapper}>

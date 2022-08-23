@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Image, LayoutChangeEvent, View } from 'react-native';
-import { getColor, Text, ThemeChoices, Tile } from 'carbon-react-native';
+import { ErrorState, getColor, Text, ThemeChoices, Tile } from 'carbon-react-native';
 import type { ComponentItem } from '../App';
 
 interface TestComponentListProps {
@@ -21,10 +21,14 @@ export default class TestComponentList extends React.Component<TestComponentList
     let size = viewWidth;
 
     if (viewWidth > 1720) {
+      size = viewWidth / 7;
+    } else if (viewWidth > 1450) {
       size = viewWidth / 6;
     } else if (viewWidth > 1200) {
-      size = viewWidth / 4;
+      size = viewWidth / 5;
     } else if (viewWidth > 700) {
+      size = viewWidth / 4;
+    } else if (viewWidth > 550) {
       size = viewWidth / 3;
     } else if (viewWidth > 320) {
       size = viewWidth / 2;
@@ -60,6 +64,9 @@ export default class TestComponentList extends React.Component<TestComponentList
         height: '80%',
       },
       itemText: {},
+      noResults: {
+        padding: 16,
+      },
     });
   }
 
@@ -96,15 +103,21 @@ export default class TestComponentList extends React.Component<TestComponentList
     this.setState({ viewWidth: event.nativeEvent.layout.width || 400 });
   };
 
+  private get noResults(): React.ReactNode {
+    return <ErrorState style={this.styles.noResults} type="empty" title="No results" subTitle="Try changing your search term or using more generic terms." />;
+  }
+
   render(): React.ReactNode {
     const { viewList } = this.props;
 
+    const finalList = viewList
+      .filter(this.filterList)
+      .sort(this.sortList)
+      .map((view) => this.getView(view));
+
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={this.styles.container} style={this.styles.view} onLayout={this.getLayout}>
-        {viewList
-          .filter(this.filterList)
-          .sort(this.sortList)
-          .map((view) => this.getView(view))}
+        {finalList.length ? finalList : this.noResults}
       </ScrollView>
     );
   }
