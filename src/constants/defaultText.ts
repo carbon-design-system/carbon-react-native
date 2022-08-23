@@ -14,4 +14,5 @@ export const defaultText = {
   pagination: 'Pagination',
   clear: 'Clear',
   search: 'Search',
+  done: 'Done',
 };

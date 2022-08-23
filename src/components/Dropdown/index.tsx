@@ -9,6 +9,7 @@ import type { MenuItemProps } from '../MenuItem';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { modalPresentations } from '../../constants/constants';
+import { zIndexes } from '../../styles/z-index';
 
 export type DropdownItem = {
   /** ID for tracking items */
@@ -65,6 +66,9 @@ export class Dropdown extends React.Component<DropdownProps> {
 
   private get styles() {
     return StyleSheet.create({
+      modal: {
+        zIndex: zIndexes.dropdown,
+      },
       wrapper: {
         maxHeight: 280,
       },
@@ -130,7 +134,7 @@ export class Dropdown extends React.Component<DropdownProps> {
             {this.dropdownIcon}
           </Pressable>
           {open && (
-            <ReactModal supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
+            <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
               <SafeAreaView>
                 <Menu style={this.styles.menuWrapper} items={itemList} />
               </SafeAreaView>

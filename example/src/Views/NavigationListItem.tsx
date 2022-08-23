@@ -1,4 +1,4 @@
-import { Checkbox, NavigationListItem, NavigationListItemProps, Text } from 'carbon-react-native';
+import { Checkbox, NavigationList, NavigationListItemProps, Text } from 'carbon-react-native';
 import React from 'react';
 import { StyleSheet, ScrollView, Alert, View } from 'react-native';
 import ApertureIcon from '@carbon/icons/es/aperture/20';
@@ -55,14 +55,9 @@ export default class TestNavigationLisstItem extends React.Component {
           <Checkbox checked={hasChevron} id="hasChevron" onPress={(value) => this.setState({ hasChevron: value })} label="Has nav chevron" />
         </View>
         <Text style={styles.baseSpacing} type="heading-compact-01" text="Spacing heading" />
-        <NavigationListItem {...this.getProps('Branding information')} />
-        <NavigationListItem {...this.getProps('Fun link to stuff')} />
-        <NavigationListItem {...this.getProps('Additional content')} />
+        <NavigationList items={[this.getProps('Branding information'), this.getProps('Fun link to stuff'), this.getProps('Additional content')]} />
         <Text style={styles.baseSpacing} type="heading-compact-01" text="Spacing heading for additional content" />
-        <NavigationListItem {...this.getProps('More fun stuff')} />
-        <NavigationListItem {...this.getProps('Disabled row')} disabled={true} />
-        <NavigationListItem {...this.getProps('Very long text without clipping that is crazy long and will wrap and be a bit drama')} />
-        <NavigationListItem {...this.getProps('Very long text with clipping that is crazy long and will wrap')} textBreakMode="tail" />
+        <NavigationList items={[this.getProps('More fun stuff'), { ...this.getProps('Disabled row'), disabled: true }, this.getProps('Very long text without clipping that is crazy long and will wrap and be a bit drama'), { ...this.getProps('Very long text with clipping that is crazy long and will wrap'), textBreakMode: 'tail' }]} />
       </ScrollView>
     );
   }

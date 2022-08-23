@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, SafeAreaView, StatusBar, Appearance, View, ImageSourcePropType } from 'react-native';
-import { getColor, LandingView, ThemeChoices, Loading, useDarkMode, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search } from 'carbon-react-native';
+import { getColor, ThemeChoices, Loading, useDarkMode, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search } from 'carbon-react-native';
 import TestButton from './Views/Button';
 import TestComponentList from './Views/ComponentList';
 import TestText from './Views/Text';
@@ -34,8 +34,6 @@ import TestContentSwitcher from './Views/ContentSwitcher';
 import TestTabs from './Views/Tabs';
 import TestProgressIndicator from './Views/ProgressIndicator';
 import TestList from './Views/List';
-import { versionCode } from './constants/versionCode';
-import { version } from '../package.json';
 import TestOverlay from './Views/Overlay';
 import TestPagination from './Views/Pagination';
 import TestDataTable from './Views/DataTable';
@@ -46,11 +44,17 @@ import TestSearch from './Views/Search';
 import TestTopNavigationBar from './Views/TopNavigationBar';
 import TestNavigationLisstItem from './Views/NavigationListItem';
 import TestResources from './Views/Resources';
+import TestErrorState from './Views/ErrorState';
+import TestDocumentViewer from './Views/DocumentViewer';
+import TestAcceptTerms from './Views/AcceptsTerms';
+import RealLandingView from './Views/RealLandingView';
+import TestGrantPermission from './Views/GrantPermission';
 
 export type ComponentItem = {
   component: React.ReactNode;
   imageLight: ImageSourcePropType | null;
   imageDark: ImageSourcePropType | null;
+  fullScreen?: boolean;
 };
 
 export default class App extends React.Component {
@@ -84,6 +88,9 @@ export default class App extends React.Component {
         backgroundColor: getColor('background'),
         flexGrow: 1,
       },
+      searchBox: {
+        paddingTop: 0,
+      },
     });
   }
 
@@ -94,8 +101,6 @@ export default class App extends React.Component {
   private clearView = (): void => {
     this.setState({ view: '' });
   };
-
-  private fullScreenTestViews = ['Landing View'];
 
   private componentViewList: [string, ComponentItem][] = [
     ['Button', { component: <TestButton />, imageLight: require('./assets/components/button-light.png'), imageDark: require('./assets/components/button-light.png') }],
@@ -133,9 +138,15 @@ export default class App extends React.Component {
     ['Overlay', { component: <TestOverlay />, imageLight: null, imageDark: null }],
     ['Pagination', { component: <TestPagination />, imageLight: null, imageDark: null }],
     ['Data table', { component: <TestDataTable />, imageLight: null, imageDark: null }],
+    ['Error state', { component: <TestErrorState />, imageLight: null, imageDark: null }],
   ];
 
-  private flowViewList: [string, ComponentItem][] = [['Landing View', { component: <TestLandinView goHome={this.clearView} />, imageLight: null, imageDark: null }]];
+  private flowViewList: [string, ComponentItem][] = [
+    ['Landing', { component: <TestLandinView goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Document viewer', { component: <TestDocumentViewer />, imageLight: null, imageDark: null }],
+    ['Accept terms', { component: <TestAcceptTerms />, imageLight: null, imageDark: null }],
+    ['Grant permission', { component: <TestGrantPermission />, imageLight: null, imageDark: null }],
+  ];
 
   private viewMap: Map<string, ComponentItem> = new Map([...this.componentViewList, ...this.flowViewList]);
 
@@ -164,8 +175,6 @@ export default class App extends React.Component {
 
     return !view && ['layouts', 'components'].includes(topView);
   }
-
-  private onPrivacyPolicy = (): void => {};
 
   private get topNavProps(): TopNavigationBarProps {
     const { view, topView, filterTerm } = this.state;
@@ -197,6 +206,7 @@ export default class App extends React.Component {
         : undefined,
       additionalHeaderContent: this.hasSearch ? (
         <Search
+          style={this.styles.searchBox}
           value={filterTerm}
           placeholder="Search"
           light={true}
@@ -294,31 +304,16 @@ export default class App extends React.Component {
     }
 
     if (firstLoad) {
-      return (
-        <SafeAreaView style={this.styles.containerNoHeader}>
-          <StatusBar backgroundColor={'#000000'} barStyle="light-content" />
-          <LandingView
-            productImage={require('./assets/app_icon.png')}
-            companyImage={require('./assets/companyImage.png')}
-            longProductName="Carbon for Mobile"
-            versionText={`Version ${version} (${versionCode})`}
-            copyrightText="Copyright © 2022 IBM"
-            continueText="Continue"
-            continueOnPress={() => {
-              this.setState({ firstLoad: false });
-            }}
-            privacyPolicyText="Privacy Policy"
-            privacyPolicyOnPress={this.onPrivacyPolicy}
-          />
-        </SafeAreaView>
-      );
+      return <RealLandingView continueAction={() => this.setState({ firstLoad: false })} />;
     }
 
-    if (this.fullScreenTestViews.includes(view)) {
+    const viewTouse = this.viewMap.get(view);
+
+    if (viewTouse?.fullScreen) {
       return (
         <SafeAreaView style={this.styles.containerNoHeader}>
           <StatusBar backgroundColor={'#000000'} barStyle="light-content" />
-          {this.viewMap.get(view)?.component}
+          {viewTouse?.component}
         </SafeAreaView>
       );
     }

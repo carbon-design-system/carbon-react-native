@@ -3,7 +3,7 @@ import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, 
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
-import { Text } from '../Text';
+import { Text, TextTypes } from '../Text';
 
 export type ButtonProps = {
   /** Text to render (for iconOnlyMode use descriptive text) */
@@ -16,6 +16,8 @@ export type ButtonProps = {
   disabled?: boolean;
   /** Button kind. Primary is default */
   kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost';
+  /** Text type to render (Standard is default)  */
+  textType?: TextTypes;
   /** onPress event */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event */
@@ -168,11 +170,11 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode } = this.props;
+    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType } = this.props;
 
     return (
       <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
-        {!iconOnlyMode && <Text type="body-compact-02" style={this.textStyle} text={text} breakMode="tail" />}
+        {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode="tail" />}
         {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 22, 22, this.iconTextColor)}</View>}
       </Pressable>
     );

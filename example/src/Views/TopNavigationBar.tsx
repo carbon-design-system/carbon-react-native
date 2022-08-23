@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { Text, NavigationButton, Checkbox, TopNavigationBar, getColor, RadioButton, LinkProps, TopNavigationBarProps, Search, ContentSwitcher } from 'carbon-react-native';
+import { Text, NavigationButton, Checkbox, TopNavigationBar, getColor, RadioButton, LinkProps, TopNavigationBarProps, Search, ContentSwitcher, styleReferenceBreaker } from 'carbon-react-native';
 import MapIcon from '@carbon/icons/es/map/20';
 import UserIcon from '@carbon/icons/es/user--avatar/20';
 
@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
   },
   textSpacing: {
     marginTop: 16,
+  },
+  searchBox: {
+    paddingTop: 0,
   },
 });
 
@@ -96,7 +99,7 @@ export default class TestTopNavigationBar extends React.Component {
 
     return (
       <>
-        {showSearchBox && <Search value={searchValue} onChangeText={(value) => this.setState({ searchValue: value })} placeholder="Search input text" style={showSwitch ? styles.switchDivider : undefined} light={true} />}
+        {showSearchBox && <Search value={searchValue} onChangeText={(value) => this.setState({ searchValue: value })} placeholder="Search input text" style={styleReferenceBreaker(styles.searchBox, showSwitch ? styles.switchDivider : undefined)} light={true} />}
         {showSwitch && <ContentSwitcher items={[{ text: 'Item 1' }, { text: 'Item 2' }]} onChange={(index) => this.setState({ currentSwitchIndex: index })} selectedIndex={currentSwitchIndex} light={true} />}
       </>
     );
@@ -107,7 +110,7 @@ export default class TestTopNavigationBar extends React.Component {
 
     return {
       title: 'Navigation title',
-      subTitle: showSubTitle ? 'Navigation sub title' : undefined,
+      subTitle: showSubTitle && !headingMode ? 'Navigation sub title' : undefined,
       headerMode: headingMode,
       leftLink: leftSide === 'link' ? this.leftLink : undefined,
       rightLink: rightSide === 'link' ? this.rightLink : undefined,
