@@ -156,10 +156,10 @@ export default class App extends React.Component {
       case 'resources':
         return <TestResources />;
       case 'layouts':
-        return <TestComponentList viewList={this.flowViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} />;
+        return <TestComponentList viewList={this.flowViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
       case 'components':
       default:
-        return <TestComponentList viewList={this.componentViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} />;
+        return <TestComponentList viewList={this.componentViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
     }
   }
 

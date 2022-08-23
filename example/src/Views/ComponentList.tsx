@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Image, LayoutChangeEvent, View } from 'react-native';
-import { ErrorState, getColor, Text, ThemeChoices, Tile } from 'carbon-react-native';
+import { ErrorState, getColor, NavigationListItem, styleReferenceBreaker, Text, ThemeChoices, Tile } from 'carbon-react-native';
 import type { ComponentItem } from '../App';
 
 interface TestComponentListProps {
@@ -8,6 +8,8 @@ interface TestComponentListProps {
   viewList: [string, ComponentItem][];
   filterTerm: string;
   theme: ThemeChoices;
+  /** Indicate that list view should be used instead of tile view */
+  listView?: boolean;
 }
 
 export default class TestComponentList extends React.Component<TestComponentListProps> {
@@ -46,7 +48,7 @@ export default class TestComponentList extends React.Component<TestComponentList
         flexWrap: 'wrap',
         flexDirection: 'row',
       },
-      item: {
+      tile: {
         flexDirection: 'column-reverse',
         alignItems: 'baseline',
         width: size,
@@ -57,13 +59,13 @@ export default class TestComponentList extends React.Component<TestComponentList
         borderRightWidth: 1,
         overflow: 'hidden',
       },
-      itemImage: {
+      tileImage: {
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '80%',
         height: '80%',
       },
-      itemText: {},
+      tileText: {},
       noResults: {
         padding: 16,
       },
@@ -87,14 +89,18 @@ export default class TestComponentList extends React.Component<TestComponentList
     return true;
   };
 
-  private getView(view: [string, ComponentItem]): React.ReactNode {
-    const { changeView, theme } = this.props;
+  private getView(view: [string, ComponentItem], lastItem: boolean): React.ReactNode {
+    const { changeView, theme, listView } = this.props;
     const image = theme === 'dark' ? view[1]?.imageDark : view[1]?.imageLight;
 
+    if (listView) {
+      return <NavigationListItem key={view[0]} text={view[0]} lastItem={lastItem} hasChevron={true} onPress={() => changeView(view[0])} />;
+    }
+
     return (
-      <Tile type="clickable" key={view[0]} onPress={() => changeView(view[0])} style={this.styles.item}>
-        <Text style={this.styles.itemText} type="body-compact-01" text={view[0]} />
-        {image ? <Image style={this.styles.itemImage} source={image} /> : <View style={this.styles.itemImage} />}
+      <Tile type="clickable" key={view[0]} onPress={() => changeView(view[0])} style={this.styles.tile}>
+        <Text style={this.styles.tileText} type="body-compact-01" text={view[0]} />
+        {image ? <Image style={this.styles.tileImage} source={image} /> : <View style={this.styles.tileImage} />}
       </Tile>
     );
   }
@@ -108,16 +114,21 @@ export default class TestComponentList extends React.Component<TestComponentList
   }
 
   render(): React.ReactNode {
-    const { viewList } = this.props;
+    const { viewList, listView } = this.props;
+    const finalStyle = styleReferenceBreaker(this.styles.container);
 
-    const finalList = viewList
-      .filter(this.filterList)
-      .sort(this.sortList)
-      .map((view) => this.getView(view));
+    if (listView) {
+      finalStyle.paddingTop = 32;
+      finalStyle.flexWrap = 'nowrap';
+      finalStyle.flexDirection = 'column';
+    }
+
+    const finalList = viewList.filter(this.filterList).sort(this.sortList);
+    const components = finalList.map((view, index) => this.getView(view, finalList.length === index + 1));
 
     return (
-      <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={this.styles.container} style={this.styles.view} onLayout={this.getLayout}>
-        {finalList.length ? finalList : this.noResults}
+      <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={finalStyle} style={this.styles.view} onLayout={this.getLayout}>
+        {components.length ? components : this.noResults}
       </ScrollView>
     );
   }
