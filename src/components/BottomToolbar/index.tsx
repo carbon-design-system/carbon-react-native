@@ -29,7 +29,6 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
         borderTopWidth: 1,
       },
       itemTextStyle: {
-        flex: 1,
         padding: 16,
         paddingTop: 13,
         paddingBottom: 0,

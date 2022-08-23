@@ -14,9 +14,11 @@
     "@carbon/icon-helpers": "^10.31.0",
     "@carbon/icons": "^11.6.0",
     "@carbon/themes": "^11.6.0",
+    "@react-native-async-storage/async-storage": "^1.17.9",
     "react": "18.0.0",
     "react-native": "0.69.3",
-    "react-native-svg": "^12.4.0"
+    "react-native-svg": "^12.4.0",
+    "react-native-webview": "^11.23.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

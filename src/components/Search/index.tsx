@@ -117,7 +117,7 @@ export class Search extends React.Component<SearchProps> {
     textBoxStyle.paddingRight = 50;
 
     return (
-      <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessibilityLabel={label}>
+      <View style={styleReferenceBreaker(this.styles.wrapper, style || {})} accessibilityLabel={label}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.styles.textBoxWrapper} accessibilityLabel={label}>
           <ReactTextInput editable={!disabled} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" {...(componentProps || {})} />

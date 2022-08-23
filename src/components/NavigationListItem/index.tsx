@@ -23,6 +23,8 @@ export type NavigationListItemProps = {
   disabled?: boolean;
   /** Break mode for text. Default is to wrap text */
   textBreakMode?: TextBreakModes;
+  /** Indicate if last item (different styling applied). Handled by `NavigationList`. */
+  lastItem?: boolean;
   /** onPress event */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event */
@@ -52,18 +54,18 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     return StyleSheet.create({
       wrapper: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         backgroundColor: getColor('layer01'),
-        marginBottom: 1,
+        borderBottomColor: getColor('borderSubtle01'),
+        borderBottomWidth: 1,
         minHeight: 48,
         paddingRight: 14,
-        paddingLeft: 14,
       },
       contentWrapper: {
         flex: 1,
-        paddingTop: 4,
-        paddingBottom: 4,
-        paddingLeft: 30,
+        paddingTop: 13,
+        paddingBottom: 13,
+        paddingLeft: 16,
       },
       mainText: {
         color: this.textIconColor,
@@ -71,11 +73,17 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
       subText: {
         color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
       },
-      leftIcon: {},
+      leftIcon: {
+        width: 48,
+        height: 48,
+        padding: 14,
+      },
       rightIcon: {
+        paddingTop: 13,
         paddingLeft: 8,
       },
       chevronIcon: {
+        paddingTop: 13,
         paddingLeft: 8,
       },
     });
@@ -107,10 +115,15 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   }
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, style, leftIcon, rightIcon, hasChevron } = this.props;
+    const { text, disabled, onLongPress, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem } = this.props;
+    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
+
+    if (lastItem) {
+      finalStyle.borderBottomWidth = 0;
+    }
 
     return (
-      <Pressable disabled={disabled} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={styleReferenceBreaker(finalStyle, style)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
         {this.contentArea}
         {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView } from 'react-native';
+import { zIndexes } from '../../styles/z-index';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
@@ -24,6 +25,10 @@ export type ModalProps = {
   open: boolean;
 };
 
+/**
+ * IMPORTANT: Multiple React Modals are not currently supported in React Native.
+ * Modals cannot be opened on top of another modal.
+ */
 export class Modal extends React.Component<ModalProps> {
   private get styles() {
     const baseButtonStyle = {
@@ -34,12 +39,15 @@ export class Modal extends React.Component<ModalProps> {
     };
 
     return StyleSheet.create({
+      modal: {
+        zIndex: zIndexes.modal,
+      },
       safeAreaWrapper: {
         position: 'relative',
         flexGrow: 1,
       },
       blurBackground: {
-        zIndex: -1,
+        zIndex: zIndexes.behind,
         position: 'absolute',
         top: 0,
         right: 0,
@@ -102,7 +110,7 @@ export class Modal extends React.Component<ModalProps> {
     const hasSecondary = typeof secondaryActionOnPress === 'function' && !!secondaryActionText;
 
     return (
-      <ReactModal supportedOrientations={modalPresentations} transparent={true}>
+      <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true}>
         <SafeAreaView style={this.styles.safeAreaWrapper}>
           <Overlay style={this.styles.blurBackground} />
           <View style={this.styles.wrapper}>
