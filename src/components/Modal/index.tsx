@@ -5,6 +5,7 @@ import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
 import { Text } from '../Text';
+import { pressableFeedbackStyle } from '../../helpers';
 
 export type ModalProps = {
   /** Title to show */
@@ -124,12 +125,12 @@ export class Modal extends React.Component<ModalProps> {
             {(hasPrimary || hasSecondary) && (
               <View style={this.styles.actions}>
                 {hasSecondary && (
-                  <Pressable onPress={secondaryActionOnPress} style={this.styles.secondaryButton} accessibilityLabel={secondaryActionText} accessibilityRole="button">
+                  <Pressable onPress={secondaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.secondaryButton)} accessibilityLabel={secondaryActionText} accessibilityRole="button">
                     <Text style={this.styles.buttonText} text={secondaryActionText} />
                   </Pressable>
                 )}
                 {hasPrimary && (
-                  <Pressable onPress={primaryActionOnPress} style={this.styles.primaryButton} accessibilityLabel={primaryActionText} accessibilityRole="button">
+                  <Pressable onPress={primaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.primaryButton)} accessibilityLabel={primaryActionText} accessibilityRole="button">
                     <Text style={this.styles.buttonText} text={primaryActionText} />
                   </Pressable>
                 )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes } from '../Text';
 import ChevronRightIcon from '@carbon/icons/es/chevron--right/20';
@@ -123,7 +123,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     }
 
     return (
-      <Pressable disabled={disabled} style={styleReferenceBreaker(finalStyle, style)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(finalStyle, style))} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
         {this.contentArea}
         {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}

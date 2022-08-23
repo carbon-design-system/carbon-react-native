@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
@@ -95,7 +95,7 @@ export class WebHeader extends React.Component<WebHeaderProps> {
           actions.map((action, index) => {
             return (
               <View style={this.styles.actionWrapper} key={index}>
-                <Pressable style={this.styles.actionButton} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
+                <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.actionButton)} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
                   <View style={this.styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
                 </Pressable>
               </View>

@@ -8,7 +8,6 @@ import TestIcons from './Views/Icons';
 import ThemeIcon from '@carbon/icons/es/color-palette/20';
 import LayoutIcon from '@carbon/icons/es/open-panel--left/20';
 import ResourcesIcon from '@carbon/icons/es/document/20';
-import ArrowLeftIcon from '@carbon/icons/es/arrow--left/16';
 import ComponentIcon from '@carbon/icons/es/view--mode-2/20';
 import TestWebHeader from './Views/WebHeader';
 import TestLandinView from './Views/LandingView';
@@ -200,7 +199,7 @@ export default class App extends React.Component {
         ? {
             text: pageNames[topView],
             onPress: this.clearView,
-            leftIcon: ArrowLeftIcon,
+            backButtonMode: true,
             iconSize: 15,
           }
         : undefined,

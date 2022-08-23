@@ -1,6 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent, ViewProps, StyleProp, StyleSheet, View, ViewStyle, Pressable } from 'react-native';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
@@ -113,7 +113,7 @@ export class Tag extends React.Component<TagProps> {
 
     if (typeof onClosePress === 'function') {
       return (
-        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={this.styles.action}>
+        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={(state) => pressableFeedbackStyle(state, this.styles.action)}>
           {createIcon(CloseIcon, 16, 16, this.textColor)}
         </Pressable>
       );

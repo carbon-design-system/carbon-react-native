@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, View, GestureResponderEvent, Pressable } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
 
 export type TileProps = {
@@ -50,7 +50,7 @@ export class Tile extends React.Component<TileProps> {
         );
       case 'clickable':
         return (
-          <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={finalStyles} {...(componentProps || {})}>
+          <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={(state) => pressableFeedbackStyle(state, finalStyles)} {...(componentProps || {})}>
             {children}
           </Pressable>
         );

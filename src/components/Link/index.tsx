@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 
@@ -20,6 +20,8 @@ export type LinkProps = {
   textType?: TextTypes;
   /** Break mode for text. Default is to wrap text */
   textBreakMode?: TextBreakModes;
+  /** Indicate if back button usage should be used */
+  backButtonMode?: boolean;
   /** onPress event */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event */
@@ -61,6 +63,10 @@ export class Link extends React.Component<LinkProps> {
         marginLeft: 4,
         height: iconSize || 20,
       },
+      backArrowStyle: {
+        paddingRight: 2,
+        color: this.textIconColor,
+      },
     });
   }
 
@@ -87,11 +93,12 @@ export class Link extends React.Component<LinkProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize } = this.props;
+    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize, backButtonMode } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
-        {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+        {!!(leftIcon && !backButtonMode) && <View style={this.styles.leftIcon}>{createIcon(leftIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
+        {backButtonMode && <Text type={textType} style={this.styles.backArrowStyle} text={'\u2190'} />}
         <Text type={textType} style={this.textStyle} text={text} breakMode={textBreakMode} />
         {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
       </Pressable>

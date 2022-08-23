@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { Text } from '../Text';
@@ -105,7 +105,7 @@ export class Accordion extends React.Component<AccordionProps> {
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
-        <Pressable style={this.styles.action} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action)} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           <Text style={this.styles.textItem} text={title} />
           {this.accordionIcon}
         </Pressable>

@@ -28,13 +28,12 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
         borderTopColor: getColor('borderSubtle01'),
         borderTopWidth: 1,
       },
-      itemTextStyle: {
-        padding: 16,
-        paddingTop: 13,
-        paddingBottom: 0,
-      },
+      itemTextStyle: {},
       itemIconStyle: {
         width: 48,
+      },
+      linkStyle: {
+        padding: 13,
       },
     });
   }
@@ -67,7 +66,7 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
 
       return (
         <View style={finalStyles} key={index}>
-          {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} textStyle={{ textAlign: item.alignItem || 'center' }} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
+          {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} style={this.styles.linkStyle} textStyle={{ textAlign: item.alignItem || 'center' }} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
         </View>
       );
     });

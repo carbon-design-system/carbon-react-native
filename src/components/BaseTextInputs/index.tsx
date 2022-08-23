@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable, Platform } from 'react-native';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
 import { Text, TextBreakModes } from '../Text';
@@ -156,7 +156,7 @@ export const getTextInputStyle = (light?: boolean) => {
       marginTop: 14,
     },
     numberActionsButton: {
-      padding: 13,
+      padding: 14,
     },
   });
 };
@@ -245,7 +245,7 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
       errorIconStyle.paddingLeft = 0;
     }
 
-    return <View style={errorIconStyle}>{createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}</View>;
+    return <View style={errorIconStyle}>{createIcon(WarningFilledIcon, 20, 20, getColor('supportError'))}</View>;
   }
 
   private incrementNumber = (): void => {
@@ -274,8 +274,8 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown): React.ReactNode => {
       const finalDisabled = pressableDisabled || disabled || false;
       return (
-        <Pressable style={this.styles.numberActionsButton} onPress={onPress} disabled={finalDisabled}>
-          {createIcon(icon, 22, 22, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton)} onPress={onPress} disabled={finalDisabled}>
+          {createIcon(icon, 20, 20, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}
         </Pressable>
       );
     };

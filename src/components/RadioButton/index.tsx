@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import RadioButtonIcon from '@carbon/icons/es/radio-button/20';
@@ -81,7 +81,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
     const { disabled, componentProps, label, radioButtonText, hideLabel, style } = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

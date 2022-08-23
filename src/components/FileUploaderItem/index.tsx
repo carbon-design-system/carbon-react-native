@@ -48,8 +48,8 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
         flex: 1,
       },
       indicator: {
-        paddingLeft: 12,
-        paddingTop: 13,
+        paddingLeft: 13,
+        paddingTop: 14,
         height: 48,
         width: 48,
       },
@@ -74,7 +74,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     const { status, invalid } = this.props;
 
     if (invalid) {
-      return <View style={this.styles.indicator}>{createIcon(WarningFilledIcon, 22, 22, getColor('supportError'))}</View>;
+      return <View style={this.styles.indicator}>{createIcon(WarningFilledIcon, 20, 20, getColor('supportError'))}</View>;
     } else if (status === 'uploading') {
       return (
         <View style={this.styles.indicator}>
@@ -82,7 +82,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
         </View>
       );
     } else if (status === 'complete') {
-      return <View style={this.styles.indicator}>{createIcon(CheckmarkFilledIcon, 22, 22, getColor('supportInfo'))}</View>;
+      return <View style={this.styles.indicator}>{createIcon(CheckmarkFilledIcon, 20, 20, getColor('supportInfo'))}</View>;
     }
 
     return null;
