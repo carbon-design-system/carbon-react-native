@@ -82,7 +82,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
         flex: 1,
       },
       subText: {
-        color: getColor('textSecondary'),
+        color: disabled ? getColor('textDisabled') : getColor('textSecondary'),
       },
     });
   }
