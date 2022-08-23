@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, SafeAreaView } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Menu } from '../Menu';
 import { getTextInputStyle } from '../BaseTextInputs';
 import { Text, TextBreakModes, TextTypes } from '../Text';
@@ -81,8 +81,8 @@ export class Dropdown extends React.Component<DropdownProps> {
       },
       iconStyle: {
         position: 'absolute',
-        top: 12,
-        right: 12,
+        top: 13,
+        right: 13,
       },
       dropdownText: {
         color: this.itemColor,
@@ -99,7 +99,7 @@ export class Dropdown extends React.Component<DropdownProps> {
   private get dropdownIcon(): React.ReactNode {
     const { open } = this.state;
 
-    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 20, 20, this.itemColor)}</View>;
   }
 
   private toggleDropdown = (): void => {
@@ -129,7 +129,7 @@ export class Dropdown extends React.Component<DropdownProps> {
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
-          <Pressable disabled={disabled} style={finalStyle} onPress={this.toggleDropdown}>
+          <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle)} onPress={this.toggleDropdown}>
             <Text text={value} style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>

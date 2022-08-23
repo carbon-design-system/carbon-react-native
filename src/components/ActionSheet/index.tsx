@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
@@ -168,7 +168,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
 
                     return (
                       <Pressable
-                        style={finalStyle}
+                        style={(state) => pressableFeedbackStyle(state, finalStyle)}
                         accessibilityLabel={item.text}
                         key={index}
                         onPress={() => {
@@ -182,7 +182,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
                 </ScrollView>
               </View>
               <Pressable
-                style={this.styles.cancelButton}
+                style={(state) => pressableFeedbackStyle(state, this.styles.cancelButton)}
                 accessibilityLabel={cancel.text}
                 onPress={() => {
                   cancel.onPress();

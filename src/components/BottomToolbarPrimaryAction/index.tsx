@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { ToolbarButton } from '../../types/navigation';
 import { Button } from '../Button';
 import { Link } from '../Link';
@@ -59,12 +59,12 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
       },
       itemTextStyle: {
         flex: 1,
-        padding: 16,
-        paddingTop: 13,
-        paddingBottom: 0,
       },
       itemIconStyle: {
         width: 48,
+      },
+      linkStyle: {
+        padding: 13,
       },
     });
   }
@@ -91,7 +91,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
 
           return (
             <View style={finalStyles} key={index}>
-              {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
+              {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link style={this.styles.linkStyle} disabled={item.disabled} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
             </View>
           );
         })}
@@ -108,7 +108,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
     }
 
     return (
-      <Pressable disabled={disabled} style={finalStyles} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={text} accessibilityRole="button">
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyles)} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={text} accessibilityRole="button">
         {createIcon(icon, 24, 24, getColor(disabled ? 'textOnColorDisabled' : 'textOnColor'))}
       </Pressable>
     );

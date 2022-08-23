@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import CheckboxIcon from '@carbon/icons/es/checkbox/20';
@@ -81,7 +81,7 @@ export class Checkbox extends React.Component<CheckboxProps> {
     const { disabled, componentProps, label, checkboxText, hideLabel, style } = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.checkbox}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, Pressable, View } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
 import { Text } from '../Text';
 
@@ -63,7 +63,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
       }
 
       return (
-        <Pressable key={index} style={finalStyles} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>
+        <Pressable key={index} style={(state) => pressableFeedbackStyle(state, finalStyles)} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>
           <View style={this.styles.icon}>{createIcon(item.icon, 20, 20, finalColor)}</View>
           <Text style={styleReferenceBreaker(useActiveText ? this.styles.textActive : {}, { color: finalColor, textAlign: 'center' })} text={item.text} type="label-01" breakMode="tail" />
         </Pressable>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleProp, StyleSheet, ViewProps, ViewStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
 import CircleIcon from '@carbon/icons/es/circle--solid/20';
 
@@ -50,7 +50,7 @@ export class Pagination extends React.Component<PaginationProps> {
     const page = index + 1;
 
     return (
-      <Pressable style={this.styles.item} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.item)} key={index} onPress={() => this.changePage(page)} accessibilityLabel={String(page)}>
         {createIcon(CircleIcon, 8, 8, currentPage === page ? getColor('buttonTertiary') : getColor('iconOnColorDisabled'))}
       </Pressable>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes } from '../Text';
 
 export type DataTableCellProps = {
@@ -66,7 +66,6 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     finalStyles.maxWidth = width;
 
     const finalProps = {
-      style: finalStyles,
       ...(componentProps || {}),
       onPress: onPress,
       onLongPress: onLongPress,
@@ -74,9 +73,17 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     };
 
     if (typeof onPress === 'function' || typeof onLongPress === 'function') {
-      return <Pressable {...finalProps}>{this.content}</Pressable>;
+      return (
+        <Pressable {...finalProps} style={(state) => pressableFeedbackStyle(state, finalStyles)}>
+          {this.content}
+        </Pressable>
+      );
     } else {
-      return <View {...finalProps}>{this.content}</View>;
+      return (
+        <View {...finalProps} style={finalStyles}>
+          {this.content}
+        </View>
+      );
     }
   }
 }

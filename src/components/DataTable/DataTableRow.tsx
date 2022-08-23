@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, PressableProps } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 
 export type DataTableRowProps = {
   /** Content of the row. Should be list of <DataTableCell />. */
@@ -34,7 +34,7 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (
-      <Pressable style={finalStyles} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, finalStyles)} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>
         {children}
       </Pressable>
     );

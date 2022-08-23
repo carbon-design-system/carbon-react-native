@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import CheckmarkIcon from '@carbon/icons/es/checkmark--outline/20';
@@ -80,6 +80,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
       mainText: {
         color: this.itemColor,
         flex: 1,
+        minWidth: 100,
       },
       subText: {
         color: this.itemColor,
@@ -90,26 +91,26 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   private get accordionIcon(): React.ReactNode {
     const { open } = this.state;
 
-    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 20, 20, this.itemColor)}</View>;
   }
 
   private get stepIcon(): React.ReactNode {
     const { status } = this.props;
-    let icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
+    let icon = createIcon(PendingIcon, 20, 20, getColor('interactive'));
 
     switch (status) {
       case 'complete':
-        icon = createIcon(CheckmarkIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(CheckmarkIcon, 20, 20, getColor('interactive'));
         break;
       case 'in-progress':
-        icon = createIcon(ActiveIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(ActiveIcon, 20, 20, getColor('interactive'));
         break;
       case 'invalid':
-        icon = createIcon(ErrorIcon, 22, 22, getColor('supportError'));
+        icon = createIcon(ErrorIcon, 20, 20, getColor('supportError'));
         break;
       case 'pending':
       default:
-        icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(PendingIcon, 20, 20, getColor('interactive'));
     }
 
     return <View style={this.styles.statusIcon}>{icon}</View>;
@@ -148,7 +149,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
-        <Pressable style={this.styles.action} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action)} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           {this.stepIcon}
           <View style={this.styles.actionText}>
             <Text style={this.styles.mainText} text={title} />

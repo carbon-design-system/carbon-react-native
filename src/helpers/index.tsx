@@ -3,6 +3,7 @@ import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
 import type { CarbonIcon } from '../types/shared';
+import type { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -51,4 +52,25 @@ export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
   finalStyle = Object.assign(finalStyle, extraStyle || {});
 
   return finalStyle;
+};
+
+/**
+ * Pressable styling helper for adding proper feedback to the user
+ * Use on Pressable as `style={(state) => pressableFeedbackStyle(state, this.myStyle)}`
+ *
+ * @param state - State from the style function
+ * @param style - Primary style to add to the pressable
+ * @param customStyle - Function to use custom styling for state changes.  If using may not need this helper at all. But also not bad to have everything in one flow.
+ *
+ * @returns - Styled for handling press style
+ */
+export const pressableFeedbackStyle = (state: PressableStateCallbackType, style: StyleProp<ViewStyle>, customStyle: (state: PressableStateCallbackType) => StyleProp<ViewStyle>): StyleProp<ViewStyle> => {
+  return [
+    style,
+    typeof customStyle === 'function'
+      ? customStyle(state)
+      : {
+          opacity: state.pressed ? 0.8 : 1,
+        },
+  ];
 };

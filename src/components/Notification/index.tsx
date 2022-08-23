@@ -133,14 +133,14 @@ export class Notification extends React.Component<NotificationProps> {
 
     switch (kind) {
       case 'error':
-        return createIcon(ErrorIcon, 22, 22, this.accentColor);
+        return createIcon(ErrorIcon, 20, 20, this.accentColor);
       case 'warning':
-        return createIcon(WarningIcon, 22, 22, this.accentColor);
+        return createIcon(WarningIcon, 20, 20, this.accentColor);
       case 'success':
-        return createIcon(SuccessIcon, 22, 22, this.accentColor);
+        return createIcon(SuccessIcon, 20, 20, this.accentColor);
       case 'info':
       default:
-        return createIcon(InfoIcon, 22, 22, this.accentColor);
+        return createIcon(InfoIcon, 20, 20, this.accentColor);
     }
   }
 

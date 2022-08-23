@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 
 export type SwitcherItem = {
@@ -99,7 +99,7 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     }
 
     return (
-      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={finalStyle} accessibilityLabel={item.text} accessibilityRole="menuitem">
+      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle)} accessibilityLabel={item.text} accessibilityRole="menuitem">
         <Text type={item.textType || 'body-compact-01'} style={textStyle} breakMode={item.textBreakMode} text={item.text} />
       </Pressable>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextTypes } from '../Text';
 
@@ -46,8 +46,8 @@ export class Button extends React.Component<ButtonProps> {
     return StyleSheet.create({
       iconStyle: {
         position: 'absolute',
-        top: 13,
-        right: 13,
+        top: 14,
+        right: 14,
       },
     });
   }
@@ -173,9 +173,9 @@ export class Button extends React.Component<ButtonProps> {
     const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={this.buttonStyle} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode="tail" />}
-        {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 22, 22, this.iconTextColor)}</View>}
+        {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
     );
   }

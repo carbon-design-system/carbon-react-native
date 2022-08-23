@@ -85,10 +85,12 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
       },
       leftLink: {
         paddingTop: 13,
+        paddingBottom: 13,
         paddingLeft: 16,
       },
       rightLink: {
         paddingTop: 13,
+        paddingBottom: 13,
         paddingRight: 16,
         marginLeft: 'auto',
       },
