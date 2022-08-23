@@ -5,11 +5,11 @@ import { Accordion, Button, Text } from 'carbon-react-native';
 const styles = StyleSheet.create({
   view: {
     padding: 0,
+    paddingTop: 32,
     flex: 1,
   },
   container: {
     flexGrow: 1,
-    paddingTop: 32,
     paddingBottom: 64,
   },
   testNotFull: {

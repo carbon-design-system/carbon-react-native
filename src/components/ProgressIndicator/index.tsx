@@ -47,11 +47,11 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        borderBottomColor: getColor('layerAccentActive03'),
+        borderBottomColor: getColor('borderSubtle00'),
         borderBottomWidth: 1,
       },
       content: {
-        padding: 16,
+        paddingLeft: 64,
         paddingTop: 8,
         paddingRight: 64,
         paddingBottom: 24,
@@ -59,9 +59,9 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
       action: {
         position: 'relative',
         minHeight: 48,
-        padding: 11,
+        padding: 13,
         paddingLeft: 14,
-        paddingRight: 50,
+        paddingRight: 48,
         flexDirection: 'row',
       },
       actionText: {
@@ -74,15 +74,15 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
       },
       iconStyle: {
         position: 'absolute',
-        top: 12,
-        right: 12,
+        top: 14,
+        right: 14,
       },
       mainText: {
         color: this.itemColor,
         flex: 1,
       },
       subText: {
-        color: this.itemColor,
+        color: getColor('textSecondary'),
       },
     });
   }
@@ -90,26 +90,26 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   private get accordionIcon(): React.ReactNode {
     const { open } = this.state;
 
-    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
+    return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 20, 20, this.itemColor)}</View>;
   }
 
   private get stepIcon(): React.ReactNode {
     const { status } = this.props;
-    let icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
+    let icon = createIcon(PendingIcon, 20, 20, getColor('interactive'));
 
     switch (status) {
       case 'complete':
-        icon = createIcon(CheckmarkIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(CheckmarkIcon, 20, 20, getColor('interactive'));
         break;
       case 'in-progress':
-        icon = createIcon(ActiveIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(ActiveIcon, 20, 20, getColor('interactive'));
         break;
       case 'invalid':
-        icon = createIcon(ErrorIcon, 22, 22, getColor('supportError'));
+        icon = createIcon(ErrorIcon, 20, 20, getColor('supportError'));
         break;
       case 'pending':
       default:
-        icon = createIcon(PendingIcon, 22, 22, getColor('interactive'));
+        icon = createIcon(PendingIcon, 20, 20, getColor('interactive'));
     }
 
     return <View style={this.styles.statusIcon}>{icon}</View>;
@@ -142,7 +142,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstStep) {
-      finalStyle.borderTopColor = getColor('layerAccentActive03');
+      finalStyle.borderTopColor = getColor('borderSubtle00');
       finalStyle.borderTopWidth = 1;
     }
 
