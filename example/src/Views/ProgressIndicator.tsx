@@ -4,7 +4,8 @@ import { ProgressIndicator, Button, Text } from 'carbon-react-native';
 
 const styles = StyleSheet.create({
   view: {
-    padding: 16,
+    padding: 0,
+    paddingTop: 32,
     flex: 1,
   },
   container: {
@@ -42,7 +43,7 @@ export default class TestProgressIndicator extends React.Component {
         <ProgressIndicator title="I am just a step" status="pending" subText="Optional">
           <Text text="I am the content of this accordion" />
         </ProgressIndicator>
-        <ProgressIndicator title="I am just a step with really long text that is bad" status="pending" subText="Optional text is also really long to cause issues">
+        <ProgressIndicator title="I am just a step with really long text that is bad" status="pending" subText="Optional">
           <Text text="I am the content of this accordion" />
         </ProgressIndicator>
         <ProgressIndicator title="I am just another step with really long text that is bad" status="pending">

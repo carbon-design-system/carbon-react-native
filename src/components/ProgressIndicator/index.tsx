@@ -47,11 +47,11 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        borderBottomColor: getColor('layerAccentActive03'),
+        borderBottomColor: getColor('borderSubtle00'),
         borderBottomWidth: 1,
       },
       content: {
-        padding: 16,
+        paddingLeft: 64,
         paddingTop: 8,
         paddingRight: 64,
         paddingBottom: 24,
@@ -59,9 +59,9 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
       action: {
         position: 'relative',
         minHeight: 48,
-        padding: 11,
+        padding: 13,
         paddingLeft: 14,
-        paddingRight: 50,
+        paddingRight: 48,
         flexDirection: 'row',
       },
       actionText: {
@@ -74,8 +74,8 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
       },
       iconStyle: {
         position: 'absolute',
-        top: 12,
-        right: 12,
+        top: 14,
+        right: 14,
       },
       mainText: {
         color: this.itemColor,
@@ -83,7 +83,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
         minWidth: 100,
       },
       subText: {
-        color: this.itemColor,
+        color: disabled ? getColor('textDisabled') : getColor('textSecondary'),
       },
     });
   }
@@ -143,7 +143,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstStep) {
-      finalStyle.borderTopColor = getColor('layerAccentActive03');
+      finalStyle.borderTopColor = getColor('borderSubtle00');
       finalStyle.borderTopWidth = 1;
     }
 
