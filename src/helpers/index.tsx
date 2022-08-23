@@ -64,7 +64,7 @@ export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
  *
  * @returns - Styled for handling press style
  */
-export const pressableFeedbackStyle = (state: PressableStateCallbackType, style: StyleProp<ViewStyle>, customStyle: (state: PressableStateCallbackType) => StyleProp<ViewStyle>): StyleProp<ViewStyle> => {
+export const pressableFeedbackStyle = (state: PressableStateCallbackType, style: StyleProp<ViewStyle>, customStyle?: (state: PressableStateCallbackType) => StyleProp<ViewStyle>): StyleProp<ViewStyle> => {
   return [
     style,
     typeof customStyle === 'function'

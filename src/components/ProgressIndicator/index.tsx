@@ -45,6 +45,8 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   }
 
   private get styles() {
+    const { disabled } = this.props;
+
     return StyleSheet.create({
       wrapper: {
         borderBottomColor: getColor('borderSubtle00'),
