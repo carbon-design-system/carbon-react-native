@@ -39,7 +39,7 @@ export class Accordion extends React.Component<AccordionProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        borderBottomColor: getColor('layerAccentActive03'),
+        borderBottomColor: getColor('borderSubtle00'),
         borderBottomWidth: 1,
       },
       content: {
@@ -99,7 +99,7 @@ export class Accordion extends React.Component<AccordionProps> {
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstAccordion) {
-      finalStyle.borderTopColor = getColor('layerAccentActive03');
+      finalStyle.borderTopColor = getColor('borderSubtle00');
       finalStyle.borderTopWidth = 1;
     }
 

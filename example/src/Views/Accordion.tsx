@@ -4,11 +4,12 @@ import { Accordion, Button, Text } from 'carbon-react-native';
 
 const styles = StyleSheet.create({
   view: {
-    padding: 16,
+    padding: 0,
     flex: 1,
   },
   container: {
     flexGrow: 1,
+    paddingTop: 32,
     paddingBottom: 64,
   },
   testNotFull: {
@@ -28,7 +29,7 @@ export default class TestAccordion extends React.Component {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Accordion title="I am first. You can open me." firstAccordion={true}>
-          <Text text="I am the content of this accordion" />
+          <Text text="I am the content of this accordion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
         </Accordion>
         <Accordion title="I am disabled" disabled={true}>
           <Text text="I am the content of this accordion" />
@@ -38,7 +39,7 @@ export default class TestAccordion extends React.Component {
           <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} />
         </Accordion>
         <Accordion title="I can be controlled" open={openControl}>
-          <Text text="I am the content of this accordion" />
+          <Text type={'body-01'} text="Smaller text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
         </Accordion>
       </ScrollView>
     );
