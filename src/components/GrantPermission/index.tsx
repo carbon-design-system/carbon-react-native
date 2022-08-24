@@ -39,7 +39,7 @@ export type GrantPermissionProps = {
 export class GrantPermission extends React.Component<GrantPermissionProps> {
   private resizeEvent: EmitterSubscription | undefined;
 
-  private get landscapeMode(): boolean {
+  private get wideScreen(): boolean {
     const width = Dimensions.get('window').width;
 
     return width >= 500;
@@ -61,10 +61,10 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
       },
       contentWrapper: {
         flex: 1,
-        paddingTop: this.landscapeMode ? 32 : 64,
+        paddingTop: this.wideScreen ? 32 : 64,
       },
       contentWrapperScroll: {
-        flexDirection: this.landscapeMode ? 'row' : 'column',
+        flexDirection: this.wideScreen ? 'row' : 'column',
         justifyContent: 'flex-start',
       },
       textWrapper: {
@@ -79,7 +79,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
         height: 300,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: this.landscapeMode ? 0 : 16,
+        marginTop: this.wideScreen ? 0 : 16,
       },
       action: {
         marginTop: 16,

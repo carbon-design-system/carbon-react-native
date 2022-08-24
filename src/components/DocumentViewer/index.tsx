@@ -11,6 +11,7 @@ import WebView from 'react-native-webview';
 import type { WebViewSource } from 'react-native-webview/lib/WebViewTypes';
 import { defaultText } from '../../constants/defaultText';
 import { zIndexes } from '../../styles/z-index';
+import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 
 export type DocumentViewerSource = string | WebViewSource;
 
@@ -27,8 +28,8 @@ export type DocumentViewerProps = {
   dismissText?: string;
   /** Force the view (mostly for teting) to a specific platform */
   forceView?: 'ios' | 'android';
-  /** Additional footer data to load in the document viewer (used mostly by other flows) */
-  additionalFooter?: React.ReactNode;
+  /** Navigation footer to load in the document viewer (used mostly by other flows) */
+  navigationFooter?: React.ReactNode;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -60,6 +61,8 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
       safeAreaWrapper: {
         position: 'relative',
         flexGrow: 1,
+        paddingBottom: 1,
+        marginBottom: 1,
       },
       wrapper: {
         flexGrow: 1,
@@ -171,17 +174,18 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
   }
 
   render(): React.ReactNode {
-    const { componentProps, style, additionalFooter } = this.props;
+    const { componentProps, style, navigationFooter } = this.props;
 
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} animationType="slide">
+        <Overlay style={this.styles.blurBackground} />
+        <BottomSafeAreaColorOverride color={navigationFooter ? getColor('layer01') : getColor('background')} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <Overlay style={this.styles.blurBackground} />
           <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
             {this.headerBar}
             {this.mainView}
           </View>
-          {!!additionalFooter && additionalFooter}
+          {!!navigationFooter && navigationFooter}
         </SafeAreaView>
       </ReactModal>
     );

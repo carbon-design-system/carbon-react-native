@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import { Text } from '../Text';
 import { Link } from '../Link';
 import { styleReferenceBreaker } from '../../helpers';
+import { ViewWrapper } from '../ViewWrapper';
 
 export type LandingViewProps = {
   /** Company image to load in top right. Can pass in many ways including require `require('../../assets/images/image.png')` */
@@ -140,24 +141,26 @@ export class LandingView extends React.Component<LandingViewProps> {
     const { longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress, continueDisabled } = this.props;
 
     return (
-      <View style={this.styles.view}>
-        {this.heightSafe && this.banner}
-        <View style={this.styles.container}>
-          <ScrollView style={this.styles.contentWrapper} bounces={false}>
-            <View style={this.styles.title}>
-              <Text text={longProductName} type="heading-04" />
+      <ViewWrapper topBackgroundColor={this.heightSafe ? '#000000' : getColor('background')} bottomBackgroundColor={getColor('background')} statusBarStyle={this.heightSafe ? 'light-content' : undefined}>
+        <View style={this.styles.view}>
+          {this.heightSafe && this.banner}
+          <View style={this.styles.container}>
+            <ScrollView style={this.styles.contentWrapper} bounces={false}>
+              <View style={this.styles.title}>
+                <Text text={longProductName} type="heading-04" />
+              </View>
+              <View style={this.styles.helperContent}>
+                <Text text={versionText} type="body-compact-02" />
+                <Text text={copyrightText} type="body-compact-02" />
+              </View>
+              <View>{!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}</View>
+            </ScrollView>
+            <View style={this.styles.actionWrapper}>
+              <Button kind="primary" disabled={continueDisabled} icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />
             </View>
-            <View style={this.styles.helperContent}>
-              <Text text={versionText} type="body-compact-02" />
-              <Text text={copyrightText} type="body-compact-02" />
-            </View>
-            <View>{!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}</View>
-          </ScrollView>
-          <View style={this.styles.actionWrapper}>
-            <Button kind="primary" disabled={continueDisabled} icon={ArrowRightIcon} onPress={continueOnPress} onLongPress={continueOnLongPress} text={continueText} />
           </View>
         </View>
-      </View>
+      </ViewWrapper>
     );
   }
 }
