@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, Appearance, View, ImageSourcePropType } from 'react-native';
-import { getColor, ThemeChoices, Loading, useDarkMode, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search } from 'carbon-react-native';
+import { StyleSheet, Appearance, View, ImageSourcePropType } from 'react-native';
+import { getColor, ThemeChoices, Loading, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search, ViewWrapper } from 'carbon-react-native';
 import TestButton from './Views/Button';
 import TestComponentList from './Views/ComponentList';
 import TestText from './Views/Text';
@@ -48,6 +48,7 @@ import TestDocumentViewer from './Views/DocumentViewer';
 import TestAcceptTerms from './Views/AcceptsTerms';
 import RealLandingView from './Views/RealLandingView';
 import TestGrantPermission from './Views/GrantPermission';
+import TestViewWrapper from './Views/ViewWrapper';
 
 export type ComponentItem = {
   component: React.ReactNode;
@@ -69,15 +70,6 @@ export default class App extends React.Component {
 
   private get styles() {
     return StyleSheet.create({
-      container: {
-        flexGrow: 1,
-        backgroundColor: getColor('layer01'),
-      },
-      containerNoHeader: {
-        position: 'relative',
-        backgroundColor: '#000000',
-        flexGrow: 1,
-      },
       loading: {
         marginTop: 64,
         marginRight: 'auto',
@@ -138,6 +130,7 @@ export default class App extends React.Component {
     ['Pagination', { component: <TestPagination />, imageLight: null, imageDark: null }],
     ['Data table', { component: <TestDataTable />, imageLight: null, imageDark: null }],
     ['Error state', { component: <TestErrorState />, imageLight: null, imageDark: null }],
+    ['View wrapper', { component: <TestViewWrapper goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [
@@ -156,10 +149,10 @@ export default class App extends React.Component {
       case 'resources':
         return <TestResources />;
       case 'layouts':
-        return <TestComponentList viewList={this.flowViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} />;
+        return <TestComponentList viewList={this.flowViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
       case 'components':
       default:
-        return <TestComponentList viewList={this.componentViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} />;
+        return <TestComponentList viewList={this.componentViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
     }
   }
 
@@ -296,9 +289,9 @@ export default class App extends React.Component {
 
     if (loading) {
       return (
-        <SafeAreaView style={this.styles.containerNoHeader}>
+        <ViewWrapper>
           <Loading style={this.styles.loading} />
-        </SafeAreaView>
+        </ViewWrapper>
       );
     }
 
@@ -309,22 +302,16 @@ export default class App extends React.Component {
     const viewTouse = this.viewMap.get(view);
 
     if (viewTouse?.fullScreen) {
-      return (
-        <SafeAreaView style={this.styles.containerNoHeader}>
-          <StatusBar backgroundColor={'#000000'} barStyle="light-content" />
-          {viewTouse?.component}
-        </SafeAreaView>
-      );
+      return viewTouse?.component;
     }
 
     return (
-      <SafeAreaView style={this.styles.container}>
-        <StatusBar backgroundColor={getColor('layer01')} barStyle={useDarkMode() ? 'light-content' : 'dark-content'} />
+      <ViewWrapper hasTopNavigation={true} hasBottomNavigation={true}>
         <TopNavigationBar {...this.topNavProps} />
         {this.mainView}
         <BottomNavigationBar items={this.bottomNavItems} />
         <ActionSheet open={openThemeChoice} title="Theme" cancelButtonIndex={0} items={this.themeChoices} forceCustomActionSheet={true} />
-      </SafeAreaView>
+      </ViewWrapper>
     );
   }
 }

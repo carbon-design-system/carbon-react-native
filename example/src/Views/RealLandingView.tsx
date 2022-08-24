@@ -1,6 +1,5 @@
 import React from 'react';
 import { AcceptTerms, DocumentViewer, LandingView } from 'carbon-react-native';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { privacyPolicy } from '../constants/privacyPolicy';
 import { versionCode } from '../constants/versionCode';
 import { version } from '../../package.json';
@@ -8,14 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { termsConditions } from '../constants/termsConditions';
 
 const storageKey = '@carbon-react-native-example/accepted-terms';
-
-const styles = StyleSheet.create({
-  containerNoHeader: {
-    position: 'relative',
-    backgroundColor: '#000000',
-    flexGrow: 1,
-  },
-});
 
 export default class RealLandingView extends React.Component<{
   continueAction: () => void;
@@ -75,8 +66,7 @@ export default class RealLandingView extends React.Component<{
     const { continueAction } = this.props;
 
     return (
-      <SafeAreaView style={styles.containerNoHeader}>
-        <StatusBar backgroundColor={'#000000'} barStyle="light-content" />
+      <>
         <LandingView
           productImage={require('../assets/app_icon.png')}
           companyImage={require('../assets/companyImage.png')}
@@ -105,7 +95,7 @@ export default class RealLandingView extends React.Component<{
           />
         )}
         {showAcceptTerms && <AcceptTerms title="Terms and Conditions" resultsCallback={this.termsResultCallback} textStrings={this.textStrings} source={termsConditions} />}
-      </SafeAreaView>
+      </>
     );
   }
 }

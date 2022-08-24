@@ -23,6 +23,7 @@ export * from './components/BottomToolbar';
 export * from './components/ErrorState';
 export * from './components/DocumentViewer';
 export * from './components/AcceptTerms';
+export * from './components/ViewWrapper';
 export * from './components/GrantPermission';
 export * from './components/BottomToolbarPrimaryAction';
 export * from './components/Search';
