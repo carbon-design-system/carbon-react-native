@@ -49,6 +49,7 @@ import TestAcceptTerms from './Views/AcceptsTerms';
 import RealLandingView from './Views/RealLandingView';
 import TestGrantPermission from './Views/GrantPermission';
 import TestViewWrapper from './Views/ViewWrapper';
+import TestUiPanel from './Views/UiPanel';
 
 export type ComponentItem = {
   component: React.ReactNode;
@@ -131,6 +132,7 @@ export default class App extends React.Component {
     ['Data table', { component: <TestDataTable />, imageLight: null, imageDark: null }],
     ['Error state', { component: <TestErrorState />, imageLight: null, imageDark: null }],
     ['View wrapper', { component: <TestViewWrapper goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['UI Panel', { component: <TestUiPanel />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [

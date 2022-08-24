@@ -41,6 +41,8 @@ export * from './components/List';
 export * from './components/Overlay';
 export * from './components/Pagination';
 export * from './components/DataTable';
+export * from './components/UiPanel';
+export * from './components/UiPanelItem';
 
 // Style exports
 export * from './styles/colors';
