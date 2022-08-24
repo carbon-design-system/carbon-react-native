@@ -41,7 +41,7 @@ import TestBottomToolbar from './Views/BottomToolbar';
 import TestBottomToolbarPrimaryAction from './Views/BottomToolbarPrimaryAction';
 import TestSearch from './Views/Search';
 import TestTopNavigationBar from './Views/TopNavigationBar';
-import TestNavigationLisstItem from './Views/NavigationListItem';
+import TestNavigationLisst from './Views/NavigationList';
 import TestResources from './Views/Resources';
 import TestErrorState from './Views/ErrorState';
 import TestDocumentViewer from './Views/DocumentViewer';
@@ -114,7 +114,7 @@ export default class App extends React.Component {
     ['Top navigation bar', { component: <TestTopNavigationBar />, imageLight: null, imageDark: null }],
     ['Bottom toolbar', { component: <TestBottomToolbar />, imageLight: null, imageDark: null }],
     ['Bottom toolbar primary action', { component: <TestBottomToolbarPrimaryAction />, imageLight: null, imageDark: null }],
-    ['Navigation list', { component: <TestNavigationLisstItem />, imageLight: null, imageDark: null }],
+    ['Navigation list', { component: <TestNavigationLisst />, imageLight: null, imageDark: null }],
     ['Search', { component: <TestSearch />, imageLight: null, imageDark: null }],
     ['Dropdown', { component: <TestDropdown />, imageLight: null, imageDark: null }],
     ['Action sheet', { component: <TestActionSheet />, imageLight: null, imageDark: null }],
@@ -256,7 +256,7 @@ export default class App extends React.Component {
         active: topView === 'layouts',
         icon: LayoutIcon,
         onPress: () => {
-          this.setState({ topView: 'layouts', view: '' });
+          this.setState({ topView: 'layouts', view: '', filterTerm: '' });
         },
       },
       {
@@ -264,7 +264,7 @@ export default class App extends React.Component {
         active: topView === 'components',
         icon: ComponentIcon,
         onPress: () => {
-          this.setState({ topView: 'components', view: '' });
+          this.setState({ topView: 'components', view: '', filterTerm: '' });
         },
       },
       {
@@ -272,7 +272,7 @@ export default class App extends React.Component {
         active: topView === 'resources',
         icon: ResourcesIcon,
         onPress: () => {
-          this.setState({ topView: 'resources', view: '' });
+          this.setState({ topView: 'resources', view: '', filterTerm: '' });
         },
       },
     ];

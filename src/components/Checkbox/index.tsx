@@ -7,7 +7,7 @@ import { Text } from '../Text';
 import CheckboxIcon from '@carbon/icons/es/checkbox/20';
 import CheckboxCheckedIcon from '@carbon/icons/es/checkbox--checked--filled/20';
 
-export type CheckboxProps = {
+export type CheckboxRadioProps = {
   /** Text to render */
   label: string;
   /** ID of item (any identifier to identify the checkbox) */
@@ -22,15 +22,15 @@ export type CheckboxProps = {
   onPress: (value: boolean, id: string, event: GestureResponderEvent) => void;
   /** onLongPress event returns the ID of the item (value is not changed) */
   onLongPress?: (id: string, event: GestureResponderEvent) => void;
-  /** Text to use for checkbox (accessibility). Defaults to ENGLISH "Checkbox" */
-  checkboxText?: string;
+  /** Text to use for checkbox (accessibility). Defaults to ENGLISH "Checkbox"/"Radio button" depending on use */
+  accessibleText?: string;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
 };
 
-export class Checkbox extends React.Component<CheckboxProps> {
+export class Checkbox extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
@@ -78,10 +78,10 @@ export class Checkbox extends React.Component<CheckboxProps> {
   };
 
   render(): React.ReactNode {
-    const { disabled, componentProps, label, checkboxText, hideLabel, style } = this.props;
+    const { disabled, componentProps, label, accessibleText, hideLabel, style } = this.props;
 
     return (
-      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={checkboxText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.checkbox}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>

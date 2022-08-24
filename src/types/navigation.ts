@@ -1,4 +1,5 @@
 import type { GestureResponderEvent, StyleProp, ViewStyle, PressableProps } from 'react-native';
+import type { TextTypes } from '../components/Text';
 import type { CarbonIcon } from './shared';
 
 /**
@@ -35,6 +36,8 @@ export type ToolbarButton = {
   disabled?: boolean;
   /** Alignment (defaults to center) */
   alignItem?: 'left' | 'right' | 'center';
+  /** Text type to render (Standard is default)  */
+  textType?: TextTypes;
   /** onPress event for toolbar item */
   onPress?: (event: GestureResponderEvent) => void;
   /** onLongPress event for toolbar item */

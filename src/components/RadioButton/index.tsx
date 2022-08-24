@@ -1,36 +1,14 @@
 import React from 'react';
-import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Pressable, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import RadioButtonIcon from '@carbon/icons/es/radio-button/20';
 import RadioButtonCheckedIcon from '@carbon/icons/es/radio-button--checked/20';
+import type { CheckboxRadioProps } from '../Checkbox';
 
-export type RadioButtonProps = {
-  /** Text to render */
-  label: string;
-  /** ID of item (any identifier to identify the checkbox) */
-  id: string;
-  /** Indicate if checked */
-  checked: boolean;
-  /** Indicate if disabled */
-  disabled?: boolean;
-  /** Indicate if label should be hidden (label is used for accessibility even when hidden)  */
-  hideLabel?: boolean;
-  /** onPress event returns the current value and ID of the item */
-  onPress: (value: boolean, id: string, event: GestureResponderEvent) => void;
-  /** onLongPress event returns the ID of the item (value is not changed) */
-  onLongPress?: (id: string, event: GestureResponderEvent) => void;
-  /** Text to use for radio button (accessibility). Defaults to ENGLISH "Radio button" */
-  radioButtonText?: string;
-  /** Style to set on the item */
-  style?: StyleProp<ViewStyle>;
-  /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
-  componentProps?: PressableProps;
-};
-
-export class RadioButton extends React.Component<RadioButtonProps> {
+export class RadioButton extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
@@ -78,10 +56,10 @@ export class RadioButton extends React.Component<RadioButtonProps> {
   };
 
   render(): React.ReactNode {
-    const { disabled, componentProps, label, radioButtonText, hideLabel, style } = this.props;
+    const { disabled, componentProps, label, accessibleText, hideLabel, style } = this.props;
 
     return (
-      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={radioButtonText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={accessibleText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>
