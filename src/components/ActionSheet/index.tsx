@@ -47,11 +47,13 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         position: 'relative',
         flexGrow: 1,
         flexDirection: 'row-reverse',
+        justifyContent: 'center',
       },
       containerWrapper: {
         flexGrow: 1,
         flexDirection: 'row-reverse',
         margin: 16,
+        maxWidth: 480,
       },
       blurBackground: {
         zIndex: zIndexes.behind,
@@ -99,6 +101,15 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       cancelButtonText: {
         color: getColor('textOnColor'),
       },
+      backgroundPress: {
+        zIndex: zIndexes.behind,
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        flex: 1,
+      },
     });
   }
 
@@ -138,7 +149,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     const { open, title, body, items, cancelButtonIndex } = this.props;
 
     const options = items.filter((item) => !item.hidden);
-    const cancel = options.splice(cancelButtonIndex, 1)[0] || {
+    const cancel = options.splice(cancelButtonIndex || 0, 1)[0] || {
       text: '',
       onPress: () => {},
     };
@@ -147,11 +158,15 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       return null;
     }
 
+    const invisibleButton = <Pressable onPress={cancel.onPress} style={this.styles.backgroundPress} accessible={false} accessibilityRole="none" />;
+
     return (
-      <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
+      <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={cancel.onPress}>
         <Overlay style={this.styles.blurBackground} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
+          {invisibleButton}
           <View style={this.styles.containerWrapper}>
+            {invisibleButton}
             <View style={this.styles.wrapper}>
               <View style={this.styles.textArea}>
                 <Text style={body ? undefined : this.styles.titleNoBody} type="heading-compact-01" text={title} />

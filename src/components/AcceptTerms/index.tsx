@@ -84,6 +84,7 @@ export class AcceptTerms extends React.Component<AcceptTermsProps> {
       {
         text: textStrings?.agree || '',
         alignItem: 'right',
+        textType: 'heading-compact-02',
         onPress: this.agree,
       },
     ];

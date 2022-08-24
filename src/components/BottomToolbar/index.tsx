@@ -66,7 +66,7 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
 
       return (
         <View style={finalStyles} key={index}>
-          {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} style={this.styles.linkStyle} textStyle={{ textAlign: item.alignItem || 'center' }} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
+          {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link disabled={item.disabled} style={this.styles.linkStyle} textStyle={{ textAlign: item.alignItem || 'center' }} textType={item.textType} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
         </View>
       );
     });

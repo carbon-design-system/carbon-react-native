@@ -91,7 +91,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
 
           return (
             <View style={finalStyles} key={index}>
-              {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link style={this.styles.linkStyle} disabled={item.disabled} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
+              {iconMode ? <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} /> : <Link style={this.styles.linkStyle} disabled={item.disabled} textStyle={{ textAlign: item.alignItem || 'center' }} textType={item.textType} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />}
             </View>
           );
         })}

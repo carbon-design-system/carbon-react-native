@@ -5,6 +5,8 @@ import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../..
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes } from '../Text';
 import ChevronRightIcon from '@carbon/icons/es/chevron--right/20';
+import { Checkbox, CheckboxRadioProps } from '../Checkbox';
+import { RadioButton } from '../RadioButton';
 
 export type NavigationListItemProps = {
   /** Text to render */
@@ -25,10 +27,22 @@ export type NavigationListItemProps = {
   textBreakMode?: TextBreakModes;
   /** Indicate if last item (different styling applied). Handled by `NavigationList`. */
   lastItem?: boolean;
+  /** ID to get back on events */
+  id?: string;
+  /** Indicate if selectable row should be used (can be radio or checbox) */
+  selectableType?: 'radio' | 'checkbox';
+  /** On selectable row change */
+  onSelectableRowChange?: (value: boolean, id?: string) => void;
+  /** Indicate if row is selected (checked or active radio) */
+  selected?: boolean;
+  /** Indicate selectable side (default is left) */
+  selectableSide?: 'right' | 'left';
+  /** Text to use for selectable (accessibility). Defaults to ENGLISH for selectableType */
+  selectableText?: string;
   /** onPress event */
-  onPress?: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent, id?: string) => void;
   /** onLongPress event */
-  onLongPress?: (event: GestureResponderEvent) => void;
+  onLongPress?: (event: GestureResponderEvent, id?: string) => void;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
   /** Style to set on the item */
@@ -59,7 +73,13 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
         borderBottomColor: getColor('borderSubtle01'),
         borderBottomWidth: 1,
         minHeight: 48,
+      },
+      pressableStyle: {
         paddingRight: 14,
+        flex: 1,
+        backgroundColor: getColor('layer01'),
+        flexDirection: 'row',
+        alignItems: 'flex-start',
       },
       contentWrapper: {
         flex: 1,
@@ -86,18 +106,31 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
         paddingTop: 13,
         paddingLeft: 8,
       },
+      selectableArea: {
+        width: 48,
+        height: 48,
+        padding: 14,
+      },
     });
   }
 
   private onPress = (event: GestureResponderEvent): void => {
-    const { dismissKeyboardOnPress, onPress } = this.props;
+    const { dismissKeyboardOnPress, onPress, id } = this.props;
 
     if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') {
       Keyboard.dismiss();
     }
 
     if (typeof onPress === 'function') {
-      onPress(event);
+      onPress(event, id);
+    }
+  };
+
+  private onLongPress = (event: GestureResponderEvent): void => {
+    const { onLongPress, id } = this.props;
+
+    if (typeof onLongPress === 'function') {
+      onLongPress(event, id);
     }
   };
 
@@ -114,8 +147,43 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     return <View style={this.styles.contentWrapper}>{customContent ? customContent : textItem}</View>;
   }
 
+  private get selectableAreaSide(): 'right' | 'left' | undefined {
+    const { selectableType, selectableSide } = this.props;
+
+    if (selectableType) {
+      return selectableSide || 'left';
+    }
+
+    return undefined;
+  }
+
+  private get selectableArea(): React.ReactNode {
+    const { selectableType, selected, onSelectableRowChange, id, text, disabled, selectableText } = this.props;
+
+    if (selectableType) {
+      const selectableProps: CheckboxRadioProps = {
+        label: text,
+        id: id || '',
+        checked: !!selected,
+        hideLabel: true,
+        disabled: disabled,
+        accessibleText: selectableText,
+        style: this.styles.selectableArea,
+        onPress: (value: boolean) => {
+          if (typeof onSelectableRowChange === 'function') {
+            onSelectableRowChange(value, id);
+          }
+        },
+      };
+
+      return selectableType === 'checkbox' ? <Checkbox {...selectableProps} /> : <RadioButton {...selectableProps} />;
+    }
+
+    return null;
+  }
+
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem } = this.props;
+    const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (lastItem) {
@@ -123,12 +191,16 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     }
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(finalStyle, style))} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
-        {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
-        {this.contentArea}
-        {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}
-        {!!hasChevron && <View style={this.styles.chevronIcon}>{createIcon(ChevronRightIcon, 20, 20, this.textIconColor)}</View>}
-      </Pressable>
+      <View style={styleReferenceBreaker(finalStyle, style)}>
+        {this.selectableAreaSide === 'left' && this.selectableArea}
+        <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.styles.pressableStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+          {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
+          {this.contentArea}
+          {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}
+          {!!hasChevron && <View style={this.styles.chevronIcon}>{createIcon(ChevronRightIcon, 20, 20, this.textIconColor)}</View>}
+        </Pressable>
+        {this.selectableAreaSide === 'right' && this.selectableArea}
+      </View>
     );
   }
 }
