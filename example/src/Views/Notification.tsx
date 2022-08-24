@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   baseSpacing: {
-    marginBottom: 16,
+    marginTop: 16,
   },
 });
 

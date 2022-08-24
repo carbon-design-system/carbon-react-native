@@ -5,6 +5,7 @@ import { Text } from 'carbon-react-native';
 const styles = StyleSheet.create({
   view: {
     padding: 16,
+    paddingTop: 32,
     flex: 1,
   },
   container: {

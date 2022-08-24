@@ -8,6 +8,7 @@ import SettingsIcon from '@carbon/icons/es/settings/20';
 const styles = StyleSheet.create({
   view: {
     padding: 16,
+    paddingTop: 32,
     flex: 1,
   },
   container: {

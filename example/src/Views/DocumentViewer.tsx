@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  itemStyle: {
+    marginTop: 16,
+  },
 });
 
 export default class TestDocumentViewer extends React.Component {
@@ -41,7 +44,7 @@ export default class TestDocumentViewer extends React.Component {
         <Checkbox checked={forceIos} id="forceIos" onPress={(value) => this.setState({ forceIos: value })} label="Force iOS mode" />
         <Checkbox checked={forceAndroid} id="forceAndroid" onPress={(value) => this.setState({ forceAndroid: value })} label="Force Android mode" />
         <Checkbox checked={loadSite} id="loadSite" onPress={(value) => this.setState({ loadSite: value })} label="Load website" />
-        <Button onPress={this.open} text="Open legal document" />
+        <Button onPress={this.open} text="Open legal document" style={styles.itemStyle} />
         {open && <DocumentViewer title={loadSite ? 'Carbon Design System' : 'Test Document'} disableContainerPadding={loadSite} source={loadSite ? { uri: 'https://carbondesignsystem.com' } : testDocument} onDismiss={() => this.setState({ open: false })} dismissText="Done" forceView={forceType} />}
       </ScrollView>
     );

@@ -120,7 +120,7 @@ export default class TestBottomNavigationBar extends React.Component {
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
           {!!currentItem && <Text style={styles.baseSpacing} type="heading-03" text={`Current page: ${currentItem?.text}`} />}
-          <NumberInput value={total} label="Number of items to load" onChangeText={(value) => this.setState({ total: value })} numberRules={{ max: 8, min: 1 }} />
+          <NumberInput value={total} label="Number of items to load" onChangeText={(value) => this.setState({ total: value })} numberRules={{ max: 5, min: 2 }} />
           <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
         </ScrollView>
         <BottomNavigationBar items={itemsToUse} />

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingBottom: 64,
   },
   itemStyle: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
 });
 

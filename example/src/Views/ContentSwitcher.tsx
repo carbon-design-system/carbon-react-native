@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
   itemStyle: {
     marginBottom: 16,
   },
+  button: {
+    marginBottom: 32,
+  },
 });
 
 export default class TestContentSwitcher extends React.Component {
@@ -92,7 +95,7 @@ export default class TestContentSwitcher extends React.Component {
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Checkbox checked={disableSecond} id="subtext" onPress={(value) => this.setState({ disableSecond: value })} label="Make second one disabled" />
         <Button
-          style={styles.itemStyle}
+          style={styles.button}
           onPress={() => {
             this.setState({
               currentIndexA: 1,
