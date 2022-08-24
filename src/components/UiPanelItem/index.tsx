@@ -18,6 +18,8 @@ export type UiPanelNestedItem = {
   rightIcon?: CarbonIcon;
   /** onPress event */
   onPress?: (event: GestureResponderEvent) => void;
+  /** onLongPress event */
+  onLongPress?: (event: GestureResponderEvent) => void;
   /** Indicate if the item should be hidden */
   hidden?: boolean;
   /** Indicate if the item should be disabled */
@@ -49,15 +51,15 @@ export type UiPanelItemProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class UiPanelItem extends React.Component<UiPanelItemProps> {
   state = {
     open: false,
-  }
+  };
 
   private get styles() {
-    const {open} = this.state;
+    const { open } = this.state;
 
     return StyleSheet.create({
       wrapper: {
@@ -70,7 +72,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
         paddingRight: 16,
       },
       textWrapper: {
-        flex: 1, 
+        flex: 1,
         paddingLeft: 14,
       },
       leftIcon: {
@@ -92,71 +94,77 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
   }
 
   private itemColor = (disableNestedItem?: boolean): string => {
-    const {open} = this.state;
-    const {disabled} = this.props;
+    const { open } = this.state;
+    const { disabled } = this.props;
 
     if (disabled || disableNestedItem) {
       return getColor('textDisabled');
     } else {
       return open ? getColor('textPrimary') : getColor('textSecondary');
     }
-  }
+  };
 
   private get textStyle(): StyleProp<TextStyle> {
     const finalStyle: any = {
       color: this.itemColor(),
     };
-  
+
     return StyleSheet.create(finalStyle);
   }
 
   private toggleNav = (): void => {
-    const {open} = this.state;
-    this.setState({open: !open});
-  }
+    const { open } = this.state;
+    const { children } = this.props;
+
+    if (children?.length) {
+      this.setState({ open: !open });
+    }
+  };
 
   private get nestedItems(): React.ReactNode {
-    const {children, leftIcon} = this.props;
+    const { children, leftIcon } = this.props;
 
-    return children?.filter(item => !item.hidden).map((item, index) => {
-      const finalStyle: any = {
-        color: this.itemColor(item.disabled),
-        paddingLeft: leftIcon ? 88 : 40,
-      };
+    return children
+      ?.filter((item) => !item.hidden)
+      .map((item, index) => {
+        const finalStyle: any = {
+          color: this.itemColor(item.disabled),
+          paddingLeft: leftIcon ? 88 : 40,
+        };
 
-      const textStyle = StyleSheet.create(finalStyle);
+        const textStyle = StyleSheet.create(finalStyle);
 
-      return (
-        <Pressable key={index} style={styleReferenceBreaker(this.styles.nestedItem, item.style)} accessibilityRole="button" accessibilityLabel={item.text} onPress={item.onPress} disabled={item.disabled} {...(item.componentProps || {})} >
-          <View style={this.styles.textWrapper}>
-            <Text breakMode={item.textBreakMode} type='body-compact-01' style={textStyle} text={item.text} />
-          </View>
-          {!!item.rightIcon && <View style={this.styles.rightIcon}>{createIcon(item.rightIcon, 20, 20, this.itemColor(item.disabled))}</View>}
-        </Pressable>
-      );
-    });
+        return (
+          <Pressable key={index} style={styleReferenceBreaker(this.styles.nestedItem, item.style)} accessibilityRole="button" accessibilityLabel={item.text} onPress={item.onPress} onLongPress={item.onLongPress} disabled={item.disabled} {...(item.componentProps || {})}>
+            <View style={this.styles.textWrapper}>
+              <Text breakMode={item.textBreakMode} type="body-compact-01" style={textStyle} text={item.text} />
+            </View>
+            {!!item.rightIcon && <View style={this.styles.rightIcon}>{createIcon(item.rightIcon, 20, 20, this.itemColor(item.disabled))}</View>}
+          </Pressable>
+        );
+      });
   }
 
   componentDidMount(): void {
-    const {openOnLoad} = this.props;
+    const { openOnLoad, children } = this.props;
 
-    if (openOnLoad) {
-      this.setState({open: true});
+    if (openOnLoad && !!children?.length) {
+      this.setState({ open: true });
     }
   }
 
   render(): React.ReactNode {
-    const {open} = this.state;
-    const {text, textBreakMode, leftIcon, disabled, children, componentProps, style} = this.props;
+    const { open } = this.state;
+    const { text, textBreakMode, leftIcon, disabled, children, componentProps, style } = this.props;
 
     return (
       <View>
-        <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="button" accessibilityLabel={text} onPress={this.toggleNav} disabled={disabled} {...(componentProps || {})} >
+        <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="button" accessibilityLabel={text} onPress={this.toggleNav} disabled={disabled} {...(componentProps || {})}>
           {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.itemColor())}</View>}
           <View style={this.styles.textWrapper}>
-            <Text breakMode={textBreakMode} type='heading-compact-01' style={this.textStyle} text={text} />
+            <Text breakMode={textBreakMode} type="heading-compact-01" style={this.textStyle} text={text} />
           </View>
-          <View style={this.styles.rightIcon}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 20, 20, this.itemColor())}</View>
+          {!!children?.length && <View style={this.styles.rightIcon}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 20, 20, this.itemColor())}</View>}
         </Pressable>
         {open && children && this.nestedItems}
       </View>

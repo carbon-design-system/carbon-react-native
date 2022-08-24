@@ -132,7 +132,7 @@ export default class App extends React.Component {
     ['Data table', { component: <TestDataTable />, imageLight: null, imageDark: null }],
     ['Error state', { component: <TestErrorState />, imageLight: null, imageDark: null }],
     ['View wrapper', { component: <TestViewWrapper goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
-    ['UI Panel', { component: <TestUiPanel />, imageLight: null, imageDark: null }],
+    ['UI panel', { component: <TestUiPanel />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [

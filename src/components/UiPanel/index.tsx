@@ -7,19 +7,18 @@ import { modalPresentations } from '../../constants/constants';
 import { Overlay } from '../Overlay';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 
-
 export type UiPanelProps = {
-  /** Indicate if the panel should open */
+  /** Indicate if the panel should be open */
   open: boolean;
   /** Callback to close the panel */
-  onClose: () => void,
+  onClose: () => void;
   /** List of top level items to render */
   items: UiPanelItemProps[];
   /** Custom style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
-}
+};
 
 export class UiPanel extends React.Component<UiPanelProps> {
   private get styles() {
@@ -58,20 +57,26 @@ export class UiPanel extends React.Component<UiPanelProps> {
   }
 
   render(): React.ReactNode {
-    const {open, items, style, componentProps, onClose} = this.props;
+    const { open, items, style, componentProps, onClose } = this.props;
 
-    return open && ( 
-      <ReactModal supportedOrientations={modalPresentations} transparent={true}>
-        <Overlay style={this.styles.blurBackground} />
-        <BottomSafeAreaColorOverride color={getColor('layer01')} addMarginRight={true} />
-        <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <Pressable style={this.styles.pressableTop} onPress={() => onClose()}></Pressable>
-          <Pressable style={this.styles.pressableRight} onPress={() => onClose()}></Pressable>
-          <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.panelWrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
-            {(items || []).filter(item => !item.hidden).map((item, index) => <UiPanelItem key={index} {...item} />)}
-          </ScrollView>
-        </SafeAreaView>
-      </ReactModal>
+    return (
+      open && (
+        <ReactModal supportedOrientations={modalPresentations} transparent={true}>
+          <Overlay style={this.styles.blurBackground} />
+          <BottomSafeAreaColorOverride color={getColor('layer01')} marginRight={48} />
+          <SafeAreaView style={this.styles.safeAreaWrapper}>
+            <Pressable style={this.styles.pressableTop} onPress={() => onClose()} />
+            <Pressable style={this.styles.pressableRight} onPress={() => onClose()} />
+            <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.panelWrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+              {(items || [])
+                .filter((item) => !item.hidden)
+                .map((item, index) => (
+                  <UiPanelItem key={index} {...item} />
+                ))}
+            </ScrollView>
+          </SafeAreaView>
+        </ReactModal>
+      )
     );
   }
 }

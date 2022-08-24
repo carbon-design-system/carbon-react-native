@@ -20,7 +20,7 @@ export default class TestUiPanel extends React.Component {
     open: false,
     hasLeftIcon: false,
     hasRightIcon: false,
-    hideForthItem: false,
+    hideFourthItem: false,
   };
 
   private openPanel = (): void => {
@@ -32,8 +32,8 @@ export default class TestUiPanel extends React.Component {
   };
 
   private get itemProps(): UiPanelItemProps[] {
-    const {hasLeftIcon, hasRightIcon, hideForthItem} = this.state;
-    
+    const { hasLeftIcon, hasRightIcon, hideFourthItem } = this.state;
+
     return [
       {
         text: 'Item 1: Toggle to expand',
@@ -79,13 +79,14 @@ export default class TestUiPanel extends React.Component {
             text: 'Children 2',
             rightIcon: hasRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 1 / Children 2'),
+            onLongPress: () => this.alert('Long pressed Item 1 / Children 2'),
           },
         ],
       },
       {
         text: 'Item 4: Uncheck to hide',
         leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        hidden: hideForthItem,
+        hidden: hideFourthItem,
         children: [
           {
             text: 'Children 1',
@@ -139,19 +140,23 @@ export default class TestUiPanel extends React.Component {
           },
         ],
       },
-    ]
+      {
+        text: 'Item 6: No nested items',
+        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
+      },
+    ];
   }
 
   render(): React.ReactNode {
-    const {open, hasLeftIcon, hasRightIcon, hideForthItem} = this.state;
+    const { open, hasLeftIcon, hasRightIcon, hideFourthItem } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Checkbox checked={hasLeftIcon} id="hasLeftIcon" onPress={(value) => this.setState({ hasLeftIcon: value })} label="Add left icon at top level" />
         <Checkbox checked={hasRightIcon} id="hasRightIcon" onPress={(value) => this.setState({ hasRightIcon: value })} label="Add right icon in the nested level" />
-        <Checkbox checked={hideForthItem} id="hideForthItem" onPress={(value) => this.setState({ hideForthItem: value })} label="Check to hide the 4th item" />
+        <Checkbox checked={hideFourthItem} id="hideFourthItem" onPress={(value) => this.setState({ hideFourthItem: value })} label="Check to hide the 4th item" />
         <Button onPress={this.openPanel} text="Open Panel" />
-        <UiPanel open={open} onClose={() => this.setState({open: false})} items={this.itemProps} />
+        <UiPanel open={open} onClose={() => this.setState({ open: false })} items={this.itemProps} />
       </ScrollView>
     );
   }
