@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
 import { Text } from '../Text';
+import { SemiBoldPlex } from '../../styles/typography';
 
 export type BottomNavigationBarProps = {
   /** Navigation items to load */
@@ -40,8 +41,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
         marginLeft: 'auto',
       },
       textActive: {
-        fontWeight: '600',
-        fontFamily: 'IBMPlexSans-SemiBold',
+        ...SemiBoldPlex,
       },
     });
   }
