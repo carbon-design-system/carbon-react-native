@@ -6,6 +6,7 @@ import type { NavigationButton } from '../../types/navigation';
 import { Button } from '../Button';
 import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
+import { RegularPlex } from '../../styles/typography';
 
 export type TopNavigationBarProps = {
   /** Title to show */
@@ -72,8 +73,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
         marginBottom: 8,
       },
       pageHeaderTitle: {
-        fontWeight: '400',
-        fontFamily: 'IBMPlexSans-Regular',
+        ...RegularPlex,
       },
       pageHeaderSubTitle: {
         color: getColor('textSecondary'),
