@@ -57,7 +57,7 @@ export default class TestResources extends React.Component {
         subText: 'Design resources (Carbon v10)',
         leftIcon: DocumentSketchIcon,
         rightIcon: LaunchIcon,
-        onPress: () => this.openLink('https://carbondesignsystem.com'),
+        onPress: () => this.openLink('https://carbondesignsystem.com/designing/design-resources/#native-mobile'),
       },
       {
         text: 'Carbon React Native',

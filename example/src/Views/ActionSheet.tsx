@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  button: {
+    marginTop: 16,
+  },
 });
 
 export default class TestActionSheet extends React.Component {
@@ -78,7 +81,7 @@ export default class TestActionSheet extends React.Component {
         <Checkbox checked={forceCustom} id="force" onPress={(value) => this.setState({ forceCustom: value })} label="Force custom action sheeet" />
         <Checkbox checked={lotItems} id="lot" onPress={(value) => this.setState({ lotItems: value })} label="Load lots of items" />
         <Checkbox checked={dangerItem} id="dangerItem" onPress={(value) => this.setState({ dangerItem: value })} label="Add danger item" />
-        <Button onPress={this.openActionSheeet} text="Open action sheet" />
+        <Button onPress={this.openActionSheeet} text="Open action sheet" style={styles.button} />
         <ActionSheet open={open} title="Action sheet title" body={showBody ? 'Useful info about what this action sheet does' : undefined} cancelButtonIndex={0} items={lotItems ? [...this.items, ...this.items, ...this.items, ...this.items] : this.items} forceCustomActionSheet={forceCustom} />
       </ScrollView>
     );

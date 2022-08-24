@@ -5,6 +5,7 @@ import { Dropdown, DropdownItem } from 'carbon-react-native';
 const styles = StyleSheet.create({
   view: {
     padding: 16,
+    paddingTop: 32,
     flex: 1,
   },
   container: {
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     paddingBottom: 64,
   },
   itemStyle: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
 });
 

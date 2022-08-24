@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  itemStyle: {
+    marginTop: 16,
+  },
 });
 
 export default class TestAcceptTerms extends React.Component {
@@ -55,7 +58,7 @@ export default class TestAcceptTerms extends React.Component {
         <Checkbox checked={forceIos} id="forceIos" onPress={(value) => this.setState({ forceIos: value })} label="Force iOS mode" />
         <Checkbox checked={forceAndroid} id="forceAndroid" onPress={(value) => this.setState({ forceAndroid: value })} label="Force Android mode" />
         <Checkbox checked={loadSite} id="loadSite" onPress={(value) => this.setState({ loadSite: value })} label="Load website" />
-        <Button onPress={this.open} text="Trigger accept flow" />
+        <Button onPress={this.open} text="Trigger accept flow" style={styles.itemStyle} />
         {open && <AcceptTerms title="Test Terms and Conditions" resultsCallback={this.resultCallback} textStrings={this.textStrings} disableContainerPadding={loadSite} source={loadSite ? { uri: 'https://carbondesignsystem.com' } : testDocument} forceView={forceType} />}
       </ScrollView>
     );

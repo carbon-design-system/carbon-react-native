@@ -57,7 +57,7 @@ export class LandingView extends React.Component<LandingViewProps> {
       container: {
         flex: 1,
         padding: 16,
-        paddingBottom: 32,
+        paddingBottom: 16,
       },
       logoArea: {
         backgroundColor: '#000000',
@@ -82,6 +82,7 @@ export class LandingView extends React.Component<LandingViewProps> {
       },
       title: {
         marginBottom: 16,
+        fontWeight: 600,
       },
       helperContent: {
         marginBottom: 16,

@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     alignSelf: 'flex-start',
   },
+  itemStyle: {
+    marginTop: 8,
+  },
 });
 
 export default class TestAccordion extends React.Component {
@@ -36,7 +39,7 @@ export default class TestAccordion extends React.Component {
         </Accordion>
         <Accordion title="I am already opened on load" open={true}>
           <Text text="I am the content of this accordion" />
-          <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} />
+          <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} style={styles.itemStyle} />
         </Accordion>
         <Accordion title="I can be controlled" open={openControl}>
           <Text type={'body-01'} text="Smaller text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />

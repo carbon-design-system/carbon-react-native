@@ -5,6 +5,7 @@ import { TextArea } from 'carbon-react-native';
 const styles = StyleSheet.create({
   view: {
     padding: 16,
+    paddingTop: 8,
     flex: 1,
   },
   container: {

@@ -27,6 +27,9 @@ export default class TestViewWrapper extends React.Component<{
       buttonStyle: {
         marginTop: 32,
       },
+      section: {
+        marginTop: 24,
+      },
     });
   }
 
@@ -49,7 +52,7 @@ export default class TestViewWrapper extends React.Component<{
           <Checkbox checked={topCustomColor} id="topCustomColor" onPress={(value) => this.setState({ topCustomColor: value })} label="Top color is custom" />
           <Checkbox checked={bottomNavColor} id="bottomNavColor" onPress={(value) => this.setState({ bottomNavColor: value })} label="Bottom color for navigation" />
           <Checkbox checked={bottomCustomColor} id="bottomCustomColor" onPress={(value) => this.setState({ bottomCustomColor: value })} label="Bottom color is custom" />
-          <Text text="Status bar override" type="label-02" />
+          <Text text="Status bar override" type="label-02" style={this.styles.section} />
           <RadioButton checked={statusBar === 'unset'} id="unset" label="Unset (default)" onPress={() => this.setState({ statusBar: 'unset' })} />
           <RadioButton checked={statusBar === 'dark'} id="dark" label="Dark content (on light background)" onPress={() => this.setState({ statusBar: 'dark' })} />
           <RadioButton checked={statusBar === 'light'} id="light" label="Light content (on dark background)" onPress={() => this.setState({ statusBar: 'light' })} />

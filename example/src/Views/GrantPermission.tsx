@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
+  itemStyle: {
+    marginTop: 16,
+  },
 });
 
 export default class TestGrantPermission extends React.Component {
@@ -38,7 +41,7 @@ export default class TestGrantPermission extends React.Component {
         <RadioButton checked={type === 'camera'} id="camera" label="Camera" onPress={() => this.setState({ type: 'camera' })} />
         <RadioButton checked={type === 'notifications'} id="notifications" label="Notifications" onPress={() => this.setState({ type: 'notifications' })} />
         <RadioButton checked={type === 'location'} id="location" label="Location" onPress={() => this.setState({ type: 'location' })} />
-        <Button onPress={this.open} text="Trigger permission grant" />
+        <Button onPress={this.open} text="Trigger permission grant" style={styles.itemStyle} />
         {open && <GrantPermission type={type} title="Grant access" resultsCallback={this.resultCallback} reasoning="In order for Carbon React Native test to retrieve the content you intend to act on, we will need access to your photos. This will be used for upload purposes only." additionalReasoning="Please allow Carbon React Native test to access your photos when you are prompted." continueText="Show prompt" cancelText="Cancel" />}
       </ScrollView>
     );
