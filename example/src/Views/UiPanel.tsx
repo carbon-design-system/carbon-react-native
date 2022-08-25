@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
 import { UiPanel, UiPanelItemProps, Checkbox, ViewWrapper, TopNavigationBar } from 'carbon-react-native';
-import ApertureIcon from '@carbon/icons/es/aperture/20';
+import BeeIcon from '@carbon/icons/es/bee/20';
 import LaunchIcon from '@carbon/icons/es/launch/20';
 import MenuIcon from '@carbon/icons/es/menu/20';
 import CloseIcon from '@carbon/icons/es/close/20';
@@ -46,18 +46,18 @@ export default class TestUiPanel extends React.Component<{
     return [
       {
         text: 'Item 1: Toggle to expand',
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? BeeIcon : undefined,
         children: [
           {
             text: 'Children 1',
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 1 / Children 1'),
           },
           {
             text: 'Children 2',
-            leftIcon: hasChildRightIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildRightIcon ? BeeIcon : undefined,
             rightIcon: hasChildLeftIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 1 / Children 2'),
           },
@@ -65,14 +65,14 @@ export default class TestUiPanel extends React.Component<{
       },
       {
         text: 'Item 2: Disabled',
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? BeeIcon : undefined,
         textBreakMode: 'tail',
         disabled: true,
         children: [
           {
             text: 'Children 1',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 2 / Children 1'),
           },
@@ -80,20 +80,20 @@ export default class TestUiPanel extends React.Component<{
       },
       {
         text: 'Item 3: Opened on load',
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? BeeIcon : undefined,
         openOnLoad: true,
         children: [
           {
             text: 'Children 1: Disabled',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 1 / Children 1'),
             disabled: true,
           },
           {
             text: 'Children 2',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 1 / Children 2'),
             onLongPress: () => this.alert('Long pressed Item 1 / Children 2'),
@@ -102,33 +102,33 @@ export default class TestUiPanel extends React.Component<{
       },
       {
         text: 'Item 4: Uncheck to hide',
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? BeeIcon : undefined,
         hidden: hideFourthItem,
         children: [
           {
             text: 'Children 1',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 4 / Children 1'),
           },
           {
             text: 'Children 2: Disabled',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             disabled: true,
             onPress: () => this.alert('Pressed Item 4 / Children 2'),
           },
           {
             text: 'Children 3',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             hidden: true,
             onPress: () => this.alert('Pressed Item 4 / Children 3'),
           },
           {
             text: 'Children 4: Children 3 is hidden',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 4 / Children 4'),
           },
@@ -136,32 +136,32 @@ export default class TestUiPanel extends React.Component<{
       },
       {
         text: 'Item 5: Long text with ellipsis instead of wrapped',
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? BeeIcon : undefined,
         textBreakMode: 'tail',
         children: [
           {
             text: 'Children 1',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 5 / Children 1'),
           },
           {
             text: 'Children 2: Long text with ellipsis instead of wrapped',
             textBreakMode: 'tail',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 5 / Children 2'),
           },
           {
             text: 'Children 3: Long text with normal wrapped',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 5 / Children 3'),
           },
           {
             text: 'Children 4',
-            leftIcon: hasChildLeftIcon ? LaunchIcon : undefined,
+            leftIcon: hasChildLeftIcon ? BeeIcon : undefined,
             rightIcon: hasChildRightIcon ? LaunchIcon : undefined,
             onPress: () => this.alert('Pressed Item 5 / Children 4'),
           },
@@ -169,8 +169,8 @@ export default class TestUiPanel extends React.Component<{
       },
       {
         text: 'Item 6: No nested items',
-        rightIcon: hasRightIcon ? ApertureIcon : undefined,
-        leftIcon: hasLeftIcon ? ApertureIcon : undefined,
+        leftIcon: hasLeftIcon ? BeeIcon : undefined,
+        rightIcon: hasRightIcon ? LaunchIcon : undefined,
         onPress: () => this.alert('Pressed Item 6'),
       },
     ];
