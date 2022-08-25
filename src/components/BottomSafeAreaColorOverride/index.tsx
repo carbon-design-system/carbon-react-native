@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, EmitterSubscription } from 'react-native';
 import { zIndexes } from '../../styles/z-index';
+import { Overlay } from '../Overlay';
 
 export type BottomSafeAreaColorOverrideProps = {
   /** Color to force the safe area bottom to be */
   color: string;
   /** Custom margin to the right  */
   marginRight?: number;
+  /** Include overlay behind the color box */
+  backgroundOverlay?: boolean;
 };
 
 /**
@@ -21,15 +24,27 @@ export class BottomSafeAreaColorOverride extends React.Component<BottomSafeAreaC
     const { color, marginRight } = this.props;
 
     return StyleSheet.create({
-      wrapper: {
+      parentWrapper: {
         zIndex: zIndexes.behind,
-        backgroundColor: color,
         position: 'absolute',
         bottom: 0,
         right: 0,
         left: 0,
         height: 34,
+      },
+      wrapper: {
         marginRight: marginRight || 0,
+        height: '100%',
+        backgroundColor: color,
+      },
+      blurBackground: {
+        zIndex: zIndexes.behind,
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        flex: 1,
       },
     });
   }
@@ -53,8 +68,15 @@ export class BottomSafeAreaColorOverride extends React.Component<BottomSafeAreaC
   }
 
   render(): React.ReactNode {
+    const { backgroundOverlay } = this.props;
+
     if (this.isPortrait) {
-      return <View style={this.styles.wrapper} accessible={false} />;
+      return (
+        <View style={this.styles.parentWrapper} accessible={false}>
+          <View style={this.styles.wrapper} />
+          {backgroundOverlay && <Overlay style={this.styles.blurBackground} />}
+        </View>
+      );
     } else {
       return null;
     }

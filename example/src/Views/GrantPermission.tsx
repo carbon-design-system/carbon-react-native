@@ -42,7 +42,7 @@ export default class TestGrantPermission extends React.Component {
         <RadioButton checked={type === 'notifications'} id="notifications" label="Notifications" onPress={() => this.setState({ type: 'notifications' })} />
         <RadioButton checked={type === 'location'} id="location" label="Location" onPress={() => this.setState({ type: 'location' })} />
         <Button onPress={this.open} text="Trigger permission grant" style={styles.itemStyle} />
-        {open && <GrantPermission type={type} title="Grant access" resultsCallback={this.resultCallback} reasoning="In order for Carbon React Native test to retrieve the content you intend to act on, we will need access to your photos. This will be used for upload purposes only." additionalReasoning="Please allow Carbon React Native test to access your photos when you are prompted." continueText="Show prompt" cancelText="Cancel" />}
+        {open && <GrantPermission type={type} title="Grant access" resultsCallback={this.resultCallback} reasoning="In order for Carbon React Native test to retrieve the content you intend to act on, we will need access to your photos. This will be used for upload purposes only." additionalReasoning="Please allow Carbon React Native test to access your photos when you are prompted." continueText="Continue" cancelText="Cancel" />}
       </ScrollView>
     );
   }

@@ -69,13 +69,12 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
   };
 
   private itemColor(forceDisabled?: boolean): string {
-    const { open } = this.state;
     const { disabled } = this.props;
 
     if (disabled || forceDisabled) {
       return getColor('textDisabled');
     } else {
-      return open ? getColor('textPrimary') : getColor('textSecondary');
+      return getColor('textSecondary');
     }
   }
 
@@ -146,7 +145,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
         const finalTextStyle = styleReferenceBreaker(this.styles.childText);
         const finalStyle = styleReferenceBreaker(this.styles.nestedItem);
 
-        finalStyle.paddingLeft = item.leftIcon ? 40 : 88;
+        finalStyle.paddingLeft = item.leftIcon ? 24 : 72;
 
         if (item.disabled) {
           finalTextStyle.color = getColor('textDisabled');
