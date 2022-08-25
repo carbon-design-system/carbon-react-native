@@ -5,6 +5,8 @@ import { zIndexes } from '../../styles/z-index';
 export type BottomSafeAreaColorOverrideProps = {
   /** Color to force the safe area bottom to be */
   color: string;
+  /** Custom margin to the right  */
+  marginRight?: number;
 };
 
 /**
@@ -16,18 +18,18 @@ export class BottomSafeAreaColorOverride extends React.Component<BottomSafeAreaC
   private resizeEvent: EmitterSubscription | undefined;
 
   private get styles() {
-    const { color } = this.props;
+    const { color, marginRight } = this.props;
 
     return StyleSheet.create({
       wrapper: {
         zIndex: zIndexes.behind,
         backgroundColor: color,
-        width: '100%',
         position: 'absolute',
         bottom: 0,
         right: 0,
         left: 0,
         height: 34,
+        marginRight: marginRight || 0,
       },
     });
   }
