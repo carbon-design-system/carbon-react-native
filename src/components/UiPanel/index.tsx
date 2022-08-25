@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, SafeAreaView, Pressable, View } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, SafeAreaView, Pressable, View, Animated } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { UiPanelItem, UiPanelItemProps } from '../UiPanelItem';
@@ -26,6 +26,8 @@ export type UiPanelProps = {
 };
 
 export class UiPanel extends React.Component<UiPanelProps> {
+  private animatedValue = new Animated.Value(0);
+
   private get styles() {
     return StyleSheet.create({
       safeAreaWrapper: {
@@ -36,6 +38,10 @@ export class UiPanel extends React.Component<UiPanelProps> {
         position: 'relative',
         flexGrow: 1,
       },
+      animatedWrapper: {
+        flexGrow: 1,
+        opacity: 0,
+      },
       pressableTop: {
         height: 48,
       },
@@ -43,12 +49,15 @@ export class UiPanel extends React.Component<UiPanelProps> {
         zIndex: zIndexes.behind,
         backgroundColor: getColor('overlay'),
         position: 'absolute',
-        top: 48,
+        top: 49,
         right: 0,
         bottom: 0,
         left: 0,
       },
+
       panelWrapper: {
+        borderTopColor: getColor('borderSubtle01'),
+        borderTopWidth: 1,
         flex: 1,
         backgroundColor: getColor('layer01'),
         marginRight: 48,
@@ -59,26 +68,66 @@ export class UiPanel extends React.Component<UiPanelProps> {
     });
   }
 
+  private loadIn = (): void => {
+    Animated.timing(this.animatedValue, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  private loadOut = (): void => {
+    Animated.timing(this.animatedValue, {
+      toValue: 0,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  componentDidMount(): void {
+    const { open } = this.props;
+
+    if (open) {
+      this.loadIn();
+    } else {
+      this.loadOut();
+    }
+  }
+
+  componentDidUpdate(previousProps: UiPanelProps): void {
+    const { open } = this.props;
+
+    if (open !== previousProps.open) {
+      if (open) {
+        this.loadIn();
+      } else {
+        this.loadOut();
+      }
+    }
+  }
+
   render(): React.ReactNode {
     const { open, items, style, componentProps, onClose, onCloseText, closeOnNoChildrenPress } = this.props;
 
     return (
       open && (
         <ReactModal supportedOrientations={modalPresentations} transparent={true}>
-          <BottomSafeAreaColorOverride color={getColor('layer01')} marginRight={48} />
-          <SafeAreaView style={this.styles.safeAreaWrapper}>
-            <View style={this.styles.innerWrapping}>
-              <Pressable style={this.styles.pressableTop} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
-              <Pressable style={this.styles.pressableRight} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
-              <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.panelWrapper, style)} contentContainerStyle={this.styles.panelWrapperInner} accessibilityRole="menu" {...(componentProps || {})}>
-                {(items || [])
-                  .filter((item) => !item.hidden)
-                  .map((item, index) => (
-                    <UiPanelItem key={index} {...item} noChildrenPressCallback={closeOnNoChildrenPress ? onClose : undefined} />
-                  ))}
-              </ScrollView>
-            </View>
-          </SafeAreaView>
+          <Animated.View style={[this.styles.animatedWrapper, { opacity: this.animatedValue }]}>
+            <BottomSafeAreaColorOverride color={getColor('layer01')} marginRight={48} backgroundOverlay={true} />
+            <SafeAreaView style={this.styles.safeAreaWrapper}>
+              <View style={this.styles.innerWrapping}>
+                <Pressable style={this.styles.pressableTop} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
+                <Pressable style={this.styles.pressableRight} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
+                <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.panelWrapper, style)} contentContainerStyle={this.styles.panelWrapperInner} accessibilityRole="menu" {...(componentProps || {})}>
+                  {(items || [])
+                    .filter((item) => !item.hidden)
+                    .map((item, index) => (
+                      <UiPanelItem key={index} {...item} noChildrenPressCallback={closeOnNoChildrenPress ? onClose : undefined} />
+                    ))}
+                </ScrollView>
+              </View>
+            </SafeAreaView>
+          </Animated.View>
         </ReactModal>
       )
     );

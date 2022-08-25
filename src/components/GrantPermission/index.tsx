@@ -20,7 +20,7 @@ export type GrantPermissionProps = {
   reasoning: string;
   /** Additional info or reasoning to show (Ex: "Please allow APP_NAME to access your photos when you are prompted.") */
   additionalReasoning?: string;
-  /** Text to show for primary action (usually "Show prompt" or similar) */
+  /** Text to show for primary action (usually "Continue" or similar) */
   continueText: string;
   /** Text to show for cancel action (usually "Cancel" or similar) */
   cancelText: string;
