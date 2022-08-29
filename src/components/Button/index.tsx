@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableStateCallbackType, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
@@ -38,7 +38,7 @@ export class Button extends React.Component<ButtonProps> {
     paddingTop: 13,
     paddingBottom: 13,
     paddingRight: 48,
-    minHeight: 48,
+    height: 48,
     minWidth: 48,
   };
 
@@ -52,6 +52,33 @@ export class Button extends React.Component<ButtonProps> {
     });
   }
 
+  private getBackgroundColor(active?: boolean): string {
+    const { kind, disabled } = this.props;
+
+    switch (kind) {
+      case 'secondary':
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonSecondaryActive' : 'buttonSecondary');
+      case 'tertiary':
+        return active ? getColor('buttonTertiaryActive') : 'transparent';
+      case 'danger':
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonDangerActive' : 'buttonDangerPrimary');
+      case 'ghost':
+        return active ? getColor('layerActive01') : 'transparent';
+      case 'primary':
+      default:
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonPrimaryActive' : 'buttonPrimary');
+    }
+  }
+
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed
+      ? {
+          backgroundColor: this.getBackgroundColor(true),
+          borderWidth: 0,
+        }
+      : undefined;
+  };
+
   private get buttonStyle(): StyleProp<ViewStyle> {
     const { kind, style, disabled, iconOnlyMode, icon, overrideColor } = this.props;
     let finalStyle: any = {};
@@ -60,7 +87,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'secondary':
         finalStyle = styleReferenceBreaker(
           {
-            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonSecondary'),
+            backgroundColor: this.getBackgroundColor(),
           },
           this.basicButton
         );
@@ -68,7 +95,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'tertiary':
         finalStyle = styleReferenceBreaker(
           {
-            backgroundColor: 'transparent',
+            backgroundColor: this.getBackgroundColor(),
             borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
             borderWidth: 1,
           },
@@ -78,7 +105,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'danger':
         finalStyle = styleReferenceBreaker(
           {
-            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerPrimary'),
+            backgroundColor: this.getBackgroundColor(),
           },
           this.basicButton
         );
@@ -86,7 +113,7 @@ export class Button extends React.Component<ButtonProps> {
       case 'ghost':
         finalStyle = styleReferenceBreaker(
           {
-            backgroundColor: 'transparent',
+            backgroundColor: this.getBackgroundColor(),
           },
           this.basicButton
         );
@@ -95,7 +122,7 @@ export class Button extends React.Component<ButtonProps> {
       default:
         finalStyle = styleReferenceBreaker(
           {
-            backgroundColor: getColor(disabled ? 'buttonDisabled' : 'buttonPrimary'),
+            backgroundColor: this.getBackgroundColor(),
           },
           this.basicButton
         );
@@ -112,7 +139,7 @@ export class Button extends React.Component<ButtonProps> {
       finalStyle.borderColor = overrideColor;
     }
 
-    return StyleSheet.create(Object.assign(finalStyle, style));
+    return StyleSheet.create(styleReferenceBreaker(finalStyle, style));
   }
 
   private get iconTextColor(): string {
@@ -173,7 +200,7 @@ export class Button extends React.Component<ButtonProps> {
     const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode="tail" />}
         {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
