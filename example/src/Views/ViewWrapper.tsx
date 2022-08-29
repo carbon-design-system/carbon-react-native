@@ -18,7 +18,6 @@ export default class TestViewWrapper extends React.Component<{
       scrollView: {
         padding: 16,
         flex: 1,
-        backgroundColor: getColor('background'),
       },
       scrollContainer: {
         flexGrow: 1,

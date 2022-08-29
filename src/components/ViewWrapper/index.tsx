@@ -64,6 +64,10 @@ export class ViewWrapper extends React.Component<ViewWrapperProps> {
       safeWrapper: {
         flexGrow: 1,
       },
+      childrenWrapper: {
+        flexGrow: 1,
+        backgroundColor: getColor('background'),
+      },
     });
   }
 
@@ -75,7 +79,7 @@ export class ViewWrapper extends React.Component<ViewWrapperProps> {
         {this.needsBottomCover && <BottomSafeAreaColorOverride color={this.bottomColor} />}
         <SafeAreaView style={this.styles.safeWrapper} accessibilityRole="menu" {...(componentProps || {})}>
           <StatusBar backgroundColor={this.topColor} animated={true} barStyle={statusBarStyle || (useDarkMode() ? 'light-content' : 'dark-content')} />
-          {children}
+          <View style={this.styles.childrenWrapper}>{children}</View>
         </SafeAreaView>
       </View>
     );
