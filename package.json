@@ -161,5 +161,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@react-native-community/cli-platform-android": "^9.0.0"
   }
 }
