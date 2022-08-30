@@ -31,6 +31,9 @@ export default class TestLink extends React.Component {
         <View style={styles.itemStyle}>
           <Link onPress={() => this.alert('Pressed link')} onLongPress={() => this.alert('Long Pressed link')} text="Example link" />
         </View>
+        <View style={styles.itemStyle}>
+          <Link disabled={true} onPress={() => this.alert('Pressed link')} onLongPress={() => this.alert('Long Pressed link')} text="Example of disabled link" />
+        </View>
         <View style={styles.testNotFull}>
           <Link onPress={() => this.alert('Pressed link. But had to click the text!')} onLongPress={() => this.alert('Long Pressed link')} text="Example link not full width" />
         </View>

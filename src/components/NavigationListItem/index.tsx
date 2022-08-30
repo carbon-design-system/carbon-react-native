@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, View, ViewStyle, PressableStateCallbackType } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
@@ -182,6 +182,10 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     return null;
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
@@ -193,7 +197,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     return (
       <View style={styleReferenceBreaker(finalStyle, style)}>
         {this.selectableAreaSide === 'left' && this.selectableArea}
-        <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.styles.pressableStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+        <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.styles.pressableStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
           {this.contentArea}
           {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}

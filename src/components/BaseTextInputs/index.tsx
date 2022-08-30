@@ -1,5 +1,5 @@
 import React from 'react';
-import { NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable, Platform } from 'react-native';
+import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable, Platform } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -270,11 +270,14 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
     const disableMin = typeof numberRules?.min === 'number' ? numberRules.min >= valueNumber : false;
     const disableMax = typeof numberRules?.max === 'number' ? numberRules.max <= valueNumber : false;
+    const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+    };
 
     const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown): React.ReactNode => {
       const finalDisabled = pressableDisabled || disabled || false;
       return (
-        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton)} onPress={onPress} disabled={finalDisabled}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton, getStateStyle)} onPress={onPress} disabled={finalDisabled}>
           {createIcon(icon, 20, 20, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}
         </Pressable>
       );

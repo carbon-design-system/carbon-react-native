@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes } from '../Text';
@@ -55,6 +55,10 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     }
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
@@ -74,7 +78,7 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
 
     if (typeof onPress === 'function' || typeof onLongPress === 'function') {
       return (
-        <Pressable {...finalProps} style={(state) => pressableFeedbackStyle(state, finalStyles)}>
+        <Pressable {...finalProps} style={(state) => pressableFeedbackStyle(state, finalStyles, this.getStateStyle)}>
           {this.content}
         </Pressable>
       );

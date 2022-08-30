@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { ToolbarButton } from '../../types/navigation';
@@ -102,13 +102,16 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
   private get primaryAction(): React.ReactNode {
     const { disabled, icon, text, onPress, onLongPress } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.primaryAction);
+    const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      return state.pressed ? { backgroundColor: getColor('buttonPrimaryActive') } : undefined;
+    };
 
     if (disabled) {
       finalStyles.backgroundColor = getColor('buttonDisabled');
     }
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyles)} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={text} accessibilityRole="button">
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyles, getStateStyle)} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={text} accessibilityRole="button">
         {createIcon(icon, 24, 24, getColor(disabled ? 'textOnColorDisabled' : 'textOnColor'))}
       </Pressable>
     );

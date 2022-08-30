@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType } from 'react-native';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
@@ -59,11 +59,15 @@ export class MenuItem extends React.Component<MenuItemProps> {
     }
   };
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style), this.getStateStyle)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         <Text breakMode={textBreakMode} type={textType} style={this.textStyle} text={text} />
       </Pressable>
     );

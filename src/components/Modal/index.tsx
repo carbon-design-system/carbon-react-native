@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 import { zIndexes } from '../../styles/z-index';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
@@ -92,6 +92,15 @@ export class Modal extends React.Component<ModalProps> {
       },
     });
   }
+
+  private getPrimaryStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('buttonPrimaryActive') } : undefined;
+  };
+
+  private getSecondaryStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('buttonSecondaryActive') } : undefined;
+  };
+
   componentDidUpdate(previousProps: ModalProps): void {
     const { open } = this.props;
 
@@ -125,12 +134,12 @@ export class Modal extends React.Component<ModalProps> {
             {(hasPrimary || hasSecondary) && (
               <View style={this.styles.actions}>
                 {hasSecondary && (
-                  <Pressable onPress={secondaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.secondaryButton)} accessibilityLabel={secondaryActionText} accessibilityRole="button">
+                  <Pressable onPress={secondaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.secondaryButton, this.getSecondaryStateStyle)} accessibilityLabel={secondaryActionText} accessibilityRole="button">
                     <Text style={this.styles.buttonText} text={secondaryActionText} />
                   </Pressable>
                 )}
                 {hasPrimary && (
-                  <Pressable onPress={primaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.primaryButton)} accessibilityLabel={primaryActionText} accessibilityRole="button">
+                  <Pressable onPress={primaryActionOnPress} style={(state) => pressableFeedbackStyle(state, this.styles.primaryButton, this.getPrimaryStateStyle)} accessibilityLabel={primaryActionText} accessibilityRole="button">
                     <Text style={this.styles.buttonText} text={primaryActionText} />
                   </Pressable>
                 )}

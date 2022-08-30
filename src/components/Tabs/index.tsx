@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, ScrollView } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, ScrollView, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text } from '../Text';
@@ -71,6 +71,10 @@ export class Tabs extends React.Component<TabsProps> {
     });
   };
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   private getTab(item: TabItem, index: number): React.ReactNode {
     const { currentIndex } = this.state;
     const active = index === currentIndex;
@@ -88,7 +92,7 @@ export class Tabs extends React.Component<TabsProps> {
     }
 
     return (
-      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle)} accessibilityLabel={item.text} accessibilityRole="tab">
+      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} accessibilityLabel={item.text} accessibilityRole="tab">
         <Text type={active ? 'heading-compact-01' : 'body-compact-01'} style={textStyle} breakMode="tail" text={item.text} />
       </Pressable>
     );

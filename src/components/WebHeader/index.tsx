@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle, PressableStateCallbackType } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
@@ -78,6 +78,10 @@ export class WebHeader extends React.Component<WebHeaderProps> {
     });
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { mainName, secondaryName, actions, style, componentProps } = this.props;
 
@@ -95,7 +99,7 @@ export class WebHeader extends React.Component<WebHeaderProps> {
           actions.map((action, index) => {
             return (
               <View style={this.styles.actionWrapper} key={index}>
-                <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.actionButton)} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
+                <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.actionButton, this.getStateStyle)} onPress={action.onPress} accessibilityLabel={action.text} accessibilityRole="button">
                   <View style={this.styles.actionButtonImage}>{createIcon(action.icon, 20, 20, getColor('textOnColor', 'light'))}</View>
                 </Pressable>
               </View>

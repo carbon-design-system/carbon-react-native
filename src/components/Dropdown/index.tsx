@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, SafeAreaView } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, SafeAreaView, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Menu } from '../Menu';
@@ -107,6 +107,10 @@ export class Dropdown extends React.Component<DropdownProps> {
     this.setState({ open: !open });
   };
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { items, componentProps, style, label, helperText, value, onChange, disabled } = this.props;
     const { open } = this.state;
@@ -129,7 +133,7 @@ export class Dropdown extends React.Component<DropdownProps> {
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
-          <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle)} onPress={this.toggleDropdown}>
+          <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} onPress={this.toggleDropdown}>
             <Text text={value} style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>
