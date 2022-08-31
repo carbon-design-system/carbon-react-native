@@ -71,10 +71,10 @@ export class Link extends React.Component<LinkProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    const { textStyle } = this.props;
+    const { textStyle, disabled } = this.props;
 
     let finalStyle: any = {
-      color: this.textIconColor,
+      color: disabled ? getColor('textDisabled') : this.textIconColor,
     };
 
     return StyleSheet.create(styleReferenceBreaker(finalStyle, textStyle));

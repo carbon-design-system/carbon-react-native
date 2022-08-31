@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionSheetIOS, Platform, Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView } from 'react-native';
+import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView } from 'react-native';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
@@ -145,6 +145,14 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     return Platform.OS === 'ios' && !forceCustomActionSheet;
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('buttonSecondaryActive') } : undefined;
+  };
+
+  private getCancelStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   private get customActionSheet(): React.ReactNode {
     const { open, title, body, items, cancelButtonIndex } = this.props;
 
@@ -183,7 +191,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
 
                     return (
                       <Pressable
-                        style={(state) => pressableFeedbackStyle(state, finalStyle)}
+                        style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)}
                         accessibilityLabel={item.text}
                         key={index}
                         onPress={() => {
@@ -197,7 +205,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
                 </ScrollView>
               </View>
               <Pressable
-                style={(state) => pressableFeedbackStyle(state, this.styles.cancelButton)}
+                style={(state) => pressableFeedbackStyle(state, this.styles.cancelButton, this.getCancelStateStyle)}
                 accessibilityLabel={cancel.text}
                 onPress={() => {
                   cancel.onPress();

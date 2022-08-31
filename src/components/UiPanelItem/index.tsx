@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, View } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, View, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes, TextTypes } from '../Text';
@@ -136,6 +136,10 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
     }
   };
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   private get nestedItems(): React.ReactNode {
     const { children, noChildrenPressCallback } = this.props;
 
@@ -162,7 +166,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
         };
 
         return (
-          <Pressable key={index} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(finalStyle, item.style))} accessibilityRole="button" accessibilityLabel={item.text} onPress={onPress} onLongPress={item.onLongPress} disabled={item.disabled} {...(item.componentProps || {})}>
+          <Pressable key={index} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(finalStyle, item.style), this.getStateStyle)} accessibilityRole="button" accessibilityLabel={item.text} onPress={onPress} onLongPress={item.onLongPress} disabled={item.disabled} {...(item.componentProps || {})}>
             {!!item.leftIcon && <View style={this.styles.icon}>{createIcon(item.leftIcon, 20, 20, this.itemColor(item.disabled))}</View>}
             <Text breakMode={item.textBreakMode} style={finalTextStyle} text={item.text} />
             {!!item.rightIcon && <View style={this.styles.icon}>{createIcon(item.rightIcon, 20, 20, this.itemColor(item.disabled))}</View>}
@@ -185,7 +189,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
 
     return (
       <View>
-        <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityRole="button" accessibilityLabel={text} onPress={this.pressParent} onLongPress={onLongPress} disabled={disabled} {...(componentProps || {})}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style), this.getStateStyle)} accessibilityRole="button" accessibilityLabel={text} onPress={this.pressParent} onLongPress={onLongPress} disabled={disabled} {...(componentProps || {})}>
           {open && <View style={this.styles.openIndicator} />}
           {!!leftIcon && <View style={this.styles.icon}>{createIcon(leftIcon, 20, 20, this.itemColor())}</View>}
           <Text breakMode={textBreakMode} type="heading-compact-02" style={this.styles.primaryText} text={text} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Pressable, View } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Pressable, View, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
@@ -49,6 +49,15 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
   private get items(): React.ReactNode {
     const { items } = this.props;
 
+    const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      return state.pressed
+        ? {
+            backgroundColor: getColor('layerActive01'),
+            borderTopColor: getColor('layerActive01'),
+          }
+        : undefined;
+    };
+
     return items.map((item, index) => {
       const finalStyles = styleReferenceBreaker(this.styles.itemStyle, item.style);
       let finalColor = getColor('iconSecondary');
@@ -63,7 +72,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
       }
 
       return (
-        <Pressable key={index} style={(state) => pressableFeedbackStyle(state, finalStyles)} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>
+        <Pressable key={index} style={(state) => pressableFeedbackStyle(state, finalStyles, getStateStyle)} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>
           <View style={this.styles.icon}>{createIcon(item.icon, 20, 20, finalColor)}</View>
           <Text style={styleReferenceBreaker(useActiveText ? this.styles.textActive : {}, { color: finalColor, textAlign: 'center' })} text={item.text} type="label-01" breakMode="tail" />
         </Pressable>

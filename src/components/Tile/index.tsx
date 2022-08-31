@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, View, GestureResponderEvent, Pressable } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, View, GestureResponderEvent, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
@@ -36,6 +36,10 @@ export class Tile extends React.Component<TileProps> {
     });
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { children, componentProps, style, type, onPress, onLongPress, tileText } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
@@ -50,7 +54,7 @@ export class Tile extends React.Component<TileProps> {
         );
       case 'clickable':
         return (
-          <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={(state) => pressableFeedbackStyle(state, finalStyles)} {...(componentProps || {})}>
+          <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityRole="button" accessibilityLabel={tileText || defaultText.tile} style={(state) => pressableFeedbackStyle(state, finalStyles, this.getStateStyle)} {...(componentProps || {})}>
             {children}
           </Pressable>
         );

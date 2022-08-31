@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
@@ -123,6 +123,10 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     this.setState({ open: !open });
   };
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   componentDidUpdate(previosuProps: ProgressIndicatorProps): void {
     const { open } = this.props;
 
@@ -151,7 +155,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
 
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
-        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action)} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action, this.getStateStyle)} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           {this.stepIcon}
           <View style={this.styles.actionText}>
             <Text style={this.styles.mainText} text={title} />

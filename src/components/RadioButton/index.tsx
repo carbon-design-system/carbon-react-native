@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, Pressable, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import RadioButtonIcon from '@carbon/icons/es/radio-button/20';
@@ -59,7 +59,7 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
     const { disabled, componentProps, label, accessibleText, hideLabel, style } = this.props;
 
     return (
-      <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} disabled={disabled} accessibilityLabel={accessibleText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={accessibleText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
       </Pressable>
