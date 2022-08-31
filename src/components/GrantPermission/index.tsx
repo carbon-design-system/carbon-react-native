@@ -151,7 +151,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
               <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.imageSource} />
             </ScrollView>
             <Button style={this.styles.action} onPress={this.accept} text={continueText} />
-            <Button style={this.styles.action} kind="tertiary" onPress={this.reject} text={cancelText} />
+            <Button style={this.styles.action} kind="secondary" onPress={this.reject} text={cancelText} />
           </View>
         </SafeAreaView>
       </ReactModal>
