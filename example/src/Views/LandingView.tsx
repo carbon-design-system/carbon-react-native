@@ -1,39 +1,39 @@
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { LandingView } from 'carbon-react-native';
-
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-});
+import { DocumentViewer, LandingView } from 'carbon-react-native';
+import { testDocument } from '../constants/testDocument';
 
 export default class TestLandinView extends React.Component<{
   goHome: () => void;
 }> {
+  state = {
+    showPrivacy: false,
+  };
+
   private onContinue = (): void => {
     const { goHome } = this.props;
-    Alert.alert('Continue pressed', 'Do you want to go back home or stay here?', [
-      {
-        text: 'Stay here',
-        onPress: () => {},
-      },
-      {
-        text: 'Go home',
-        onPress: goHome,
-      },
-    ]);
+    goHome();
   };
 
   private onPrivacyPolicy = (): void => {
-    Alert.alert('View privacy policy pressed');
+    this.setState({ showPrivacy: true });
   };
 
   render(): React.ReactNode {
+    const { showPrivacy } = this.state;
+
     return (
-      <View style={styles.view}>
+      <>
         <LandingView productImage={require('../assets/productImage.png')} companyImage={require('../assets/companyImage.png')} longProductName="IBM Carbon React Native Test App" versionText="Version 12.23.98 (152669)" copyrightText="Copyright © 2022 IBM" continueText="Continue" continueOnPress={this.onContinue} privacyPolicyText="Privacy Policy" privacyPolicyOnPress={this.onPrivacyPolicy} />
-      </View>
+        {showPrivacy && (
+          <DocumentViewer
+            source={testDocument}
+            title="Privacy Policy"
+            onDismiss={() => {
+              this.setState({ showPrivacy: false });
+            }}
+          />
+        )}
+      </>
     );
   }
 }

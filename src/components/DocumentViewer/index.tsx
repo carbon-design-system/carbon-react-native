@@ -120,7 +120,6 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
       },
       webView: {
         backgroundColor: 'transparent',
-        color: 'red',
         flex: 1,
       },
       contentView: {

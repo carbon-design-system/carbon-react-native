@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes, TextTypes } from '../Text';
@@ -24,8 +24,6 @@ export type ContentSwitcherProps = {
   onChange?: (index: number, item: SwitcherItem) => void;
   /** Selected index */
   selectedIndex?: number;
-  /** Indicate if content switcher is used on layer */
-  light?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -38,13 +36,13 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   };
 
   private get styles() {
-    const { light } = this.props;
-
     const basicStyle = {
       padding: 16,
       paddingTop: 11,
       paddingBottom: 11,
       flex: 1,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
     };
 
     return StyleSheet.create({
@@ -54,13 +52,13 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
       },
       item: {
         ...basicStyle,
-        backgroundColor: getColor('layer03'),
-        borderWidth: light ? 1 : undefined,
-        borderColor: light ? getColor('backgroundInverse') : undefined,
+        backgroundColor: 'transparent',
+        borderColor: getColor('borderInverse'),
       },
-      activeItem: {
+      selectedItem: {
         ...basicStyle,
-        backgroundColor: getColor('backgroundInverse'),
+        backgroundColor: getColor('layerSelectedInverse'),
+        borderColor: getColor('layerSelectedInverse'),
       },
     });
   }
@@ -77,29 +75,43 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   private getSwitcher(item: SwitcherItem, index: number): React.ReactNode {
     const { currentIndex } = this.state;
     const { items } = this.props;
-    const active = index === currentIndex;
-    const finalStyle = styleReferenceBreaker(active ? this.styles.activeItem : this.styles.item);
+    const selected = index === currentIndex;
+    const finalStyle = styleReferenceBreaker(selected ? this.styles.selectedItem : this.styles.item);
     const textStyle = {
-      color: active ? getColor('textInverse') : getColor('textSecondary'),
+      color: selected ? getColor('textInverse') : getColor('textSecondary'),
     };
 
     if (item.disabled) {
-      finalStyle.backgroundColor = getColor('layer02');
-      textStyle.color = getColor('textOnColorDisabled');
+      if (selected) {
+        finalStyle.backgroundColor = getColor('buttonDisabled');
+      }
+
+      finalStyle.borderColor = getColor('buttonDisabled');
+      textStyle.color = getColor('textDisabled');
     }
 
     if (index === 0) {
+      finalStyle.borderLeftWidth = 1;
       finalStyle.borderTopLeftRadius = 4;
       finalStyle.borderBottomLeftRadius = 4;
     }
 
     if (index === (items || []).length - 1) {
+      finalStyle.borderRightWidth = 1;
       finalStyle.borderTopRightRadius = 4;
       finalStyle.borderBottomRightRadius = 4;
     }
 
+    const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      return state.pressed
+        ? {
+            backgroundColor: selected ? getColor('backgroundInverse') : getColor('backgroundActive'),
+          }
+        : undefined;
+    };
+
     return (
-      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle)} accessibilityLabel={item.text} accessibilityRole="menuitem">
+      <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle, getStateStyle)} accessibilityLabel={item.text} accessibilityRole="menuitem">
         <Text type={item.textType || 'body-compact-01'} style={textStyle} breakMode={item.textBreakMode} text={item.text} />
       </Pressable>
     );
