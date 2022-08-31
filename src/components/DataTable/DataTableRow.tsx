@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, PressableProps } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View, PressableStateCallbackType } from 'react-native';
+import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 
 export type DataTableRowProps = {
@@ -14,14 +15,14 @@ export type DataTableRowProps = {
   /** Text to use for row (accessibility). Not set by default. */
   rowText?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
-  componentProps?: PressableProps;
+  componentProps?: ViewProps;
 };
 
 export class DataTableRow extends React.Component<DataTableRowProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        backgroundColor: 'red',
+        backgroundColor: getColor('layer01'),
         maxHeight: 48,
         height: 48,
         flexDirection: 'row',
@@ -29,14 +30,27 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
       },
     });
   }
+
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+  };
+
   render(): React.ReactNode {
     const { componentProps, style, onPress, onLongPress, rowText, children } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
-    return (
-      <Pressable style={(state) => pressableFeedbackStyle(state, finalStyles)} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>
-        {children}
-      </Pressable>
-    );
+    if (onPress || onLongPress) {
+      return (
+        <Pressable style={(state) => pressableFeedbackStyle(state, finalStyles, this.getStateStyle)} {...(componentProps || {})} onPress={onPress} onLongPress={onLongPress} accessibilityLabel={rowText}>
+          {children}
+        </Pressable>
+      );
+    } else {
+      return (
+        <View style={finalStyles} {...(componentProps || {})} accessibilityLabel={rowText}>
+          {children}
+        </View>
+      );
+    }
   }
 }

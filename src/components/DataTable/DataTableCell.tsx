@@ -30,7 +30,6 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     return StyleSheet.create({
       wrapper: {
         height: 48,
-        backgroundColor: getColor('layer01'),
         padding: 16,
         paddingBottom: 15,
         paddingTop: 15,

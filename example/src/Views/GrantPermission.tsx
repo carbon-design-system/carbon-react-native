@@ -28,7 +28,7 @@ export default class TestGrantPermission extends React.Component {
 
   private resultCallback = (result: boolean): void => {
     this.setState({ open: false });
-    Alert.alert(result ? 'You accepted this flow' : 'You did not accept the flow', 'Your app should abort the flow if not accepted. If accepted move forward requesting access to the item via OS.');
+    Alert.alert(result ? 'You accepted this flow' : 'You did not accept the permission', result ? 'Your app show save they have accepted and never show again unless terms change.' : 'Your app should abort the flow.');
   };
 
   render(): React.ReactNode {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, ViewProps, StyleProp, StyleSheet, View, ViewStyle, Pressable } from 'react-native';
+import { GestureResponderEvent, ViewProps, StyleProp, StyleSheet, View, ViewStyle, Pressable, PressableStateCallbackType } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
@@ -27,21 +27,57 @@ export class Tag extends React.Component<TagProps> {
     return StyleSheet.create({
       wrapper: {
         alignSelf: 'flex-start',
-        padding: 8,
-        paddingLeft: 12,
-        paddingRight: 12,
         borderRadius: 32,
+        height: 32,
         backgroundColor: getColor('tagBackgroundGray'),
         flexDirection: 'row',
       },
       textStyle: {
-        lineHeight: 16,
+        padding: 7,
+        paddingLeft: 12,
+        paddingRight: 12,
+        flexShrink: 1,
       },
       action: {
-        paddingLeft: 8,
+        borderRadius: 32,
+        padding: 8,
+        height: 32,
+        width: 32,
         alignSelf: 'center',
       },
     });
+  }
+
+  private get activeColor(): string {
+    const { disabled, tagType } = this.props;
+
+    if (disabled) {
+      return getColor('layer01');
+    }
+
+    switch (tagType) {
+      case 'red':
+        return getColor('tagHoverRed');
+      case 'magenta':
+        return getColor('tagHoverMagenta');
+      case 'purple':
+        return getColor('tagHoverPurple');
+      case 'cyan':
+        return getColor('tagHoverCyan');
+      case 'teal':
+        return getColor('tagHoverTeal');
+      case 'green':
+        return getColor('tagHoverGreen');
+      case 'gray':
+        return getColor('tagHoverGray');
+      case 'cool-gray':
+        return getColor('tagHoverCoolGray');
+      case 'warm-gray':
+        return getColor('tagHoverWarmGray');
+      case 'blue':
+      default:
+        return getColor('tagHoverBlue');
+    }
   }
 
   private get textColor(): string {
@@ -108,12 +144,16 @@ export class Tag extends React.Component<TagProps> {
     }
   }
 
+  private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    return state.pressed ? { backgroundColor: this.activeColor } : undefined;
+  };
+
   private get closeAction(): React.ReactNode {
     const { onClosePress, title, disabled } = this.props;
 
     if (typeof onClosePress === 'function') {
       return (
-        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={(state) => pressableFeedbackStyle(state, this.styles.action)}>
+        <Pressable onPress={onClosePress} disabled={disabled} accessibilityLabel={title} accessibilityRole="button" style={(state) => pressableFeedbackStyle(state, this.styles.action, this.getStateStyle)}>
           {createIcon(CloseIcon, 16, 16, this.textColor)}
         </Pressable>
       );
@@ -131,7 +171,7 @@ export class Tag extends React.Component<TagProps> {
 
     return (
       <View style={wrapperStyle} {...(componentProps || {})}>
-        <Text type="body-compact-01" style={textStyle} text={title} />
+        <Text type="label-02" breakMode="tail" style={textStyle} text={title} />
         {this.closeAction}
       </View>
     );

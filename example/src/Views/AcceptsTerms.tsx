@@ -40,7 +40,7 @@ export default class TestAcceptTerms extends React.Component {
 
   private resultCallback = (result: boolean): void => {
     this.setState({ open: false });
-    Alert.alert(result ? 'You accepted the terms' : 'You did not accept the terms', 'Your app should exit or return to landing after not accepting.  If accepted store that they did and move on.');
+    Alert.alert(result ? 'You accepted the terms' : 'You did not accept the terms', result ? 'Your app show save they have accepted and never show again unless terms change.' : 'Your app should exit or return to landing.');
   };
 
   render(): React.ReactNode {

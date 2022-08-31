@@ -49,15 +49,6 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
   private get items(): React.ReactNode {
     const { items } = this.props;
 
-    const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      return state.pressed
-        ? {
-            backgroundColor: getColor('layerActive01'),
-            borderTopColor: getColor('layerActive01'),
-          }
-        : undefined;
-    };
-
     return items.map((item, index) => {
       const finalStyles = styleReferenceBreaker(this.styles.itemStyle, item.style);
       let finalColor = getColor('iconSecondary');
@@ -70,6 +61,15 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
         finalStyles.borderTopColor = getColor('borderInteractive');
         useActiveText = true;
       }
+
+      const getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+        return state.pressed
+          ? {
+              backgroundColor: getColor('layerActive01'),
+              borderTopColor: item.active ? getColor('borderInteractive') : getColor('layerActive01'),
+            }
+          : undefined;
+      };
 
       return (
         <Pressable key={index} style={(state) => pressableFeedbackStyle(state, finalStyles, getStateStyle)} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>

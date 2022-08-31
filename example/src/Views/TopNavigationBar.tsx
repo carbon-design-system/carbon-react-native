@@ -100,7 +100,7 @@ export default class TestTopNavigationBar extends React.Component {
     return (
       <>
         {showSearchBox && <Search value={searchValue} onChangeText={(value) => this.setState({ searchValue: value })} placeholder="Search input text" style={styleReferenceBreaker(styles.searchBox, showSwitch ? styles.switchDivider : undefined)} light={true} />}
-        {showSwitch && <ContentSwitcher items={[{ text: 'Item 1' }, { text: 'Item 2' }]} onChange={(index) => this.setState({ currentSwitchIndex: index })} selectedIndex={currentSwitchIndex} light={true} />}
+        {showSwitch && <ContentSwitcher items={[{ text: 'Item 1' }, { text: 'Item 2' }]} onChange={(index) => this.setState({ currentSwitchIndex: index })} selectedIndex={currentSwitchIndex} />}
       </>
     );
   }
