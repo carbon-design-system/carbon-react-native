@@ -85,7 +85,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (
-      <View style={finalStyles} accessibilityRole="tabbar" {...(componentProps || {})}>
+      <View style={finalStyles} accessibilityRole="tablist" {...(componentProps || {})}>
         {this.items}
       </View>
     );
