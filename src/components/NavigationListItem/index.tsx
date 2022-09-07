@@ -37,7 +37,7 @@ export type NavigationListItemProps = {
   selected?: boolean;
   /** Indicate selectable side (default is left) */
   selectableSide?: 'right' | 'left';
-  /** Text to use for selectable (accessibility). Defaults to ENGLISH for selectableType */
+  /** Text to use for selectable (accessibility). */
   selectableText?: string;
   /** onPress event */
   onPress?: (event: GestureResponderEvent, id?: string) => void;

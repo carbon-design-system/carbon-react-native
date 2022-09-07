@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
@@ -34,11 +34,13 @@ export type LinkProps = {
   textStyle?: StyleProp<TextStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
+  /** Ref property for parent */
+  forwardRef?: Ref<View>;
 };
 
 /**
- * To not have a link be pressable 100% of screen format parent or pass style appropriately.
- * alignSelf: 'flex-start' is useful for this
+ * To not have a button be pressable 100% of screen format parent or pass style appropriately.
+ * `alignSelf: 'flex-start'` is useful.
  */
 export class Link extends React.Component<LinkProps> {
   private get textIconColor(): string {
@@ -93,10 +95,10 @@ export class Link extends React.Component<LinkProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize, backButtonMode } = this.props;
+    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize, backButtonMode, forwardRef } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
         {!!(leftIcon && !backButtonMode) && <View style={this.styles.leftIcon}>{createIcon(leftIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
         {backButtonMode && <Text type={textType} style={this.styles.backArrowStyle} text={'\u2190'} />}
         <Text type={textType} style={this.textStyle} text={text} breakMode={textBreakMode} />

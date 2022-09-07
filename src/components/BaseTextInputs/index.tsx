@@ -7,6 +7,7 @@ import { Text, TextBreakModes } from '../Text';
 import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
 import SubtractIcon from '@carbon/icons/es/subtract/20';
+import CalendarIcon from '@carbon/icons/es/calendar/20';
 import WarningFilledIcon from '@carbon/icons/es/warning--filled/20';
 import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
@@ -137,6 +138,12 @@ export const getTextInputStyle = (light?: boolean) => {
       top: 0,
       right: 0,
     },
+    dateIcon: {
+      position: 'absolute',
+      padding: 13,
+      top: 0,
+      right: 0,
+    },
     errorIcon: {
       position: 'absolute',
       padding: 13,
@@ -166,7 +173,7 @@ export const getTextInputStyle = (light?: boolean) => {
  * This allows a shared code base for all text input systems and validation rules
  * This component is not exported. It is used by `TextInput`, `TextArea` and `PasswordInput`.
  */
-export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' | 'password' | 'number' } & TextInputProps> {
+export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' | 'password' | 'number' | 'date' } & TextInputProps> {
   state = {
     dirty: false,
     hasFocus: false,
@@ -231,11 +238,17 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({ revealPassword: !revealPassword })} />;
   }
 
+  private get dateIcon(): React.ReactNode {
+    const { disabled } = this.props;
+
+    return <View style={this.styles.dateIcon}>{createIcon(CalendarIcon, 20, 20, disabled ? getColor('iconDisabled') : getColor('iconSecondary'))}</View>;
+  }
+
   private get errorIndicator(): React.ReactNode {
     const { type } = this.props;
     let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
 
-    if (type === 'password') {
+    if (type === 'password' || type === 'date') {
       errorIconStyle.right = 48;
       errorIconStyle.paddingRight = 0;
       errorIconStyle.paddingLeft = 0;
@@ -296,6 +309,8 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
+    const textArea = type === 'text-area';
+    const date = type === 'date';
     const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
     const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
@@ -308,14 +323,14 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
       textBoxStyle = styleReferenceBreaker(this.styles.textBoxActive);
     }
 
-    if (type === 'text-area') {
+    if (textArea) {
       textBoxStyle.height = textAreaMinHeight || 144;
       textBoxStyle.paddingTop = 12;
       textBoxStyle.paddingBottom = 12;
       textBoxStyle = styleReferenceBreaker(textBoxStyle, Body02);
-    } else if (type === 'password') {
+    } else if (password || date) {
       textBoxStyle.paddingRight = 50;
-    } else if (type === 'number') {
+    } else if (number) {
       textBoxStyle.paddingRight = 100;
     }
 
@@ -327,9 +342,10 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
-          <ReactTextInput editable={!disabled} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={type === 'text-area'} {...(componentProps || {})} />
+          <ReactTextInput editable={!disabled} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
           {error && this.errorIndicator}
           {password && this.passwordReveal}
+          {date && this.dateIcon}
           {number && this.numberActions}
         </View>
         {!!(helperText && !error) && <Text style={this.styles.helperText} type="helper-text-02" text={helperText} />}

@@ -13,11 +13,14 @@ export type MenuProps = {
   componentProps?: ViewProps;
 };
 
+/** Max menu height */
+export const maxMenuHeight = 280;
+
 export class Menu extends React.Component<MenuProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        maxHeight: 280,
+        maxHeight: maxMenuHeight,
         backgroundColor: getColor('layer01'),
       },
     });

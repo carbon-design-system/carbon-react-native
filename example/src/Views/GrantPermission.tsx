@@ -28,8 +28,40 @@ export default class TestGrantPermission extends React.Component {
 
   private resultCallback = (result: boolean): void => {
     this.setState({ open: false });
-    Alert.alert(result ? 'You accepted this flow' : 'You did not accept the permission', result ? 'Your app show save they have accepted and never show again unless terms change.' : 'Your app should abort the flow.');
+    Alert.alert(result ? 'You accepted this flow' : 'You did not accept the permission', result ? 'Your app should save that they have accepted and never show again unless terms change.' : 'Your app should abort the flow.');
   };
+
+  private get reasoning(): string {
+    const { type } = this.state;
+
+    switch (type) {
+      case 'files':
+        return 'In order for us to retrieve the content you intend to upload, IBM Carbon will need access to your files. This will be used for upload purposes only.';
+      case 'camera':
+        return 'In order for us to share images you take to your network, IBM Carbon will need access to your camera. This will be used for sharing purposes only.';
+      case 'notifications':
+        return 'In order for us to keep you up to date with recent changes, IBM Carbon would like to send you notifications. This will be used for account updates.';
+      case 'location':
+      default:
+        return 'In order for us to provide better search results for what is near you, IBM Carbon will need access to your location. This will be used for recommending nearby services only.';
+    }
+  }
+
+  private get additionalReasoning(): string {
+    const { type } = this.state;
+
+    switch (type) {
+      case 'files':
+        return 'Please allow IBM Carbon to access your files when you are prompted.';
+      case 'camera':
+        return 'Please allow IBM Carbon to access your camera when you are prompted.';
+      case 'notifications':
+        return 'Please allow IBM Carbon to send you notifications when you are prompted.';
+      case 'location':
+      default:
+        return 'Please allow IBM Carbon to access your location when you are prompted.';
+    }
+  }
 
   render(): React.ReactNode {
     const { open, type } = this.state;
@@ -42,7 +74,7 @@ export default class TestGrantPermission extends React.Component {
         <RadioButton checked={type === 'notifications'} id="notifications" label="Notifications" onPress={() => this.setState({ type: 'notifications' })} />
         <RadioButton checked={type === 'location'} id="location" label="Location" onPress={() => this.setState({ type: 'location' })} />
         <Button onPress={this.open} text="Trigger permission grant" style={styles.itemStyle} />
-        {open && <GrantPermission type={type} title="Grant access" resultsCallback={this.resultCallback} reasoning="In order for Carbon React Native test to retrieve the content you intend to act on, we will need access to your photos. This will be used for upload purposes only." additionalReasoning="Please allow Carbon React Native test to access your photos when you are prompted." continueText="Continue" cancelText="Cancel" />}
+        {open && <GrantPermission type={type} title="Grant access" resultsCallback={this.resultCallback} reasoning={this.reasoning} additionalReasoning={this.additionalReasoning} continueText="Continue" cancelText="Cancel" />}
       </ScrollView>
     );
   }

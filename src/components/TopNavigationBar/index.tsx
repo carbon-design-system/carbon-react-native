@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, LayoutChangeEvent } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
@@ -32,6 +32,11 @@ export type TopNavigationBarProps = {
 };
 
 export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
+  state = {
+    leftLinkWidth: 100,
+    rightLinkWidth: 100,
+  };
+
   private get styles() {
     return StyleSheet.create({
       wrapper: {
@@ -129,6 +134,14 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
     );
   }
 
+  private getLeftLinkLayout = (event: LayoutChangeEvent): void => {
+    this.setState({ leftLinkWidth: event.nativeEvent.layout.width || 100 });
+  };
+
+  private getRightLinkLayout = (event: LayoutChangeEvent): void => {
+    this.setState({ rightLinkWidth: event.nativeEvent.layout.width || 100 });
+  };
+
   private get headerTitleArea(): React.ReactNode {
     const { title, subTitle, headerMode } = this.props;
 
@@ -142,6 +155,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
 
   private get baseHeader(): React.ReactNode {
     const { leftItems, leftLink, rightItems, rightLink } = this.props;
+    const { leftLinkWidth, rightLinkWidth } = this.state;
     const wrapperStyle = styleReferenceBreaker(this.styles.headerItemWrapper);
 
     if (!leftLink && !rightLink) {
@@ -150,13 +164,15 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
       } else if ((leftItems?.length === 1 && rightItems?.length === 1) || (leftItems?.length === 1 && !rightItems?.length) || (!leftItems?.length && rightItems?.length === 1)) {
         wrapperStyle.minWidth = 50;
       }
+    } else {
+      wrapperStyle.minWidth = (leftLinkWidth > rightLinkWidth ? leftLinkWidth : rightLinkWidth) || 100;
     }
 
     return (
       <View style={this.styles.headerWrapper}>
-        <View style={wrapperStyle}>{leftLink ? <Link {...leftLink} style={this.styles.leftLink} textBreakMode="tail" /> : this.getItems(leftItems || [], 'left')}</View>
+        <View style={wrapperStyle}>{leftLink ? <Link {...leftLink} style={this.styles.leftLink} textBreakMode="tail" componentProps={{ onLayout: this.getLeftLinkLayout }} /> : this.getItems(leftItems || [], 'left')}</View>
         {this.headerTitleArea}
-        <View style={wrapperStyle}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" /> : this.getItems(rightItems || [], 'right')}</View>
+        <View style={wrapperStyle}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" componentProps={{ onLayout: this.getRightLinkLayout }} /> : this.getItems(rightItems || [], 'right')}</View>
       </View>
     );
   }

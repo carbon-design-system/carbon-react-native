@@ -43,6 +43,8 @@ export * from './components/Pagination';
 export * from './components/DataTable';
 export * from './components/UiPanel';
 export * from './components/UiPanelItem';
+export * from './components/Tooltip';
+export * from './components/DateInput';
 
 // Style exports
 export * from './styles/colors';

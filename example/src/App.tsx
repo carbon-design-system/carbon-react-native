@@ -50,6 +50,8 @@ import RealLandingView from './Views/RealLandingView';
 import TestGrantPermission from './Views/GrantPermission';
 import TestViewWrapper from './Views/ViewWrapper';
 import TestUiPanel from './Views/UiPanel';
+import TestTooltip from './Views/Tooltip';
+import TestDateInput from './Views/DateInput';
 
 export type ComponentItem = {
   component: React.ReactNode;
@@ -132,6 +134,8 @@ export default class App extends React.Component {
     ['Error state', { component: <TestErrorState />, imageLight: null, imageDark: null }],
     ['View wrapper', { component: <TestViewWrapper goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
     ['UI panel', { component: <TestUiPanel goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Tooltip', { component: <TestTooltip />, imageLight: null, imageDark: null }],
+    ['Date input', { component: <TestDateInput />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [

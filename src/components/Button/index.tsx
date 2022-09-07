@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableStateCallbackType, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
@@ -30,8 +30,14 @@ export type ButtonProps = {
   overrideColor?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
+  /** Ref property for parent */
+  forwardRef?: Ref<View>;
 };
 
+/**
+ * To not have a button be pressable 100% of screen format parent or pass style appropriately.
+ * `alignSelf: 'flex-start'` is useful.
+ */
 export class Button extends React.Component<ButtonProps> {
   private basicButton: StyleProp<ViewStyle> = {
     padding: 16,
@@ -197,10 +203,10 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType } = this.props;
+    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
         {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode="tail" />}
         {icon && <View style={this.styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
