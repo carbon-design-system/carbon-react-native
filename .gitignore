@@ -38,6 +38,7 @@ project.xcworkspace
 .project
 .settings
 local.properties
+*/android/app/release
 android.iml
 
 # Cocoapods
