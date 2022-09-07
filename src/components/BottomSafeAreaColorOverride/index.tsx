@@ -50,7 +50,7 @@ export class BottomSafeAreaColorOverride extends React.Component<BottomSafeAreaC
   }
 
   private get isPortrait(): boolean {
-    const dim = Dimensions.get('screen');
+    const dim = Dimensions.get('window');
 
     return dim.height >= dim.width;
   }

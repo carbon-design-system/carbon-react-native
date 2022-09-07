@@ -29,8 +29,8 @@ export class MenuItem extends React.Component<MenuItemProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        marginRight: 16,
-        marginLeft: 16,
+        paddingRight: 16,
+        paddingLeft: 16,
         paddingTop: 13,
         paddingBottom: 13,
       },

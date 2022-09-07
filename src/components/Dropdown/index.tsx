@@ -1,8 +1,8 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, SafeAreaView, PressableStateCallbackType } from 'react-native';
-import { getColor } from '../../styles/colors';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, PressableStateCallbackType, Dimensions } from 'react-native';
+import { getColor, shadowStyle } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
-import { Menu } from '../Menu';
+import { maxMenuHeight, Menu } from '../Menu';
 import { getTextInputStyle } from '../BaseTextInputs';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 import type { MenuItemProps } from '../MenuItem';
@@ -10,6 +10,7 @@ import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { modalPresentations } from '../../constants/constants';
 import { zIndexes } from '../../styles/z-index';
+import { defaultText } from '../../constants/defaultText';
 
 export type DropdownItem = {
   /** ID for tracking items */
@@ -41,21 +42,22 @@ export type DropdownProps = {
   disabled?: boolean;
   /** Indicate if dropdown is used on layer */
   light?: boolean;
+  /** Text to use for on close areas (accessibility). Defaults to ENGLISH "Close" */
+  closeText?: string;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
 
-/**
- * React Native does not allow zIndex to overlay non sibling Views.
- * Therefore without extreme control when using this component of lowering zIndex of Views around it this will not work great.
- * Therefore this will open a full screen overlay menu system.
- * We should try and find a better way. But as of now does not seem to work with zIndex.
- */
 export class Dropdown extends React.Component<DropdownProps> {
   state = {
     open: false,
+    renderLeft: 0,
+    renderRight: 0,
+    renderTop: 0,
+    renderBottom: 0,
+    inverseMenu: false,
   };
 
   private get itemColor(): string {
@@ -65,19 +67,33 @@ export class Dropdown extends React.Component<DropdownProps> {
   }
 
   private get styles() {
+    const { renderLeft, renderRight, renderTop, renderBottom, inverseMenu } = this.state;
+
     return StyleSheet.create({
       modal: {
         zIndex: zIndexes.dropdown,
       },
-      wrapper: {
-        maxHeight: 280,
-      },
+      wrapper: {},
       innerWrapper: {
         position: 'relative',
       },
+      closeModal: {
+        zIndex: zIndexes.behind,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        position: 'absolute',
+      },
       menuWrapper: {
-        height: '100%',
-        maxHeight: '100%',
+        position: 'absolute',
+        top: renderTop,
+        bottom: renderBottom,
+        right: renderRight,
+        left: renderLeft,
+        maxHeight: inverseMenu ? undefined : maxMenuHeight,
+        flexDirection: inverseMenu ? 'column-reverse' : undefined,
+        ...shadowStyle,
       },
       iconStyle: {
         position: 'absolute',
@@ -107,12 +123,53 @@ export class Dropdown extends React.Component<DropdownProps> {
     this.setState({ open: !open });
   };
 
+  private closeDropdown = (): void => {
+    this.setState({ open: false });
+  };
+
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
+  /**
+   * Calculate where to render the overlayed dropdown menu
+   * Sometimes didMount is not called before full render and results in all 0. setTimeout waits for load
+   *
+   * In event measure returns bad it will load to top of page with min width/height.
+   *
+   * @param item - View from reference
+   */
+  private setFormItemRef = (item: View | null): void => {
+    if (item && typeof item?.measure === 'function') {
+      setTimeout(() => {
+        const { renderLeft, renderRight, renderTop, renderBottom, inverseMenu } = this.state;
+        const screenWidth = Dimensions.get('window').width || 320;
+        const screenHeight = Dimensions.get('window').height || 320;
+        const baseSafePadding = 44;
+
+        item.measure((_fx, _fy, width, height, pageX, pageY) => {
+          const newRenderLeft = pageX || 0;
+          const newRenderRight = screenWidth - (newRenderLeft + (width || 200));
+          let newRenderTop = (pageY || 0) + (height || 200);
+          let newRenderBottom = baseSafePadding;
+          let newInverse = false;
+
+          if (newRenderTop > screenHeight - 200) {
+            newRenderBottom = screenHeight - (pageY || 0);
+            newRenderTop = baseSafePadding;
+            newInverse = true;
+          }
+
+          if (renderLeft !== newRenderLeft || renderRight !== newRenderRight || renderTop !== newRenderTop || renderBottom !== newRenderBottom || inverseMenu !== newInverse) {
+            this.setState({ renderLeft: newRenderLeft, renderRight: newRenderRight, renderTop: newRenderTop, renderBottom: newRenderBottom, inverseMenu: newInverse });
+          }
+        });
+      });
+    }
+  };
+
   render(): React.ReactNode {
-    const { items, componentProps, style, label, helperText, value, onChange, disabled } = this.props;
+    const { items, componentProps, style, label, helperText, value, onChange, disabled, closeText } = this.props;
     const { open } = this.state;
     const finalStyle = styleReferenceBreaker(disabled ? this.textInputStyles.textBoxDisabled : this.textInputStyles.textBox);
     finalStyle.paddingTop = 10;
@@ -133,15 +190,16 @@ export class Dropdown extends React.Component<DropdownProps> {
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
-          <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} onPress={this.toggleDropdown}>
+          <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} onPress={this.toggleDropdown} ref={this.setFormItemRef}>
             <Text text={value} style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>
           {open && (
             <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
-              <SafeAreaView>
-                <Menu style={this.styles.menuWrapper} items={itemList} />
-              </SafeAreaView>
+              <Pressable style={this.styles.closeModal} accessibilityRole="button" accessibilityLabel={closeText || defaultText.close} onPress={this.closeDropdown} />
+              <View style={this.styles.menuWrapper}>
+                <Menu items={itemList} />
+              </View>
             </ReactModal>
           )}
         </View>
