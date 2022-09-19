@@ -30,6 +30,8 @@ export type DropdownItem = {
 export type DropdownProps = {
   /** Current value to show on dropdown */
   value: string;
+  /** Callback to convert value to human readable text */
+  valueToText?: (value: string) => string;
   /** Items to render in the dropdown */
   items: DropdownItem[];
   /** On change callback */
@@ -169,7 +171,7 @@ export class Dropdown extends React.Component<DropdownProps> {
   };
 
   render(): React.ReactNode {
-    const { items, componentProps, style, label, helperText, value, onChange, disabled, closeText } = this.props;
+    const { items, componentProps, style, label, helperText, value, onChange, disabled, closeText, valueToText } = this.props;
     const { open } = this.state;
     const finalStyle = styleReferenceBreaker(disabled ? this.textInputStyles.textBoxDisabled : this.textInputStyles.textBox);
     finalStyle.paddingTop = 10;
@@ -191,7 +193,7 @@ export class Dropdown extends React.Component<DropdownProps> {
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
           <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} onPress={this.toggleDropdown} ref={this.setFormItemRef}>
-            <Text text={value} style={this.styles.dropdownText} />
+            <Text text={typeof valueToText === 'function' ? valueToText(value) : value} style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>
           {open && (

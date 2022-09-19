@@ -1,5 +1,5 @@
 import React, { Ref } from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Platform, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
@@ -96,12 +96,13 @@ export class Link extends React.Component<LinkProps> {
 
   render(): React.ReactNode {
     const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize, backButtonMode, forwardRef } = this.props;
+    const androidBack = !!(backButtonMode && Platform.OS === 'android');
 
     return (
       <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
         {!!(leftIcon && !backButtonMode) && <View style={this.styles.leftIcon}>{createIcon(leftIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
         {backButtonMode && <Text type={textType} style={this.styles.backArrowStyle} text={'\u2190'} />}
-        <Text type={textType} style={this.textStyle} text={text} breakMode={textBreakMode} />
+        {!androidBack && <Text type={textType} style={this.textStyle} text={text} breakMode={textBreakMode} />}
         {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
       </Pressable>
     );

@@ -6,6 +6,7 @@ import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import CheckboxIcon from '@carbon/icons/es/checkbox/20';
 import CheckboxCheckedIcon from '@carbon/icons/es/checkbox--checked--filled/20';
+import { Tooltip, TooltipProps } from '../Tooltip';
 
 export type CheckboxRadioProps = {
   /** Text to render */
@@ -24,6 +25,8 @@ export type CheckboxRadioProps = {
   onLongPress?: (id: string, event: GestureResponderEvent) => void;
   /** Text to use for checkbox (accessibility). Defaults to ENGLISH "Checkbox"/"Radio button" depending on use */
   accessibleText?: string;
+  /** Tooltip props to show at the end of the text */
+  tooltipProps?: TooltipProps;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -38,6 +41,10 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
         paddingBottom: 14,
         flexDirection: 'row',
         alignContent: 'flex-start',
+      },
+      checkboxWrapper: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
       },
     });
   }
@@ -78,13 +85,16 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
   };
 
   render(): React.ReactNode {
-    const { disabled, componentProps, label, accessibleText, hideLabel, style } = this.props;
+    const { disabled, componentProps, label, accessibleText, hideLabel, style, tooltipProps } = this.props;
 
     return (
-      <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
-        {this.checkbox}
-        {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
-      </Pressable>
+      <View style={styleReferenceBreaker(this.styles.checkboxWrapper, style)}>
+        <Pressable style={this.styles.wrapper} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+          {this.checkbox}
+          {!hideLabel && <Text style={this.textStyle} text={label} />}
+        </Pressable>
+        {!!tooltipProps && <Tooltip {...tooltipProps} />}
+      </View>
     );
   }
 }

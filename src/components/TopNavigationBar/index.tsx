@@ -8,6 +8,37 @@ import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
 import { RegularPlex } from '../../styles/typography';
 
+export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left'): React.ReactNode => {
+  const finalWrapperStyles = styleReferenceBreaker(style);
+
+  if (type === 'right') {
+    finalWrapperStyles.justifyContent = 'flex-end';
+  } else if (type === 'left') {
+    finalWrapperStyles.justifyContent = 'flex-start';
+  }
+
+  return (
+    <View style={finalWrapperStyles}>
+      {items.map((item, index) => {
+        const finalStyles = styleReferenceBreaker(itemStyle, item.style);
+        let finalColor = getColor('iconPrimary');
+
+        if (item.disabled) {
+          finalColor = getColor('iconDisabled');
+        } else if (item.active) {
+          finalStyles.backgroundColor = getColor('backgroundActive');
+        }
+
+        return (
+          <View style={finalStyles} key={index}>
+            <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />
+          </View>
+        );
+      })}
+    </View>
+  );
+};
+
 export type TopNavigationBarProps = {
   /** Title to show */
   title: string;
@@ -103,37 +134,6 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
     });
   }
 
-  private getItems(items: NavigationButton[], type: 'right' | 'left'): React.ReactNode {
-    const finalWrapperStyles = styleReferenceBreaker(this.styles.itemWrapper);
-
-    if (type === 'right') {
-      finalWrapperStyles.justifyContent = 'flex-end';
-    } else if (type === 'left') {
-      finalWrapperStyles.justifyContent = 'flex-start';
-    }
-
-    return (
-      <View style={finalWrapperStyles}>
-        {items.map((item, index) => {
-          const finalStyles = styleReferenceBreaker(this.styles.itemStyle, item.style);
-          let finalColor = getColor('iconPrimary');
-
-          if (item.disabled) {
-            finalColor = getColor('iconDisabled');
-          } else if (item.active) {
-            finalStyles.backgroundColor = getColor('backgroundActive');
-          }
-
-          return (
-            <View style={finalStyles} key={index}>
-              <Button kind="ghost" overrideColor={finalColor} disabled={item.disabled} icon={item.icon} iconOnlyMode={true} text={item.text} onPress={item.onPress} onLongPress={item.onLongPress} />
-            </View>
-          );
-        })}
-      </View>
-    );
-  }
-
   private getLeftLinkLayout = (event: LayoutChangeEvent): void => {
     this.setState({ leftLinkWidth: event.nativeEvent.layout.width || 100 });
   };
@@ -170,9 +170,9 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
 
     return (
       <View style={this.styles.headerWrapper}>
-        <View style={wrapperStyle}>{leftLink ? <Link {...leftLink} style={this.styles.leftLink} textBreakMode="tail" componentProps={{ onLayout: this.getLeftLinkLayout }} /> : this.getItems(leftItems || [], 'left')}</View>
+        <View style={wrapperStyle}>{leftLink ? <Link {...leftLink} style={this.styles.leftLink} textBreakMode="tail" componentProps={{ onLayout: this.getLeftLinkLayout }} /> : headerBarGetItems(leftItems || [], this.styles.itemWrapper, this.styles.itemStyle, 'left')}</View>
         {this.headerTitleArea}
-        <View style={wrapperStyle}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" componentProps={{ onLayout: this.getRightLinkLayout }} /> : this.getItems(rightItems || [], 'right')}</View>
+        <View style={wrapperStyle}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" componentProps={{ onLayout: this.getRightLinkLayout }} /> : headerBarGetItems(rightItems || [], this.styles.itemWrapper, this.styles.itemStyle, 'right')}</View>
       </View>
     );
   }

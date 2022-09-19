@@ -52,12 +52,18 @@ import TestViewWrapper from './Views/ViewWrapper';
 import TestUiPanel from './Views/UiPanel';
 import TestTooltip from './Views/Tooltip';
 import TestDateInput from './Views/DateInput';
+import TestLogin from './Views/Login';
+import TestTopNavigationBarLogin from './Views/TopNavigationBarLogin';
+import TestLoginForgotPassword from './Views/LoginForgotPassword';
+import TestLoginCreatePassword from './Views/LoginCreatePassword';
+import TestLoginCreateAccount from './Views/LoginCreateAccount';
 
 export type ComponentItem = {
   component: React.ReactNode;
   imageLight: ImageSourcePropType | null;
   imageDark: ImageSourcePropType | null;
   fullScreen?: boolean;
+  hidden?: boolean;
 };
 
 export default class App extends React.Component {
@@ -136,6 +142,7 @@ export default class App extends React.Component {
     ['UI panel', { component: <TestUiPanel goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
     ['Tooltip', { component: <TestTooltip />, imageLight: null, imageDark: null }],
     ['Date input', { component: <TestDateInput />, imageLight: null, imageDark: null }],
+    ['Top navigation bar login', { component: <TestTopNavigationBarLogin />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [
@@ -143,6 +150,11 @@ export default class App extends React.Component {
     ['Document viewer', { component: <TestDocumentViewer />, imageLight: null, imageDark: null }],
     ['Accept terms', { component: <TestAcceptTerms />, imageLight: null, imageDark: null }],
     ['Grant permission', { component: <TestGrantPermission />, imageLight: null, imageDark: null }],
+    ['Login', { component: <TestLogin changeView={this.changeView} goHome={this.clearView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Login - Forgot password', { component: <TestLoginForgotPassword changeView={this.changeView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Login - Create password', { component: <TestLoginCreatePassword changeView={this.changeView} />, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Login - After set', { component: <TestLogin changeView={this.changeView} goHome={this.clearView} afterReset={true} />, hidden: true, fullScreen: true, imageLight: null, imageDark: null }],
+    ['Login - Create account', { component: <TestLoginCreateAccount />, imageLight: null, imageDark: null }],
   ];
 
   private viewMap: Map<string, ComponentItem> = new Map([...this.componentViewList, ...this.flowViewList]);
@@ -154,10 +166,10 @@ export default class App extends React.Component {
       case 'resources':
         return <TestResources />;
       case 'layouts':
-        return <TestComponentList viewList={this.flowViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
+        return <TestComponentList viewList={this.flowViewList.filter((item) => !item[1].hidden)} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
       case 'components':
       default:
-        return <TestComponentList viewList={this.componentViewList} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
+        return <TestComponentList viewList={this.componentViewList.filter((item) => !item[1].hidden)} filterTerm={filterTerm} changeView={this.changeView} theme={theme} listView={true} />;
     }
   }
 

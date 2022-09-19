@@ -150,8 +150,8 @@ export class LandingView extends React.Component<LandingViewProps> {
             <ScrollView style={this.styles.contentWrapper} bounces={false}>
               <Text style={this.styles.title} text={longProductName} type="heading-04" />
               <View style={this.styles.helperContent}>
-                <Text text={versionText} type="body-compact-02" />
-                <Text text={copyrightText} type="body-compact-02" />
+                <Text text={versionText} />
+                <Text text={copyrightText} />
               </View>
               <View>{!!(privacyPolicyText && privacyPolicyOnPress) && <Link style={this.styles.privacyPolicyLink} onPress={privacyPolicyOnPress} onLongPress={privacyPolicyOnLongPress} text={privacyPolicyText} textType="body-compact-02" />}</View>
             </ScrollView>

@@ -4,6 +4,12 @@ import Svg, { G, Path } from 'react-native-svg';
 import { getColor } from '../../styles/colors';
 import { defaultText } from '../../constants/defaultText';
 
+export const centerLoadingStyle = {
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  marginTop: 20,
+};
+
 export type LoadingProps = {
   /** Indicates type of loading spinner (large is default) */
   type?: 'large' | 'medium' | 'small';
