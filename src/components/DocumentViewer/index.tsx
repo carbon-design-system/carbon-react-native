@@ -19,7 +19,9 @@ export type DocumentViewerProps = {
   /** Title of text document */
   title: string;
   /** Content to render (supports HTML (text or URL) and plain text) */
-  source: DocumentViewerSource;
+  source?: DocumentViewerSource;
+  /** Content to render as React Nodes. If set source is not used.  Content is automatically wrapped in a ScrollView. */
+  sourceNode?: React.ReactNode;
   /** Callback when the view is dismissed (if not set will not render close option) */
   onDismiss?: () => void;
   /** Disable padding (useful for loading websites) */
@@ -151,7 +153,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
   }
 
   private get mainView(): React.ReactNode {
-    const { source, disableContainerPadding } = this.props;
+    const { source, disableContainerPadding, sourceNode } = this.props;
     const containerStyle = styleReferenceBreaker(this.styles.contentContainer);
 
     if (disableContainerPadding) {
@@ -161,14 +163,24 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
       containerStyle.paddingBottom = 0;
     }
 
+    if (sourceNode) {
+      return (
+        <ScrollView style={this.styles.contentView} contentContainerStyle={containerStyle}>
+          {sourceNode}
+        </ScrollView>
+      );
+    }
+
     if (typeof source === 'string') {
       return (
         <ScrollView style={this.styles.contentView} contentContainerStyle={containerStyle}>
           <Text text={source} />
         </ScrollView>
       );
-    } else {
+    } else if (source) {
       return <WebView source={source} style={this.styles.webView} containerStyle={containerStyle} />;
+    } else {
+      return null;
     }
   }
 

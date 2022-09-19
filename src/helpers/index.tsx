@@ -3,7 +3,7 @@ import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
 import type { CarbonIcon } from '../types/shared';
-import type { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import { Linking, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -73,4 +73,27 @@ export const pressableFeedbackStyle = (state: PressableStateCallbackType, style:
           opacity: state.pressed ? 0.8 : 1,
         },
   ];
+};
+
+/**
+ * Safely open a URL and handle pre-checking and post handling errors if encountered.
+ *
+ * @param url - URL scheme to pass to OS or Intent
+ */
+export const openLink = (url: string): void => {
+  Linking.canOpenURL(url)
+    .then((supported) => {
+      if (supported) {
+        Linking.openURL(url)
+          .then(() => {})
+          .catch((error) => {
+            logIssue('openLink: unable to open supported requested link', { url, error });
+          });
+      } else {
+        logIssue('openLink: unable to open requested link', { url });
+      }
+    })
+    .catch((error) => {
+      logIssue('openLink: unable to open requested link', { url, error });
+    });
 };

@@ -12,6 +12,7 @@ import WarningFilledIcon from '@carbon/icons/es/warning--filled/20';
 import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
 import { BodyCompact02, Body02 } from '../../styles/typography';
+import { Link, LinkProps } from '../Link';
 
 /** Shared props for Text, Password and TextArea */
 export type TextInputProps = {
@@ -60,6 +61,8 @@ export type TextInputProps = {
     min?: number;
     max?: number;
   };
+  /** Link to render to right of label */
+  labelLink?: LinkProps;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
@@ -96,9 +99,14 @@ export const getTextInputStyle = (light?: boolean) => {
     wrapper: {
       paddingTop: 22,
     },
+    labelWrapper: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginBottom: 8,
+    },
     label: {
       color: getColor('textSecondary'),
-      marginBottom: 8,
+      flex: 1,
     },
     helperText: {
       color: getColor('textHelper'),
@@ -306,7 +314,7 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
   }
 
   render(): React.ReactNode {
-    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode } = this.props;
+    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
     const textArea = type === 'text-area';
@@ -340,7 +348,12 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
 
     return (
       <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
-        {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
+        {!!(label || labelLink) && (
+          <View style={this.styles.labelWrapper}>
+            {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
+            {!!labelLink && <Link {...labelLink} textType="label-02" />}
+          </View>
+        )}
         <View style={this.styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
           <ReactTextInput editable={!disabled} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
           {error && this.errorIndicator}

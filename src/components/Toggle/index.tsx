@@ -77,7 +77,7 @@ export class Toggle extends React.Component<ToggleProps> {
         {!!(label && !hideLabel) && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.switchWrapper}>
           <Switch value={toggled} onValueChange={this.onChange} disabled={disabled} trackColor={this.trackColor} thumbColor={getColor('iconOnColor')} {...(componentProps || {})} />
-          {!!selectedLabelText && <Text style={this.styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} type="body-compact-02" />}
+          {!!selectedLabelText && <Text style={this.styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} />}
         </View>
         {!!helperText && <Text style={this.textInputStyles.helperText} type="helper-text-02" text={helperText} />}
       </View>

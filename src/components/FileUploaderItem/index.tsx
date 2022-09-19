@@ -106,8 +106,8 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     if (invalid && (errorDetails || errorTitle)) {
       return (
         <View style={this.styles.errorWrapper}>
-          {!!errorTitle && <Text style={this.styles.errorTitle} type="body-compact-02" text={errorTitle} />}
-          {!!errorDetails && <Text type="body-compact-02" text={errorDetails} />}
+          {!!errorTitle && <Text style={this.styles.errorTitle} text={errorTitle} />}
+          {!!errorDetails && <Text text={errorDetails} />}
         </View>
       );
     }
@@ -121,7 +121,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
         <View style={this.styles.mainWrapper}>
-          <Text style={this.styles.text} type="body-compact-02" text={name} breakMode="middle" />
+          <Text style={this.styles.text} text={name} breakMode="middle" />
           {this.visualIndicator}
           {this.deleteItem}
         </View>

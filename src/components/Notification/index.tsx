@@ -45,17 +45,17 @@ export class Notification extends React.Component<NotificationProps> {
     return StyleSheet.create({
       wrapper: {
         borderLeftWidth: 3,
-        padding: 16,
-        paddingRight: 0,
-        paddingTop: 0,
+        paddingLeft: 16,
         flexDirection: 'row',
       },
       icon: {
-        paddingTop: 16,
+        paddingTop: 14,
+        paddingBottom: 14,
         marginRight: 16,
       },
       content: {
-        paddingTop: 16,
+        paddingTop: 14,
+        paddingBottom: 14,
         paddingRight: 16,
         flex: 1,
         flexDirection: 'row',

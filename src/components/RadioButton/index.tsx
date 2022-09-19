@@ -61,7 +61,7 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
     return (
       <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={accessibleText || defaultText.radioButton} accessibilityHint={label} accessibilityRole="radio" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
         {this.radioButton}
-        {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
+        {!hideLabel && <Text style={this.textStyle} text={label} />}
       </Pressable>
     );
   }
