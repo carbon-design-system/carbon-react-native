@@ -53,6 +53,7 @@ import TestUiPanel from './Views/UiPanel';
 import TestTooltip from './Views/Tooltip';
 import TestDateInput from './Views/DateInput';
 import TestLogin from './Views/Login';
+import TestSlider from './Views/Slider';
 import TestTopNavigationBarLogin from './Views/TopNavigationBarLogin';
 import TestLoginForgotPassword from './Views/LoginForgotPassword';
 import TestLoginCreatePassword from './Views/LoginCreatePassword';
@@ -143,6 +144,7 @@ export default class App extends React.Component {
     ['Tooltip', { component: <TestTooltip />, imageLight: null, imageDark: null }],
     ['Date input', { component: <TestDateInput />, imageLight: null, imageDark: null }],
     ['Top navigation bar login', { component: <TestTopNavigationBarLogin />, imageLight: null, imageDark: null }],
+    ['Slider', { component: <TestSlider />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [
