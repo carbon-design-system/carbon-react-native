@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, TextInputProps, TextStyle, View, ViewStyle } from 'react-native';
 import { TextInput } from 'carbon-react-native';
 import { defaultText } from '../../constants/defaultText';
 
@@ -125,6 +125,12 @@ export class Slider extends React.Component<SliderProps> {
   private onChangeText = (inputValue: string): void => {
     const { minValue, maxValue } = this.props;
 
+    if (inputValue === '') {
+      this.setState({ value: 0, inputValue: '' });
+
+      return;
+    }
+
     let value = Number(inputValue);
 
     if (!Number.isNaN(value)) {
@@ -137,9 +143,13 @@ export class Slider extends React.Component<SliderProps> {
       }
 
       this.setState({ value: value, inputValue: value.toString() });
-    } else {
-      this.setState({ value: 0, inputValue: '' });
     }
+  };
+
+  private onBlur = (): void => {
+    const { value } = this.state;
+
+    this.setState({ inputValue: value.toString() });
   };
 
   private onSliderValueChanged() {
@@ -244,12 +254,16 @@ export class Slider extends React.Component<SliderProps> {
     const { label, disabled, hideLabel, hideTextInput, accessibleText, style } = this.props;
     const { inputValue } = this.state;
 
+    let componentProps: TextInputProps = {
+      keyboardType: 'number-pad',
+    };
+
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
         {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
         <View style={this.styles.sliderOuterWrapper}>
           {this.slider}
-          {!hideTextInput && <TextInput style={this.styles.valueStyle} value={inputValue} disabled={disabled} onChangeText={this.onChangeText} />}
+          {!hideTextInput && <TextInput style={this.styles.valueStyle} value={inputValue} disabled={disabled} onChangeText={this.onChangeText} onBlur={this.onBlur} componentProps={componentProps} />}
         </View>
       </View>
     );
