@@ -24,24 +24,29 @@ export default class TestSlider extends React.Component {
     value1: 50,
     value2: 50,
     value3: 50,
+    value4: 50,
+  };
+
+  private changeValue = (field: string, value: number): void => {
+    this.setState({ [field]: value });
   };
 
   render(): React.ReactNode {
-    const { value1, value2, value3 } = this.state;
+    const { value1, value2, value3, value4 } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <View style={styles.itemStyle}>
-          <Slider id="slider-1" label="Slider" value={value1} minValue={minValue} maxValue={maxValue} />
+          <Slider id="slider-1" label="Slider" value={value1} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value1', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-1" label="Slider no label" hideLabel={true} value={value2} minValue={minValue} maxValue={maxValue} />
+          <Slider id="slider-2" label="Slider no label" hideLabel={true} value={value2} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value2', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-2" label="Slider no text input" hideTextInput={true} value={value3} minValue={minValue} maxValue={maxValue} />
+          <Slider id="slider-3" label="Slider no text input" hideTextInput={true} value={value3} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value3', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-2" label="Slider disabled" disabled={true} value={value3} minValue={minValue} maxValue={maxValue} />
+          <Slider id="slider-4" label="Slider disabled" disabled={true} value={value4} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value4', value)} />
         </View>
       </ScrollView>
     );

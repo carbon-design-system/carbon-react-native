@@ -37,7 +37,6 @@ export class Slider extends React.Component<SliderProps> {
   state = {
     deltaValue: 0,
     hover: false,
-    value: this.props.value,
     inputValue: this.props.value.toString(),
   };
 
@@ -54,26 +53,27 @@ export class Slider extends React.Component<SliderProps> {
   }
 
   private onMove(gestureState: PanResponderGestureState) {
-    const { value } = this.state;
+    const { value } = this.props;
 
     const newDeltaValue = this.getValueFromOffset(gestureState.dx);
     const cappedValue = this.capValueWithinRange(value + newDeltaValue);
 
     gestureState.dx = 0;
 
-    this.setState({ hover: true, value: cappedValue, deltaValue: 0 });
+    this.setState({ hover: true, deltaValue: 0 });
 
-    this.onSliderValueChanged();
+    this.onSliderValueChanged(cappedValue, true);
   }
 
   private onEndMove() {
-    const { value, deltaValue } = this.state;
+    const { value } = this.props;
+    const { deltaValue } = this.state;
 
     const cappedValue = this.capValueWithinRange(value + deltaValue);
 
-    this.setState({ hover: false, value: cappedValue, deltaValue: 0 });
+    this.setState({ hover: false, deltaValue: 0 });
 
-    this.onSliderValueChanged();
+    this.onSliderValueChanged(cappedValue, true);
   }
 
   private capValueWithinRange = (value: number) => {
@@ -124,7 +124,9 @@ export class Slider extends React.Component<SliderProps> {
     const { minValue, maxValue } = this.props;
 
     if (inputValue === '') {
-      this.setState({ value: 0, inputValue: '' });
+      this.setState({ inputValue: '' });
+
+      this.onSliderValueChanged(0, false);
 
       return;
     }
@@ -140,25 +142,30 @@ export class Slider extends React.Component<SliderProps> {
         value = maxValue;
       }
 
-      this.setState({ value: value, inputValue: value.toString() });
+      this.setState({ inputValue: value.toString() });
+
+      this.onSliderValueChanged(value, false);
+    } else {
+      this.onSliderValueChanged(0, false);
     }
   };
 
   private onBlur = (): void => {
-    const { value } = this.state;
+    const { value } = this.props;
 
     this.setState({ inputValue: value.toString() });
   };
 
-  private onSliderValueChanged() {
+  private onSliderValueChanged(value: number, setInputText: boolean) {
     const { id, onValueChanged } = this.props;
-    const { value } = this.state;
 
     if (typeof onValueChanged === 'function') {
       onValueChanged(value, id);
     }
 
-    this.setState({ inputValue: value.toString() });
+    if (setInputText) {
+      this.setState({ inputValue: value.toString() });
+    }
   }
 
   private get styles() {
@@ -241,8 +248,8 @@ export class Slider extends React.Component<SliderProps> {
   }
 
   private get slider(): React.ReactNode {
-    const { minValue, maxValue, disabled } = this.props;
-    const { value, deltaValue } = this.state;
+    const { value, minValue, maxValue, disabled } = this.props;
+    const { deltaValue } = this.state;
 
     const cappedValue = this.capValueWithinRange(value + deltaValue);
 
