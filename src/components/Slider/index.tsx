@@ -6,9 +6,6 @@ import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
-const sliderWrapperHeight = 48;
-const sliderKnobSize = 14;
-
 export type SliderProps = {
   /** Text to render */
   label: string;
@@ -35,14 +32,16 @@ export type SliderProps = {
 };
 
 export class Slider extends React.Component<SliderProps> {
+  private barWidth: number | undefined;
+
   state = {
-    barWidth: null,
     deltaValue: 0,
+    hover: false,
     value: this.props.value,
     inputValue: this.props.value.toString(),
   };
 
-  private panResponder = PanResponder.create({
+  private _panResponder = PanResponder.create({
     onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderStart: () => this.onStart(),
     onPanResponderMove: (_, gestureState) => this.onMove(gestureState),
@@ -51,7 +50,7 @@ export class Slider extends React.Component<SliderProps> {
   });
 
   private onStart() {
-    this.setState({ deltaValue: 0 });
+    this.setState({ hover: true, deltaValue: 0 });
   }
 
   private onMove(gestureState: PanResponderGestureState) {
@@ -62,7 +61,7 @@ export class Slider extends React.Component<SliderProps> {
 
     gestureState.dx = 0;
 
-    this.setState({ value: cappedValue, deltaValue: 0 });
+    this.setState({ hover: true, value: cappedValue, deltaValue: 0 });
 
     this.onSliderValueChanged();
   }
@@ -72,7 +71,7 @@ export class Slider extends React.Component<SliderProps> {
 
     const cappedValue = this.capValueWithinRange(value + deltaValue);
 
-    this.setState({ value: cappedValue, deltaValue: 0 });
+    this.setState({ hover: false, value: cappedValue, deltaValue: 0 });
 
     this.onSliderValueChanged();
   }
@@ -95,30 +94,30 @@ export class Slider extends React.Component<SliderProps> {
 
   private getValueFromOffset = (offset: number) => {
     const { minValue, maxValue } = this.props;
-    const { barWidth } = this.state;
 
-    if (barWidth === null) return 0;
+    if (this.barWidth === undefined) return 0;
 
-    return ((maxValue - minValue) * offset) / barWidth;
+    return ((maxValue - minValue) * offset) / this.barWidth;
   };
 
   private getOffsetFromValue = (value: number) => {
     const { minValue, maxValue } = this.props;
-    const { barWidth } = this.state;
 
-    if (barWidth === null) return 0;
+    if (this.barWidth === undefined) return 0;
 
     const valueOffset = value - minValue;
     const totalRange = maxValue - minValue;
     const percentage = valueOffset / totalRange;
 
-    return barWidth * percentage;
+    return this.barWidth * percentage;
   };
 
   private onLayout = (event: LayoutChangeEvent) => {
     const { width } = event.nativeEvent.layout;
 
-    this.setState({ barWidth: width });
+    this.barWidth = width;
+
+    this.forceUpdate();
   };
 
   private onChangeText = (inputValue: string): void => {
@@ -164,6 +163,13 @@ export class Slider extends React.Component<SliderProps> {
 
   private get styles() {
     const { disabled } = this.props;
+    const { hover } = this.state;
+
+    const sliderWrapperHeight = 48;
+    const defaultKnobSize = 14;
+    const hoverKnobSize = 20;
+
+    const currentKnobSize = hover ? hoverKnobSize : defaultKnobSize;
 
     return StyleSheet.create({
       wrapper: {
@@ -189,24 +195,25 @@ export class Slider extends React.Component<SliderProps> {
         flexDirection: 'row',
         alignItems: 'center',
         height: 2,
-        backgroundColor: getColor('iconDisabled'),
+        backgroundColor: getColor('borderSubtle00'),
         marginLeft: 16,
         marginRight: 16,
       },
       sliderProgress: {
         height: '100%',
-        backgroundColor: getColor(disabled ? 'iconDisabled' : 'iconPrimary'),
+        backgroundColor: getColor(disabled ? 'borderDisabled' : hover ? 'interactive' : 'borderInverse'),
       },
       sliderKnob: {
         position: 'absolute',
-        width: sliderKnobSize,
-        height: sliderKnobSize,
-        backgroundColor: getColor(disabled ? 'iconDisabled' : 'iconPrimary'),
-        borderRadius: sliderKnobSize / 2,
-        marginLeft: -(sliderKnobSize / 2),
-        marginRight: -(sliderKnobSize / 2),
+        width: currentKnobSize,
+        height: currentKnobSize,
+        backgroundColor: getColor(disabled ? 'borderDisabled' : hover ? 'interactive' : 'iconPrimary'),
+        borderRadius: currentKnobSize / 2,
+        marginLeft: -(currentKnobSize / 2),
+        marginRight: -(currentKnobSize / 2),
       },
       sliderRangeLabel: {
+        fontSize: 14,
         color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
         lineHeight: sliderWrapperHeight,
       },
@@ -221,12 +228,16 @@ export class Slider extends React.Component<SliderProps> {
     const { disabled } = this.props;
 
     let finalStyle: any = {
-      color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
-      lineHeight: 20,
-      marginBottom: 8,
+      fontSize: 12,
+      color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
+      lineHeight: 12,
     };
 
     return StyleSheet.create(finalStyle);
+  }
+
+  private rangeLabel(value: number): React.ReactNode {
+    return <Text style={this.styles.sliderRangeLabel} type="code-02" text={value.toString()} />;
   }
 
   private get slider(): React.ReactNode {
@@ -239,12 +250,12 @@ export class Slider extends React.Component<SliderProps> {
 
     return (
       <View style={this.styles.sliderWrapper}>
-        <Text style={this.styles.sliderRangeLabel} text={minValue.toString()} />
+        {this.rangeLabel(minValue)}
         <View style={this.styles.sliderBar} onLayout={this.onLayout}>
           <View style={[this.styles.sliderProgress, { width: offset }]} />
-          <View style={[this.styles.sliderKnob, { left: offset }]} {...(!disabled ? this.panResponder.panHandlers : {})} />
+          <View style={[this.styles.sliderKnob, { left: offset }]} {...(!disabled ? this._panResponder.panHandlers : {})} />
         </View>
-        <Text style={this.styles.sliderRangeLabel} text={maxValue.toString()} />
+        {this.rangeLabel(maxValue)}
       </View>
     );
   }
@@ -259,7 +270,7 @@ export class Slider extends React.Component<SliderProps> {
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
-        {!hideLabel && <Text style={this.textStyle} text={label} />}
+        {!hideLabel && <Text style={this.textStyle} type="label-01" text={label} />}
         <View style={this.styles.sliderOuterWrapper}>
           {this.slider}
           {!hideTextInput && <TextInput style={this.styles.valueStyle} value={inputValue} disabled={disabled} onChangeText={this.onChangeText} onBlur={this.onBlur} componentProps={componentProps} />}
