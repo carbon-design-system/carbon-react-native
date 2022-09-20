@@ -2,18 +2,17 @@ import React from 'react';
 import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, TextInputProps, TextStyle, View, ViewStyle } from 'react-native';
 import { TextInput } from 'carbon-react-native';
 import { defaultText } from '../../constants/defaultText';
-
 import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
-const SLIDER_WRAPPER_HEIGHT = 48;
-const SLIDER_KNOB_SIZE = 20;
+const sliderWrapperHeight = 48;
+const sliderKnobSize = 14;
 
 export type SliderProps = {
   /** Text to render */
   label: string;
-  /** ID of item (any identifier to identify the checkbox) */
+  /** ID of item (any identifier to identify the slider) */
   id: string;
   /** Current value */
   value: number;
@@ -29,7 +28,7 @@ export type SliderProps = {
   hideTextInput?: boolean;
   /** onValueChanged event returns the current value and ID of the item */
   onValueChanged?: (value: number, id: string) => void;
-  /** Text to use for checkbox (accessibility). Defaults to ENGLISH "Checkbox"/"Radio button" depending on use */
+  /** Text to use for slider (accessibility). Defaults to ENGLISH "Slider" */
   accessibleText?: string;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
@@ -177,7 +176,7 @@ export class Slider extends React.Component<SliderProps> {
         alignItems: 'flex-end',
       },
       sliderWrapper: {
-        height: SLIDER_WRAPPER_HEIGHT,
+        height: sliderWrapperHeight,
         display: 'flex',
         flex: 1,
         flexDirection: 'row',
@@ -189,11 +188,10 @@ export class Slider extends React.Component<SliderProps> {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
         height: 2,
         backgroundColor: getColor('iconDisabled'),
-        overflow: 'visible',
-        marginHorizontal: 16,
+        marginLeft: 16,
+        marginRight: 16,
       },
       sliderProgress: {
         height: '100%',
@@ -201,15 +199,16 @@ export class Slider extends React.Component<SliderProps> {
       },
       sliderKnob: {
         position: 'absolute',
-        width: SLIDER_KNOB_SIZE,
-        height: SLIDER_KNOB_SIZE,
+        width: sliderKnobSize,
+        height: sliderKnobSize,
         backgroundColor: getColor(disabled ? 'iconDisabled' : 'iconPrimary'),
-        borderRadius: SLIDER_KNOB_SIZE / 2,
-        marginHorizontal: -(SLIDER_KNOB_SIZE / 2),
+        borderRadius: sliderKnobSize / 2,
+        marginLeft: -(sliderKnobSize / 2),
+        marginRight: -(sliderKnobSize / 2),
       },
       sliderRangeLabel: {
         color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
-        lineHeight: SLIDER_WRAPPER_HEIGHT,
+        lineHeight: sliderWrapperHeight,
       },
       valueStyle: {
         marginStart: 16,
@@ -260,7 +259,7 @@ export class Slider extends React.Component<SliderProps> {
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
-        {!hideLabel && <Text type="body-compact-02" style={this.textStyle} text={label} />}
+        {!hideLabel && <Text style={this.textStyle} text={label} />}
         <View style={this.styles.sliderOuterWrapper}>
           {this.slider}
           {!hideTextInput && <TextInput style={this.styles.valueStyle} value={inputValue} disabled={disabled} onChangeText={this.onChangeText} onBlur={this.onBlur} componentProps={componentProps} />}
