@@ -27,8 +27,8 @@ export type ModalProps = {
 };
 
 /**
- * IMPORTANT: Multiple React Modals are not currently supported in React Native.
- * Modals cannot be opened on top of another modal.
+ * Multiple React Modals are not currently supported in React Native.
+ * However, you can open a modal from within a modal. Just not side by side.
  */
 export class Modal extends React.Component<ModalProps> {
   private get styles() {
@@ -101,14 +101,6 @@ export class Modal extends React.Component<ModalProps> {
     return state.pressed ? { backgroundColor: getColor('buttonSecondaryActive') } : undefined;
   };
 
-  componentDidUpdate(previousProps: ModalProps): void {
-    const { open } = this.props;
-
-    if (previousProps.open !== open) {
-      this.setState({});
-    }
-  }
-
   render(): React.ReactNode {
     const { open, title, description, primaryActionOnPress, primaryActionText, secondaryActionOnPress, secondaryActionText, children } = this.props;
 
@@ -121,8 +113,8 @@ export class Modal extends React.Component<ModalProps> {
 
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true}>
+        <Overlay style={this.styles.blurBackground} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <Overlay style={this.styles.blurBackground} />
           <View style={this.styles.wrapper}>
             <View style={this.styles.headerArea}>
               <Text type="heading-03" text={title} />

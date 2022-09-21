@@ -32,6 +32,8 @@ export type DocumentViewerProps = {
   forceView?: 'ios' | 'android';
   /** Navigation footer to load in the document viewer (used mostly by other flows) */
   navigationFooter?: React.ReactNode;
+  /** Render children component into the document viewer. This is useful for rendering a modal within here. */
+  renderChildComponent?: React.ReactNode;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -185,7 +187,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
   }
 
   render(): React.ReactNode {
-    const { componentProps, style, navigationFooter } = this.props;
+    const { componentProps, style, navigationFooter, renderChildComponent } = this.props;
 
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} animationType="slide">
@@ -198,6 +200,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
           </View>
           {!!navigationFooter && navigationFooter}
         </SafeAreaView>
+        {!!renderChildComponent && renderChildComponent}
       </ReactModal>
     );
   }

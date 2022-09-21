@@ -84,7 +84,7 @@ export default class TestLogin extends React.Component<{
     return (
       <ReactText>
         <Text style={styles.topText} text="Don't have an account? " />
-        <InlineLink text="Create an account" onPress={() => this.setState({ openCreate: true })} />
+        <InlineLink forceDarkMode={true} text="Create an account" onPress={() => this.setState({ openCreate: true })} />
       </ReactText>
     );
   }

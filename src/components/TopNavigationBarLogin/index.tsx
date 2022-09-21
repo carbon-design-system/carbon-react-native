@@ -63,10 +63,10 @@ export class TopNavigationBarLogin extends React.Component<TopNavigationBarLogin
         marginBottom: 14,
       },
       pageHeaderTitle: {
-        color: getColor('textOnColor'),
+        color: getColor('textOnColor', 'dark'),
       },
       subHeaderText: {
-        color: getColor('textOnColor'),
+        color: getColor('textOnColor', 'dark'),
       },
       pageHeaderSubTitle: {
         marginTop: 28,
@@ -91,8 +91,8 @@ export class TopNavigationBarLogin extends React.Component<TopNavigationBarLogin
 
     return (
       <View style={this.styles.headerWrapper}>
-        <View style={this.styles.headerItemWrapper}>{!!(backText && backOnPress) && <Link text={backText} onPress={backOnPress} backButtonMode={true} style={this.styles.leftLink} textBreakMode="tail" />}</View>
-        <View style={this.styles.headerItemWrapper}>{rightLink ? <Link {...rightLink} style={this.styles.rightLink} textBreakMode="tail" /> : headerBarGetItems(rightItems || [], this.styles.itemWrapper, this.styles.itemStyle, 'right')}</View>
+        <View style={this.styles.headerItemWrapper}>{!!(backText && backOnPress) && <Link text={backText} forceDarkMode={true} onPress={backOnPress} backButtonMode={true} style={this.styles.leftLink} textBreakMode="tail" />}</View>
+        <View style={this.styles.headerItemWrapper}>{rightLink ? <Link {...rightLink} forceDarkMode={true} style={this.styles.rightLink} textBreakMode="tail" /> : headerBarGetItems(rightItems || [], this.styles.itemWrapper, this.styles.itemStyle, 'right', true)}</View>
       </View>
     );
   }

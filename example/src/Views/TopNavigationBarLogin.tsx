@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { Text, NavigationButton, Checkbox, getColor, RadioButton, LinkProps, TopNavigationBarLoginProps, TopNavigationBarLogin, Link } from 'carbon-react-native';
+import { StyleSheet, ScrollView, View, Alert, Text as ReactText } from 'react-native';
+import { Text, NavigationButton, Checkbox, getColor, RadioButton, LinkProps, TopNavigationBarLoginProps, TopNavigationBarLogin, InlineLink } from 'carbon-react-native';
 import MapIcon from '@carbon/icons/es/map/20';
 import UserIcon from '@carbon/icons/es/user--avatar/20';
 
@@ -87,10 +87,10 @@ export default class TestTopNavigationBarLogin extends React.Component {
     return {
       title: 'Log in to IBM Product Name',
       subTitle: showSubTitle ? (
-        <View style={styles.subTitle}>
-          <Text style={styles.subTitleText} text="Don't have an account?" />
-          <Link text="Create an account" onPress={() => Alert.alert('Create account pressed')} />
-        </View>
+        <ReactText>
+          <Text style={styles.subTitleText} text="Don't have an account? " />
+          <InlineLink text="Create an account" forceDarkMode={true} onPress={() => Alert.alert('Create account pressed')} />
+        </ReactText>
       ) : undefined,
       rightLink: rightSide === 'link' ? this.rightLink : undefined,
       rightItems: rightSide === 'one_button' || rightSide === 'two_buttons' ? this.getIcons(rightSide === 'one_button' ? 1 : 2) : undefined,

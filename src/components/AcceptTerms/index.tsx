@@ -1,8 +1,10 @@
 import React from 'react';
-import { ViewProps, StyleProp, ViewStyle, Alert } from 'react-native';
+import type { ViewProps, StyleProp, ViewStyle } from 'react-native';
 import type { ToolbarButton } from '../../types/navigation';
 import { BottomToolbar } from '../BottomToolbar';
 import { DocumentViewer, DocumentViewerSource } from '../DocumentViewer';
+import { Modal } from '../Modal';
+import { Text } from '../Text';
 
 export type AcceptTermsProps = {
   /** Title of text document */
@@ -36,11 +38,11 @@ export type AcceptTermsProps = {
   componentProps?: ViewProps;
 };
 
-/**
- * Modals cannot be opened on another modal. So Cannot open `Modal` for confirmation on top of document viewer.
- * For now will use system Alert.  If React Native supports this in future we can move to using our Modal.
- */
 export class AcceptTerms extends React.Component<AcceptTermsProps> {
+  state = {
+    showDisagree: false,
+  };
+
   private agree = (): void => {
     const { resultsCallback } = this.props;
 
@@ -58,19 +60,19 @@ export class AcceptTerms extends React.Component<AcceptTermsProps> {
   };
 
   private disagreeMain = (): void => {
-    const { textStrings } = this.props;
-
-    Alert.alert(textStrings?.modalTitle || '', textStrings?.modalBody || '', [
-      {
-        text: textStrings?.modalSecondaryAction || '',
-        onPress: this.disagree,
-      },
-      {
-        text: textStrings?.modalPrimaryAction || '',
-        onPress: () => {},
-      },
-    ]);
+    this.setState({ showDisagree: true });
   };
+
+  private get disagreeModal(): React.ReactNode {
+    const { textStrings } = this.props;
+    const { showDisagree } = this.state;
+
+    return (
+      <Modal open={showDisagree} title={textStrings?.modalTitle || ''} secondaryActionOnPress={this.disagree} secondaryActionText={textStrings?.modalSecondaryAction || ''} primaryActionOnPress={() => this.setState({ showDisagree: false })} primaryActionText={textStrings?.modalPrimaryAction || ''}>
+        <Text text={textStrings?.modalBody || ''} />
+      </Modal>
+    );
+  }
 
   private get footer(): React.ReactNode {
     const { textStrings } = this.props;
@@ -95,6 +97,6 @@ export class AcceptTerms extends React.Component<AcceptTermsProps> {
   render(): React.ReactNode {
     const { componentProps, style, title, source, disableContainerPadding, forceView } = this.props;
 
-    return <DocumentViewer title={title} source={source} style={style} componentProps={componentProps} disableContainerPadding={disableContainerPadding} forceView={forceView} navigationFooter={this.footer} />;
+    return <DocumentViewer title={title} source={source} style={style} componentProps={componentProps} disableContainerPadding={disableContainerPadding} forceView={forceView} navigationFooter={this.footer} renderChildComponent={this.disagreeModal} />;
   }
 }
