@@ -34,7 +34,6 @@ export default class TestLoginForgotPassword extends React.Component<{
       },
       noCodeText: {
         marginTop: 32,
-        marginBottom: 16,
       },
     });
   }
