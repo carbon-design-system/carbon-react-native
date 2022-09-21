@@ -85,9 +85,7 @@ export class LandingView extends React.Component<LandingViewProps> {
         marginBottom: 16,
         ...SemiBoldPlex,
       },
-      helperContent: {
-        marginBottom: 16,
-      },
+      helperContent: {},
       contentWrapper: {
         flex: 1,
         flexGrow: 1,

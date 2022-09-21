@@ -166,7 +166,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       return null;
     }
 
-    const invisibleButton = <Pressable onPress={cancel.onPress} style={this.styles.backgroundPress} accessible={false} accessibilityRole="none" />;
+    const invisibleButton = <Pressable onPress={cancel.onPress} style={this.styles.backgroundPress} accessible={false} accessibilityRole="none" accessibilityLabel={cancel.text} />;
 
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={cancel.onPress}>

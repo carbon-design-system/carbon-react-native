@@ -39,6 +39,7 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
       wrapper: {
         paddingTop: 14,
         paddingBottom: 14,
+        minWidth: 48,
         flexDirection: 'row',
         alignContent: 'flex-start',
       },

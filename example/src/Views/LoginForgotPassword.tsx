@@ -3,31 +3,6 @@ import { StyleSheet, ScrollView, View, Text as ReactText, Alert } from 'react-na
 import { ViewWrapper, Text, TopNavigationBarLogin, TextInput, Button, getColor, openLink, Loading, centerLoadingStyle, InlineLink, Link } from 'carbon-react-native';
 import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
 
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 0,
-  },
-  container: {
-    flexGrow: 1,
-    paddingBottom: 64,
-  },
-  loginButton: {
-    marginTop: 32,
-    marginBottom: 32,
-  },
-  divider: {
-    backgroundColor: getColor('borderSubtle00'),
-    height: 1,
-    marginBottom: 15,
-  },
-  noCodeText: {
-    marginTop: 32,
-    marginBottom: 16,
-  },
-});
-
 export default class TestLoginForgotPassword extends React.Component<{
   changeView: (view: string) => void;
 }> {
@@ -36,6 +11,33 @@ export default class TestLoginForgotPassword extends React.Component<{
     field: '',
     enterCode: false,
   };
+
+  private get styles() {
+    return StyleSheet.create({
+      view: {
+        flex: 1,
+        padding: 16,
+        paddingTop: 0,
+      },
+      container: {
+        flexGrow: 1,
+        paddingBottom: 64,
+      },
+      loginButton: {
+        marginTop: 32,
+        marginBottom: 32,
+      },
+      divider: {
+        backgroundColor: getColor('borderSubtle00'),
+        height: 1,
+        marginBottom: 15,
+      },
+      noCodeText: {
+        marginTop: 32,
+        marginBottom: 16,
+      },
+    });
+  }
 
   private continue = (): void => {
     const { enterCode } = this.state;
@@ -80,7 +82,7 @@ export default class TestLoginForgotPassword extends React.Component<{
   private get noReceiveArea(): React.ReactNode {
     return (
       <View>
-        <ReactText style={styles.noCodeText}>
+        <ReactText style={this.styles.noCodeText}>
           <Text text="Didn't receive the email? Check your spam filter for an email from " />
           <Text type="heading-compact-02" text="example@ibm.com" />
           <Text text="." />
@@ -97,11 +99,11 @@ export default class TestLoginForgotPassword extends React.Component<{
       return <Loading style={centerLoadingStyle} />;
     } else {
       return (
-        <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
+        <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={this.styles.container} style={this.styles.view}>
           <TextInput label={enterCode ? 'Code' : 'ID'} autoCapitalize="none" autoCorrect={false} value={field} required={true} onChangeText={(value) => this.setState({ field: value })} getErrorText={(value) => (value ? '' : `${enterCode ? 'Code' : 'ID'} is required`)} />
           {enterCode && this.noReceiveArea}
-          <Button style={styles.loginButton} onPress={this.continue} text="Continue" icon={ArrowRightIcon} disabled={this.disabled} />
-          <View style={styles.divider} />
+          <Button style={this.styles.loginButton} onPress={this.continue} text="Continue" icon={ArrowRightIcon} disabled={this.disabled} />
+          <View style={this.styles.divider} />
           {this.needHelp}
         </ScrollView>
       );
