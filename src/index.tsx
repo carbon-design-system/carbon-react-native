@@ -47,6 +47,7 @@ export * from './components/UiPanel';
 export * from './components/UiPanelItem';
 export * from './components/Tooltip';
 export * from './components/DateInput';
+export * from './components/Slider';
 
 // Style exports
 export * from './styles/colors';
