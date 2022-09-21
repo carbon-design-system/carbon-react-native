@@ -347,7 +347,7 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     }
 
     return (
-      <View style={styleReferenceBreaker(style || {}, this.styles.wrapper)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
+      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
         {!!(label || labelLink) && (
           <View style={this.styles.labelWrapper}>
             {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}

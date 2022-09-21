@@ -1,10 +1,10 @@
 import React from 'react';
-import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, TextInputProps, TextStyle, View, ViewStyle } from 'react-native';
-import { TextInput } from 'carbon-react-native';
+import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
 import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
+import { TextInput } from '../TextInput';
 
 export type SliderProps = {
   /** Text to render */
@@ -35,44 +35,37 @@ export class Slider extends React.Component<SliderProps> {
   private barWidth: number | undefined;
 
   state = {
-    deltaValue: 0,
-    hover: false,
-    inputValue: this.props.value.toString(),
+    active: false,
   };
 
   private _panResponder = PanResponder.create({
     onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderStart: () => this.onStart(),
-    onPanResponderMove: (_, gestureState) => this.onMove(gestureState),
+    onPanResponderMove: (_event, gestureState) => this.onMove(gestureState),
     onPanResponderEnd: () => this.onEndMove(),
     onPanResponderTerminate: () => this.onEndMove(),
   });
 
   private onStart() {
-    this.setState({ hover: true, deltaValue: 0 });
+    this.setState({ active: true });
   }
 
   private onMove(gestureState: PanResponderGestureState) {
     const { value } = this.props;
-
     const newDeltaValue = this.getValueFromOffset(gestureState.dx);
     const cappedValue = this.capValueWithinRange(value + newDeltaValue);
 
     gestureState.dx = 0;
 
-    this.setState({ hover: true, deltaValue: 0 });
-
+    this.setState({ active: true });
     this.onSliderValueChanged(cappedValue, true);
   }
 
   private onEndMove() {
     const { value } = this.props;
-    const { deltaValue } = this.state;
+    const cappedValue = this.capValueWithinRange(value);
 
-    const cappedValue = this.capValueWithinRange(value + deltaValue);
-
-    this.setState({ hover: false, deltaValue: 0 });
-
+    this.setState({ active: false });
     this.onSliderValueChanged(cappedValue, true);
   }
 
@@ -95,7 +88,9 @@ export class Slider extends React.Component<SliderProps> {
   private getValueFromOffset = (offset: number) => {
     const { minValue, maxValue } = this.props;
 
-    if (this.barWidth === undefined) return 0;
+    if (this.barWidth === undefined) {
+      return 0;
+    }
 
     return ((maxValue - minValue) * offset) / this.barWidth;
   };
@@ -123,37 +118,21 @@ export class Slider extends React.Component<SliderProps> {
   private onChangeText = (inputValue: string): void => {
     const { minValue, maxValue } = this.props;
 
-    if (inputValue === '') {
-      this.setState({ inputValue: '' });
-
-      this.onSliderValueChanged(0, false);
-
-      return;
-    }
-
     let value = Number(inputValue);
 
-    if (!Number.isNaN(value)) {
-      if (value < minValue) {
-        value = 0;
-      }
-
-      if (value > maxValue) {
-        value = maxValue;
-      }
-
-      this.setState({ inputValue: value.toString() });
-
-      this.onSliderValueChanged(value, false);
-    } else {
-      this.onSliderValueChanged(0, false);
+    if (Number.isNaN(value)) {
+      value = 0;
     }
-  };
 
-  private onBlur = (): void => {
-    const { value } = this.props;
+    if (value < minValue) {
+      value = minValue;
+    }
 
-    this.setState({ inputValue: value.toString() });
+    if (value > maxValue) {
+      value = maxValue;
+    }
+
+    this.onSliderValueChanged(value, false);
   };
 
   private onSliderValueChanged(value: number, setInputText: boolean) {
@@ -170,13 +149,8 @@ export class Slider extends React.Component<SliderProps> {
 
   private get styles() {
     const { disabled } = this.props;
-    const { hover } = this.state;
-
-    const sliderWrapperHeight = 48;
-    const defaultKnobSize = 14;
-    const hoverKnobSize = 20;
-
-    const currentKnobSize = hover ? hoverKnobSize : defaultKnobSize;
+    const { active } = this.state;
+    const currentKnobSize = active ? 20 : 14;
 
     return StyleSheet.create({
       wrapper: {
@@ -184,20 +158,17 @@ export class Slider extends React.Component<SliderProps> {
         flexDirection: 'column',
       },
       sliderOuterWrapper: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end',
       },
       sliderWrapper: {
-        height: sliderWrapperHeight,
-        display: 'flex',
+        height: 48,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
       },
       sliderBar: {
         position: 'relative',
-        display: 'flex',
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -208,39 +179,29 @@ export class Slider extends React.Component<SliderProps> {
       },
       sliderProgress: {
         height: '100%',
-        backgroundColor: getColor(disabled ? 'borderDisabled' : hover ? 'interactive' : 'borderInverse'),
+        backgroundColor: getColor(disabled ? 'borderDisabled' : active ? 'interactive' : 'borderInverse'),
       },
       sliderKnob: {
         position: 'absolute',
         width: currentKnobSize,
         height: currentKnobSize,
-        backgroundColor: getColor(disabled ? 'borderDisabled' : hover ? 'interactive' : 'iconPrimary'),
+        backgroundColor: getColor(disabled ? 'borderDisabled' : active ? 'interactive' : 'iconPrimary'),
         borderRadius: currentKnobSize / 2,
         marginLeft: -(currentKnobSize / 2),
         marginRight: -(currentKnobSize / 2),
       },
       sliderRangeLabel: {
-        fontSize: 14,
         color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
-        lineHeight: sliderWrapperHeight,
       },
-      valueStyle: {
-        marginStart: 16,
-        marginTop: -22,
+      textInput: {
+        paddingTop: 0,
+        marginLeft: 16,
+        minWidth: 72,
+      },
+      label: {
+        color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
       },
     });
-  }
-
-  private get textStyle(): StyleProp<TextStyle> {
-    const { disabled } = this.props;
-
-    let finalStyle: any = {
-      fontSize: 12,
-      color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
-      lineHeight: 12,
-    };
-
-    return StyleSheet.create(finalStyle);
   }
 
   private rangeLabel(value: number): React.ReactNode {
@@ -249,10 +210,7 @@ export class Slider extends React.Component<SliderProps> {
 
   private get slider(): React.ReactNode {
     const { value, minValue, maxValue, disabled } = this.props;
-    const { deltaValue } = this.state;
-
-    const cappedValue = this.capValueWithinRange(value + deltaValue);
-
+    const cappedValue = this.capValueWithinRange(value);
     const offset = this.getOffsetFromValue(cappedValue);
 
     return (
@@ -268,19 +226,14 @@ export class Slider extends React.Component<SliderProps> {
   }
 
   render(): React.ReactNode {
-    const { label, disabled, hideLabel, hideTextInput, accessibleText, style } = this.props;
-    const { inputValue } = this.state;
-
-    let componentProps: TextInputProps = {
-      keyboardType: 'number-pad',
-    };
+    const { label, disabled, hideLabel, hideTextInput, accessibleText, style, value } = this.props;
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
-        {!hideLabel && <Text style={this.textStyle} type="label-01" text={label} />}
+        {!hideLabel && <Text style={this.styles.label} type="label-01" text={label} />}
         <View style={this.styles.sliderOuterWrapper}>
           {this.slider}
-          {!hideTextInput && <TextInput style={this.styles.valueStyle} value={inputValue} disabled={disabled} onChangeText={this.onChangeText} onBlur={this.onBlur} componentProps={componentProps} />}
+          {!hideTextInput && <TextInput style={this.styles.textInput} value={String(value)} disabled={disabled} onChangeText={this.onChangeText} componentProps={{ keyboardType: 'number-pad' }} />}
         </View>
       </View>
     );
