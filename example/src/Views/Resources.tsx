@@ -9,6 +9,7 @@ import DocumentSketchIcon from '@carbon/icons/es/document--sketch/20';
 import CarbonIcon from '@carbon/icons/es/carbon/20';
 import { termsConditions } from '../constants/termsConditions';
 import { privacyPolicy } from '../constants/privacyPolicy';
+import { thirdPartyNotices } from '../constants/thirdPartyNotices';
 
 const styles = StyleSheet.create({
   view: {
@@ -30,6 +31,7 @@ export default class TestResources extends React.Component {
   state = {
     showTerms: false,
     showPrivacy: false,
+    showThirdParty: false,
   };
 
   private openLink = (link: string): void => {
@@ -98,11 +100,15 @@ export default class TestResources extends React.Component {
         text: 'Privacy Policy',
         onPress: () => this.setState({ showPrivacy: true }),
       },
+      {
+        text: 'Third Party Notices',
+        onPress: () => this.setState({ showThirdParty: true }),
+      },
     ];
   }
 
   render(): React.ReactNode {
-    const { showTerms, showPrivacy } = this.state;
+    const { showTerms, showPrivacy, showThirdParty } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -127,6 +133,15 @@ export default class TestResources extends React.Component {
             title="Privacy Policy"
             onDismiss={() => {
               this.setState({ showPrivacy: false });
+            }}
+          />
+        )}
+        {showThirdParty && (
+          <DocumentViewer
+            source={thirdPartyNotices}
+            title="Third Party Notices"
+            onDismiss={() => {
+              this.setState({ showThirdParty: false });
             }}
           />
         )}

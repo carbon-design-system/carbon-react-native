@@ -8,7 +8,7 @@ import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
 import { RegularPlex } from '../../styles/typography';
 
-export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left'): React.ReactNode => {
+export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
   const finalWrapperStyles = styleReferenceBreaker(style);
 
   if (type === 'right') {
@@ -21,12 +21,12 @@ export const headerBarGetItems = (items: NavigationButton[], style: unknown, ite
     <View style={finalWrapperStyles}>
       {items.map((item, index) => {
         const finalStyles = styleReferenceBreaker(itemStyle, item.style);
-        let finalColor = getColor('iconPrimary');
+        let finalColor = getColor('iconPrimary', forceDarkMode ? 'dark' : undefined);
 
         if (item.disabled) {
-          finalColor = getColor('iconDisabled');
+          finalColor = getColor('iconDisabled', forceDarkMode ? 'dark' : undefined);
         } else if (item.active) {
-          finalStyles.backgroundColor = getColor('backgroundActive');
+          finalStyles.backgroundColor = getColor('backgroundActive', forceDarkMode ? 'dark' : undefined);
         }
 
         return (

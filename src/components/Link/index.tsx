@@ -28,6 +28,8 @@ export type LinkProps = {
   onLongPress?: (event: GestureResponderEvent) => void;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
+  /** Indicate if links are rendered on dark mode */
+  forceDarkMode?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Style to set on the text */
@@ -44,9 +46,9 @@ export type LinkProps = {
  */
 export class Link extends React.Component<LinkProps> {
   private get textIconColor(): string {
-    const { disabled } = this.props;
+    const { disabled, forceDarkMode } = this.props;
 
-    return getColor(disabled ? 'textDisabled' : 'linkPrimary');
+    return getColor(disabled ? 'textDisabled' : 'linkPrimary', forceDarkMode ? 'dark' : undefined);
   }
 
   private get styles() {

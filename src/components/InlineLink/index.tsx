@@ -15,6 +15,8 @@ export type InlineLinkProps = {
   onLongPress?: (event: GestureResponderEvent) => void;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
+  /** Indicate if links are rendered on dark mode */
+  forceDarkMode?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
 };
@@ -35,11 +37,13 @@ export type InlineLinkProps = {
  */
 export class InlineLink extends React.Component<InlineLinkProps> {
   private get styles() {
+    const { forceDarkMode } = this.props;
+
     return StyleSheet.create({
       wrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        color: getColor('linkPrimary'),
+        color: getColor('linkPrimary', forceDarkMode ? 'dark' : undefined),
       },
     });
   }
