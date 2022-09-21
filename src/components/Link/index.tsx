@@ -56,6 +56,8 @@ export class Link extends React.Component<LinkProps> {
 
     return StyleSheet.create({
       wrapper: {
+        paddingTop: 13,
+        paddingBottom: 13,
         flexDirection: 'row',
         alignItems: 'center',
       },

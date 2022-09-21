@@ -16,4 +16,6 @@ export const defaultText = {
   clear: 'Clear',
   search: 'Search',
   done: 'Done',
+  incrementNumber: 'Increment',
+  decrementNumber: 'Decrement',
 };

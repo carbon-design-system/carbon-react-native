@@ -19,8 +19,8 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
   private get styles() {
     return StyleSheet.create({
       wrapper: {
-        height: 48,
-        maxHeight: 48,
+        height: 49,
+        maxHeight: 49,
         width: '100%',
         backgroundColor: getColor('layer01'),
         flexDirection: 'row',

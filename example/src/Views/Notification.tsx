@@ -1,23 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Checkbox, Notification, NotificationTypes, Link } from 'carbon-react-native';
-
-const styles = StyleSheet.create({
-  view: {
-    padding: 16,
-    flex: 1,
-  },
-  container: {
-    flexGrow: 1,
-    paddingBottom: 64,
-  },
-  linkAlign: {
-    alignSelf: 'flex-start',
-  },
-  baseSpacing: {
-    marginTop: 16,
-  },
-});
+import { Checkbox, Notification, NotificationTypes, Link, getColor } from 'carbon-react-native';
 
 export default class TestNotification extends React.Component {
   state = {
@@ -29,6 +12,30 @@ export default class TestNotification extends React.Component {
     lowContrast: false,
     multiLine: false,
   };
+
+  private get styles() {
+    return StyleSheet.create({
+      view: {
+        padding: 16,
+        flex: 1,
+      },
+      container: {
+        flexGrow: 1,
+        paddingBottom: 64,
+      },
+      linkAlign: {
+        alignSelf: 'flex-start',
+        paddingTop: 0,
+        paddingBottom: 26,
+      },
+      linkText: {
+        color: getColor('linkPrimary', 'light'),
+      },
+      baseSpacing: {
+        marginTop: 16,
+      },
+    });
+  }
 
   private onDismiss = (): void => {
     Alert.alert('Pressed dismiss', 'Normally you should remove it from DOM to respect user. But this is just for testing.');
@@ -43,7 +50,7 @@ export default class TestNotification extends React.Component {
     const types: NotificationTypes[] = ['info', 'error', 'warning', 'success'];
 
     return (
-      <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
+      <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={this.styles.container} style={this.styles.view}>
         <Checkbox checked={showSubtitle} id="subtext" onPress={(value) => this.setState({ showSubtitle: value })} label="Show sub title" />
         <Checkbox checked={showAction} id="action" onPress={(value) => this.setState({ showAction: value })} label="Show action" />
         <Checkbox checked={showDismiss} id="dismiss" onPress={(value) => this.setState({ showDismiss: value })} label="Show dismiss" />
@@ -52,7 +59,7 @@ export default class TestNotification extends React.Component {
         <Checkbox checked={longTitle} id="long-title" onPress={(value) => this.setState({ longTitle: value })} label="Very long title" />
         <Checkbox checked={longSubTitle} id="long-sub" onPress={(value) => this.setState({ longSubTitle: value })} label="Very long sub title" />
         {types.map((type) => {
-          return <Notification style={styles.baseSpacing} key={type} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Link style={styles.linkAlign} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
+          return <Notification style={this.styles.baseSpacing} key={type} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Link style={this.styles.linkAlign} textStyle={this.styles.linkText} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
         })}
       </ScrollView>
     );

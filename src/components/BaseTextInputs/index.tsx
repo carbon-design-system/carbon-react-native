@@ -56,6 +56,10 @@ export type TextInputProps = {
   textAreaMinHeight?: number;
   /** @remarks password only. Text to use for toggle password button (accessibility). Defaults to ENGLISH "Show/hide password" */
   togglePasswordText?: string;
+  /** @remarks number only. Text to use for increment number button (accessibility). Defaults to ENGLISH "Increment" */
+  incrementNumberText?: string;
+  /** @remarks number only. Text to use for decrement number button (accessibility). Defaults to ENGLISH "Decrement" */
+  decrementNumberText?: string;
   /** @remarks number only. Min and Max for numbers. If not set any number (including negative is valid) */
   numberRules?: {
     min?: number;
@@ -69,7 +73,7 @@ export type TextInputProps = {
   componentProps?: ReactTextInputProps;
 };
 
-export const getTextInputStyle = (light?: boolean) => {
+export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean) => {
   // React Native on iOS
   const baseTextBox: any = {
     ...BodyCompact02,
@@ -97,7 +101,7 @@ export const getTextInputStyle = (light?: boolean) => {
 
   return StyleSheet.create({
     wrapper: {
-      paddingTop: 22,
+      paddingTop: hasLabelLink ? undefined : 22,
     },
     labelWrapper: {
       flexDirection: 'row',
@@ -107,6 +111,7 @@ export const getTextInputStyle = (light?: boolean) => {
     label: {
       color: getColor('textSecondary'),
       flex: 1,
+      paddingTop: hasLabelLink ? 30 : undefined,
     },
     helperText: {
       color: getColor('textHelper'),
@@ -173,6 +178,10 @@ export const getTextInputStyle = (light?: boolean) => {
     numberActionsButton: {
       padding: 14,
     },
+    labelLink: {
+      paddingBottom: 0,
+      paddingTop: 30,
+    },
   });
 };
 
@@ -189,9 +198,9 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
   };
 
   private get styles() {
-    const { light } = this.props;
+    const { light, labelLink } = this.props;
 
-    return getTextInputStyle(light);
+    return getTextInputStyle(light, !!labelLink);
   }
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
@@ -286,7 +295,7 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
   };
 
   private get numberActions(): React.ReactNode {
-    const { numberRules, value, disabled } = this.props;
+    const { numberRules, value, disabled, incrementNumberText, decrementNumberText } = this.props;
 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
     const disableMin = typeof numberRules?.min === 'number' ? numberRules.min >= valueNumber : false;
@@ -295,10 +304,10 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
       return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
     };
 
-    const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown): React.ReactNode => {
+    const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown, text: string): React.ReactNode => {
       const finalDisabled = pressableDisabled || disabled || false;
       return (
-        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton, getStateStyle)} onPress={onPress} disabled={finalDisabled}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton, getStateStyle)} onPress={onPress} disabled={finalDisabled} accessibilityLabel={text} accessibilityHint={value}>
           {createIcon(icon, 20, 20, finalDisabled ? getColor('iconDisabled') : getColor('iconPrimary'))}
         </Pressable>
       );
@@ -306,9 +315,9 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
 
     return (
       <View style={this.styles.numberActions}>
-        {getPressable(this.decrementNumber, disableMin, SubtractIcon)}
+        {getPressable(this.decrementNumber, disableMin, SubtractIcon, decrementNumberText || defaultText.decrementNumber)}
         <View style={this.styles.numberActionsDivider} />
-        {getPressable(this.incrementNumber, disableMax, AddIcon)}
+        {getPressable(this.incrementNumber, disableMax, AddIcon, incrementNumberText || defaultText.incrementNumber)}
       </View>
     );
   }
@@ -347,15 +356,15 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
     }
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessible={!password} accessibilityLabel={label} accessibilityHint={helperText}>
+      <View style={styleReferenceBreaker(this.styles.wrapper, style)}>
         {!!(label || labelLink) && (
           <View style={this.styles.labelWrapper}>
             {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
-            {!!labelLink && <Link {...labelLink} textType="label-02" />}
+            {!!labelLink && <Link {...labelLink} style={this.styles.labelLink} textType="label-02" />}
           </View>
         )}
-        <View style={this.styles.textBoxWrapper} accessible={password} accessibilityLabel={label} accessibilityHint={helperText}>
-          <ReactTextInput editable={!disabled} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
+        <View style={this.styles.textBoxWrapper} accessible={password}>
+          <ReactTextInput editable={!disabled} accessibilityLabel={label} accessibilityHint={helperText} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
           {error && this.errorIndicator}
           {password && this.passwordReveal}
           {date && this.dateIcon}
