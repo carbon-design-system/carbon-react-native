@@ -364,7 +364,7 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
           </View>
         )}
         <View style={this.styles.textBoxWrapper} accessible={password}>
-          <ReactTextInput editable={!disabled} accessibilityLabel={label} accessibilityHint={helperText} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
+          <ReactTextInput editable={!disabled} accessibilityLabel={helperText ? `${label} - ${helperText}` : label} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
           {error && this.errorIndicator}
           {password && this.passwordReveal}
           {date && this.dateIcon}

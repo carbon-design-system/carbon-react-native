@@ -118,8 +118,8 @@ export class TestSignUpForm extends React.Component<{
         <TextInput label="Stress address (optional)" value={address} onChangeText={(value) => this.setState({ address: value })} placeholder="123 Example St." />
         <TextInput label="Stress address line 2 (optional)" value={address2} onChangeText={(value) => this.setState({ address2: value })} placeholder="Apartment, unit, suite" />
         <TextInput label="City (optional)" value={city} onChangeText={(value) => this.setState({ city: value })} />
-        <Dropdown style={this.styles.dropdowns} label="Country or region" value={country} valueToText={(value) => countries.filter((item) => item.id === value)[0]?.text || value} items={countries} onChange={(item) => this.setState({ country: item.id })} />
-        <Dropdown style={this.styles.dropdowns} label="State or provence" value={state} valueToText={(value) => states.filter((item) => item.id === value)[0]?.text || value} items={states} onChange={(item) => this.setState({ state: item.id })} />
+        <Dropdown style={this.styles.dropdowns} unsetText="Choose an option" label="Country or region" value={country} valueToText={(value) => countries.filter((item) => item.id === value)[0]?.text || value} items={countries} onChange={(item) => this.setState({ country: item.id })} />
+        <Dropdown style={this.styles.dropdowns} unsetText="Choose an option" label="State or provence" value={state} valueToText={(value) => states.filter((item) => item.id === value)[0]?.text || value} items={states} onChange={(item) => this.setState({ state: item.id })} />
         <TextInput label="Phone" required={true} value={phone} onChangeText={(value) => this.setState({ phone: value })} getErrorText={(value) => (value ? '' : 'Phone is required')} />
         <PasswordInput label="Password" autoCapitalize="none" autoCorrect={false} value={password} required={true} onChangeText={(value) => this.setState({ password: value })} getErrorText={this.getErrorText} isInvalid={() => this.invalidPassword} />
         {this.passwordRules}

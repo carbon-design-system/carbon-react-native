@@ -38,8 +38,8 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   private get styles() {
     const basicStyle = {
       padding: 16,
-      paddingTop: 11,
-      paddingBottom: 11,
+      paddingTop: 14,
+      paddingBottom: 14,
       flex: 1,
       borderTopWidth: 1,
       borderBottomWidth: 1,
