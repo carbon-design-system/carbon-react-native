@@ -29,7 +29,7 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn && yarn example pods",
-    "bump:example": "node ./scripts/bump-example.js"
+    "example:bump": "node ./scripts/bump-example.js"
   },
   "keywords": [
     "react-native",
@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.ibm.com/Aspera/carbon-react-native#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://na.artifactory.swg-devops.com/artifactory/api/npm/hyc-aspera-ui-team-npm-local/"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
