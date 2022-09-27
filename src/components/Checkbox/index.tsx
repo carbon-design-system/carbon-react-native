@@ -8,6 +8,14 @@ import CheckboxIcon from '@carbon/icons/es/checkbox/20';
 import CheckboxCheckedIcon from '@carbon/icons/es/checkbox--checked--filled/20';
 import { Tooltip, TooltipProps } from '../Tooltip';
 
+export const checkboxRadioBaseStyle = {
+  paddingTop: 14,
+  paddingBottom: 14,
+  minWidth: 48,
+  flexDirection: 'row' as const,
+  alignContent: 'flex-start' as const,
+};
+
 export type CheckboxRadioProps = {
   /** Text to render */
   label: string;
@@ -38,13 +46,7 @@ export type CheckboxRadioProps = {
 export class Checkbox extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({
-      wrapper: {
-        paddingTop: 14,
-        paddingBottom: 14,
-        minWidth: 48,
-        flexDirection: 'row',
-        alignContent: 'flex-start',
-      },
+      wrapper: checkboxRadioBaseStyle,
       checkboxWrapper: {
         flexDirection: 'row',
         flexWrap: 'wrap',
