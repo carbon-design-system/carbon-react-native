@@ -109,7 +109,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
       selectableArea: {
         width: 48,
         height: 48,
-        padding: 14,
+        justifyContent: 'center',
       },
     });
   }

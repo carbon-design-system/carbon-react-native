@@ -6,17 +6,12 @@ import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import RadioButtonIcon from '@carbon/icons/es/radio-button/20';
 import RadioButtonCheckedIcon from '@carbon/icons/es/radio-button--checked/20';
-import type { CheckboxRadioProps } from '../Checkbox';
+import { checkboxRadioBaseStyle, CheckboxRadioProps } from '../Checkbox';
 
 export class RadioButton extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({
-      wrapper: {
-        paddingTop: 14,
-        paddingBottom: 14,
-        flexDirection: 'row',
-        alignContent: 'flex-start',
-      },
+      wrapper: checkboxRadioBaseStyle,
     });
   }
 
