@@ -29,6 +29,8 @@ export type CheckboxRadioProps = {
   tooltipProps?: TooltipProps;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
+  /** Style to set on the checkbox wrapper */
+  wrapperStyle?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
 };
@@ -42,7 +44,6 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
         minWidth: 48,
         flexDirection: 'row',
         alignContent: 'flex-start',
-        justifyContent: 'center',
       },
       checkboxWrapper: {
         flexDirection: 'row',
@@ -87,11 +88,11 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
   };
 
   render(): React.ReactNode {
-    const { disabled, componentProps, label, accessibleText, hideLabel, style, tooltipProps } = this.props;
+    const { disabled, componentProps, label, accessibleText, hideLabel, style, tooltipProps, wrapperStyle } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.checkboxWrapper, style)}>
-        <Pressable style={this.styles.wrapper} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <View style={styleReferenceBreaker(this.styles.checkboxWrapper, wrapperStyle)}>
+        <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {this.checkbox}
           {!hideLabel && <Text style={this.textStyle} text={label} />}
         </Pressable>

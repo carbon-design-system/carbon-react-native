@@ -17,7 +17,6 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
         minWidth: 48,
         flexDirection: 'row',
         alignContent: 'flex-start',
-        justifyContent: 'center',
       },
     });
   }
