@@ -58,6 +58,7 @@ import TestTopNavigationBarLogin from './Views/TopNavigationBarLogin';
 import TestLoginForgotPassword from './Views/LoginForgotPassword';
 import TestLoginCreatePassword from './Views/LoginCreatePassword';
 import TestLoginCreateAccount from './Views/LoginCreateAccount';
+import TestFormItem from './Views/FormItem';
 
 export type ComponentItem = {
   component: React.ReactNode;
@@ -145,6 +146,7 @@ export default class App extends React.Component {
     ['Date input', { component: <TestDateInput />, imageLight: null, imageDark: null }],
     ['Top navigation bar login', { component: <TestTopNavigationBarLogin />, imageLight: null, imageDark: null }],
     ['Slider', { component: <TestSlider />, imageLight: null, imageDark: null }],
+    ['Form item', { component: <TestFormItem />, imageLight: null, imageDark: null }],
   ];
 
   private flowViewList: [string, ComponentItem][] = [

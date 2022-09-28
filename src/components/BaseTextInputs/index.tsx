@@ -14,6 +14,16 @@ import { defaultText } from '../../constants/defaultText';
 import { BodyCompact02, Body02 } from '../../styles/typography';
 import { Link, LinkProps } from '../Link';
 
+export type BaseTextInputTypes = 'text' | 'text-area' | 'password' | 'number' | 'date';
+
+/** Props for the internal base text input */
+type BaseTextInputProps = {
+  /** Type of text input to render */
+  type: BaseTextInputTypes;
+  /** Callback for needed info for full bleed styling.  If set full bleed styling is used. */
+  fullBleedCallback?: (focus: boolean, error: boolean) => void;
+};
+
 /** Shared props for Text, Password and TextArea */
 export type TextInputProps = {
   /** Value of text (Controlled component) */
@@ -73,7 +83,7 @@ export type TextInputProps = {
   componentProps?: ReactTextInputProps;
 };
 
-export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean) => {
+export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
   // React Native on iOS
   const baseTextBox: any = {
     ...BodyCompact02,
@@ -99,6 +109,15 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean) => {
     baseTextBox.paddingBottom = 2;
   }
 
+  if (fullBleed) {
+    baseTextBox.backgroundColor = 'transparent';
+    baseTextBox.borderColor = undefined;
+    baseTextBox.borderWidth = undefined;
+    baseTextBox.borderBottomWidth = undefined;
+    baseTextBox.paddingLeft = 0;
+    baseTextBox.paddingRight = 0;
+  }
+
   return StyleSheet.create({
     wrapper: {
       paddingTop: hasLabelLink ? undefined : 22,
@@ -120,6 +139,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean) => {
     errorText: {
       color: getColor('textError'),
       marginTop: 8,
+      marginBottom: fullBleed ? 8 : undefined,
     },
     textBox: baseTextBox,
     textBoxDisabled: {
@@ -190,7 +210,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean) => {
  * This allows a shared code base for all text input systems and validation rules
  * This component is not exported. It is used by `TextInput`, `TextArea` and `PasswordInput`.
  */
-export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' | 'password' | 'number' | 'date' } & TextInputProps> {
+export class BaseTextInput extends React.Component<BaseTextInputProps & TextInputProps> {
   state = {
     dirty: false,
     hasFocus: false,
@@ -198,9 +218,9 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
   };
 
   private get styles() {
-    const { light, labelLink } = this.props;
+    const { light, labelLink, fullBleedCallback } = this.props;
 
-    return getTextInputStyle(light, !!labelLink);
+    return getTextInputStyle(light, !!labelLink, !!fullBleedCallback);
   }
 
   private onFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>): void => {
@@ -323,20 +343,25 @@ export class BaseTextInput extends React.Component<{ type: 'text' | 'text-area' 
   }
 
   render(): React.ReactNode {
-    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink } = this.props;
+    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink, fullBleedCallback } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
     const textArea = type === 'text-area';
     const date = type === 'date';
     const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
-    const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
+    let error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
+    const fullBleedMode = typeof fullBleedCallback === 'function';
+
+    if (fullBleedMode) {
+      fullBleedCallback(hasFocus, error);
+    }
 
     if (disabled) {
       textBoxStyle = styleReferenceBreaker(this.styles.textBoxDisabled);
-    } else if (error) {
+    } else if (error && !fullBleedMode) {
       textBoxStyle = styleReferenceBreaker(this.styles.textBoxError);
-    } else if (hasFocus) {
+    } else if (hasFocus && !fullBleedMode) {
       textBoxStyle = styleReferenceBreaker(this.styles.textBoxActive);
     }
 

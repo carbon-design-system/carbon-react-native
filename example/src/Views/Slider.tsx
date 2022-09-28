@@ -37,16 +37,16 @@ export default class TestSlider extends React.Component {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <View style={styles.itemStyle}>
-          <Slider id="slider-1" label="Slider" value={value1} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value1', value)} />
+          <Slider label="Slider" value={value1} minValue={minValue} maxValue={maxValue} onChange={(value) => this.changeValue('value1', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-2" label="Slider no label" hideLabel={true} value={value2} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value2', value)} />
+          <Slider label="Slider no label" hideLabel={true} value={value2} minValue={minValue} maxValue={maxValue} onChange={(value) => this.changeValue('value2', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-3" label="Slider no text input" hideTextInput={true} value={value3} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value3', value)} />
+          <Slider label="Slider no text input" hideTextInput={true} value={value3} minValue={minValue} maxValue={maxValue} onChange={(value) => this.changeValue('value3', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Slider id="slider-4" label="Slider disabled" disabled={true} value={value4} minValue={minValue} maxValue={maxValue} onValueChanged={(value) => this.changeValue('value4', value)} />
+          <Slider label="Slider disabled" disabled={true} value={value4} minValue={minValue} maxValue={maxValue} onChange={(value) => this.changeValue('value4', value)} />
         </View>
       </ScrollView>
     );
