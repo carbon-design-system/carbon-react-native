@@ -25,6 +25,8 @@ export type ToggleProps = {
   onChange: (value: boolean) => void;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
+  /** Style to set on the toggle wrapper itself */
+  toggleWrapperStyle?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: SwitchProps;
 };
@@ -71,12 +73,12 @@ export class Toggle extends React.Component<ToggleProps> {
   };
 
   render(): React.ReactNode {
-    const { disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled } = this.props;
+    const { disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled, toggleWrapperStyle } = this.props;
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>
         {!!(label && !hideLabel) && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
-        <View style={this.styles.switchWrapper}>
+        <View style={styleReferenceBreaker(this.styles.switchWrapper, toggleWrapperStyle)}>
           <Switch value={toggled} onValueChange={this.onChange} disabled={disabled} trackColor={this.trackColor} thumbColor={getColor('iconOnColor')} {...(componentProps || {})} />
           {!!selectedLabelText && <Text style={this.styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} />}
         </View>

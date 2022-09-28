@@ -9,8 +9,6 @@ import { TextInput } from '../TextInput';
 export type SliderProps = {
   /** Text to render */
   label: string;
-  /** ID of item (any identifier to identify the slider) */
-  id: string;
   /** Current value */
   value: number;
   /** Minimum Value */
@@ -23,8 +21,10 @@ export type SliderProps = {
   hideLabel?: boolean;
   /** Indicate if text input should be hidden */
   hideTextInput?: boolean;
-  /** onValueChanged event returns the current value and ID of the item */
-  onValueChanged?: (value: number, id: string) => void;
+  /** Indicate if range labels should be hidden */
+  hideRangeLabels?: boolean;
+  /** Change event returns the current value of the item */
+  onChange?: (value: number) => void;
   /** Text to use for slider (accessibility). Defaults to ENGLISH "Slider" */
   accessibleText?: string;
   /** Style to set on the item */
@@ -136,10 +136,10 @@ export class Slider extends React.Component<SliderProps> {
   };
 
   private onSliderValueChanged(value: number, setInputText: boolean) {
-    const { id, onValueChanged } = this.props;
+    const { onChange } = this.props;
 
-    if (typeof onValueChanged === 'function') {
-      onValueChanged(value, id);
+    if (typeof onChange === 'function') {
+      onChange(value);
     }
 
     if (setInputText) {
@@ -205,6 +205,12 @@ export class Slider extends React.Component<SliderProps> {
   }
 
   private rangeLabel(value: number): React.ReactNode {
+    const { hideRangeLabels } = this.props;
+
+    if (hideRangeLabels) {
+      return null;
+    }
+
     return <Text style={this.styles.sliderRangeLabel} type="code-02" text={value.toString()} />;
   }
 

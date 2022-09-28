@@ -8,6 +8,17 @@ import ChevronRightIcon from '@carbon/icons/es/chevron--right/20';
 import { Checkbox, CheckboxRadioProps } from '../Checkbox';
 import { RadioButton } from '../RadioButton';
 
+export const getNavigationListItemStyle = () => {
+  return {
+    flexDirection: 'row' as const,
+    alignItems: 'flex-start' as const,
+    backgroundColor: getColor('layer01'),
+    borderBottomColor: getColor('borderSubtle01'),
+    borderBottomWidth: 1,
+    minHeight: 48,
+  };
+};
+
 export type NavigationListItemProps = {
   /** Text to render */
   text: string;
@@ -51,10 +62,6 @@ export type NavigationListItemProps = {
   componentProps?: PressableProps;
 };
 
-/**
- * To not have a link be pressable 100% of screen format parent or pass style appropriately.
- * alignSelf: 'flex-start' is useful for this
- */
 export class NavigationListItem extends React.Component<NavigationListItemProps> {
   private get textIconColor(): string {
     const { disabled } = this.props;
@@ -66,18 +73,10 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     const { disabled } = this.props;
 
     return StyleSheet.create({
-      wrapper: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        backgroundColor: getColor('layer01'),
-        borderBottomColor: getColor('borderSubtle01'),
-        borderBottomWidth: 1,
-        minHeight: 48,
-      },
+      wrapper: getNavigationListItemStyle(),
       pressableStyle: {
         paddingRight: 14,
         flex: 1,
-        backgroundColor: getColor('layer01'),
         flexDirection: 'row',
         alignItems: 'flex-start',
       },
