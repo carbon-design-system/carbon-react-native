@@ -17,10 +17,12 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
     };
     ```
 4. Run `npx react-native link` to link the fonts.
-5. Install the following peer dependencies as needed:
-    - @carbon/themes
+5. Install the following peer dependencies (install as dependencies.  [See dependecies here for tested versions](example/package.json)):
+    - @carbon/themes 
     - @carbon/icons
+    - @carbon/icon-helpers
     - react-native-svg
+    - react-native-webview
 
 ## Usage
 
