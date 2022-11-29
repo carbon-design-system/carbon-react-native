@@ -12,11 +12,11 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
         android: {},
       },
       assets: [
-        './node_modules/carbon-react-native/assets/fonts/'  // This needs to be added if file already exists
+        './node_modules/carbon-react-native/src/assets/fonts/'  // This needs to be added if file already exists
       ],
     };
     ```
-4. Run `npx react-native link` to link the fonts.
+4. Run `npx react-native-asset` to link the fonts (install this package if not already).
 5. Install the following peer dependencies (install as dependencies.  [See dependecies here for tested versions](example/package.json)):
     - @carbon/themes 
     - @carbon/icons
