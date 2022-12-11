@@ -27,6 +27,8 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
         height: 48,
         flexDirection: 'row',
         width: '100%',
+        borderTopColor: getColor('borderSubtle00'),
+        borderTopWidth: 1,
       },
     });
   }
