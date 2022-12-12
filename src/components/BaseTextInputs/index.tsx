@@ -125,12 +125,12 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     labelWrapper: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      marginBottom: 8,
     },
     label: {
       color: getColor('textSecondary'),
       flex: 1,
       paddingTop: hasLabelLink ? 30 : undefined,
+      marginBottom: 8,
     },
     helperText: {
       color: getColor('textHelper'),

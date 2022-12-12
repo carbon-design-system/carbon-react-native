@@ -50,6 +50,7 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
       checkboxWrapper: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        alignItems: 'center',
       },
     });
   }

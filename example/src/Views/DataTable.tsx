@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
 import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable } from 'carbon-react-native';
-import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
+import AddIcon from '@carbon/icons/es/add/20';
 import SearchIcon from '@carbon/icons/es/search/20';
 import SettingsIcon from '@carbon/icons/es/settings/20';
 
@@ -27,7 +27,7 @@ export default class TestDataTable extends React.Component {
       primaryAction: {
         kind: 'primary',
         text: 'Primary button',
-        icon: ArrowRightIcon,
+        icon: AddIcon,
         onPress: () => this.alert('Pressed primary button'),
       },
       secondaryActions: [
