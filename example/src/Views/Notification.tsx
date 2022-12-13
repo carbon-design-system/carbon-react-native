@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Checkbox, Notification, NotificationTypes, Link, getColor } from 'carbon-react-native';
+import { Checkbox, Notification, NotificationTypes, getColor, Button } from 'carbon-react-native';
 
 export default class TestNotification extends React.Component {
   state = {
@@ -23,13 +23,8 @@ export default class TestNotification extends React.Component {
         flexGrow: 1,
         paddingBottom: 64,
       },
-      linkAlign: {
+      button: {
         alignSelf: 'flex-start',
-        paddingTop: 0,
-        paddingBottom: 26,
-      },
-      linkText: {
-        color: getColor('linkPrimary', 'light'),
       },
       baseSpacing: {
         marginTop: 16,
@@ -59,7 +54,7 @@ export default class TestNotification extends React.Component {
         <Checkbox checked={longTitle} id="long-title" onPress={(value) => this.setState({ longTitle: value })} label="Very long title" />
         <Checkbox checked={longSubTitle} id="long-sub" onPress={(value) => this.setState({ longSubTitle: value })} label="Very long sub title" />
         {types.map((type) => {
-          return <Notification style={this.styles.baseSpacing} key={type} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Link style={this.styles.linkAlign} textStyle={this.styles.linkText} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
+          return <Notification style={this.styles.baseSpacing} key={type} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Button kind={multiLine ? 'tertiary' : 'ghost'} overrideColor={getColor('linkInverse')} style={this.styles.button} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
         })}
       </ScrollView>
     );

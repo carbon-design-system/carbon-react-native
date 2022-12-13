@@ -77,7 +77,6 @@ export default class TestContentSwitcher extends React.Component {
       },
       {
         text: 'Item 2 with really long text that will go into ellipsis instead of wrapping like the one below',
-        textBreakMode: 'tail',
         data: 'currentIndexC',
         disabled: disableSecond,
       },

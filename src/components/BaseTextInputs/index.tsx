@@ -135,6 +135,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     helperText: {
       color: getColor('textHelper'),
       marginTop: 8,
+      marginBottom: fullBleed ? 8 : undefined,
     },
     errorText: {
       color: getColor('textError'),
@@ -354,7 +355,9 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     const fullBleedMode = typeof fullBleedCallback === 'function';
 
     if (fullBleedMode) {
-      fullBleedCallback(hasFocus, error);
+      setTimeout(() => {
+        fullBleedCallback(hasFocus, error);
+      });
     }
 
     if (disabled) {

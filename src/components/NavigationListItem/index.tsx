@@ -42,7 +42,7 @@ export type NavigationListItemProps = {
   id?: string;
   /** Indicate if selectable row should be used (can be radio or checbox) */
   selectableType?: 'radio' | 'checkbox';
-  /** On selectable row change */
+  /** On selectable row change. If no onPress this will trigger via the full row. */
   onSelectableRowChange?: (value: boolean, id?: string) => void;
   /** Indicate if row is selected (checked or active radio) */
   selected?: boolean;
@@ -114,7 +114,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   }
 
   private onPress = (event: GestureResponderEvent): void => {
-    const { dismissKeyboardOnPress, onPress, id } = this.props;
+    const { dismissKeyboardOnPress, onPress, id, onSelectableRowChange, selected } = this.props;
 
     if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') {
       Keyboard.dismiss();
@@ -122,6 +122,8 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
 
     if (typeof onPress === 'function') {
       onPress(event, id);
+    } else if (typeof onSelectableRowChange === 'function') {
+      onSelectableRowChange(!selected, id);
     }
   };
 

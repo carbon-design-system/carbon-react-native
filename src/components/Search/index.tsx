@@ -98,6 +98,7 @@ export class Search extends React.Component<SearchProps> {
 
     finalStyle.right = undefined;
     finalStyle.left = 0;
+    finalStyle.top = 1;
 
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={finalStyle} iconOnlyMode={true} kind="ghost" icon={SearchIcon} text={searchIconText || defaultText.search} onPress={onSubmitEditing} />;
   }

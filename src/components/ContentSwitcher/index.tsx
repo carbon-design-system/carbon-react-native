@@ -2,13 +2,11 @@ import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
-import { Text, TextBreakModes, TextTypes } from '../Text';
+import { Text, TextTypes } from '../Text';
 
 export type SwitcherItem = {
   /** Text to render */
   text: string;
-  /** Break mode for text. Default is to wrap text */
-  textBreakMode?: TextBreakModes;
   /** Indicate if item is disabled */
   disabled?: boolean;
   /** Text type to render (Default is body-compact-01)  */
@@ -43,11 +41,11 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
       flex: 1,
       borderTopWidth: 1,
       borderBottomWidth: 1,
+      position: 'relative' as const,
     };
 
     return StyleSheet.create({
       wrapper: {
-        minHeight: 40,
         flexDirection: 'row',
       },
       item: {
@@ -59,6 +57,14 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
         ...basicStyle,
         backgroundColor: getColor('layerSelectedInverse'),
         borderColor: getColor('layerSelectedInverse'),
+      },
+      divider: {
+        backgroundColor: getColor('borderSubtle01'),
+        width: 1,
+        height: 16,
+        position: 'absolute',
+        top: 16,
+        right: 0,
       },
     });
   }
@@ -76,6 +82,7 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     const { currentIndex } = this.state;
     const { items } = this.props;
     const selected = index === currentIndex;
+    const finalItem = items.length === index + 1;
     const finalStyle = styleReferenceBreaker(selected ? this.styles.selectedItem : this.styles.item);
     const textStyle = {
       color: selected ? getColor('textInverse') : getColor('textSecondary'),
@@ -112,7 +119,8 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
 
     return (
       <Pressable key={index} disabled={item.disabled} onPress={() => this.changeItem(item, index)} style={(state) => pressableFeedbackStyle(state, finalStyle, getStateStyle)} accessibilityLabel={item.text} accessibilityRole="menuitem">
-        <Text type={item.textType || 'body-compact-01'} style={textStyle} breakMode={item.textBreakMode} text={item.text} />
+        {!finalItem && !selected && <View style={this.styles.divider} />}
+        <Text type={item.textType || 'body-compact-01'} style={textStyle} breakMode="tail" text={item.text} />
       </Pressable>
     );
   }

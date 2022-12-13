@@ -173,10 +173,10 @@ export const getColor = (token: string, overrideTheme?: ThemeChoices): string =>
 
 /** Carbon Drop shadow standard (down direction) */
 export const shadowStyle = {
-  shadowColor: '#000000',
-  shadowOpacity: 0.3,
+  elevation: 2,
+  shadowOpacity: 0.1,
   shadowOffset: {
     width: 2,
-    height: 1,
+    height: 3,
   },
 };
