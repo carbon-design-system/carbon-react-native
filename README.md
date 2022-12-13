@@ -18,11 +18,15 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
     ```
 4. Run `npx react-native-asset` to link the fonts (install this package if not already).
 5. Install the following peer dependencies (install as dependencies.  [See dependecies here for tested versions](example/package.json)):
-    - @carbon/themes 
+    - @carbon/themes
     - @carbon/icons
     - @carbon/icon-helpers
     - react-native-svg
     - react-native-webview
+
+## Recommended Settings
+
+For best experience with navigation we recommend for Android setting `android:windowSoftInputMode="adjustPan"` in your AndroidManifest file. This will prevent the bottom navigation from pushing up.  Other known mechanisms exist and you should consider keyboard overlay for developing input areas.
 
 ## Usage
 

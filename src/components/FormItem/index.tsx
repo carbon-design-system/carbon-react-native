@@ -20,7 +20,7 @@ import { Slider } from '../Slider';
  * `header` - Header with text and supported secondary text. This is for logical breaking up of form items.
  * `static` - Static data to render (view only)
  * `slider` - Slider bar to render
- * `checkbox` - Checkbox to render. This can also be used as radio for checking proper items in the list.
+ * `checkbox` - Checkbox to render. This can also be used as radio for checking proper items in the list.  Use `overrideActiveCheckboxIcon` to override the icon
  * `button` - Button to render. Supports icon via `buttonIcon`.
  * `divider` - Empty space to divide form items.
  */
@@ -55,6 +55,8 @@ export type FormItemProps = {
   dismissKeyboardOnPress?: boolean;
   /** Toggle text exchange by value. This should show content on the UI like Yes/No or Off/On */
   toggleValueText?: (value: boolean) => string;
+  /** Override icon for select item (default is Checkbox) */
+  overrideActiveCheckboxIcon?: CarbonIcon;
   /** Slider props for customizing slider */
   sliderProps?: {
     /** Icon to render on right side of slider */
@@ -259,7 +261,7 @@ export class FormItem extends React.Component<FormItemProps> {
   }
 
   private get checkboxContent(): React.ReactNode {
-    const { label, textBreakMode, disabled, value, helperText } = this.props;
+    const { label, textBreakMode, disabled, value, helperText, overrideActiveCheckboxIcon } = this.props;
 
     const changeValue = () => {
       this.triggerChange(!value);
@@ -271,7 +273,7 @@ export class FormItem extends React.Component<FormItemProps> {
           <Text text={label} breakMode={textBreakMode} />
           {!!helperText && <Text type="helper-text-02" style={styleReferenceBreaker(getTextInputStyle().helperText, this.styles.helperText)} text={helperText} />}
         </View>
-        {createIcon(value ? CheckmarkIcon : EmptyCheckmarkIcon, 20, 20, this.mainColor)}
+        {createIcon(value ? overrideActiveCheckboxIcon || CheckmarkIcon : EmptyCheckmarkIcon, 20, 20, this.mainColor)}
       </Pressable>
     );
   }

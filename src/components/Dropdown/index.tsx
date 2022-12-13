@@ -132,7 +132,7 @@ export class Dropdown extends React.Component<DropdownProps> {
   };
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
-    return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
+    return state.pressed ? { backgroundColor: getColor('layerActive01'), borderColor: getColor('layerActive01') } : undefined;
   };
 
   /**
@@ -179,8 +179,21 @@ export class Dropdown extends React.Component<DropdownProps> {
     finalStyle.paddingTop = 10;
     const currentText = typeof valueToText === 'function' ? valueToText(value) : value;
 
-    const itemList = items.map((item) => {
+    if (open) {
+      finalStyle.borderBottomColor = getColor('borderSubtle01');
+    }
+
+    const itemList = items.map((item, index) => {
       const newItem = Object.assign({}, item) as MenuItemProps;
+      newItem.style = {
+        borderBottomColor: getColor('borderSubtle01'),
+        borderBottomWidth: items.length === index + 1 ? 0 : 1,
+        paddingRight: 0,
+        paddingLeft: 0,
+        marginRight: 16,
+        marginLeft: 16,
+      };
+
       newItem.onPress = () => {
         this.setState({ open: false });
         if (typeof onChange === 'function') {
