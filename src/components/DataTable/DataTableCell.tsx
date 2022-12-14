@@ -66,8 +66,6 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
-    console.log(onPress);
-
     if (type === 'header') {
       finalStyles.backgroundColor = getColor('layerAccent01');
     }
