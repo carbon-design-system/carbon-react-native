@@ -21,18 +21,22 @@ export type DataTableCellProps = {
   style?: StyleProp<ViewStyle>;
   /** Text to use for cell (accessibility). Not set by default. May not be required if cell only includes text */
   cellText?: string;
+  /** No padding on the cell */
+  noPadding?: boolean;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
 
 export class DataTableCell extends React.Component<DataTableCellProps> {
   private get styles() {
+    const { noPadding } = this.props;
+
     return StyleSheet.create({
       wrapper: {
         height: 48,
-        padding: 16,
-        paddingBottom: 15,
-        paddingTop: 15,
+        padding: noPadding ? 0 : 16,
+        paddingBottom: noPadding ? 0 : 15,
+        paddingTop: noPadding ? 0 : 15,
         flex: 1,
       },
     });
@@ -61,6 +65,8 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
   render(): React.ReactNode {
     const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
     const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+
+    console.log(onPress);
 
     if (type === 'header') {
       finalStyles.backgroundColor = getColor('layerAccent01');
