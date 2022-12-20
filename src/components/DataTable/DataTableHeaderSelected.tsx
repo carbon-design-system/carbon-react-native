@@ -25,7 +25,7 @@ export class DataTableHeaderSelected extends React.Component<DataTableHeaderSele
     return StyleSheet.create({
       wrapper: {
         height: 48,
-        backgroundColor: getColor('interactive'),
+        backgroundColor: getColor('backgroundBrand'),
         flexDirection: 'row',
       },
       actions: {
