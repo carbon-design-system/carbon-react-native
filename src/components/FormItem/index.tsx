@@ -108,15 +108,17 @@ export class FormItem extends React.Component<FormItemProps> {
     const noRightPadding = ['password', 'number', 'date'].includes(type);
     const noBottomPadding = this.noBottomPadding;
 
+    const baseWrapper = styleReferenceBreaker(getNavigationListItemStyle(), {
+      flexDirection: 'column',
+      padding: 14,
+      paddingRight: noRightPadding ? 0 : 14,
+      paddingBottom: noBottomPadding ? 0 : 14,
+      borderColor: 'transparent',
+      borderWidth: 2,
+    });
+
     return StyleSheet.create({
-      wrapper: styleReferenceBreaker(getNavigationListItemStyle(), {
-        flexDirection: 'column',
-        padding: 14,
-        paddingRight: noRightPadding ? 0 : 14,
-        paddingBottom: noBottomPadding ? 0 : 14,
-        borderColor: 'transparent',
-        borderWidth: 2,
-      }),
+      wrapper: baseWrapper,
       headerWrapper: {
         padding: 16,
         paddingTop: 32,
@@ -165,6 +167,7 @@ export class FormItem extends React.Component<FormItemProps> {
         color: getColor(disabled ? 'textDisabled' : 'textHelper'),
       },
       checkboxButton: {
+        ...baseWrapper,
         flex: 1,
         flexDirection: 'row',
       },
@@ -379,6 +382,10 @@ export class FormItem extends React.Component<FormItemProps> {
           {primaryContent}
         </Pressable>
       );
+    }
+
+    if (type === 'checkbox') {
+      return this.contentArea;
     }
 
     return (
