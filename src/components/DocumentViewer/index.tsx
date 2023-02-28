@@ -22,6 +22,8 @@ export type DocumentViewerProps = {
   source?: DocumentViewerSource;
   /** Content to render as React Nodes. If set source is not used.  Content is automatically wrapped in a ScrollView. */
   sourceNode?: React.ReactNode;
+  /** Force no scroll view for sourceNode */
+  disableScrollView?: boolean;
   /** Callback when the view is dismissed (if not set will not render close option) */
   onDismiss?: () => void;
   /** Disable padding (useful for loading websites) */
@@ -122,6 +124,9 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
         paddingTop: 32,
         paddingBottom: 0,
       },
+      noScrollView: {
+        flex: 1,
+      },
       webView: {
         backgroundColor: 'transparent',
         flex: 1,
@@ -155,7 +160,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
   }
 
   private get mainView(): React.ReactNode {
-    const { source, disableContainerPadding, sourceNode } = this.props;
+    const { source, disableContainerPadding, sourceNode, disableScrollView } = this.props;
     const containerStyle = styleReferenceBreaker(this.styles.contentContainer);
 
     if (disableContainerPadding) {
@@ -166,6 +171,10 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
     }
 
     if (sourceNode) {
+      if (disableScrollView) {
+        return <View style={styleReferenceBreaker(this.styles.noScrollView, containerStyle)}>{sourceNode}</View>;
+      }
+
       return (
         <ScrollView style={this.styles.contentView} contentContainerStyle={containerStyle}>
           {sourceNode}
