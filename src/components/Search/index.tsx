@@ -1,5 +1,5 @@
 import React from 'react';
-import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps } from 'react-native';
+import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, GestureResponderEvent } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -39,6 +39,8 @@ export type SearchProps = {
   light?: boolean;
   /** Text to use for clear text button (accessibility). Defaults to ENGLISH "Clear" */
   clearTextButtonText?: string;
+  /** Callback when the clear button is pressed */
+  onTextClearPress?: (textBeforeClear: string, event: GestureResponderEvent) => void;
   /** Text to use for search icon (accessibility). Defaults to ENGLISH "Search" */
   searchIconText?: string;
   /** Style to set on the item */
@@ -87,9 +89,17 @@ export class Search extends React.Component<SearchProps> {
   };
 
   private get clearText(): React.ReactNode {
-    const { disabled, clearTextButtonText } = this.props;
+    const { disabled, clearTextButtonText, value, onTextClearPress } = this.props;
 
-    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={CloseIcon} text={clearTextButtonText || defaultText.clear} onPress={() => this.onChange('')} />;
+    const clearTextCallback = (event: GestureResponderEvent) => {
+      if (typeof onTextClearPress === 'function') {
+        onTextClearPress(value, event);
+      }
+
+      this.onChange('');
+    };
+
+    return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={CloseIcon} text={clearTextButtonText || defaultText.clear} onPress={clearTextCallback} />;
   }
 
   private get searchIcon(): React.ReactNode {

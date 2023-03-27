@@ -1,11 +1,12 @@
 import React from 'react';
-import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView } from 'react-native';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView, Image, ImageSourcePropType } from 'react-native';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 import { zIndexes } from '../../styles/z-index';
+import type { CarbonIcon } from '../../types/shared';
 
 export type ActionSheetItem = {
   /** Name for button */
@@ -14,6 +15,13 @@ export type ActionSheetItem = {
   danger?: boolean;
   /** Indicate if hidden (won't show) */
   hidden?: boolean;
+  /** Icon data to render on menu (Only for custom action sheet (not rendered for CANCEL button)) */
+  icon?: {
+    /** Set to an image using `require('../assets/myImage.png')` This will be contained in the view. 20x20 size for rendering (image can be anything but should be square ratio) */
+    image?: ImageSourcePropType;
+    /** Set to an icon from Carbon (size 20). If both image and icon are set ICON will be used. */
+    icon?: CarbonIcon;
+  };
   /** Press event (this will also automatically close the ActionSheet as well) */
   onPress: () => void;
 };
@@ -92,6 +100,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       option: {
         padding: 13,
         paddingLeft: 16,
+        flexDirection: 'row',
       },
       cancelButton: {
         backgroundColor: getColor('buttonSecondary'),
@@ -108,6 +117,18 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
         right: 0,
         left: 0,
         bottom: 0,
+        flex: 1,
+      },
+      iconStyle: {
+        width: 20,
+        height: 20,
+        paddingTop: 1,
+      },
+      iconImageStyle: {
+        width: 20,
+        height: 20,
+      },
+      textStyle: {
         flex: 1,
       },
     });
@@ -185,6 +206,14 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
                   {options.map((item, index) => {
                     const finalStyle = styleReferenceBreaker(this.styles.option);
 
+                    let imageItem: React.ReactNode | undefined;
+
+                    if (item.icon?.icon) {
+                      imageItem = createIcon(item.icon.icon, 20, 20);
+                    } else if (item.icon?.image) {
+                      imageItem = <Image style={this.styles.iconImageStyle} resizeMode="contain" source={item.icon.image} />;
+                    }
+
                     if (item.danger) {
                       finalStyle.backgroundColor = getColor('buttonDangerPrimary');
                     }
@@ -198,7 +227,8 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
                           item.onPress();
                         }}
                       >
-                        <Text text={item.text} />
+                        <Text style={this.styles.textStyle} text={item.text} />
+                        {!!imageItem && <View style={this.styles.iconStyle}>{imageItem}</View>}
                       </Pressable>
                     );
                   })}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
 import { ActionSheet, ActionSheetItem, Button, Checkbox } from 'carbon-react-native';
+import PhoneIcon from '@carbon/icons/es/phone/20';
 
 const styles = StyleSheet.create({
   view: {
@@ -23,6 +24,7 @@ export default class TestActionSheet extends React.Component {
     forceCustom: false,
     lotItems: false,
     dangerItem: false,
+    imageSupport: false,
   };
 
   private openActionSheeet = (): void => {
@@ -30,7 +32,7 @@ export default class TestActionSheet extends React.Component {
   };
 
   private get items(): ActionSheetItem[] {
-    const { dangerItem } = this.state;
+    const { dangerItem, imageSupport } = this.state;
 
     return [
       {
@@ -45,6 +47,7 @@ export default class TestActionSheet extends React.Component {
           Alert.alert('Pressed item 1 on action sheet');
           this.setState({ open: false });
         },
+        icon: imageSupport ? { image: require('../assets/react.png') } : undefined,
       },
       {
         text: 'Item 2 wtih really long name that may be too long for many views',
@@ -52,6 +55,7 @@ export default class TestActionSheet extends React.Component {
           Alert.alert('Pressed item 2 on action sheet');
           this.setState({ open: false });
         },
+        icon: imageSupport ? { icon: PhoneIcon } : undefined,
       },
       {
         text: 'Item 3 that is hidden',
@@ -68,12 +72,13 @@ export default class TestActionSheet extends React.Component {
           Alert.alert('Pressed item 4 on action sheet');
           this.setState({ open: false });
         },
+        icon: imageSupport ? { icon: PhoneIcon } : undefined,
       },
     ];
   }
 
   render(): React.ReactNode {
-    const { open, showBody, forceCustom, lotItems, dangerItem } = this.state;
+    const { open, showBody, forceCustom, lotItems, dangerItem, imageSupport } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -81,6 +86,7 @@ export default class TestActionSheet extends React.Component {
         <Checkbox checked={forceCustom} id="force" onPress={(value) => this.setState({ forceCustom: value })} label="Force custom action sheeet" />
         <Checkbox checked={lotItems} id="lot" onPress={(value) => this.setState({ lotItems: value })} label="Load lots of items" />
         <Checkbox checked={dangerItem} id="dangerItem" onPress={(value) => this.setState({ dangerItem: value })} label="Add danger item" />
+        <Checkbox checked={imageSupport} id="imageSupport" onPress={(value) => this.setState({ imageSupport: value })} label="Render images for custom" />
         <Button onPress={this.openActionSheeet} text="Open action sheet" style={styles.button} />
         <ActionSheet open={open} title="Action sheet title" body={showBody ? 'Useful info about what this action sheet does' : undefined} cancelButtonIndex={0} items={lotItems ? [...this.items, ...this.items, ...this.items, ...this.items] : this.items} forceCustomActionSheet={forceCustom} />
       </ScrollView>
