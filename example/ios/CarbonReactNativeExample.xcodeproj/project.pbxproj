@@ -324,6 +324,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PETKK2G752;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = PETKK2G752;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarbonReactNativeExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -339,6 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.design.carbon.mobile;
 				PRODUCT_NAME = CarbonReactNativeExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Carbon for Mobile App - Dev Prof";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Carbon for Mobile App - Dev Prof";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -355,6 +357,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PETKK2G752;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = PETKK2G752;
 				INFOPLIST_FILE = CarbonReactNativeExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -369,6 +372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.design.carbon.mobile;
 				PRODUCT_NAME = CarbonReactNativeExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Carbon for Mobile App - Dev Prof";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Carbon for Mobile App - Dev Prof";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
