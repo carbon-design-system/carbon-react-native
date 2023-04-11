@@ -44,7 +44,20 @@ export default class TestSearch extends React.Component {
           <Search label="I should have placeholder text" value={value3} placeholder="I am placeholder text" onChangeText={(value) => this.changeText('value3', value)} />
         </View>
         <View style={styles.itemStyle}>
-          <Search label="I should have everything" value={value4} placeholder="Here is a g for checking carbon" onChangeText={(value) => this.changeText('value4', value)} />
+          <Search
+            label="I should have everything"
+            value={value4}
+            placeholder="Here is a g for checking carbon"
+            onChangeText={(value) => this.changeText('value4', value)}
+            buttonProps={{
+              text: 'Cancel',
+              kind: 'ghost',
+              disableDesignPadding: true,
+              onPress: () => {
+                this.changeText('value4', '');
+              },
+            }}
+          />
         </View>
         <View style={styles.itemStyle}>
           <Search label="I am required" value={value5} placeholder="Set me and clear me" onChangeText={(value) => this.changeText('value5', value)} />

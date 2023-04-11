@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - carbon-react-native (0.1.0):
+  - carbon-react-native (0.3.0):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -544,7 +544,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  carbon-react-native: f0fa2c71549ed1aa523eee1643e2676ce198d5fd
+  carbon-react-native: de8e2f1724dc5c650d8a5608139bcfad1843f8b9
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 1d83d91816fa605d16227a83f1b2e71c8df09d22
@@ -569,7 +569,7 @@ SPEC CHECKSUMS:
   React: a779632422a918b26db4f1b57225a41c14d20525
   React-bridging: 96055aa45f0417898d7833e251f4ae79d28acef7
   React-callinvoker: 02df4d620df286381ff3f99180fb24feceaf01cc
-  React-Codegen: 06613a5e753c3af2dca0d6e7dd02944a3d77c3f6
+  React-Codegen: 275a27ce6b276e85b5e9371b7d94c497df95d074
   React-Core: 638d54d64048aa635e7c583fb0d8425206f446b4
   React-CoreModules: f706ec2a1939387517cadc6ce0d2ef0f20fccb53
   React-cxxreact: ec183b7f6fec01e7167f38c1c64a03f68dca7fb2

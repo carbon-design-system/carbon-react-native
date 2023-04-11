@@ -101,6 +101,30 @@ export default class TestButton extends React.Component {
         <Button
           style={itemStyle}
           disabled={disabled}
+          text="Danger Tertiary"
+          kind="danger-tertiary"
+          onPress={() => {
+            this.alert('Pressed danger');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed danger');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          text="Danger Ghost"
+          kind="danger-ghost"
+          onPress={() => {
+            this.alert('Pressed danger');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed danger');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
           text="Danger"
           kind="danger"
           onPress={() => {
@@ -171,6 +195,34 @@ export default class TestButton extends React.Component {
           disabled={disabled}
           text="Icon only mode"
           iconOnlyMode={true}
+          kind="danger-tertiary"
+          icon={AddIcon}
+          onPress={() => {
+            this.alert('Pressed icon');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed icon');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          text="Icon only mode"
+          iconOnlyMode={true}
+          kind="danger-ghost"
+          icon={AddIcon}
+          onPress={() => {
+            this.alert('Pressed icon');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed icon');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          text="Icon only mode"
+          iconOnlyMode={true}
           kind="danger"
           icon={AddIcon}
           onPress={() => {
@@ -223,6 +275,32 @@ export default class TestButton extends React.Component {
           style={itemStyle}
           disabled={disabled}
           kind="ghost"
+          text="With icon"
+          icon={AddIcon}
+          onPress={() => {
+            this.alert('Pressed icon');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed icon');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          kind="danger-tertiary"
+          text="With icon"
+          icon={AddIcon}
+          onPress={() => {
+            this.alert('Pressed icon');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed icon');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          kind="danger-ghost"
           text="With icon"
           icon={AddIcon}
           onPress={() => {

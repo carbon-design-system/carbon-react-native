@@ -15,7 +15,7 @@ export type ButtonProps = {
   /** Indicate if button is disabled */
   disabled?: boolean;
   /** Button kind. Primary is default */
-  kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost';
+  kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost' | 'danger-tertiary' | 'danger-ghost';
   /** Text type to render (Standard is default)  */
   textType?: TextTypes;
   /** onPress event */
@@ -32,6 +32,8 @@ export type ButtonProps = {
   componentProps?: PressableProps;
   /** Ref property for parent */
   forwardRef?: Ref<View>;
+  /** Disable extra padding on right of buttons */
+  disableDesignPadding?: boolean;
 };
 
 /**
@@ -70,6 +72,9 @@ export class Button extends React.Component<ButtonProps> {
         return getColor(disabled ? 'buttonDisabled' : active ? 'buttonDangerActive' : 'buttonDangerPrimary');
       case 'ghost':
         return active ? getColor('layerActive01') : 'transparent';
+      case 'danger-ghost':
+      case 'danger-tertiary':
+        return active ? getColor('buttonDangerActive') : 'transparent';
       case 'primary':
       default:
         return getColor(disabled ? 'buttonDisabled' : active ? 'buttonPrimaryActive' : 'buttonPrimary');
@@ -86,7 +91,7 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const { kind, style, disabled, iconOnlyMode, icon, overrideColor } = this.props;
+    const { kind, style, disabled, iconOnlyMode, icon, overrideColor, disableDesignPadding } = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -108,7 +113,25 @@ export class Button extends React.Component<ButtonProps> {
           this.basicButton
         );
         break;
+      case 'danger-tertiary':
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: this.getBackgroundColor(),
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerSecondary'),
+            borderWidth: 1,
+          },
+          this.basicButton
+        );
+        break;
       case 'danger':
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: this.getBackgroundColor(),
+          },
+          this.basicButton
+        );
+        break;
+      case 'danger-ghost':
         finalStyle = styleReferenceBreaker(
           {
             backgroundColor: this.getBackgroundColor(),
@@ -141,6 +164,10 @@ export class Button extends React.Component<ButtonProps> {
       finalStyle.maxWidth = 48;
     }
 
+    if (disableDesignPadding) {
+      finalStyle.paddingRight = 16;
+    }
+
     if (overrideColor) {
       finalStyle.borderColor = overrideColor;
     }
@@ -152,6 +179,9 @@ export class Button extends React.Component<ButtonProps> {
     const { kind, disabled, overrideColor } = this.props;
 
     switch (kind) {
+      case 'danger-ghost':
+      case 'danger-tertiary':
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonDangerSecondary');
       case 'tertiary':
         return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonTertiary');
       case 'ghost':
