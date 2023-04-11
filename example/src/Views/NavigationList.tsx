@@ -37,12 +37,15 @@ export default class TestNavigationLisst extends React.Component {
     hasChevron: true,
     actionType: 'none',
     currentSelected: '',
+    reverseSubText: false,
+    hasRightText: false,
+    hasUnreadBadge: false,
   };
 
   private checkBoxMap: any = {};
 
   private getProps(text: string): NavigationListItemProps {
-    const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType, currentSelected } = this.state;
+    const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType, currentSelected, reverseSubText, hasRightText, hasUnreadBadge } = this.state;
     let selectSide = undefined as any;
     let selectType = undefined as any;
 
@@ -61,6 +64,9 @@ export default class TestNavigationLisst extends React.Component {
       hasChevron: hasChevron,
       selectableSide: selectSide,
       selectableType: selectType,
+      reverseSubText: reverseSubText,
+      unreadBadge: hasUnreadBadge,
+      rightText: hasRightText ? 'Detail' : undefined,
       selected: selectType === 'radio' ? text === currentSelected : !!this.checkBoxMap[text],
       onSelectableRowChange: (value) => {
         this.checkBoxMap[text] = value;
@@ -70,7 +76,7 @@ export default class TestNavigationLisst extends React.Component {
   }
 
   render(): React.ReactNode {
-    const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType } = this.state;
+    const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType, reverseSubText, hasRightText, hasUnreadBadge } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -79,6 +85,9 @@ export default class TestNavigationLisst extends React.Component {
           <Checkbox checked={hasLeftIcon} id="hasLeftIcon" onPress={(value) => this.setState({ hasLeftIcon: value })} label="Has left icon" />
           <Checkbox checked={hasRightIcon} id="hasRightIcon" onPress={(value) => this.setState({ hasRightIcon: value })} label="Has right icon" />
           <Checkbox checked={hasChevron} id="hasChevron" onPress={(value) => this.setState({ hasChevron: value })} label="Has nav chevron" />
+          <Checkbox checked={reverseSubText} id="reverseSubText" onPress={(value) => this.setState({ reverseSubText: value })} label="Reverse sub text" />
+          <Checkbox checked={hasRightText} id="hasRightText" onPress={(value) => this.setState({ hasRightText: value })} label="Has right text" />
+          <Checkbox checked={hasUnreadBadge} id="hasUnreadBadge" onPress={(value) => this.setState({ hasUnreadBadge: value })} label="Has unread badge" />
           <Text text="Action type" type="label-02" />
           <View style={styles.radioWrapper}>
             <RadioButton style={styles.radioButton} checked={actionType === 'none'} id="none" label="None" onPress={() => this.setState({ actionType: 'none' })} />

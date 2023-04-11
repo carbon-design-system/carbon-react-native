@@ -1,5 +1,5 @@
 import React from 'react';
-import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, GestureResponderEvent } from 'react-native';
+import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, GestureResponderEvent, StyleSheet } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -8,6 +8,7 @@ import CloseIcon from '@carbon/icons/es/close/20';
 import SearchIcon from '@carbon/icons/es/search/20';
 import { defaultText } from '../../constants/defaultText';
 import { getTextInputStyle } from '../BaseTextInputs';
+import type { ButtonProps } from '../Button';
 
 /** Shared props for Text, Password and TextArea */
 export type SearchProps = {
@@ -47,12 +48,25 @@ export type SearchProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
   componentProps?: ReactTextInputProps;
+  /** Button to render to right of search. */
+  buttonProps?: ButtonProps;
 };
 
 export class Search extends React.Component<SearchProps> {
   state = {
     hasFocus: false,
   };
+
+  private get localStyles() {
+    return StyleSheet.create({
+      textBoxArea: {
+        flexDirection: 'row',
+      },
+      textBoxWrapper: {
+        flex: 1,
+      },
+    });
+  }
 
   private get styles() {
     const { light } = this.props;
@@ -114,7 +128,7 @@ export class Search extends React.Component<SearchProps> {
   }
 
   render(): React.ReactNode {
-    const { label, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, disabled, labelBreakMode } = this.props;
+    const { label, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, disabled, labelBreakMode, buttonProps } = this.props;
     const { hasFocus } = this.state;
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
 
@@ -130,10 +144,13 @@ export class Search extends React.Component<SearchProps> {
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style || {})} accessibilityLabel={label}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
-        <View style={this.styles.textBoxWrapper} accessibilityLabel={label}>
-          <ReactTextInput editable={!disabled} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" {...(componentProps || {})} />
-          {this.searchIcon}
-          {!!value && this.clearText}
+        <View style={this.localStyles.textBoxArea}>
+          <View style={styleReferenceBreaker(this.styles.textBoxWrapper, this.localStyles.textBoxWrapper)} accessibilityLabel={label}>
+            <ReactTextInput editable={!disabled} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" {...(componentProps || {})} />
+            {this.searchIcon}
+            {!!value && this.clearText}
+          </View>
+          {!!buttonProps && <Button {...buttonProps} />}
         </View>
       </View>
     );

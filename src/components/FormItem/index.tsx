@@ -24,7 +24,7 @@ import { Slider } from '../Slider';
  * `button` - Button to render. Supports icon via `buttonIcon`.
  * `divider` - Empty space to divide form items.
  */
-export type FormItemType = 'text' | 'password' | 'text-area' | 'number' | 'date' | 'toggle' | 'header' | 'static' | 'slider' | 'checkbox' | 'button' | 'divider';
+export type FormItemType = 'text' | 'password' | 'text-area' | 'number' | 'date' | 'toggle' | 'header' | 'header-compact' | 'static' | 'slider' | 'checkbox' | 'button' | 'divider';
 
 export type FormItemProps = {
   /** The type of form item */
@@ -74,6 +74,8 @@ export type FormItemProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
+  /** Indicate that header should be description first */
+  descriptionFirstHeader?: boolean;
 };
 
 export class FormItem extends React.Component<FormItemProps> {
@@ -84,7 +86,7 @@ export class FormItem extends React.Component<FormItemProps> {
 
   private get noBottomPadding(): boolean {
     const { type } = this.props;
-    return ['password', 'number', 'date', 'text', 'text-area', 'header', 'divider'].includes(type);
+    return ['password', 'number', 'date', 'text', 'text-area', 'header', 'header-compact', 'divider'].includes(type);
   }
 
   private get noDirectHelperText(): boolean {
@@ -94,7 +96,7 @@ export class FormItem extends React.Component<FormItemProps> {
 
   private get noDirectLabel(): boolean {
     const { type } = this.props;
-    return ['header', 'divider', 'button', 'checkbox'].includes(type);
+    return ['header', 'header-compact', 'divider', 'button', 'checkbox'].includes(type);
   }
 
   private get mainColor(): string {
@@ -122,6 +124,9 @@ export class FormItem extends React.Component<FormItemProps> {
       headerWrapper: {
         padding: 16,
         paddingTop: 32,
+      },
+      headerCompactWrapper: {
+        padding: 16,
       },
       dividerWrapper: {
         height: 32,
@@ -198,14 +203,24 @@ export class FormItem extends React.Component<FormItemProps> {
   };
 
   private get headerContent(): React.ReactNode {
-    const { label, helperText } = this.props;
+    const { label, helperText, descriptionFirstHeader } = this.props;
+    const items = [];
 
-    return (
-      <>
-        <Text style={this.styles.headerContent} type="heading-compact-02" text={label} />
-        {!!helperText && <Text style={this.styles.headerContent} text={helperText} />}
-      </>
-    );
+    if (label) {
+      items.push(<Text key="label" style={this.styles.headerContent} type="heading-compact-02" text={label} />);
+    }
+
+    if (helperText) {
+      items.push(<Text key="helperText" style={this.styles.headerContent} type="helper-text-01" text={helperText} />);
+    }
+
+    console.log(items);
+
+    if (descriptionFirstHeader) {
+      items.reverse();
+    }
+
+    return items;
   }
 
   private get inputContent(): React.ReactNode {
@@ -299,6 +314,7 @@ export class FormItem extends React.Component<FormItemProps> {
 
     switch (type) {
       case 'header':
+      case 'header-compact':
         content = this.headerContent;
         break;
       case 'toggle':
@@ -342,6 +358,8 @@ export class FormItem extends React.Component<FormItemProps> {
     switch (type) {
       case 'header':
         return this.styles.headerWrapper;
+      case 'header-compact':
+        return this.styles.headerCompactWrapper;
       case 'divider':
         return this.styles.dividerWrapper;
       default:

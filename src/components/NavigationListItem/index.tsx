@@ -32,6 +32,10 @@ export type NavigationListItemProps = {
   leftIcon?: CarbonIcon;
   /** Icon to load on the right (size 20) */
   rightIcon?: CarbonIcon;
+  /** Text to load on the right side (to left of right icon if both used) */
+  rightText?: string;
+  /** Indicate if unread badge should be rendered */
+  unreadBadge: boolean;
   /** Indicate if item is disabled */
   disabled?: boolean;
   /** Break mode for text. Default is to wrap text */
@@ -60,6 +64,8 @@ export type NavigationListItemProps = {
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
+  /** Indicate that subText should be rendered on top */
+  reverseSubText?: boolean;
 };
 
 export class NavigationListItem extends React.Component<NavigationListItemProps> {
@@ -70,7 +76,9 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   }
 
   private get styles() {
-    const { disabled } = this.props;
+    const { disabled, subText, reverseSubText, unreadBadge } = this.props;
+
+    const topPadding = subText && reverseSubText ? 29 : 13;
 
     return StyleSheet.create({
       wrapper: getNavigationListItemStyle(),
@@ -84,7 +92,8 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
         flex: 1,
         paddingTop: 13,
         paddingBottom: 13,
-        paddingLeft: 16,
+        paddingLeft: unreadBadge ? 30 : 16,
+        position: 'relative',
       },
       mainText: {
         color: this.textIconColor,
@@ -93,19 +102,37 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
         color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
       },
       leftIcon: {
+        paddingTop: topPadding,
         width: 48,
         height: 48,
         padding: 14,
       },
+      unreadBadge: {
+        width: 6,
+        height: 6,
+        backgroundColor: getColor('buttonPrimary'),
+        borderRadius: 6,
+        position: 'absolute',
+        left: 17,
+        top: topPadding + 9,
+      },
       rightIcon: {
-        paddingTop: 13,
+        paddingTop: topPadding,
         paddingLeft: 8,
       },
+      rightText: {
+        paddingTop: topPadding,
+        paddingLeft: 8,
+      },
+      rightTextItem: {
+        color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
+      },
       chevronIcon: {
-        paddingTop: 13,
+        paddingTop: topPadding,
         paddingLeft: 8,
       },
       selectableArea: {
+        paddingTop: topPadding,
         width: 48,
         height: 48,
         justifyContent: 'center',
@@ -136,14 +163,22 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   };
 
   private get contentArea(): React.ReactNode {
-    const { customContent, text, subText, textBreakMode } = this.props;
+    const { customContent, text, subText, textBreakMode, reverseSubText, unreadBadge } = this.props;
+    const items = [<Text key="text" style={this.styles.mainText} text={text} breakMode={textBreakMode} />];
 
-    const textItem = (
-      <>
-        <Text style={this.styles.mainText} text={text} breakMode={textBreakMode} />
-        {!!subText && <Text style={this.styles.subText} type="helper-text-01" text={subText} breakMode={textBreakMode} />}
-      </>
-    );
+    if (subText) {
+      items.push(<Text key="subText" style={this.styles.subText} type="helper-text-01" text={subText} breakMode={reverseSubText ? 'tail' : textBreakMode} />);
+    }
+
+    if (reverseSubText) {
+      items.reverse();
+    }
+
+    if (unreadBadge) {
+      items.unshift(<View style={this.styles.unreadBadge} key="unread" />);
+    }
+
+    const textItem = items;
 
     return <View style={this.styles.contentWrapper}>{customContent ? customContent : textItem}</View>;
   }
@@ -188,7 +223,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   };
 
   render(): React.ReactNode {
-    const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem } = this.props;
+    const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem, rightText } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (lastItem) {
@@ -201,6 +236,11 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
         <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.styles.pressableStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
           {this.contentArea}
+          {!!rightText && (
+            <View style={this.styles.rightText}>
+              <Text text={rightText} style={this.styles.rightTextItem} />
+            </View>
+          )}
           {!!rightIcon && <View style={this.styles.rightIcon}>{createIcon(rightIcon, 20, 20, this.textIconColor)}</View>}
           {!!hasChevron && <View style={this.styles.chevronIcon}>{createIcon(ChevronRightIcon, 20, 20, this.textIconColor)}</View>}
         </Pressable>
