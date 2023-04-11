@@ -214,8 +214,6 @@ export class FormItem extends React.Component<FormItemProps> {
       items.push(<Text key="helperText" style={this.styles.headerContent} type="helper-text-01" text={helperText} />);
     }
 
-    console.log(items);
-
     if (descriptionFirstHeader) {
       items.reverse();
     }
