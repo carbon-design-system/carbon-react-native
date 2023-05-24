@@ -35,7 +35,7 @@ export type NavigationListItemProps = {
   /** Text to load on the right side (to left of right icon if both used) */
   rightText?: string;
   /** Indicate if unread badge should be rendered */
-  unreadBadge: boolean;
+  unreadBadge?: boolean;
   /** Indicate if item is disabled */
   disabled?: boolean;
   /** Break mode for text. Default is to wrap text */
