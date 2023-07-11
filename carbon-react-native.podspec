@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
 
   s.platforms    = { :ios => "10.0" }
-  s.source       = { :git => "https://github.ibm.com/Aspera/carbon-react-native.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/carbon-design-system/carbon-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 

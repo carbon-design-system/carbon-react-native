@@ -66,7 +66,7 @@ export default class TestResources extends React.Component {
         subText: 'Github respository',
         leftIcon: GithubIcon,
         rightIcon: LaunchIcon,
-        onPress: () => this.openLink('https://github.ibm.com/Aspera/carbon-react-native'),
+        onPress: () => this.openLink('https://github.com/carbon-design-system/carbon-react-native'),
       },
     ];
   }

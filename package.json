@@ -1,5 +1,5 @@
 {
-  "name": "@aspera-ui/carbon-react-native",
+  "name": "carbon-react-native",
   "version": "0.3.4",
   "description": "Carbon React Native Library",
   "main": "lib/commonjs/index",
@@ -32,17 +32,20 @@
     "example:bump": "node ./scripts/bump-example.js"
   },
   "keywords": [
+    "ibm",
+    "carbon",
+    "carbon-components",
     "react-native",
     "ios",
     "android"
   ],
-  "repository": "https://github.ibm.com/Aspera/carbon-react-native",
+  "repository": "https://github.com/carbon-design-system/carbon-react-native",
   "author": "IBM <david.bradshaw@ibm.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.ibm.com/Aspera/carbon-react-native/issues"
+    "url": "https://github.com/carbon-design-system/carbon-react-native/issues"
   },
-  "homepage": "https://github.ibm.com/Aspera/carbon-react-native#readme",
+  "homepage": "https://github.com/carbon-design-system/carbon-react-native#readme",
   "publishConfig": {
     "registry": "https://na.artifactory.swg-devops.com/artifactory/api/npm/hyc-aspera-ui-team-npm-local/"
   },

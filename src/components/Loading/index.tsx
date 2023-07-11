@@ -3,10 +3,11 @@ import { Animated, Easing, StyleProp, View, ViewStyle } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import { getColor } from '../../styles/colors';
 import { defaultText } from '../../constants/defaultText';
+import { DimensionValue } from 'react-native';
 
 export const centerLoadingStyle = {
-  marginLeft: 'auto',
-  marginRight: 'auto',
+  marginLeft: 'auto' as DimensionValue,
+  marginRight: 'auto' as DimensionValue,
   marginTop: 20,
 };
 
