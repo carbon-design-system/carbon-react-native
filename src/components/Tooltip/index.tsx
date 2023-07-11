@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, Dimensions } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, Dimensions, DimensionValue } from 'react-native';
 import { getColor, shadowStyle } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
@@ -51,8 +51,8 @@ export class Tooltip extends React.Component<TooltipProps> {
       top: inverseMenu ? undefined : -6,
       bottom: inverseMenu ? -6 : undefined,
       transform: [{ rotate: '45deg' }],
-      right: undefined as undefined | string | number,
-      left: 18 as undefined | string | number,
+      right: undefined as undefined | DimensionValue,
+      left: 18 as undefined | DimensionValue,
     };
 
     switch (this.caretPosition) {
