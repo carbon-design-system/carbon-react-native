@@ -1,5 +1,5 @@
 {
-  "name": "carbon-react-native",
+  "name": "@carbon/react-native",
   "version": "0.3.4",
   "description": "Carbon React Native Library",
   "main": "lib/commonjs/index",
