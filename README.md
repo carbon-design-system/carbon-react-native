@@ -2,6 +2,8 @@
 
 Component and shared patterns for React Native apps using Carbon. Styles are based on the [Carbon Native Mobile](https://carbondesignsystem.com/designing/design-resources/#native-mobile) designs. Color (g10 for light theme and g100 for dark theme) and typography tokens are based on Carbon 11.
 
+[![ci](https://github.com/carbon-design-system/carbon-react-native/actions/workflows/ci.yml/badge.svg)](https://github.com/carbon-design-system/carbon-react-native/actions/workflows/ci.yml)
+
 ## Installation
 
 1. Install the package in your project `npm install carbon-react-native` or `yarn add carbon-react-native`
