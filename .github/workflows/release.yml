@@ -28,6 +28,7 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Deploy to Github & NPM 🚀
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
         run: |
