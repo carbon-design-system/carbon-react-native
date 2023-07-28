@@ -3,12 +3,11 @@ name: Release
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     if:
       github.actor != 'carbon-bot'
-      &&	!startsWith(github.event.head_commit.message, 'skip-release')
     name: Create release - Node.js v18.16.1
     runs-on: ubuntu-latest
 
