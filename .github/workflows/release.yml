@@ -29,6 +29,7 @@ jobs:
 
       - name: Deploy to Github & NPM 🚀
         run: |
+          git config --global user.name "carbon-bot"
           npm set "//registry.npmjs.org/:_authToken" ${{ secrets.NPM_TOKEN }}
           yarn release --ci
         env:
