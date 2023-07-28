@@ -1,4 +1,4 @@
-import { Checkbox, NavigationList, NavigationListItemProps, RadioButton, Text } from 'carbon-react-native';
+import { Checkbox, NavigationList, NavigationListItemProps, RadioButton, Text } from '@carbon/react-native';
 import React from 'react';
 import { StyleSheet, ScrollView, Alert, View } from 'react-native';
 import ApertureIcon from '@carbon/icons/es/aperture/20';

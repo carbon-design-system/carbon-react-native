@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { UiPanel, UiPanelItemProps, Checkbox, ViewWrapper, TopNavigationBar } from 'carbon-react-native';
+import { UiPanel, UiPanelItemProps, Checkbox, ViewWrapper, TopNavigationBar } from '@carbon/react-native';
 import BeeIcon from '@carbon/icons/es/bee/20';
 import LaunchIcon from '@carbon/icons/es/launch/20';
 import MenuIcon from '@carbon/icons/es/menu/20';

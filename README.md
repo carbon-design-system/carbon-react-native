@@ -4,7 +4,7 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
 
 ## Installation
 
-1. Install the package in your project `npm install carbon-react-native` or `yarn add carbon-react-native`
+1. Install the package in your project `npm install @carbon/react-native` or `yarn add @carbon/react-native`
 2. Go into the `ios` directory and use `pod install` (be sure to use the system Ruby on Mac if you are using rvm or similar tool)
 3. Create or edit `react-native.config.js` file to be:
    ```javascript
@@ -14,7 +14,7 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
        android: {},
      },
      assets: [
-       './node_modules/carbon-react-native/src/assets/fonts/', // This needs to be added if file already exists
+       './node_modules/@carbon/react-native/src/assets/fonts/', // This needs to be added if file already exists
      ],
    };
    ```
@@ -35,7 +35,7 @@ For best experience with navigation we recommend for Android setting `android:wi
 ### Components
 
 ```js
-import { Button } from 'carbon-react-native';
+import { Button } from '@carbon/react-native';
 
 <Button kind="primary" text="My Button" onPress={() => {}} />;
 ```
@@ -45,7 +45,7 @@ import { Button } from 'carbon-react-native';
 You can use `getColor` to retrieve a color token using the system theme for Carbon colors. You can pass a second param to force a theme (light/dark).
 
 ```js
-import { getColor } from 'carbon-react-native';
+import { getColor } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   example: {

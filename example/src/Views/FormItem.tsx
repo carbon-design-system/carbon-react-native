@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { FormItem, openLink } from 'carbon-react-native';
+import { FormItem, openLink } from '@carbon/react-native';
 import LaunchIcon from '@carbon/icons/es/launch/20';
 import VolumeDownIcon from '@carbon/icons/es/volume--down/20';
 import VolumeUpIcon from '@carbon/icons/es/volume--up/20';

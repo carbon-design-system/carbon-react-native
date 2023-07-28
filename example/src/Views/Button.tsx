@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Button, Checkbox, styleReferenceBreaker } from 'carbon-react-native';
+import { Button, Checkbox, styleReferenceBreaker } from '@carbon/react-native';
 import AddIcon from '@carbon/icons/es/add/20';
 
 const styles = StyleSheet.create({

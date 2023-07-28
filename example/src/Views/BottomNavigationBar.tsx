@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Text, NumberInput, BottomNavigationBar, NavigationButton, Checkbox, getColor } from 'carbon-react-native';
+import { Text, NumberInput, BottomNavigationBar, NavigationButton, Checkbox, getColor } from '@carbon/react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import ActivityIcon from '@carbon/icons/es/activity/20';

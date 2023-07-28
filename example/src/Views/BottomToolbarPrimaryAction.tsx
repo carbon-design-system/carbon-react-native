@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton, getColor } from 'carbon-react-native';
+import { ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton, getColor } from '@carbon/react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import AddIcon from '@carbon/icons/es/add/24';

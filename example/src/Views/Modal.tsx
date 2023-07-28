@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Button, Checkbox, Text, TextInput, Modal } from 'carbon-react-native';
+import { Button, Checkbox, Text, TextInput, Modal } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

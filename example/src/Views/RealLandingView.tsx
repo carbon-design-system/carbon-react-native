@@ -1,5 +1,5 @@
 import React from 'react';
-import { AcceptTerms, DocumentViewer, LandingView } from 'carbon-react-native';
+import { AcceptTerms, DocumentViewer, LandingView } from '@carbon/react-native';
 import { privacyPolicy } from '../constants/privacyPolicy';
 import { versionCode } from '../constants/versionCode';
 import { version } from '../../package.json';

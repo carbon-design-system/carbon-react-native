@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Text as ReactText, Alert } from 'react-native';
-import { Button, Checkbox, DocumentViewer, Dropdown, getColor, InlineLink, List, openLink, PasswordInput, Text, TextInput } from 'carbon-react-native';
+import { Button, Checkbox, DocumentViewer, Dropdown, getColor, InlineLink, List, openLink, PasswordInput, Text, TextInput } from '@carbon/react-native';
 import { testDocument } from '../constants/testDocument';
 
 export class TestSignUpForm extends React.Component<{

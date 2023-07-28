@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Button, Checkbox, DocumentViewer } from 'carbon-react-native';
+import { Button, Checkbox, DocumentViewer } from '@carbon/react-native';
 import { testDocument } from '../constants/testDocument';
 import WebView from 'react-native-webview';
 

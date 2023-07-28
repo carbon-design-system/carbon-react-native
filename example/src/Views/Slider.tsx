@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Slider } from 'carbon-react-native';
+import { Slider } from '@carbon/react-native';
 
 const minValue = 0;
 const maxValue = 100;

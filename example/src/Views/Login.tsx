@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert, Text as ReactText } from 'react-native';
-import { ViewWrapper, Text, TopNavigationBarLogin, InlineLink, TextInput, PasswordInput, Checkbox, Button, getColor, openLink, TooltipProps, LinkProps, Notification, DocumentViewer } from 'carbon-react-native';
+import { ViewWrapper, Text, TopNavigationBarLogin, InlineLink, TextInput, PasswordInput, Checkbox, Button, getColor, openLink, TooltipProps, LinkProps, Notification, DocumentViewer } from '@carbon/react-native';
 import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
 import InformationIcon from '@carbon/icons/es/information/20';
 import { TestSignUpForm } from './LoginCreateAccount';

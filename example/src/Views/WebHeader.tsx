@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert, View } from 'react-native';
-import { Checkbox, WebHeader, WebHeaderAction } from 'carbon-react-native';
+import { Checkbox, WebHeader, WebHeaderAction } from '@carbon/react-native';
 import InformationIcon from '@carbon/icons/es/information/20';
 import HomeIcon from '@carbon/icons/es/home/20';
 

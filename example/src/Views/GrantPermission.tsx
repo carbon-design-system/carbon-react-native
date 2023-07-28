@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Button, GrantPermission, RadioButton, Text } from 'carbon-react-native';
+import { Button, GrantPermission, RadioButton, Text } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

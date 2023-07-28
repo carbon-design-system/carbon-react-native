@@ -1,5 +1,5 @@
 import React from 'react';
-import { DocumentViewer, LandingView } from 'carbon-react-native';
+import { DocumentViewer, LandingView } from '@carbon/react-native';
 import { testDocument } from '../constants/testDocument';
 
 export default class TestLandinView extends React.Component<{

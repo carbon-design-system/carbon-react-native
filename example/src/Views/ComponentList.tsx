@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Image, LayoutChangeEvent, View } from 'react-native';
-import { ErrorState, getColor, NavigationListItem, styleReferenceBreaker, Text, ThemeChoices, Tile } from 'carbon-react-native';
+import { ErrorState, getColor, NavigationListItem, styleReferenceBreaker, Text, ThemeChoices, Tile } from '@carbon/react-native';
 import type { ComponentItem } from '../App';
 
 interface TestComponentListProps {

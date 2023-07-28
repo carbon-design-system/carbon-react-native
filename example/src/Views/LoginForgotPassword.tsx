@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Text as ReactText, Alert } from 'react-native';
-import { ViewWrapper, Text, TopNavigationBarLogin, TextInput, Button, getColor, openLink, Loading, centerLoadingStyle, InlineLink, Link } from 'carbon-react-native';
+import { ViewWrapper, Text, TopNavigationBarLogin, TextInput, Button, getColor, openLink, Loading, centerLoadingStyle, InlineLink, Link } from '@carbon/react-native';
 import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
 
 export default class TestLoginForgotPassword extends React.Component<{

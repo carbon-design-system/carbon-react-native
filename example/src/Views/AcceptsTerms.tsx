@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { AcceptTerms, Button, Checkbox } from 'carbon-react-native';
+import { AcceptTerms, Button, Checkbox } from '@carbon/react-native';
 import { testDocument } from '../constants/testDocument';
 
 const styles = StyleSheet.create({

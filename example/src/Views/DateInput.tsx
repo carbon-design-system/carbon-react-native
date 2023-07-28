@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { DateInput } from 'carbon-react-native';
+import { DateInput } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

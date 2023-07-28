@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert, Dimensions } from 'react-native';
-import { Button, Checkbox, Text, Tooltip, getColor, useDarkMode } from 'carbon-react-native';
+import { Button, Checkbox, Text, Tooltip, getColor, useDarkMode } from '@carbon/react-native';
 import HelpIcon from '@carbon/icons/es/help/20';
 
 export default class TestTooltip extends React.Component {

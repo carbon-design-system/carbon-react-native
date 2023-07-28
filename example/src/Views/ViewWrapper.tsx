@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Button, Checkbox, getColor, RadioButton, Text, ViewWrapper } from 'carbon-react-native';
+import { Button, Checkbox, getColor, RadioButton, Text, ViewWrapper } from '@carbon/react-native';
 
 export default class TestViewWrapper extends React.Component<{
   goHome: () => void;

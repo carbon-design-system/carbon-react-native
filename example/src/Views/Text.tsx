@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Text } from 'carbon-react-native';
+import { Text } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

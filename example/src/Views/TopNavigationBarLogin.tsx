@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert, Text as ReactText } from 'react-native';
-import { Text, NavigationButton, Checkbox, getColor, RadioButton, LinkProps, TopNavigationBarLoginProps, TopNavigationBarLogin, InlineLink } from 'carbon-react-native';
+import { Text, NavigationButton, Checkbox, getColor, RadioButton, LinkProps, TopNavigationBarLoginProps, TopNavigationBarLogin, InlineLink } from '@carbon/react-native';
 import MapIcon from '@carbon/icons/es/map/20';
 import UserIcon from '@carbon/icons/es/user--avatar/20';
 

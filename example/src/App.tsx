@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Appearance, View, ImageSourcePropType } from 'react-native';
-import { ThemeChoices, Loading, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search, ViewWrapper } from 'carbon-react-native';
+import { ThemeChoices, Loading, TopNavigationBar, TopNavigationBarProps, BottomNavigationBar, NavigationButton, ActionSheet, ActionSheetItem, forceTheme, Search, ViewWrapper } from '@carbon/react-native';
 import TestButton from './Views/Button';
 import TestComponentList from './Views/ComponentList';
 import TestText from './Views/Text';

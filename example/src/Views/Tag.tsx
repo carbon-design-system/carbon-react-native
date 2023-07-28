@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Tag, Checkbox } from 'carbon-react-native';
+import { Tag, Checkbox } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

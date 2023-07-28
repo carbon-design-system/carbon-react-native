@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Checkbox, Notification, NotificationTypes, getColor, Button } from 'carbon-react-native';
+import { Checkbox, Notification, NotificationTypes, getColor, Button } from '@carbon/react-native';
 
 export default class TestNotification extends React.Component {
   state = {

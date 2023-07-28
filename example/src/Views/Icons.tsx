@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { createIcon, getColor } from 'carbon-react-native';
+import { createIcon, getColor } from '@carbon/react-native';
 import AddIcon from '@carbon/icons/es/add/20';
 import CaretRightIcon from '@carbon/icons/es/caret--right/20';
 import ArrowLeftIcon from '@carbon/icons/es/arrow--left/20';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable, Checkbox, DataTableHeaderSelected } from 'carbon-react-native';
+import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable, Checkbox, DataTableHeaderSelected } from '@carbon/react-native';
 import AddIcon from '@carbon/icons/es/add/20';
 import SearchIcon from '@carbon/icons/es/search/20';
 import SettingsIcon from '@carbon/icons/es/settings/20';

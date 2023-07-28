@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Checkbox, Tabs, TabItem, Button } from 'carbon-react-native';
+import { Checkbox, Tabs, TabItem, Button } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {

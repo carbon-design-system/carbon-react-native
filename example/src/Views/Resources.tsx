@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Linking } from 'react-native';
-import { Text, NavigationListItemProps, NavigationList, DocumentViewer } from 'carbon-react-native';
+import { Text, NavigationListItemProps, NavigationList, DocumentViewer } from '@carbon/react-native';
 import LaunchIcon from '@carbon/icons/es/launch/20';
 import LinkIcon from '@carbon/icons/es/link/20';
 import GithubIcon from '@carbon/icons/es/logo--github/20';
