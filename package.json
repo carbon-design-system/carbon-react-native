@@ -141,6 +141,9 @@
     "node_modules/",
     "lib/"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "prettier": {
     "quoteProps": "consistent",
     "singleQuote": true,
