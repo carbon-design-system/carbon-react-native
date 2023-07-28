@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Checkout
         uses: actions/checkout@v1
 
@@ -28,9 +31,6 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Deploy to Github & NPM 🚀
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
         run: |
           npm set "//registry.npmjs.org/:_authToken" ${{ secrets.NPM_TOKEN }}
           yarn release --ci
