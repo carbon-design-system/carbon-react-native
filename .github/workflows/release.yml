@@ -28,6 +28,8 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Deploy to Github & NPM 🚀
+        with:
+          fetch-depth: 0
         run: |
           npm set "//registry.npmjs.org/:_authToken" ${{ secrets.NPM_TOKEN }}
           yarn release --ci
