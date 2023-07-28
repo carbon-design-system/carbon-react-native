@@ -45,10 +45,7 @@
   "bugs": {
     "url": "https://github.com/carbon-design-system/carbon-react-native/issues"
   },
-  "homepage": "https://github.com/carbon-design-system/carbon-react-native#readme",
-  "publishConfig": {
-    "registry": "https://na.artifactory.swg-devops.com/artifactory/api/npm/hyc-aspera-ui-team-npm-local/"
-  },
+  "homepage": "https://github.com/carbon-design-system/carbon-react-native",
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "@carbon/icon-helpers": "^10.42.1",
