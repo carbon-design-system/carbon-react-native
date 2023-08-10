@@ -2,6 +2,82 @@
 
 We want this community to be friendly and respectful to each other. Please follow it in all your interactions with the project.
 
+## Prerequisites
+
+Before contributing to Carbon Reacti Native, you should make sure you have the following tools
+installed:
+
+- Make sure to have the [React Native](https://reactnative.dev/) CLI installed and working on your machine. You should follow this steps to configure your environment [here](https://reactnative.dev/docs/environment-setup?os=macos&platform=ios).
+- [Node.js](https://nodejs.org/en/download/) v18 or above here or follow their
+  installation through a package manager
+  [here](https://nodejs.org/en/download/package-manager/))
+  - If you're on macOS, we recommend using
+    [`nvm`](https://github.com/nvm-sh/nvm) to help manage different versions of
+    Node.js [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) as your
+    version manager for Node.
+- Git
+- [Yarn](https://yarnpkg.com/en/docs/install)
+
+You'll also need a code editor to make changes to Carbon Reacti Native. There are many to
+choose from but some popular options are
+[VSCode](https://code.visualstudio.com/), [Atom](https://atom.io), and
+[Sublime](https://www.sublimetext.com/).
+
+With that all in place, you're ready to start contributing to Carbon React Native!
+
+## - Setting up your environment -
+
+### 1. Fork the repo:
+
+Go to
+[Carbon's React Native repository on GitHub](https://github.com/carbon-design-system/carbon-react-native)
+and click the `Fork` button in the top-right corner. This will create a copy
+repo of Carbon React Native associated with your account.
+
+### 2. Clone your fork:
+
+1.  Go to your [GitHub Repositories](https://github.com/settings/repositories).
+1.  Click on `[your_github_username]/carbon-react-native`.
+1.  Click on the `Code` button and copy the URL from the `Clone with SSH`
+    option. It should start with `git@github.com...`
+
+In your terminal:
+
+```sh
+git clone git@github.com:[your_github_username]/carbon-react-native.git
+cd carbon-react-native
+```
+
+See [GitHub docs](https://help.github.com/articles/fork-a-repo/) for more
+details.
+
+### 3. Add upstream remotes
+
+When you clone your forked repo, running `git remote -v` will show that the
+`origin` is pointing to your forked repo by default.
+
+Now you need to add the `carbon-design-system/carbon-react-native` repo as your upstream
+remote branch:
+
+```sh
+# Add the upstream remote to your repo
+git remote add upstream git@github.com:carbon-design-system/carbon-react-native.git
+
+# Verify the remote was added
+git remote -v
+```
+
+Your terminal should output something like this:
+
+```sh
+origin  [your forked repo] (fetch)
+origin  [your forked repo] (push)
+upstream    git@github.com:carbon-design-system/carbon-react-native.git (fetch)
+upstream    git@github.com:carbon-design-system/carbon-react-native.git (push)
+```
+
+Great job on getting to this point! Now it's time to code :computer:
+
 ## Development workflow
 
 To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
@@ -32,7 +108,6 @@ To run the example app on iOS:
 yarn example ios
 ```
 
-
 Make sure your code passes TypeScript and ESLint. Run the following to verify:
 
 ```sh
@@ -55,6 +130,7 @@ yarn test
 To edit the Objective-C files, open `example/ios/CarbonReactNativeExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > carbon-react-native`.
 
 To edit the Kotlin files, open `example/android` in Android studio and find the source files at `carbonreactnative` under `Android`.
+
 ### Commit message convention
 
 We follow the [conventional commits specification](https://www.conventionalcommits.org/en) for our commit messages:
