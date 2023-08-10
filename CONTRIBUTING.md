@@ -7,7 +7,7 @@ We want this community to be friendly and respectful to each other. Please follo
 Before contributing to Carbon Reacti Native, you should make sure you have the following tools
 installed:
 
-- Make sure to have the [React Native](https://reactnative.dev/) CLI installed and working on your machine. You should follow this steps [here](https://reactnative.dev/docs/environment-setup?os=macos&platform=ios) to configure your environment.
+- Make sure to have the [React Native](https://reactnative.dev/) CLI installed and working on your machine. You should follow this steps [here](https://reactnative.dev/docs/environment-setup?os=macos&platform=ios) to configure your environment for IOS and Android.
 - [Node.js](https://nodejs.org/en/download/) v18 or above here or follow their
   installation through a package manager
   [here](https://nodejs.org/en/download/package-manager/))
