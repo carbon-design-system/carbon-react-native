@@ -1,12 +1,49 @@
-# Carbon for React Native
+<p align="center">
+  <a href="https://www.carbondesignsystem.com">
+    <img alt="Carbon Design System" src="https://github.com/carbon-design-system/carbon-react-native/assets/3360588/c0c4aaff-a4bd-478b-95e2-d8c97b17185c" width="100%" />
+  </a>
+</p>
+<h1 align="center">
+  Carbon for React Native
+</h1>
 
-Component and shared patterns for React Native apps using Carbon. Styles are based on the [Carbon Native Mobile](https://carbondesignsystem.com/designing/design-resources/#native-mobile) designs. Color (g10 for light theme and g100 for dark theme) and typography tokens are based on Carbon 11.
+> The React Native implementation of the [Carbon Design System](https://github.com/carbon-design-system/carbon)
 
-## Installation
+<p align="center">
+  <a href="https://github.com/carbon-design-system/carbon-react-native/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
+  </a>
+  <a href="https://github.com/carbon-design-system/carbon-react-native/actions/workflows/ci.yml">
+    <img src="https://github.com/carbon-design-system/carbon-react-native/actions/workflows/ci.yml/badge.svg" alt="CI workflow status" />
+  </a>
+  <a href="https://github.com/carbon-design-system/carbon-react-native/blob/main/.github/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
+  </a>
+  <a href="https://discord.gg/J7JEUEkTRX">
+    <img src="https://img.shields.io/discord/689212587170201628?color=5865F2" alt="Chat with us on Discord">
+  </a>
+</p>
 
-1. Install the package in your project `npm install @carbon/react-native` or `yarn add @carbon/react-native`
-2. Go into the `ios` directory and use `pod install` (be sure to use the system Ruby on Mac if you are using rvm or similar tool)
-3. Create or edit `react-native.config.js` file to be:
+Component and shared patterns for React Native apps using Carbon. Styles are based on the [Carbon Native Mobile](https://carbondesignsystem.com/designing/design-resources/#native-mobile) designs. Color (`g10` for light theme and `g100` for dark theme) and typography tokens are based on Carbon v11.
+
+## Getting started
+
+To install `@carbon/react-native` in your project, you will need to run the following
+command using [npm](https://www.npmjs.com/):
+
+```bash
+npm install -S @carbon/react-native
+```
+
+If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
+instead:
+
+```bash
+yarn add @carbon/react-native
+```
+
+1. Go into the `ios` directory and run `pod install` (be sure to use the system Ruby on Mac if you are using rvm or similar tool)
+1. Create or edit `react-native.config.js` file to be:
    ```javascript
    module.exports = {
      project: {
@@ -18,13 +55,13 @@ Component and shared patterns for React Native apps using Carbon. Styles are bas
      ],
    };
    ```
-4. Run `npx react-native-asset` to link the fonts (install this package if not already).
-5. Install the following peer dependencies (install as dependencies. [See dependecies here for tested versions](example/package.json)):
-   - @carbon/themes
-   - @carbon/icons
-   - @carbon/icon-helpers
-   - react-native-svg
-   - react-native-webview
+1. Run `npx react-native-asset` to link the fonts (install this package if not already).
+1. Install the following peer dependencies (install as dependencies. [See dependecies here for tested versions](example/package.json)):
+   - `@carbon/themes`
+   - `@carbon/icons`
+   - `@carbon/icon-helpers`
+   - `react-native-svg`
+   - `react-native-webview`
 
 ## Recommended Settings
 
@@ -74,4 +111,4 @@ import AddIcon from '@carbon/icons/es/add/20';
 
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+See the [contributing guide](/.github/CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
