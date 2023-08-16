@@ -19,6 +19,9 @@
   <a href="https://github.com/carbon-design-system/carbon-react-native/blob/main/.github/CONTRIBUTING.md">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
   </a>
+  <a href="https://bestpractices.coreinfrastructure.org/projects/7741">
+    <img src="https://bestpractices.coreinfrastructure.org/projects/7741/badge">
+  </a> 
   <a href="https://discord.gg/J7JEUEkTRX">
     <img src="https://img.shields.io/discord/689212587170201628?color=5865F2" alt="Chat with us on Discord">
   </a>
