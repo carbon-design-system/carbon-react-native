@@ -5,13 +5,16 @@ import { logIssue } from '../helpers';
 
 /** Theme choices available */
 export type ThemeChoices = 'light' | 'dark';
+export type ThemeDefinition = { [key: string]: string };
 
 let themeOverride: ThemeChoices | null = null;
+let lightThemeOverride: ThemeDefinition = {};
+let darkThemeOverride: ThemeDefinition = {};
 
 /**
  * Set the theme to use for all subsequent calls to the color getter.
  * To change themes on the fly you must have your style declarations retrieved on loads.
- * So you can destroy the view and reload after changing theem.
+ * So you can destroy the view and reload after changing theme.
  *
  * To lock a theme (no auto themes) call this in your entry point (index or App [before any components])
  *
@@ -19,6 +22,34 @@ let themeOverride: ThemeChoices | null = null;
  */
 export const forceTheme = (theme: ThemeChoices | null): void => {
   themeOverride = theme;
+};
+
+/**
+ * Override the Carbon color theme for light mode with your own color set. Theme tokens are camelCase.
+ * See https://carbondesignsystem.com for tokens.
+ * Not all tokens will be used and you can customize the ones you care about.
+ * To use only this theme use forceTheme to the same theme you are overriding.
+ *
+ * @param themeDefinition - Partial or full set of theme tokens to override.
+ */
+export const overrideLightTheme = (themeDefinition: ThemeDefinition): void => {
+  if (themeDefinition && typeof themeDefinition === 'object') {
+    lightThemeOverride = themeDefinition;
+  }
+};
+
+/**
+ * Override the Carbon color theme for dark mode with your own color set. Theme tokens are camelCase.
+ * See https://carbondesignsystem.com for tokens.
+ * Not all tokens will be used and you can customize the ones you care about.
+ * To use only this theme use forceTheme to the same theme you are overriding.
+ *
+ * @param themeDefinition - Partial or full set of theme tokens to override.
+ */
+export const overrideDarkTheme = (themeDefinition: ThemeDefinition): void => {
+  if (themeDefinition && typeof themeDefinition === 'object') {
+    lightThemeOverride = themeDefinition;
+  }
 };
 
 /**
@@ -34,7 +65,7 @@ export const useDarkMode = (): boolean => {
 };
 
 /** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const componentsG10: { [key: string]: string } = {
+export const componentsG10: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -87,7 +118,7 @@ const componentsG10: { [key: string]: string } = {
 };
 
 /** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
-const componentsG100: { [key: string]: string } = {
+export const componentsG100: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -147,8 +178,8 @@ const componentsG100: { [key: string]: string } = {
  * @param overrideTheme - force return of specific theme color (will ignore system)
  */
 export const getColor = (token: string, overrideTheme?: ThemeChoices): string => {
-  let foundLightColor = g10[token] || componentsG10[token];
-  let foundDarkColor = g100[token] || componentsG100[token];
+  let foundLightColor = lightThemeOverride[token] || g10[token] || componentsG10[token];
+  let foundDarkColor = darkThemeOverride[token] || g100[token] || componentsG100[token];
 
   if (!foundLightColor) {
     logIssue('getColor: could not find requested color in light theme.', {
