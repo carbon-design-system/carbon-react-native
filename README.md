@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.carbondesignsystem.com">
-    <img alt="Carbon Design System" src="https://github.com/carbon-design-system/carbon-react-native/assets/3360588/c0c4aaff-a4bd-478b-95e2-d8c97b17185c" width="100%" />
+    <img alt="Carbon Design System" src="https://user-images.githubusercontent.com/3360588/261031612-656879c1-832a-4ae9-9e93-6e68be7309b7.jpg" width="100%" />
   </a>
 </p>
 <h1 align="center">
