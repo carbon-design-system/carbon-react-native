@@ -29,7 +29,8 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn && yarn example pods",
-    "example:bump": "node ./scripts/bump-example.js"
+    "example:bump": "node ./scripts/bump-example.js",
+    "postinstall": "carbon-telemetry collect --install"
   },
   "keywords": [
     "ibm",
@@ -165,5 +166,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@carbon/telemetry": "^0.1.0"
   }
 }
