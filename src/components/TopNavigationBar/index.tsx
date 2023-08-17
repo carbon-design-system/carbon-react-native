@@ -6,7 +6,7 @@ import type { NavigationButton } from '../../types/navigation';
 import { Button } from '../Button';
 import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
-import { RegularPlex } from '../../styles/typography';
+import { RegularFont } from '../../styles/typography';
 
 export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
   const finalWrapperStyles = styleReferenceBreaker(style);
@@ -109,7 +109,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
         marginBottom: 8,
       },
       pageHeaderTitle: {
-        ...RegularPlex,
+        ...RegularFont(),
       },
       pageHeaderSubTitle: {
         color: getColor('textSecondary'),

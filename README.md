@@ -21,7 +21,7 @@
   </a>
   <a href="https://bestpractices.coreinfrastructure.org/projects/7741">
     <img src="https://bestpractices.coreinfrastructure.org/projects/7741/badge">
-  </a> 
+  </a>
   <a href="https://discord.gg/J7JEUEkTRX">
     <img src="https://img.shields.io/discord/689212587170201628?color=5865F2" alt="Chat with us on Discord">
   </a>
@@ -111,6 +111,18 @@ import AddIcon from '@carbon/icons/es/add/20';
 // Using an icon directly in your own component. You can use our helper.  See `createIcon` params for options.
 <View>{createIcon(icon, 20, 20)}</View>
 ```
+
+### Overriding Themes
+
+You can override the default Carbon theme (Carbon Colors and IBM Plex) by using the built in theme override calls. These should be done first in your app during a loading state or initial load. If done after app load any component already rendered needs to redraw state.
+
+#### Overriding colors
+
+Colors can be overridden by using `overrideLightTheme` or `overrideDarkTheme`. If you wish to use only one theme for your app you can simply `forceTheme` as well to lock the app to a single theme. Colors are written in camelCase and follow the tokens found at [Carbon Design Systems](https://carbondesignsystem.com/guidelines/color/tokens).
+
+#### Overriding fonts
+
+Fonts can be overridden on individual components by overriding the style (`fontFamily`, `fontWeight`). However, you can also override them globally. By calling `overrideFonts` which takes in a family and weight for each of the internal font groups components use. If you use a font be sure to use one that is supported on the OS you are running. Android and iOS have different supported fonts. You can also use custom fonts as long as you bundle them as part of your app.  It is a similar process to how we add Plex above in the "Getting started" section.
 
 ## Contributing
 

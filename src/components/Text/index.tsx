@@ -27,68 +27,68 @@ export class Text extends React.Component<TextProps> {
 
     switch (type) {
       case 'code-01':
-        finalStyle = styleReferenceBreaker(Code01);
+        finalStyle = styleReferenceBreaker(Code01());
         break;
       case 'code-02':
-        finalStyle = styleReferenceBreaker(Code02);
+        finalStyle = styleReferenceBreaker(Code02());
         break;
       case 'label-01':
-        finalStyle = styleReferenceBreaker(Label01);
+        finalStyle = styleReferenceBreaker(Label01());
         break;
       case 'label-02':
-        finalStyle = styleReferenceBreaker(Label02);
+        finalStyle = styleReferenceBreaker(Label02());
         break;
       case 'helper-text-01':
-        finalStyle = styleReferenceBreaker(HelperText01);
+        finalStyle = styleReferenceBreaker(HelperText01());
         break;
       case 'helper-text-02':
-        finalStyle = styleReferenceBreaker(HelperText02);
+        finalStyle = styleReferenceBreaker(HelperText02());
         break;
       case 'legal-01':
-        finalStyle = styleReferenceBreaker(Legal01);
+        finalStyle = styleReferenceBreaker(Legal01());
         break;
       case 'legal-02':
-        finalStyle = styleReferenceBreaker(Legal02);
+        finalStyle = styleReferenceBreaker(Legal02());
         break;
       case 'body-compact-01':
-        finalStyle = styleReferenceBreaker(BodyCompact01);
+        finalStyle = styleReferenceBreaker(BodyCompact01());
         break;
       case 'body-01':
-        finalStyle = styleReferenceBreaker(Body01);
+        finalStyle = styleReferenceBreaker(Body01());
         break;
       case 'body-02':
-        finalStyle = styleReferenceBreaker(Body02);
+        finalStyle = styleReferenceBreaker(Body02());
         break;
       case 'heading-compact-01':
-        finalStyle = styleReferenceBreaker(HeadingCompact01);
+        finalStyle = styleReferenceBreaker(HeadingCompact01());
         break;
       case 'heading-compact-02':
-        finalStyle = styleReferenceBreaker(HeadingCompact02);
+        finalStyle = styleReferenceBreaker(HeadingCompact02());
         break;
       case 'heading-01':
-        finalStyle = styleReferenceBreaker(Heading01);
+        finalStyle = styleReferenceBreaker(Heading01());
         break;
       case 'heading-02':
-        finalStyle = styleReferenceBreaker(Heading02);
+        finalStyle = styleReferenceBreaker(Heading02());
         break;
       case 'heading-03':
-        finalStyle = styleReferenceBreaker(Heading03);
+        finalStyle = styleReferenceBreaker(Heading03());
         break;
       case 'heading-04':
-        finalStyle = styleReferenceBreaker(Heading04);
+        finalStyle = styleReferenceBreaker(Heading04());
         break;
       case 'heading-05':
-        finalStyle = styleReferenceBreaker(Heading05);
+        finalStyle = styleReferenceBreaker(Heading05());
         break;
       case 'heading-06':
-        finalStyle = styleReferenceBreaker(Heading06);
+        finalStyle = styleReferenceBreaker(Heading06());
         break;
       case 'heading-07':
-        finalStyle = styleReferenceBreaker(Heading07);
+        finalStyle = styleReferenceBreaker(Heading07());
         break;
       case 'body-compact-02':
       default:
-        finalStyle = styleReferenceBreaker(BodyCompact02);
+        finalStyle = styleReferenceBreaker(BodyCompact02());
         break;
     }
 

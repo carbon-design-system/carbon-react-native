@@ -86,7 +86,7 @@ export type TextInputProps = {
 export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
   // React Native on iOS
   const baseTextBox: any = {
-    ...BodyCompact02,
+    ...BodyCompact02(),
     height: 48,
     backgroundColor: getColor('field01'),
     borderColor: getColor('field01'),
@@ -372,7 +372,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
       textBoxStyle.height = textAreaMinHeight || 144;
       textBoxStyle.paddingTop = 12;
       textBoxStyle.paddingBottom = 12;
-      textBoxStyle = styleReferenceBreaker(textBoxStyle, Body02);
+      textBoxStyle = styleReferenceBreaker(textBoxStyle, Body02());
     } else if (password || date) {
       textBoxStyle.paddingRight = 50;
     } else if (number) {

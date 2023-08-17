@@ -7,7 +7,7 @@ import { Text } from '../Text';
 import { Link } from '../Link';
 import { styleReferenceBreaker } from '../../helpers';
 import { ViewWrapper } from '../ViewWrapper';
-import { SemiBoldPlex } from '../../styles/typography';
+import { SemiBoldFont } from '../../styles/typography';
 
 export type LandingViewProps = {
   /** Company image to load in top right. Can pass in many ways including require `require('../../assets/images/image.png')` */
@@ -83,7 +83,7 @@ export class LandingView extends React.Component<LandingViewProps> {
       },
       title: {
         marginBottom: 16,
-        ...SemiBoldPlex,
+        ...SemiBoldFont(),
       },
       helperContent: {},
       contentWrapper: {
