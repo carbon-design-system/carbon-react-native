@@ -24,6 +24,7 @@ export default class TestTextInput extends React.Component {
     value5: '',
     value6: 'Can not change me',
     value7: '',
+    value8: '',
   };
 
   private changeText = (field: string, value: string): void => {
@@ -31,7 +32,7 @@ export default class TestTextInput extends React.Component {
   };
 
   render(): React.ReactNode {
-    const { value1, value2, value3, value4, value5, value6, value7 } = this.state;
+    const { value1, value2, value3, value4, value5, value6, value7, value8 } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -52,6 +53,9 @@ export default class TestTextInput extends React.Component {
         </View>
         <View style={styles.itemStyle}>
           <TextInput label="I can be invalid" isInvalid={(value) => value?.toLowerCase().indexOf('https') !== 0} value={value7} placeholder="I must start with https or will error" onChangeText={(value) => this.changeText('value7', value)} getErrorText={() => 'Must start with https'} />
+        </View>
+        <View style={styles.itemStyle}>
+          <TextInput label="I have a warning" required={true} value={value8} warningText="Here is a warning" helperText="I am helper text that is really long explaining how this input should work and stuff" onChangeText={(value) => this.changeText('value8', value)} getErrorText={() => 'This is required.'} />
         </View>
         <View style={styles.itemStyle}>
           <TextInput label="I am disabled" disabled={true} value={value6} onChangeText={(value) => this.changeText('value6', value)} />

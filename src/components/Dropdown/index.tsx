@@ -2,7 +2,7 @@ import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, PressableStateCallbackType, Dimensions } from 'react-native';
 import { getColor, shadowStyle } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
-import { maxMenuHeight, Menu } from '../Menu';
+import { Menu } from '../Menu';
 import { getTextInputStyle } from '../BaseTextInputs';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 import type { MenuItemProps } from '../MenuItem';
@@ -11,6 +11,7 @@ import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { modalPresentations } from '../../constants/constants';
 import { zIndexes } from '../../styles/z-index';
 import { defaultText } from '../../constants/defaultText';
+import { CarbonIcon } from '../../types/shared';
 
 export type DropdownItem = {
   /** ID for tracking items */
@@ -23,6 +24,12 @@ export type DropdownItem = {
   disabled?: boolean;
   /** Text type to render (Standard is default.  Normally only body 01 or 02 should be used)  */
   textType?: TextTypes;
+  /** Set to an icon from Carbon (size 20). */
+  icon?: CarbonIcon;
+  /** Color of the icon (default is primary text) */
+  iconColor?: string;
+  /** Indicate that divider should be rendered (does not apply to last item) */
+  divider?: boolean;
   /** Indicate if keyboard should be dismissed onPress */
   dismissKeyboardOnPress?: boolean;
 };
@@ -48,6 +55,8 @@ export type DropdownProps = {
   light?: boolean;
   /** Text to use for on close areas (accessibility). Defaults to ENGLISH "Close" */
   closeText?: string;
+  /** Height in pixels to max out the menu (defaults to 280) */
+  maxMenuHeight?: number;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -72,6 +81,7 @@ export class Dropdown extends React.Component<DropdownProps> {
 
   private get styles() {
     const { renderLeft, renderRight, renderTop, renderBottom, inverseMenu } = this.state;
+    const { maxMenuHeight } = this.props;
 
     return StyleSheet.create({
       modal: {
@@ -95,7 +105,7 @@ export class Dropdown extends React.Component<DropdownProps> {
         bottom: renderBottom,
         right: renderRight,
         left: renderLeft,
-        maxHeight: inverseMenu ? undefined : maxMenuHeight,
+        maxHeight: inverseMenu ? undefined : maxMenuHeight || 280,
         flexDirection: inverseMenu ? 'column-reverse' : undefined,
         ...shadowStyle,
       },
@@ -106,6 +116,7 @@ export class Dropdown extends React.Component<DropdownProps> {
       },
       dropdownText: {
         color: this.itemColor,
+        paddingRight: 32,
       },
     });
   }
@@ -209,7 +220,7 @@ export class Dropdown extends React.Component<DropdownProps> {
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
           <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} accessibilityLabel={label} accessibilityHint={currentText} onPress={this.toggleDropdown} ref={this.setFormItemRef}>
-            <Text text={currentText || unsetText} style={this.styles.dropdownText} />
+            <Text text={currentText || unsetText} breakMode="tail" style={this.styles.dropdownText} />
             {this.dropdownIcon}
           </Pressable>
           {open && (

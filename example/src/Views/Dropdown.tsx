@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Dropdown, DropdownItem } from '@carbon/react-native';
+import { Dropdown, DropdownItem, getColor } from '@carbon/react-native';
+import CodeIcon from '@carbon/icons/es/code/20';
 
 const styles = StyleSheet.create({
   view: {
@@ -48,6 +49,8 @@ export default class TestDropdown extends React.Component {
       {
         id: '4',
         text: 'Item 4',
+        icon: CodeIcon,
+        iconColor: getColor('supportError'),
       },
       {
         text: 'Item 5',
@@ -59,7 +62,7 @@ export default class TestDropdown extends React.Component {
       },
       {
         id: '67',
-        text: 'Item 7',
+        text: 'Super long item with text that will not fit most views but should wrap in the dropdown but on the main view should ellipsis.',
       },
     ];
   }

@@ -24,6 +24,8 @@ export type ActionSheetItem = {
   };
   /** Press event (this will also automatically close the ActionSheet as well) */
   onPress: () => void;
+  /** Indicate that divider should be rendered (does not apply to last item, and only for non system ActionSheet) */
+  divider?: boolean;
 };
 
 export type ActionSheetProps = {
@@ -39,6 +41,8 @@ export type ActionSheetProps = {
   open: boolean;
   /** Force use of the custom action sheet (even if System is supported) */
   forceCustomActionSheet?: boolean;
+  /** Indicate that Action Sheet should go full bleed */
+  fullBleed?: boolean;
 };
 
 /**
@@ -47,6 +51,8 @@ export type ActionSheetProps = {
  */
 export class ActionSheet extends React.Component<ActionSheetProps> {
   private get styles() {
+    const { fullBleed } = this.props;
+
     return StyleSheet.create({
       modal: {
         zIndex: zIndexes.actionSheet,
@@ -60,7 +66,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
       containerWrapper: {
         flexGrow: 1,
         flexDirection: 'row-reverse',
-        margin: 16,
+        margin: fullBleed ? 0 : 16,
         maxWidth: 480,
       },
       blurBackground: {
@@ -205,6 +211,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
                 <ScrollView bounces={false} style={this.styles.options}>
                   {options.map((item, index) => {
                     const finalStyle = styleReferenceBreaker(this.styles.option);
+                    const lastItem = index === options.length - 1;
 
                     let imageItem: React.ReactNode | undefined;
 
@@ -216,6 +223,11 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
 
                     if (item.danger) {
                       finalStyle.backgroundColor = getColor('buttonDangerPrimary');
+                    }
+
+                    if (item.divider && !lastItem) {
+                      finalStyle.borderBottomColor = finalStyle.borderBottomColor || getColor('borderSubtle00');
+                      finalStyle.borderBottomWidth = finalStyle.borderBottomWidth || 1;
                     }
 
                     return (

@@ -25,6 +25,8 @@ export default class TestActionSheet extends React.Component {
     lotItems: false,
     dangerItem: false,
     imageSupport: false,
+    showDivider: false,
+    fullBleed: false,
   };
 
   private openActionSheeet = (): void => {
@@ -32,7 +34,7 @@ export default class TestActionSheet extends React.Component {
   };
 
   private get items(): ActionSheetItem[] {
-    const { dangerItem, imageSupport } = this.state;
+    const { dangerItem, imageSupport, showDivider } = this.state;
 
     return [
       {
@@ -40,6 +42,7 @@ export default class TestActionSheet extends React.Component {
         onPress: () => {
           this.setState({ open: false });
         },
+        divider: showDivider,
       },
       {
         text: 'Item 1',
@@ -48,6 +51,7 @@ export default class TestActionSheet extends React.Component {
           this.setState({ open: false });
         },
         icon: imageSupport ? { image: require('../assets/react.png') } : undefined,
+        divider: showDivider,
       },
       {
         text: 'Item 2 wtih really long name that may be too long for many views',
@@ -56,6 +60,7 @@ export default class TestActionSheet extends React.Component {
           this.setState({ open: false });
         },
         icon: imageSupport ? { icon: PhoneIcon } : undefined,
+        divider: showDivider,
       },
       {
         text: 'Item 3 that is hidden',
@@ -64,6 +69,7 @@ export default class TestActionSheet extends React.Component {
           Alert.alert('Pressed item 3 on action sheet');
           this.setState({ open: false });
         },
+        divider: showDivider,
       },
       {
         text: 'Item 4',
@@ -73,12 +79,13 @@ export default class TestActionSheet extends React.Component {
           this.setState({ open: false });
         },
         icon: imageSupport ? { icon: PhoneIcon } : undefined,
+        divider: showDivider,
       },
     ];
   }
 
   render(): React.ReactNode {
-    const { open, showBody, forceCustom, lotItems, dangerItem, imageSupport } = this.state;
+    const { open, showBody, forceCustom, lotItems, dangerItem, imageSupport, showDivider, fullBleed } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -87,8 +94,10 @@ export default class TestActionSheet extends React.Component {
         <Checkbox checked={lotItems} id="lot" onPress={(value) => this.setState({ lotItems: value })} label="Load lots of items" />
         <Checkbox checked={dangerItem} id="dangerItem" onPress={(value) => this.setState({ dangerItem: value })} label="Add danger item" />
         <Checkbox checked={imageSupport} id="imageSupport" onPress={(value) => this.setState({ imageSupport: value })} label="Render images for custom" />
+        <Checkbox checked={showDivider} id="showDivider" onPress={(value) => this.setState({ showDivider: value })} label="Show divider for custom" />
+        <Checkbox checked={fullBleed} id="fullBleed" onPress={(value) => this.setState({ fullBleed: value })} label="Full bleed for custom" />
         <Button onPress={this.openActionSheeet} text="Open action sheet" style={styles.button} />
-        <ActionSheet open={open} title="Action sheet title" body={showBody ? 'Useful info about what this action sheet does' : undefined} cancelButtonIndex={0} items={lotItems ? [...this.items, ...this.items, ...this.items, ...this.items] : this.items} forceCustomActionSheet={forceCustom} />
+        <ActionSheet open={open} title="Action sheet title" body={showBody ? 'Useful info about what this action sheet does' : undefined} cancelButtonIndex={0} items={lotItems ? [...this.items, ...this.items, ...this.items, ...this.items] : this.items} fullBleed={fullBleed} forceCustomActionSheet={forceCustom} />
       </ScrollView>
     );
   }
