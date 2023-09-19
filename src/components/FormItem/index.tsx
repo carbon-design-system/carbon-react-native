@@ -117,7 +117,7 @@ export class FormItem extends React.Component<FormItemProps> {
       flexDirection: 'column',
       padding: 14,
       paddingRight: noRightPadding ? 0 : 16,
-      paddingLeft: noRightPadding ? 0 : 16,
+      paddingLeft: 16,
       paddingBottom: noBottomPadding ? 0 : 14,
       borderColor: 'transparent',
       borderWidth: 2,
