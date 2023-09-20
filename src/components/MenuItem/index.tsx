@@ -1,8 +1,9 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType } from 'react-native';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType, View } from 'react-native';
+import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
+import { CarbonIcon } from '../../types/shared';
 
 export type MenuItemProps = {
   /** Text to render */
@@ -13,6 +14,14 @@ export type MenuItemProps = {
   disabled?: boolean;
   /** Text type to render (Standard is default.  Normally only body 01 or 02 should be used)  */
   textType?: TextTypes;
+  /** Set to an icon from Carbon (size 20). */
+  icon?: CarbonIcon;
+  /** Color of the icon (default is primary text) */
+  iconColor?: string;
+  /** Indicate that divider should be rendered (does not apply to last item) */
+  divider?: boolean;
+  /** Indicates that menu item is final item (this is used internally) */
+  lastItem?: boolean;
   /** onPress event */
   onPress: (event: GestureResponderEvent) => void;
   /** onLongPress event */
@@ -27,21 +36,44 @@ export type MenuItemProps = {
 
 export class MenuItem extends React.Component<MenuItemProps> {
   private get styles() {
+    const { divider, lastItem } = this.props;
+
     return StyleSheet.create({
       wrapper: {
-        paddingRight: 16,
-        paddingLeft: 16,
-        paddingTop: 13,
-        paddingBottom: 13,
+        padding: 14,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        borderBottomColor: divider && !lastItem ? getColor('borderSubtle00') : undefined,
+        borderBottomWidth: divider && !lastItem ? 1 : undefined,
+      },
+      icon: {
+        paddingTop: 2,
+        paddingRight: 14,
       },
     });
   }
 
-  private get textStyle(): StyleProp<TextStyle> {
+  private get textColor(): string {
     const { disabled } = this.props;
 
+    return getColor(disabled ? 'textDisabled' : 'textSecondary');
+  }
+
+  private get iconColor(): string {
+    const { iconColor, disabled } = this.props;
+
+    if (disabled) {
+      return this.textColor;
+    }
+
+    return iconColor || this.textColor;
+  }
+
+  private get textStyle(): StyleProp<TextStyle> {
     let finalStyle: any = {
-      color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
+      color: this.textColor,
+      flex: 1,
     };
 
     return StyleSheet.create(finalStyle);
@@ -64,10 +96,11 @@ export class MenuItem extends React.Component<MenuItemProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode } = this.props;
+    const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, icon } = this.props;
 
     return (
       <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style), this.getStateStyle)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+        {!!icon && <View style={this.styles.icon}>{createIcon(icon, 20, 20, this.iconColor)}</View>}
         <Text breakMode={textBreakMode} type={textType} style={this.textStyle} text={text} />
       </Pressable>
     );

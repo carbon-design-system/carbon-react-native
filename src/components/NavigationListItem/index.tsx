@@ -223,17 +223,19 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
   };
 
   render(): React.ReactNode {
-    const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem, rightText } = this.props;
+    const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem, rightText, onPress, onLongPress } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (lastItem) {
       finalStyle.borderBottomWidth = 0;
     }
 
+    const mainIsClickable = !!(typeof onPress === 'function' || typeof onLongPress === 'function');
+
     return (
       <View style={styleReferenceBreaker(finalStyle, style)}>
         {this.selectableAreaSide === 'left' && this.selectableArea}
-        <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.styles.pressableStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+        <Pressable disabled={disabled} style={(state) => (mainIsClickable ? pressableFeedbackStyle(state, this.styles.pressableStyle, this.getStateStyle) : this.styles.pressableStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}
           {this.contentArea}
           {!!rightText && (

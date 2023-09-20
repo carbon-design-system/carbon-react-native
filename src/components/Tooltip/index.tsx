@@ -165,7 +165,7 @@ export class Tooltip extends React.Component<TooltipProps> {
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
         <View>
-          {linkProps ? <Link {...linkProps} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} /> : <Button {...(buttonProps || { text: '' })} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} />}
+          {linkProps ? <Link {...linkProps} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} /> : <Button {...(buttonProps || { text: '' })} overrideColor={buttonProps?.iconOnlyMode ? (open ? getColor('iconPrimary') : getColor('iconSecondary')) : undefined} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} />}
           {open && (
             <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
               <Pressable style={this.styles.closeModal} accessibilityRole="button" accessibilityLabel={closeText || defaultText.close} onPress={this.closeTooltip} />

@@ -8,7 +8,8 @@ import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
 import SubtractIcon from '@carbon/icons/es/subtract/20';
 import CalendarIcon from '@carbon/icons/es/calendar/20';
-import WarningFilledIcon from '@carbon/icons/es/warning--filled/20';
+import WarningIcon from '@carbon/icons/es/warning--alt--filled/20';
+import ErrorIcon from '@carbon/icons/es/warning--filled/20';
 import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
 import { BodyCompact02, Body02 } from '../../styles/typography';
@@ -36,6 +37,8 @@ export type TextInputProps = {
   isInvalid?: (value: string) => boolean;
   /** Error string to use. Set custom rules or return required text */
   getErrorText?: (value: string) => string;
+  /** Warning string to use. This will show if NOT in error. */
+  warningText?: string;
   /** Placeholder text to use */
   placeholder?: string;
   /** Indicate if required */
@@ -130,7 +133,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
       color: getColor('textSecondary'),
       flex: 1,
       paddingTop: hasLabelLink ? 30 : undefined,
-      marginBottom: 8,
+      marginBottom: fullBleed ? 5 : 8,
     },
     helperText: {
       color: getColor('textHelper'),
@@ -139,6 +142,10 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     },
     errorText: {
       color: getColor('textError'),
+      marginTop: 8,
+      marginBottom: fullBleed ? 8 : undefined,
+    },
+    warningText: {
       marginTop: 8,
       marginBottom: fullBleed ? 8 : undefined,
     },
@@ -282,7 +289,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     return <View style={this.styles.dateIcon}>{createIcon(CalendarIcon, 20, 20, disabled ? getColor('iconDisabled') : getColor('iconSecondary'))}</View>;
   }
 
-  private get errorIndicator(): React.ReactNode {
+  private get baseErrorWarningStyle() {
     const { type } = this.props;
     let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
 
@@ -296,7 +303,15 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
       errorIconStyle.paddingLeft = 0;
     }
 
-    return <View style={errorIconStyle}>{createIcon(WarningFilledIcon, 20, 20, getColor('supportError'))}</View>;
+    return errorIconStyle;
+  }
+
+  private get errorIndicator(): React.ReactNode {
+    return <View style={this.baseErrorWarningStyle}>{createIcon(ErrorIcon, 20, 20, getColor('supportError'))}</View>;
+  }
+
+  private get warningIndicator(): React.ReactNode {
+    return <View style={this.baseErrorWarningStyle}>{createIcon(WarningIcon, 20, 20, getColor('supportWarning'))}</View>;
   }
 
   private incrementNumber = (): void => {
@@ -344,7 +359,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
   }
 
   render(): React.ReactNode {
-    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink, fullBleedCallback } = this.props;
+    const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink, fullBleedCallback, warningText } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
     const textArea = type === 'text-area';
@@ -394,12 +409,14 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
         <View style={this.styles.textBoxWrapper} accessible={password}>
           <ReactTextInput editable={!disabled} accessibilityLabel={helperText ? `${label} - ${helperText}` : label} secureTextEntry={revealPassword ? false : password} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" multiline={textArea} {...(componentProps || {})} />
           {error && this.errorIndicator}
+          {!!(warningText && !error) && this.warningIndicator}
           {password && this.passwordReveal}
           {date && this.dateIcon}
           {number && this.numberActions}
         </View>
-        {!!(helperText && !error) && <Text style={this.styles.helperText} type="helper-text-02" text={helperText} />}
+        {!!(helperText && !error && !warningText) && <Text style={this.styles.helperText} type="helper-text-02" text={helperText} />}
         {!!(typeof getErrorText === 'function' && error) && <Text style={this.styles.errorText} type="helper-text-02" text={getErrorText(value)} />}
+        {!!(warningText && !error) && <Text style={this.styles.warningText} type="helper-text-02" text={warningText} />}
       </View>
     );
   }

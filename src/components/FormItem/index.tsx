@@ -57,6 +57,8 @@ export type FormItemProps = {
   toggleValueText?: (value: boolean) => string;
   /** Override icon for select item (default is Checkbox) */
   overrideActiveCheckboxIcon?: CarbonIcon;
+  /** Indicate that toggle or checkbox should render on the left side. Default is right */
+  renderToggleCheckboxLeft?: boolean;
   /** Slider props for customizing slider */
   sliderProps?: {
     /** Icon to render on right side of slider */
@@ -106,14 +108,16 @@ export class FormItem extends React.Component<FormItemProps> {
   }
 
   private get styles() {
-    const { type, disabled } = this.props;
+    const { type, disabled, renderToggleCheckboxLeft } = this.props;
     const noRightPadding = ['password', 'number', 'date'].includes(type);
     const noBottomPadding = this.noBottomPadding;
+    const helperTextColor = getColor(disabled ? 'textDisabled' : 'textHelper');
 
     const baseWrapper = styleReferenceBreaker(getNavigationListItemStyle(), {
       flexDirection: 'column',
       padding: 14,
-      paddingRight: noRightPadding ? 0 : 14,
+      paddingRight: noRightPadding ? 0 : 16,
+      paddingLeft: 16,
       paddingBottom: noBottomPadding ? 0 : 14,
       borderColor: 'transparent',
       borderWidth: 2,
@@ -138,6 +142,10 @@ export class FormItem extends React.Component<FormItemProps> {
       headerContent: {
         color: getColor('textSecondary'),
       },
+      headerContentDescription: {
+        color: getColor('textSecondary'),
+        paddingTop: 4,
+      },
       staticText: {
         paddingTop: 8,
         color: getColor('textSecondary'),
@@ -155,6 +163,7 @@ export class FormItem extends React.Component<FormItemProps> {
         flex: 1,
         paddingTop: 13,
         paddingBottom: 13,
+        paddingLeft: renderToggleCheckboxLeft ? 30 : undefined,
       },
       toggleWrapper: {
         paddingTop: 0,
@@ -169,15 +178,20 @@ export class FormItem extends React.Component<FormItemProps> {
         flex: 1,
       },
       helperText: {
-        color: getColor(disabled ? 'textDisabled' : 'textHelper'),
+        color: helperTextColor,
       },
       checkboxButton: {
         ...baseWrapper,
         flex: 1,
         flexDirection: 'row',
       },
+      checkboxHelperText: {
+        color: helperTextColor,
+        marginTop: 0,
+      },
       checkboxTextWrapper: {
         flex: 1,
+        paddingLeft: renderToggleCheckboxLeft ? 30 : undefined,
       },
     });
   }
@@ -207,11 +221,11 @@ export class FormItem extends React.Component<FormItemProps> {
     const items = [];
 
     if (label) {
-      items.push(<Text key="label" style={this.styles.headerContent} type="heading-compact-02" text={label} />);
+      items.push(<Text key="label" style={this.styles.headerContent} type="heading-compact-01" text={label} />);
     }
 
     if (helperText) {
-      items.push(<Text key="helperText" style={this.styles.headerContent} type="helper-text-01" text={helperText} />);
+      items.push(<Text key="helperText" style={this.styles.headerContentDescription} type="helper-text-01" text={helperText} />);
     }
 
     if (descriptionFirstHeader) {
@@ -240,18 +254,15 @@ export class FormItem extends React.Component<FormItemProps> {
   }
 
   private get toggleContent(): React.ReactNode {
-    const { label, textBreakMode, disabled, value, toggleValueText } = this.props;
+    const { label, textBreakMode, disabled, value, toggleValueText, renderToggleCheckboxLeft } = this.props;
 
     const changeValue = (textValue: boolean) => {
       this.triggerChange(textValue);
     };
 
-    return (
-      <>
-        <Text text={typeof toggleValueText === 'function' ? toggleValueText(!!value) : String(value)} style={this.styles.toggleText} breakMode={textBreakMode} />
-        <Toggle label={label || ''} style={this.styles.toggleWrapper} toggleWrapperStyle={this.styles.toggleDirectWrapper} hideLabel={true} disabled={disabled} toggled={!!value} onChange={changeValue} />
-      </>
-    );
+    const items = [<Text key="label" text={typeof toggleValueText === 'function' ? toggleValueText(!!value) : String(value)} style={this.styles.toggleText} breakMode={textBreakMode} />, <Toggle key="toggle" label={label || ''} style={this.styles.toggleWrapper} toggleWrapperStyle={this.styles.toggleDirectWrapper} hideLabel={true} disabled={disabled} toggled={!!value} onChange={changeValue} />];
+
+    return renderToggleCheckboxLeft ? items.reverse() : items;
   }
 
   private get staticContent(): React.ReactNode {
@@ -277,19 +288,23 @@ export class FormItem extends React.Component<FormItemProps> {
   }
 
   private get checkboxContent(): React.ReactNode {
-    const { label, textBreakMode, disabled, value, helperText, overrideActiveCheckboxIcon } = this.props;
+    const { label, textBreakMode, disabled, value, helperText, overrideActiveCheckboxIcon, renderToggleCheckboxLeft } = this.props;
 
     const changeValue = () => {
       this.triggerChange(!value);
     };
 
+    const items = [
+      <View style={this.styles.checkboxTextWrapper} key="label">
+        <Text text={label} breakMode={textBreakMode} />
+        {!!helperText && <Text type="helper-text-02" style={styleReferenceBreaker(getTextInputStyle().helperText, this.styles.checkboxHelperText)} text={helperText} />}
+      </View>,
+      createIcon(value ? overrideActiveCheckboxIcon || CheckmarkIcon : EmptyCheckmarkIcon, 20, 20, this.mainColor, 'icon'),
+    ];
+
     return (
       <Pressable style={this.styles.checkboxButton} disabled={disabled} accessibilityLabel={label} accessibilityRole="button" onPress={changeValue}>
-        <View style={this.styles.checkboxTextWrapper}>
-          <Text text={label} breakMode={textBreakMode} />
-          {!!helperText && <Text type="helper-text-02" style={styleReferenceBreaker(getTextInputStyle().helperText, this.styles.helperText)} text={helperText} />}
-        </View>
-        {createIcon(value ? overrideActiveCheckboxIcon || CheckmarkIcon : EmptyCheckmarkIcon, 20, 20, this.mainColor)}
+        {renderToggleCheckboxLeft ? items.reverse() : items}
       </Pressable>
     );
   }

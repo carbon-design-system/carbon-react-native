@@ -7,20 +7,21 @@ import { MenuItem, MenuItemProps } from '../MenuItem';
 export type MenuProps = {
   /** Items to render in the menu */
   items: MenuItemProps[];
+  /** Height in pixels to max out the menu (defaults to 280) */
+  maxMenuHeight?: number;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
 
-/** Max menu height */
-export const maxMenuHeight = 280;
-
 export class Menu extends React.Component<MenuProps> {
   private get styles() {
+    const { maxMenuHeight } = this.props;
+
     return StyleSheet.create({
       wrapper: {
-        maxHeight: maxMenuHeight,
+        maxHeight: maxMenuHeight || 280,
         backgroundColor: getColor('layer01'),
       },
     });
@@ -28,11 +29,12 @@ export class Menu extends React.Component<MenuProps> {
 
   render(): React.ReactNode {
     const { items, componentProps, style } = this.props;
+    const finalItems = items || [];
 
     return (
       <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
-        {(items || []).map((item, index) => (
-          <MenuItem key={index} {...item} />
+        {finalItems.map((item, index) => (
+          <MenuItem key={index} {...item} lastItem={index === finalItems.length - 1} />
         ))}
       </ScrollView>
     );

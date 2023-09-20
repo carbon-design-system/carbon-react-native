@@ -33,6 +33,8 @@ export class Pagination extends React.Component<PaginationProps> {
       },
       item: {
         padding: 8,
+        paddingLeft: 4,
+        paddingRight: 4,
       },
     });
   }

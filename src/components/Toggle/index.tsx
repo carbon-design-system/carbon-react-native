@@ -44,10 +44,10 @@ export class Toggle extends React.Component<ToggleProps> {
       },
       switchWrapper: {
         flexDirection: 'row',
-        paddingTop: 16,
+        paddingTop: 4,
       },
       selectedText: {
-        marginLeft: 12,
+        marginLeft: 8,
         marginTop: 4,
       },
     });
