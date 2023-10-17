@@ -4,7 +4,7 @@ import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
-import { Text } from '../Text';
+import { Text, TextBreakModes } from '../Text';
 
 export type AccordionProps = {
   /** Title to show for the accordion  */
@@ -17,6 +17,8 @@ export type AccordionProps = {
   onPress?: (value: boolean, event: GestureResponderEvent) => void;
   /** Indicate if disabled */
   disabled?: boolean;
+  /** Break mode for text. Default is to wrap text */
+  textBreakMode?: TextBreakModes;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -50,7 +52,7 @@ export class Accordion extends React.Component<AccordionProps> {
       },
       action: {
         position: 'relative',
-        height: 48,
+        minHeight: 48,
         padding: 13,
         paddingLeft: 16,
         paddingRight: 50,
@@ -61,6 +63,7 @@ export class Accordion extends React.Component<AccordionProps> {
         right: 12,
       },
       textItem: {
+        flex: 1,
         color: this.itemColor,
       },
     });
@@ -98,7 +101,7 @@ export class Accordion extends React.Component<AccordionProps> {
   }
 
   render(): React.ReactNode {
-    const { componentProps, style, disabled, title, children, firstAccordion } = this.props;
+    const { componentProps, style, disabled, title, children, firstAccordion, textBreakMode } = this.props;
     const { open } = this.state;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 
@@ -110,7 +113,7 @@ export class Accordion extends React.Component<AccordionProps> {
     return (
       <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
         <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action, this.getStateStyle)} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
-          <Text style={this.styles.textItem} text={title} />
+          <Text style={this.styles.textItem} text={title} breakMode={textBreakMode} />
           {this.accordionIcon}
         </Pressable>
         {open && <View style={this.styles.content}>{children}</View>}
