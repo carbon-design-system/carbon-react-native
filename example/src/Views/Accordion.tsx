@@ -37,11 +37,11 @@ export default class TestAccordion extends React.Component {
         <Accordion title="I am disabled" disabled={true}>
           <Text text="I am the content of this accordion" />
         </Accordion>
-        <Accordion title="I am already opened on load" open={true}>
+        <Accordion title="I am already opened on load and have long text" open={true}>
           <Text text="I am the content of this accordion" />
           <Button text="Click me to toggle the one below" onPress={() => this.setState({ openControl: !openControl })} style={styles.itemStyle} />
         </Accordion>
-        <Accordion title="I can be controlled" open={openControl}>
+        <Accordion title="I can be controlled and have long text ellipsis" open={openControl} textBreakMode="tail">
           <Text type={'body-01'} text="Smaller text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
         </Accordion>
       </ScrollView>

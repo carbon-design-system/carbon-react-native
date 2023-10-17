@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - main2 # Disabling for now until we can get this working (https://github.com/carbon-design-system/carbon-react-native/issues/150)
 jobs:
   build:
     if:
