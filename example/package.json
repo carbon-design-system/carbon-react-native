@@ -12,24 +12,28 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@carbon/icon-helpers": "^10.42.1",
-    "@carbon/icons": "^11.22.1",
-    "@carbon/themes": "^11.21.1",
-    "@react-native-async-storage/async-storage": "^1.19.0",
+    "@carbon/icon-helpers": "^10.44.0",
+    "@carbon/icons": "^11.28.0",
+    "@carbon/themes": "^11.25.0",
+    "@react-native-async-storage/async-storage": "^1.19.2",
     "react": "18.2.0",
-    "react-native": "0.72.1",
-    "react-native-svg": "^13.10.0",
-    "react-native-webview": "^13.2.2"
+    "react-native": "0.72.6",
+    "react-native-svg": "^13.14.0",
+    "react-native-webview": "^13.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@babel/runtime": "7.20.0",
     "@expo/metro-config": "^0.10.6",
-    "@react-native/metro-config": "^0.72.9",
+    "@react-native/metro-config": "^0.74.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "expo-asset": "^8.10.1",
     "metro-react-native-babel-preset": "^0.77.0",
-    "patch-package": "^7.0.0",
+    "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0"
+  },
+  "resolutions": {
+    "@babel/traverse": "7.22.8",
+    "@babel/core": "7.22.8"
   }
 }
