@@ -79,9 +79,15 @@ export class Accordion extends React.Component<AccordionProps> {
     return <View style={this.styles.iconStyle}>{createIcon(open ? ChevronUpIcon : ChevronDownIcon, 22, 22, this.itemColor)}</View>;
   }
 
-  private toggleDropdown = (): void => {
+  private toggleDropdown = (event: GestureResponderEvent): void => {
     const { open } = this.state;
-    this.setState({ open: !open });
+    const { onPress } = this.props;
+
+    this.setState({ open: !open }, () => {
+      if (typeof onPress === 'function') {
+        onPress(!open, event);
+      }
+    });
   };
 
   componentDidUpdate(previosuProps: AccordionProps): void {
