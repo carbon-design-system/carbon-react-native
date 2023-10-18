@@ -118,9 +118,15 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     return <View style={this.styles.statusIcon}>{icon}</View>;
   }
 
-  private toggleDropdown = (): void => {
+  private toggleDropdown = (event: GestureResponderEvent): void => {
     const { open } = this.state;
-    this.setState({ open: !open });
+    const { onPress } = this.props;
+
+    this.setState({ open: !open }, () => {
+      if (typeof onPress === 'function') {
+        onPress(!open, event);
+      }
+    });
   };
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
