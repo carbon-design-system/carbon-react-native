@@ -2,6 +2,7 @@ import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View } from 'react-native';
 import { Text, TextTypes } from '../Text';
 
+/** Props for List component */
 export type ListProps = {
   /** Type of list (default is unordered) */
   type?: 'unordered' | 'ordered';
@@ -17,6 +18,11 @@ export type ListProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * List component for rendering an ordered or unordered list
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/List.tsx | Example code}
+ */
 export class List extends React.Component<ListProps> {
   private letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 

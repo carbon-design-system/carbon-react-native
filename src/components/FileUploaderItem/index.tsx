@@ -10,6 +10,7 @@ import WarningFilledIcon from '@carbon/icons/es/warning--filled/20';
 import CheckmarkFilledIcon from '@carbon/icons/es/checkmark--filled/20';
 import { Loading } from '../Loading';
 
+/** Props for FileUploaderItem component */
 export type FileUploaderItemProps = {
   /** Name of the file */
   name: string;
@@ -31,6 +32,11 @@ export type FileUploaderItemProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * FileUploaderItem component for rendering an item that has been uploaded or will be
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/FileUploaderItem.tsx | Example code}
+ */
 export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
   private get styles() {
     return StyleSheet.create({

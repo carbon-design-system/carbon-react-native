@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text } from '../Text';
 
+/** Item to pass to Tabs */
 export type TabItem = {
   /** Text to render */
   text: string;
@@ -13,6 +14,7 @@ export type TabItem = {
   data?: unknown;
 };
 
+/** Props for Tabs component */
 export type TabsProps = {
   /** Items to render in the tabs */
   items: TabItem[];
@@ -28,6 +30,11 @@ export type TabsProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * Tabs component for rendering tabs on the page
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Tabs.tsx | Example code}
+ */
 export class Tabs extends React.Component<TabsProps> {
   state = {
     currentIndex: 0,

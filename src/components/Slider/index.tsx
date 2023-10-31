@@ -6,6 +6,7 @@ import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import { TextInput } from '../TextInput';
 
+/** Props for Slider component */
 export type SliderProps = {
   /** Text to render */
   label: string;
@@ -31,6 +32,11 @@ export type SliderProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * Slider component for rendering a slider between numbers
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Slider.tsx | Example code}
+ */
 export class Slider extends React.Component<SliderProps> {
   private barWidth: number | undefined;
 

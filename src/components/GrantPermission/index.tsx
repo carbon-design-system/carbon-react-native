@@ -11,6 +11,7 @@ const filePermissionImage = require('./file_permission.png');
 const locationPermissionImage = require('./location_permission.png');
 const notificationsPermissionImage = require('./notifications_permission.png');
 
+/** Props for GrantPermission component */
 export type GrantPermissionProps = {
   /** The type of permission.  This will prefill image and style. You can override image for any other custom cases and leave this undefined. */
   type?: 'files' | 'camera' | 'notifications' | 'location';
@@ -36,6 +37,11 @@ export type GrantPermissionProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * GrantPermission component for showing the grant device permission flow
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/GrantPermission.tsx | Example code}
+ */
 export class GrantPermission extends React.Component<GrantPermissionProps> {
   private resizeEvent: EmitterSubscription | undefined;
 

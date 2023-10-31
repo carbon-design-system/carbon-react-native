@@ -7,6 +7,7 @@ import { Button } from '../Button';
 import { Link } from '../Link';
 import type { CarbonIcon } from '../../types/shared';
 
+/** Props for BottomToolbarPrimaryAction component */
 export type BottomToolbarPrimaryActionProps = {
   /** Position of primary action (default is center) */
   position?: 'center' | 'right' | 'left';
@@ -30,6 +31,11 @@ export type BottomToolbarPrimaryActionProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * BottomToolbarPrimaryAction component for rendering the bottom toolbar with large primary action
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/BottomToolbarPrimaryAction.tsx | Example code}
+ */
 export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPrimaryActionProps> {
   private get styles() {
     return StyleSheet.create({

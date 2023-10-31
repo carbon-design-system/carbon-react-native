@@ -9,6 +9,7 @@ import { styleReferenceBreaker } from '../../helpers';
 import { ViewWrapper } from '../ViewWrapper';
 import { SemiBoldFont } from '../../styles/typography';
 
+/** Props for LandingView component */
 export type LandingViewProps = {
   /** Company image to load in top right. Can pass in many ways including require `require('../../assets/images/image.png')` */
   companyImage?: ImageSourcePropType;
@@ -46,6 +47,11 @@ export type LandingViewProps = {
   continueDisabled?: boolean;
 };
 
+/**
+ * LandingView component for showing the IBM app landing page
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/LandingView.tsx | Example code}
+ */
 export class LandingView extends React.Component<LandingViewProps> {
   private resizeEvent: EmitterSubscription | undefined;
 

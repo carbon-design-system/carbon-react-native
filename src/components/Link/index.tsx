@@ -5,6 +5,7 @@ import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../..
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 
+/** Props for Link component */
 export type LinkProps = {
   /** Text to render */
   text: string;
@@ -41,8 +42,11 @@ export type LinkProps = {
 };
 
 /**
- * To not have a button be pressable 100% of screen format parent or pass style appropriately.
- * `alignSelf: 'flex-start'` is useful.
+ * Link component for rendering a link
+ *
+ * To not have a link be pressable 100% of screen format parent or pass style appropriately. `alignSelf: 'flex-start'` is useful.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Link.tsx | Example code}
  */
 export class Link extends React.Component<LinkProps> {
   private get textIconColor(): string {

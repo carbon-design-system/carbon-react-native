@@ -7,6 +7,7 @@ import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import type { CarbonIcon } from 'src/types/shared';
 
+/** Item to show in the UiPanel */
 export type UiPanelNestedItem = {
   /** Name of the navigation item to render */
   text: string;
@@ -32,6 +33,7 @@ export type UiPanelNestedItem = {
   componentProps?: ViewProps;
 };
 
+/** Props for UiPanelItem component */
 export type UiPanelItemProps = {
   /** Name of the item to render */
   text: string;
@@ -63,6 +65,12 @@ export type UiPanelItemProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * UiPanelItem component for rendering an item in the UI Panel
+ * This is a child of UiPanel component
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/UiPanel.tsx | Example code}
+ */
 export class UiPanelItem extends React.Component<UiPanelItemProps> {
   state = {
     open: false,

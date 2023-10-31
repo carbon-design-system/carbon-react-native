@@ -6,6 +6,7 @@ import type { ToolbarButton } from '../../types/navigation';
 import { Button } from '../Button';
 import { Link } from '../Link';
 
+/** Props for BottomToolbar component */
 export type BottomToolbarProps = {
   /** Toolbar items to load */
   items: ToolbarButton[];
@@ -15,6 +16,11 @@ export type BottomToolbarProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * BottomToolbar component for rendering the bottom toolbar. This is similar to BottomNavigationBar but offers a call to action
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/BottomToolbar.tsx | Example code}
+ */
 export class BottomToolbar extends React.Component<BottomToolbarProps> {
   private get styles() {
     return StyleSheet.create({

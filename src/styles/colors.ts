@@ -5,6 +5,7 @@ import { logIssue } from '../helpers';
 
 /** Theme choices available */
 export type ThemeChoices = 'light' | 'dark';
+/** Theme definition */
 export type ThemeDefinition = { [key: string]: string };
 
 let themeOverride: ThemeChoices | null = null;
@@ -64,7 +65,10 @@ export const useDarkMode = (): boolean => {
   return Appearance.getColorScheme() === 'dark';
 };
 
-/** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
+/**
+ * @ignore
+ * Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now
+ *  */
 export const componentsG10: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
@@ -117,7 +121,10 @@ export const componentsG10: { [key: string]: string } = {
   notificationBackgroundInfo: '#edf5ff',
 };
 
-/** Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now */
+/**
+ * @ignore
+ * Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now
+ *  */
 export const componentsG100: { [key: string]: string } = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',

@@ -6,6 +6,7 @@ import { DocumentViewer, DocumentViewerSource } from '../DocumentViewer';
 import { Modal } from '../Modal';
 import { Text } from '../Text';
 
+/** Props for AcceptTerms component */
 export type AcceptTermsProps = {
   /** Title of text document */
   title: string;
@@ -38,6 +39,11 @@ export type AcceptTermsProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * AcceptTerms component for showing the accept legal terms flow
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/AcceptsTerms.tsx | Example code}
+ */
 export class AcceptTerms extends React.Component<AcceptTermsProps> {
   state = {
     showDisagree: false,

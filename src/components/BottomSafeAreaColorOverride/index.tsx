@@ -3,6 +3,10 @@ import { StyleSheet, View, Dimensions, EmitterSubscription } from 'react-native'
 import { zIndexes } from '../../styles/z-index';
 import { Overlay } from '../Overlay';
 
+/**
+ * @ignore
+ * Props for BottomSafeAreaColorOverride
+ */
 export type BottomSafeAreaColorOverrideProps = {
   /** Color to force the safe area bottom to be */
   color: string;
@@ -13,6 +17,7 @@ export type BottomSafeAreaColorOverrideProps = {
 };
 
 /**
+ * @ignore
  * This component is for setting a color to apply to bottom zone under safe areas.
  * This is used for specific flows who are full screen and need to override the bottom while not touching the top.
  * This component is not exported.

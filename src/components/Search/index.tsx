@@ -10,7 +10,7 @@ import { defaultText } from '../../constants/defaultText';
 import { getTextInputStyle } from '../BaseTextInputs';
 import type { ButtonProps } from '../Button';
 
-/** Shared props for Text, Password and TextArea */
+/** Props for Search component */
 export type SearchProps = {
   /** Value of text (Controlled component) */
   value: string;
@@ -52,6 +52,11 @@ export type SearchProps = {
   buttonProps?: ButtonProps;
 };
 
+/**
+ * Search component for rendering a search input
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Search.tsx | Example code}
+ */
 export class Search extends React.Component<SearchProps> {
   state = {
     hasFocus: false,

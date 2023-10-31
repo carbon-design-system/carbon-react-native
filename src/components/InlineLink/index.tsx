@@ -4,6 +4,7 @@ import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextTypes } from '../Text';
 
+/** Props for InlineLink component */
 export type InlineLinkProps = {
   /** Text to render */
   text: string;
@@ -22,18 +23,21 @@ export type InlineLinkProps = {
 };
 
 /**
+ * InlineLink component
  * Link for using in inline with other text.
  *
  * To use import React Native Text wrapper `import { Text as ReactText } from 'react-native';`
  * Use `Text` from the Carbon package.
  * Then use something like:
- * ```
+ * ```javascript
  *   <ReactText>
  *     <Text text="Regular text before link. You can click on " />
  *     <InlineLink text="this link" onPress={() => openLink('https://carbondesignsystem.com')} />
  *     <Text text=" which will open the link." />
  *   </ReactText>
  * ```
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Link.tsx | Example code}
  */
 export class InlineLink extends React.Component<InlineLinkProps> {
   private get styles() {

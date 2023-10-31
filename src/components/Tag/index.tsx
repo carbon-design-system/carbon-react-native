@@ -5,8 +5,10 @@ import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
+/** Type of tags */
 export type TagTypes = 'red' | 'magenta' | 'purple' | 'blue' | 'cyan' | 'teal' | 'green' | 'gray' | 'cool-gray' | 'warm-gray';
 
+/** Props for Tag component */
 export type TagProps = {
   /** Title of tag to render */
   title: string;
@@ -22,6 +24,11 @@ export type TagProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * Tag component for rendering a tag
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Tag.tsx | Example code}
+ */
 export class Tag extends React.Component<TagProps> {
   private get styles() {
     return StyleSheet.create({

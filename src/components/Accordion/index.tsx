@@ -6,6 +6,7 @@ import ChevronDownIcon from '@carbon/icons/es/chevron--down/20';
 import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import { Text, TextBreakModes } from '../Text';
 
+/** Props for Accordion component */
 export type AccordionProps = {
   /** Title to show for the accordion  */
   title: string;
@@ -27,6 +28,11 @@ export type AccordionProps = {
   children?: React.ReactNode;
 };
 
+/**
+ * Accordion component for showing the accept legal terms flow
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Accordion.tsx | Example code}
+ */
 export class Accordion extends React.Component<AccordionProps> {
   state = {
     open: false,

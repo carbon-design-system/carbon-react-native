@@ -5,6 +5,7 @@ import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 import { CarbonIcon } from '../../types/shared';
 
+/** Props for MenuItem component */
 export type MenuItemProps = {
   /** Text to render */
   text: string;
@@ -34,6 +35,11 @@ export type MenuItemProps = {
   componentProps?: PressableProps;
 };
 
+/**
+ * MenuItem component for rendering an item to live in a menu or similar styled items
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Menu.tsx | Example code}
+ */
 export class MenuItem extends React.Component<MenuItemProps> {
   private get styles() {
     const { divider, lastItem } = this.props;

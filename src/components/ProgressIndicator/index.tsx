@@ -10,6 +10,7 @@ import PendingIcon from '@carbon/icons/es/circle-dash/20';
 import ActiveIcon from '@carbon/icons/es/circle--filled/20';
 import { Text } from '../Text';
 
+/** Props for ProgressIndicator component */
 export type ProgressIndicatorProps = {
   /** Title to show for the accordion  */
   title: string;
@@ -32,6 +33,12 @@ export type ProgressIndicatorProps = {
   /** Children to render */
   children?: React.ReactNode;
 };
+
+/**
+ * ProgressIndicator component for rendering a step by step progress flow
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ProgressIndicator.tsx | Example code}
+ */
 
 export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   state = {

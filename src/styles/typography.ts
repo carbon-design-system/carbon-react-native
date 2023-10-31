@@ -5,13 +5,16 @@
  * If you want to use other fonts you can download them and store them in your app and follow same directions on README.
  */
 
+/** Font weights supported */
 export type FontWeights = 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
 
+/** Declaration of standard Font item */
 export type FontDefinition = {
   fontWeight: FontWeights;
   fontFamily: string;
 };
 
+/** Font override type */
 export type FontDefinitionOverrides = {
   light?: FontDefinition;
   regular?: FontDefinition;
@@ -19,6 +22,10 @@ export type FontDefinitionOverrides = {
   monoRegular?: FontDefinition;
 };
 
+/**
+ * @ignore
+ * The override font definition to store
+ */
 let overrideFontDefinition: FontDefinitionOverrides = {};
 
 /**

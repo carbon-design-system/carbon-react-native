@@ -5,6 +5,7 @@ import { styleReferenceBreaker } from '../../helpers';
 import { Button, ButtonProps } from '../Button';
 import { Text } from '../Text';
 
+/** Props for DataTableHeaderSelected component */
 export type DataTableHeaderSelectedProps = {
   /** Text to show for items selected. Normally `X items selected` where X is the number of items checked */
   itemsSelectedText?: string;
@@ -20,6 +21,12 @@ export type DataTableHeaderSelectedProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * DataTableHeaderSelected component for rendering a data table header area that indicates that items are chosen.
+ * Used as a child of DataTable
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DataTable.tsx | Example code}
+ */
 export class DataTableHeaderSelected extends React.Component<DataTableHeaderSelectedProps> {
   private get styles() {
     return StyleSheet.create({

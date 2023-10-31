@@ -1,9 +1,9 @@
 import React from 'react';
-import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, TextInputProps as ReactTextInputProps, Pressable, Platform } from 'react-native';
+import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
-import { Text, TextBreakModes } from '../Text';
+import { Text } from '../Text';
 import ViewIcon from '@carbon/icons/es/view/20';
 import ViewOffIcon from '@carbon/icons/es/view--off/20';
 import SubtractIcon from '@carbon/icons/es/subtract/20';
@@ -13,9 +13,8 @@ import ErrorIcon from '@carbon/icons/es/warning--filled/20';
 import AddIcon from '@carbon/icons/es/add/20';
 import { defaultText } from '../../constants/defaultText';
 import { BodyCompact02, Body02 } from '../../styles/typography';
-import { Link, LinkProps } from '../Link';
-
-export type BaseTextInputTypes = 'text' | 'text-area' | 'password' | 'number' | 'date';
+import { Link } from '../Link';
+import { BaseTextInputTypes, TextInputProps } from '../../types/shared';
 
 /** Props for the internal base text input */
 type BaseTextInputProps = {
@@ -25,67 +24,15 @@ type BaseTextInputProps = {
   fullBleedCallback?: (focus: boolean, error: boolean) => void;
 };
 
-/** Shared props for Text, Password and TextArea */
-export type TextInputProps = {
-  /** Value of text (Controlled component) */
-  value: string;
-  /** Label string to use */
-  label?: string;
-  /** Helper string to use */
-  helperText?: string;
-  /** Check is invalid */
-  isInvalid?: (value: string) => boolean;
-  /** Error string to use. Set custom rules or return required text */
-  getErrorText?: (value: string) => string;
-  /** Warning string to use. This will show if NOT in error. */
-  warningText?: string;
-  /** Placeholder text to use */
-  placeholder?: string;
-  /** Indicate if required */
-  required?: boolean;
-  /** Indicate if disabled */
-  disabled?: boolean;
-  /** Label break mode */
-  labelBreakMode?: TextBreakModes;
-  /** Change event when text changed */
-  onChangeText: (value: string) => void;
-  /** Blur event when focus is lost */
-  onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  /** Focus event when focus is gained */
-  onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  /** Indicate if autoCorrect should be used (default is true) */
-  autoCorrect?: boolean;
-  /** Define auto cap rule (default is normally sentences) */
-  autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none';
-  /** Trigger ENTER event (consumer should validate if form is valid and submit if this is called) */
-  onSubmitEditing?: () => void;
-  /** Indicate if should be secured (password) */
-  secureTextEntry?: boolean;
-  /** Max length of field */
-  maxLength?: number;
-  /** Indicate if text box is used on layer */
-  light?: boolean;
-  /** minHeight for text area */
-  textAreaMinHeight?: number;
-  /** @remarks password only. Text to use for toggle password button (accessibility). Defaults to ENGLISH "Show/hide password" */
-  togglePasswordText?: string;
-  /** @remarks number only. Text to use for increment number button (accessibility). Defaults to ENGLISH "Increment" */
-  incrementNumberText?: string;
-  /** @remarks number only. Text to use for decrement number button (accessibility). Defaults to ENGLISH "Decrement" */
-  decrementNumberText?: string;
-  /** @remarks number only. Min and Max for numbers. If not set any number (including negative is valid) */
-  numberRules?: {
-    min?: number;
-    max?: number;
-  };
-  /** Link to render to right of label */
-  labelLink?: LinkProps;
-  /** Style to set on the item */
-  style?: StyleProp<ViewStyle>;
-  /** Direct props to set on the React Native component (including iOS and Android specific props). Helpful for fully customizing text input behavior. */
-  componentProps?: ReactTextInputProps;
-};
-
+/**
+ * Get the base styling for text inputs
+ *
+ * @param light - Indicate that light variant should be used
+ * @param hasLabelLink - Indicates that item has label with link
+ * @param fullBleed - Indicates that it should be full bleed style
+ *
+ * @returns React style item
+ */
 export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
   // React Native on iOS
   const baseTextBox: any = {
@@ -214,6 +161,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
 };
 
 /**
+ * @ignore
  * This is the base system for text input.
  * This allows a shared code base for all text input systems and validation rules
  * This component is not exported. It is used by `TextInput`, `TextArea` and `PasswordInput`.

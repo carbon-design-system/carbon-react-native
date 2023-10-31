@@ -11,6 +11,7 @@ export const centerLoadingStyle = {
   marginTop: 20,
 };
 
+/** Props for Loading component */
 export type LoadingProps = {
   /** Indicates type of loading spinner (large is default) */
   type?: 'large' | 'medium' | 'small';
@@ -20,6 +21,11 @@ export type LoadingProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * Loading component for rendering a loading spinner
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Loading.tsx | Example code}
+ */
 export class Loading extends React.Component<LoadingProps> {
   private animatedValue = new Animated.Value(0);
 

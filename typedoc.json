@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["src/index.tsx"],
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeNotDocumented": true,
+  "sourceLinkExternal": true
+}
