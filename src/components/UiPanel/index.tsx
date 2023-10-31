@@ -8,6 +8,7 @@ import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 import { defaultText } from '../../constants/defaultText';
 import { zIndexes } from '../../styles/z-index';
 
+/** Props for UiPanel component */
 export type UiPanelProps = {
   /** Indicate if the panel should be open */
   open: boolean;
@@ -25,6 +26,11 @@ export type UiPanelProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * UiPanel component for rendering a slide over panel that overlays on the UI
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/UiPanel.tsx | Example code}
+ */
 export class UiPanel extends React.Component<UiPanelProps> {
   private animatedValue = new Animated.Value(0);
 

@@ -6,8 +6,10 @@ const accessImage = require('./access_error.png');
 const emptyImage = require('./empty_error.png');
 const genericImage = require('./generic_error.png');
 
+/** Types of errors */
 export type ErrorStateTypes = 'generic' | 'access' | 'empty';
 
+/** Props for ErrorState component */
 export type ErrorStateProps = {
   /** Type of error state (default is generic) */
   type?: ErrorStateTypes;
@@ -29,6 +31,11 @@ export type ErrorStateProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * ErrorState component for showing an error message and screen
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ErrorState.tsx | Example code}
+ */
 export class ErrorState extends React.Component<ErrorStateProps> {
   private get styles() {
     return StyleSheet.create({

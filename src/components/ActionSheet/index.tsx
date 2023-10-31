@@ -8,6 +8,7 @@ import { Text } from '../Text';
 import { zIndexes } from '../../styles/z-index';
 import type { CarbonIcon } from '../../types/shared';
 
+/** Item to pass to ActionSheet */
 export type ActionSheetItem = {
   /** Name for button */
   text: string;
@@ -28,6 +29,7 @@ export type ActionSheetItem = {
   divider?: boolean;
 };
 
+/** Props for ActionSheet component */
 export type ActionSheetProps = {
   /** Title to show */
   title: string;
@@ -46,8 +48,11 @@ export type ActionSheetProps = {
 };
 
 /**
+ * ActionSheet component for the choice option at the bottom of a screen.
  * Render a popup (from bottom) to show menu options for when non Yes/No questions are needed.
  * Uses the OS ActionSheet if supported. Otherwise renders a custom one with similar styling.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ActionSheet.tsx | Example code}
  */
 export class ActionSheet extends React.Component<ActionSheetProps> {
   private get styles() {

@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { MenuItem, MenuItemProps } from '../MenuItem';
 
+/** Props for Menu component */
 export type MenuProps = {
   /** Items to render in the menu */
   items: MenuItemProps[];
@@ -14,6 +15,12 @@ export type MenuProps = {
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
+
+/**
+ * Menu component for rendering a menu (list of clickable options)
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Menu.tsx | Example code}
+ */
 
 export class Menu extends React.Component<MenuProps> {
   private get styles() {

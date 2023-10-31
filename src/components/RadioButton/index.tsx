@@ -8,6 +8,11 @@ import RadioButtonIcon from '@carbon/icons/es/radio-button/20';
 import RadioButtonCheckedIcon from '@carbon/icons/es/radio-button--checked/20';
 import { checkboxRadioBaseStyle, CheckboxRadioProps } from '../Checkbox';
 
+/**
+ * RadioButton component for rendering a radio button
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/RadioButton.tsx | Example code}
+ */
 export class RadioButton extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({

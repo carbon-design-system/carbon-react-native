@@ -5,6 +5,7 @@ import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../..
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
+/** Action item for the web header */
 export type WebHeaderAction = {
   /** Icon to render (size 20) */
   icon: CarbonIcon;
@@ -16,6 +17,7 @@ export type WebHeaderAction = {
   onLongPress?: () => void;
 };
 
+/** Props for WebHeader component */
 export type WebHeaderProps = {
   /** actions to render to the right side */
   actions?: WebHeaderAction[];
@@ -29,6 +31,11 @@ export type WebHeaderProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * WebHeader component for rendering the header bar that matches Carbon Web
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/WebHeader.tsx | Example code}
+ */
 export class WebHeader extends React.Component<WebHeaderProps> {
   private get styles() {
     return StyleSheet.create({

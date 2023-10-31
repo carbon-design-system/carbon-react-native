@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, View, ViewProps } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 
+/** Props for DataTable component */
 export type DataTableProps = {
-  /** Content of the row. Should be list of <DataTableHeader /> or <DataTableRow. */
+  /** Content of the row. Should be list of DataTableHeader or DataTableRow. */
   children: React.ReactNode;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
@@ -11,6 +12,12 @@ export type DataTableProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * DataTable component for rendering a data table.
+ * Children components should be DataTableRow, DataTableCell, DataTableHeader, DataTableHeaderSelected
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DataTable.tsx | Example code}
+ */
 export class DataTable extends React.Component<DataTableProps> {
   private get styles() {
     return StyleSheet.create({

@@ -13,8 +13,10 @@ import { defaultText } from '../../constants/defaultText';
 import { zIndexes } from '../../styles/z-index';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 
+/** Soource of DocumentViewer either string or WebView source */
 export type DocumentViewerSource = string | WebViewSource;
 
+/** Props for DocumentViewer component */
 export type DocumentViewerProps = {
   /** Title of text document */
   title: string;
@@ -43,10 +45,11 @@ export type DocumentViewerProps = {
 };
 
 /**
- * Document viewer mostly for Legal content (like Privacy Policy, Terms and Conditions...).
+ * DocumentViewer component mostly for Legal content (like Privacy Policy, Terms and Conditions...).
  * But can also be used for web login flows or any popup overlay flow.
- *
  * If source is a STRING the text will be rendered as plain text.  For custom styling create an HTML file with proper styling per guidelines and use WebViewSource.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DocumentViewer.tsx | Example code}
  */
 export class DocumentViewer extends React.Component<DocumentViewerProps> {
   private get androidViewType(): boolean {

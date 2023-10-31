@@ -39,6 +39,7 @@ export const headerBarGetItems = (items: NavigationButton[], style: unknown, ite
   );
 };
 
+/** Props for TopNavigationBar component */
 export type TopNavigationBarProps = {
   /** Title to show */
   title: string;
@@ -61,6 +62,12 @@ export type TopNavigationBarProps = {
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
+
+/**
+ * TopNavigationBar component for rendering a navigation bar at the top of the page (with title and actions)
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/TopNavigationBar.tsx | Example code}
+ */
 
 export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
   state = {

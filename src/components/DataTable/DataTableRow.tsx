@@ -3,6 +3,7 @@ import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, Vie
 import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 
+/** Props for DataTableRow component */
 export type DataTableRowProps = {
   /** Content of the row. Should be list of <DataTableCell />. */
   children: React.ReactNode;
@@ -18,6 +19,12 @@ export type DataTableRowProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * DataTableRow component for rendering a data table row.
+ * Used as a child of DataTable
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DataTable.tsx | Example code}
+ */
 export class DataTableRow extends React.Component<DataTableRowProps> {
   private get styles() {
     return StyleSheet.create({

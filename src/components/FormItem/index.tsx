@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, ViewProps, Pressable, GestureResponderEvent, Keyboard } from 'react-native';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes } from '../Text';
-import { BaseTextInput, BaseTextInputTypes, getTextInputStyle, TextInputProps } from '../BaseTextInputs';
+import { BaseTextInput, getTextInputStyle } from '../BaseTextInputs';
+import { TextInputProps, BaseTextInputTypes } from '../../types/shared';
 import { getNavigationListItemStyle } from '../NavigationListItem';
 import { getColor } from '../../styles/colors';
 import ChevronRightIcon from '@carbon/icons/es/chevron--right/20';
@@ -26,6 +27,7 @@ import { Slider } from '../Slider';
  */
 export type FormItemType = 'text' | 'password' | 'text-area' | 'number' | 'date' | 'toggle' | 'header' | 'header-compact' | 'static' | 'slider' | 'checkbox' | 'button' | 'divider';
 
+/** Props for FormItem component */
 export type FormItemProps = {
   /** The type of form item */
   type: FormItemType;
@@ -79,6 +81,12 @@ export type FormItemProps = {
   /** Indicate that header should be description first */
   descriptionFirstHeader?: boolean;
 };
+
+/**
+ * FormItem component for rendering form items that are full bleed. This renders multiple types of form items. See props for types.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/FormItem.tsx | Example code}
+ */
 
 export class FormItem extends React.Component<FormItemProps> {
   state = {

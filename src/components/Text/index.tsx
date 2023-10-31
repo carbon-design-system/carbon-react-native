@@ -4,9 +4,13 @@ import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Body01, Body02, BodyCompact01, BodyCompact02, Code01, Code02, Heading01, Heading02, Heading03, Heading04, Heading05, Heading06, Heading07, HeadingCompact01, HeadingCompact02, HelperText01, HelperText02, Label01, Label02, Legal01, Legal02 } from '../../styles/typography';
 
+/** Types of Text items */
 export type TextTypes = 'code-01' | 'code-02' | 'label-01' | 'label-02' | 'helper-text-01' | 'helper-text-02' | 'legal-01' | 'legal-02' | 'body-compact-01' | 'body-compact-02' | 'body-01' | 'body-02' | 'heading-compact-01' | 'heading-compact-02' | 'heading-01' | 'heading-02' | 'heading-03' | 'heading-04' | 'heading-05' | 'heading-06' | 'heading-07';
+
+/** Types of text break modes (where to apply ellipsis) */
 export type TextBreakModes = 'head' | 'middle' | 'tail';
 
+/** Props for Text component */
 export type TextProps = {
   /** Text to render */
   text?: string;
@@ -20,6 +24,11 @@ export type TextProps = {
   componentProps?: ReactTextProps;
 };
 
+/**
+ * Text component for rendering blocks of text styled with Carbon text style
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Text.tsx | Example code}
+ */
 export class Text extends React.Component<TextProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { type, style } = this.props;

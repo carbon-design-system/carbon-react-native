@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
 
+/** Props for Tile component */
 export type TileProps = {
   /** Type of tile */
   type?: 'default' | 'scroll' | 'clickable';
@@ -21,6 +22,11 @@ export type TileProps = {
   children?: React.ReactNode;
 };
 
+/**
+ * Tile component for rendering a carbon tile
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Tile.tsx | Example code}
+ */
 export class Tile extends React.Component<TileProps> {
   private get styles() {
     return StyleSheet.create({

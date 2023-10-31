@@ -7,6 +7,7 @@ import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 import { pressableFeedbackStyle } from '../../helpers';
 
+/** Props for Modal component */
 export type ModalProps = {
   /** Title to show */
   title: string;
@@ -27,8 +28,12 @@ export type ModalProps = {
 };
 
 /**
+ * Modal component for showing a center modal (overlay) with info and call to actions
+ *
  * Multiple React Modals are not currently supported in React Native.
  * However, you can open a modal from within a modal. Just not side by side.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Modal.tsx | Example code}
  */
 export class Modal extends React.Component<ModalProps> {
   private get styles() {

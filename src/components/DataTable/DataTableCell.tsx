@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextBreakModes } from '../Text';
 
+/** Props for DataTableCell component */
 export type DataTableCellProps = {
   /** Content of the cell. If string will format accordingly. If Node will not be styled. */
   content: React.ReactNode | string;
@@ -27,6 +28,12 @@ export type DataTableCellProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * DataTableCell component for rendering a data table cell.
+ * Used as a child of DataTable
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DataTable.tsx | Example code}
+ */
 export class DataTableCell extends React.Component<DataTableCellProps> {
   private get styles() {
     const { noPadding } = this.props;

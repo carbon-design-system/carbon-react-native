@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { Text, TextTypes } from '../Text';
 
+/** An item to pass to content switcher */
 export type SwitcherItem = {
   /** Text to render */
   text: string;
@@ -15,6 +16,7 @@ export type SwitcherItem = {
   data?: unknown;
 };
 
+/** Props for ContentSwitcher component */
 export type ContentSwitcherProps = {
   /** Items to render in the content switcher (should try and keep under 3. Anything larger gets hard to read on mobile) */
   items: SwitcherItem[];
@@ -28,6 +30,11 @@ export type ContentSwitcherProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * ContentSwitcher component for rendering the content switcher
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ContentSwitcher.tsx | Example code}
+ */
 export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
   state = {
     currentIndex: 0,

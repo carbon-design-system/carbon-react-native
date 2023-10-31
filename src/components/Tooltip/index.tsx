@@ -8,8 +8,10 @@ import { defaultText } from '../../constants/defaultText';
 import { Button, ButtonProps } from '../Button';
 import { Link, LinkProps } from '../Link';
 
+/** Positions for the caret on tooltips */
 export type TooltipCaretPosition = 'left' | 'right' | 'center';
 
+/** Props for Tooltip component */
 export type TooltipProps = {
   /** Tooltip content (renders in layer box, can customize via contentStyle) */
   content: React.ReactNode;
@@ -31,6 +33,11 @@ export type TooltipProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * Tooltip component for rendering a tooltip popup
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Tooltip.tsx | Example code}
+ */
 export class Tooltip extends React.Component<TooltipProps> {
   state = {
     open: false,

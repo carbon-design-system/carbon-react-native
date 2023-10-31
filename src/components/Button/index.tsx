@@ -5,6 +5,7 @@ import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../..
 import { getColor } from '../../styles/colors';
 import { Text, TextTypes } from '../Text';
 
+/** Props for Button component */
 export type ButtonProps = {
   /** Text to render (for iconOnlyMode use descriptive text) */
   text: string;
@@ -37,8 +38,10 @@ export type ButtonProps = {
 };
 
 /**
- * To not have a button be pressable 100% of screen format parent or pass style appropriately.
- * `alignSelf: 'flex-start'` is useful.
+ * Button component for rendering a button
+ * To not have a button be pressable 100% of screen format parent or pass style appropriately. `alignSelf: 'flex-start'` is useful.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Button.tsx | Example code}
  */
 export class Button extends React.Component<ButtonProps> {
   private basicButton: StyleProp<ViewStyle> = {

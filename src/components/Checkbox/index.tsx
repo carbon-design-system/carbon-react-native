@@ -16,6 +16,7 @@ export const checkboxRadioBaseStyle = {
   alignContent: 'flex-start' as const,
 };
 
+/** Props for Checkbox and Radio component */
 export type CheckboxRadioProps = {
   /** Text to render */
   label: string;
@@ -43,6 +44,11 @@ export type CheckboxRadioProps = {
   componentProps?: PressableProps;
 };
 
+/**
+ * Checkbox component for rendering a checkbox
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Checkbox.tsx | Example code}
+ */
 export class Checkbox extends React.Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({

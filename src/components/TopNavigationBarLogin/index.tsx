@@ -7,6 +7,7 @@ import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
 import { headerBarGetItems } from '../TopNavigationBar';
 
+/** Props for TopNavigationBarLogin component */
 export type TopNavigationBarLoginProps = {
   /** Title to show */
   title: string;
@@ -26,6 +27,11 @@ export type TopNavigationBarLoginProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * TopNavigationBarLogin component for rendering the top navigation bar for login flows (which is different from regular views)
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/TopNavigationBarLogin.tsx | Example code}
+ */
 export class TopNavigationBarLogin extends React.Component<TopNavigationBarLoginProps> {
   private get styles() {
     return StyleSheet.create({

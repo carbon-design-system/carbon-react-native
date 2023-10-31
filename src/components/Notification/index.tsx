@@ -11,8 +11,10 @@ import CloseIcon from '@carbon/icons/es/close/20';
 import { Button } from '../Button';
 import { defaultText } from '../../constants/defaultText';
 
+/** Types of notifications */
 export type NotificationTypes = 'info' | 'error' | 'warning' | 'success';
 
+/** Props for Notification component */
 export type NotificationProps = {
   /** Notification kind (defeault is info)  */
   kind?: NotificationTypes;
@@ -37,8 +39,12 @@ export type NotificationProps = {
 };
 
 /**
+ * Notification component for showing the accept legal terms flow
+ *
  * Notification component is "InlineNotification" by default and can be
  * used as "ToastNotification" by using multiLine flag and setting max width (follow Carbon web for Toast).
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Notification.tsx | Example code}
  */
 export class Notification extends React.Component<NotificationProps> {
   private get styles() {

@@ -3,6 +3,7 @@ import { StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native'
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 
+/** Props for Overlay component */
 export type OverlayProps = {
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
@@ -10,6 +11,11 @@ export type OverlayProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * Overlay component for rendering overlay under floating items or menus
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Overlay.tsx | Example code}
+ */
 export class Overlay extends React.Component<OverlayProps> {
   private get styles() {
     return StyleSheet.create({

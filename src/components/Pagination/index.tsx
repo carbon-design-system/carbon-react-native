@@ -5,6 +5,7 @@ import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../..
 import { defaultText } from '../../constants/defaultText';
 import CircleIcon from '@carbon/icons/es/circle--solid/20';
 
+/** Props for Pagination component */
 export type PaginationProps = {
   /** Number of pages */
   totalPages: number;
@@ -19,6 +20,12 @@ export type PaginationProps = {
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: ViewProps;
 };
+
+/**
+ * Pagination component for rendering a pagination menu
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Pagination.tsx | Example code}
+ */
 
 export class Pagination extends React.Component<PaginationProps> {
   private get styles() {

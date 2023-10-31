@@ -13,6 +13,7 @@ import { zIndexes } from '../../styles/z-index';
 import { defaultText } from '../../constants/defaultText';
 import { CarbonIcon } from '../../types/shared';
 
+/** An item to pass to the Dropdown component */
 export type DropdownItem = {
   /** ID for tracking items */
   id?: string;
@@ -34,6 +35,7 @@ export type DropdownItem = {
   dismissKeyboardOnPress?: boolean;
 };
 
+/** Props for Dropdown component */
 export type DropdownProps = {
   /** Current value to show on dropdown */
   value: string;
@@ -63,6 +65,11 @@ export type DropdownProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * Dropdown component for rendering a dropdown
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Dropdown.tsx | Example code}
+ */
 export class Dropdown extends React.Component<DropdownProps> {
   state = {
     open: false,

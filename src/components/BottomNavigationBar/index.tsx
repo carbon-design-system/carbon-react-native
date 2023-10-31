@@ -6,6 +6,7 @@ import type { NavigationButton } from '../../types/navigation';
 import { Text } from '../Text';
 import { SemiBoldFont } from '../../styles/typography';
 
+/** Props for BottomNavigationBar component */
 export type BottomNavigationBarProps = {
   /** Navigation items to load */
   items: NavigationButton[];
@@ -15,6 +16,11 @@ export type BottomNavigationBarProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * BottomNavigationBar component for rendering the bottom navigation bar
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/BottomNavigationBar.tsx | Example code}
+ */
 export class BottomNavigationBar extends React.Component<BottomNavigationBarProps> {
   private get styles() {
     return StyleSheet.create({

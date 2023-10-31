@@ -19,6 +19,7 @@ export const getNavigationListItemStyle = () => {
   };
 };
 
+/** Props for NavigationListItem component */
 export type NavigationListItemProps = {
   /** Text to render */
   text: string;
@@ -68,6 +69,11 @@ export type NavigationListItemProps = {
   reverseSubText?: boolean;
 };
 
+/**
+ * NavigationListItem component for rendering a navigation list item (used by NavigationList)
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/NavigationList.tsx | Example code}
+ */
 export class NavigationListItem extends React.Component<NavigationListItemProps> {
   private get textIconColor(): string {
     const { disabled } = this.props;

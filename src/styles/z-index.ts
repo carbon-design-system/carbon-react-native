@@ -1,3 +1,4 @@
+/** Basic z-indexes to use for different use cases */
 export const zIndexes = {
   behind: -1,
   base: 1,

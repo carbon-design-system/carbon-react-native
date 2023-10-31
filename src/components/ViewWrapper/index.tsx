@@ -3,6 +3,7 @@ import { ViewProps, StyleSheet, SafeAreaView, StatusBar, View } from 'react-nati
 import { getColor, useDarkMode } from '../../styles/colors';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 
+/** Props for ViewWrapper component */
 export type ViewWrapperProps = {
   /** Children to load */
   children?: React.ReactNode;
@@ -24,6 +25,8 @@ export type ViewWrapperProps = {
  * The ViewWrapper component provides a unified way to load main views without worrying about StatusBar or safe zone stylings.
  * For most usages simply indicate if you are using Navigation for top and bottom.
  * For Layout views that are full screen (Landing for example) you do not need to wrap them in this.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ViewWrapper.tsx | Example code}
  */
 export class ViewWrapper extends React.Component<ViewWrapperProps> {
   private get topColor(): string {

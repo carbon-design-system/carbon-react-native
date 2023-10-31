@@ -5,6 +5,7 @@ import { styleReferenceBreaker } from '../../helpers';
 import { getTextInputStyle } from '../BaseTextInputs';
 import { Text } from '../Text';
 
+/** Props for Toggle component */
 export type ToggleProps = {
   /** Text to render */
   label: string;
@@ -32,9 +33,12 @@ export type ToggleProps = {
 };
 
 /**
+ * Toggle component for rendering a boolean toggle switch
  * This component utilizes Native Switch from iOS and Android.
  * It is styled to be similar to Carbon.
  * But relies on the final styling from the OS.
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Toggle.tsx | Example code}
  */
 export class Toggle extends React.Component<ToggleProps> {
   private get styles() {

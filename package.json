@@ -30,7 +30,8 @@
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn && yarn example pods",
     "example:bump": "node ./scripts/bump-example.js",
-    "postinstall": "carbon-telemetry collect --install"
+    "postinstall": "carbon-telemetry collect --install",
+    "docs": "typedoc"
   },
   "keywords": [
     "ibm",
@@ -72,6 +73,7 @@
     "react-native-svg": "^13.0.0",
     "react-native-webview": "^13.2.2",
     "release-it": "^16.1.0",
+    "typedoc": "^0.25.3",
     "typescript": "^5.1.6"
   },
   "resolutions": {

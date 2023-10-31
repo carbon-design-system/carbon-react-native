@@ -4,6 +4,7 @@ import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { Button, ButtonProps } from '../Button';
 
+/** Props for DataTableHeader component */
 export type DataTableHeaderProps = {
   /** Primary action to render (right side action) */
   primaryAction?: ButtonProps;
@@ -15,6 +16,12 @@ export type DataTableHeaderProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * DataTableHeader component for rendering a data table header.
+ * Used as a child of DataTable
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DataTable.tsx | Example code}
+ */
 export class DataTableHeader extends React.Component<DataTableHeaderProps> {
   private get styles() {
     return StyleSheet.create({

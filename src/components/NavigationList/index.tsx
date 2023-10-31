@@ -2,6 +2,7 @@ import React from 'react';
 import { ViewProps, StyleProp, ViewStyle, View } from 'react-native';
 import { NavigationListItem, NavigationListItemProps } from '../NavigationListItem';
 
+/** Props for NavigationList component */
 export type NavigationListProps = {
   /** Items to render in the navigation list */
   items: NavigationListItemProps[];
@@ -11,6 +12,11 @@ export type NavigationListProps = {
   componentProps?: ViewProps;
 };
 
+/**
+ * NavigationList component for rendering a list of navigation items
+ *
+ * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/NavigationList.tsx | Example code}
+ */
 export class NavigationList extends React.Component<NavigationListProps> {
   render(): React.ReactNode {
     const { items, componentProps, style } = this.props;
