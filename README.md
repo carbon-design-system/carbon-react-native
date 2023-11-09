@@ -126,7 +126,7 @@ Colors can be overridden by using `overrideLightTheme` or `overrideDarkTheme`. I
 
 #### Overriding fonts
 
-Fonts can be overridden on individual components by overriding the style (`fontFamily`, `fontWeight`). However, you can also override them globally. By calling `overrideFonts` which takes in a family and weight for each of the internal font groups components use. If you use a font be sure to use one that is supported on the OS you are running. Android and iOS have different supported fonts. You can also use custom fonts as long as you bundle them as part of your app.  It is a similar process to how we add Plex above in the "Getting started" section.
+Fonts can be overridden on individual components by overriding the styles (`fontFamily`, `fontWeight`). However, you can also override them globally. By calling `overrideFonts` which takes in a family and weight for each of the internal font groups components use. If you use a font be sure to use one that is supported on the OS you are running. Android and iOS have different supported fonts. You can also use custom fonts as long as you bundle them as part of your app.  It is a similar process to how we add Plex above in the "Getting started" section.
 
 ## Contributing
 
