@@ -29,19 +29,23 @@ jobs:
           yarn install --cwd example --frozen-lockfile
           yarn install --frozen-lockfile
 
-      - name: Initialize Git user
-        run: |
-          git config --global user.name "David Bradshaw"
-          git config --global user.email "david.bradshaw@ibm.com"
+      - name: Configure git
+        uses: oleksiyrudenko/gha-git-credentials@v2.1
+        with:
+          global: true
+          name: 'David Bradshaw'
+          email: 'david.bradshaw@ibm.com'
+          actor: 'david.bradshaw@ibm.com'
+          token: '${{ secrets.DCO_PERSONAL_ACCESS_TOKEN }}'
 
-      - name: Setup SSH
+      - name: Change git remote to use SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          git remote set-url origin git@github.com:carbon-design-system/carbon-react-native.git
+
+      - name: Attach SSH key
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Github & NPM 🚀
         run: |
