@@ -3,7 +3,7 @@ import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableSt
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
-import { Text, TextTypes } from '../Text';
+import { Text, TextBreakModes, TextTypes } from '../Text';
 
 /** Props for Button component */
 export type ButtonProps = {
@@ -35,6 +35,8 @@ export type ButtonProps = {
   forwardRef?: Ref<View>;
   /** Disable extra padding on right of buttons */
   disableDesignPadding?: boolean;
+  /** Break mode used on string type content (default is tail) */
+  breakMode?: TextBreakModes;
 };
 
 /**
@@ -49,7 +51,7 @@ export class Button extends React.Component<ButtonProps> {
     paddingTop: 13,
     paddingBottom: 13,
     paddingRight: 48,
-    height: 48,
+    minHeight: 48,
     minWidth: 48,
   };
 
@@ -58,7 +60,9 @@ export class Button extends React.Component<ButtonProps> {
       iconStyle: {
         position: 'absolute',
         top: 14,
+        bottom: 14,
         right: 14,
+        justifyContent: 'center',
       },
     });
   }
@@ -236,11 +240,11 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef } = this.props;
+    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef, breakMode } = this.props;
 
     return (
       <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
-        {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode="tail" />}
+        {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode={breakMode || 'tail'} />}
         {!!icon && <View style={this.styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
     );

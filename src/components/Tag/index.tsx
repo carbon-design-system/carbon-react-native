@@ -3,10 +3,10 @@ import { GestureResponderEvent, ViewProps, StyleProp, StyleSheet, View, ViewStyl
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
-import { Text } from '../Text';
+import { Text, TextBreakModes } from '../Text';
 
 /** Type of tags */
-export type TagTypes = 'red' | 'magenta' | 'purple' | 'blue' | 'cyan' | 'teal' | 'green' | 'gray' | 'cool-gray' | 'warm-gray';
+export type TagTypes = 'red' | 'magenta' | 'purple' | 'blue' | 'cyan' | 'teal' | 'green' | 'gray' | 'cool-gray' | 'warm-gray' | 'high-contrast';
 
 /** Props for Tag component */
 export type TagProps = {
@@ -18,6 +18,8 @@ export type TagProps = {
   tagType?: TagTypes;
   /** onPress event for the close action (if set will render the filter X) */
   onClosePress?: (event: GestureResponderEvent) => void;
+  /** Break mode used on string type content (default is tail) */
+  breakMode?: TextBreakModes;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -35,9 +37,10 @@ export class Tag extends React.Component<TagProps> {
       wrapper: {
         alignSelf: 'flex-start',
         borderRadius: 32,
-        height: 32,
+        minHeight: 32,
         backgroundColor: getColor('tagBackgroundGray'),
         flexDirection: 'row',
+        overflow: 'hidden',
       },
       textStyle: {
         padding: 7,
@@ -51,6 +54,7 @@ export class Tag extends React.Component<TagProps> {
         height: 32,
         width: 32,
         alignSelf: 'center',
+        justifyContent: 'center',
       },
     });
   }
@@ -81,6 +85,8 @@ export class Tag extends React.Component<TagProps> {
         return getColor('tagHoverCoolGray');
       case 'warm-gray':
         return getColor('tagHoverWarmGray');
+      case 'high-contrast':
+        return getColor('tagHoverHighContrast');
       case 'blue':
       default:
         return getColor('tagHoverBlue');
@@ -113,6 +119,8 @@ export class Tag extends React.Component<TagProps> {
         return getColor('tagColorCoolGray');
       case 'warm-gray':
         return getColor('tagColorWarmGray');
+      case 'high-contrast':
+        return getColor('tagColorHighContrast');
       case 'blue':
       default:
         return getColor('tagColorBlue');
@@ -145,6 +153,8 @@ export class Tag extends React.Component<TagProps> {
         return getColor('tagBackgroundCoolGray');
       case 'warm-gray':
         return getColor('tagBackgroundWarmGray');
+      case 'high-contrast':
+        return getColor('tagBackgroundHighContrast');
       case 'blue':
       default:
         return getColor('tagBackgroundBlue');
@@ -170,7 +180,7 @@ export class Tag extends React.Component<TagProps> {
   }
 
   render(): React.ReactNode {
-    const { title, componentProps, style } = this.props;
+    const { title, componentProps, style, breakMode } = this.props;
     const textStyle = styleReferenceBreaker(this.styles.textStyle);
     const wrapperStyle = styleReferenceBreaker(this.styles.wrapper, style);
     wrapperStyle.backgroundColor = this.backgroundColor;
@@ -178,7 +188,7 @@ export class Tag extends React.Component<TagProps> {
 
     return (
       <View style={wrapperStyle} {...(componentProps || {})}>
-        <Text type="label-02" breakMode="tail" style={textStyle} text={title} />
+        <Text type="label-02" breakMode={breakMode || 'tail'} style={textStyle} text={title} />
         {this.closeAction}
       </View>
     );

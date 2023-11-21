@@ -137,6 +137,18 @@ export default class TestButton extends React.Component {
         <Button
           style={itemStyle}
           disabled={disabled}
+          breakMode="wrap"
+          text="Long text that will need to wrap or ellipsis. See checkbox above."
+          onPress={() => {
+            this.alert('Pressed long text');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed long text');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
           text="Icon only mode"
           iconOnlyMode={true}
           kind="primary"
@@ -321,6 +333,19 @@ export default class TestButton extends React.Component {
           }}
           onLongPress={() => {
             this.alert('Long pressed icon');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          breakMode="wrap"
+          icon={AddIcon}
+          text="Long text with icon that will need to wrap or ellipsis. See checkbox above."
+          onPress={() => {
+            this.alert('Pressed long text with icon');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed long text with icon');
           }}
         />
       </ScrollView>
