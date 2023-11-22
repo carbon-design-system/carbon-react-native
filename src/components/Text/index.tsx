@@ -7,8 +7,14 @@ import { Body01, Body02, BodyCompact01, BodyCompact02, Code01, Code02, Heading01
 /** Types of Text items */
 export type TextTypes = 'code-01' | 'code-02' | 'label-01' | 'label-02' | 'helper-text-01' | 'helper-text-02' | 'legal-01' | 'legal-02' | 'body-compact-01' | 'body-compact-02' | 'body-01' | 'body-02' | 'heading-compact-01' | 'heading-compact-02' | 'heading-01' | 'heading-02' | 'heading-03' | 'heading-04' | 'heading-05' | 'heading-06' | 'heading-07';
 
-/** Types of text break modes (where to apply ellipsis) */
-export type TextBreakModes = 'head' | 'middle' | 'tail';
+/**
+ * Types of text break modes (where to apply ellipsis)
+ * `head` - Ellipsis at the beginning
+ * `middle` - Ellipsis at the middle of string
+ * `tail` - Ellipsis at the end of string
+ * `wrap` - No ellipsis. Text will just run on. Wrapping style may need to handle this
+ *  */
+export type TextBreakModes = 'head' | 'middle' | 'tail' | 'wrap';
 
 /** Props for Text component */
 export type TextProps = {
@@ -16,7 +22,7 @@ export type TextProps = {
   text?: string;
   /** Type of text to render (style of Carbon) body-compact-02 is default */
   type?: TextTypes;
-  /** If set will not wrap text and use break mode (tail is normal use) */
+  /** Define the break mode to use. Undefined is same as wrap (tail is normal use) */
   breakMode?: TextBreakModes;
   /** Style to set on the item */
   style?: StyleProp<TextStyle>;
@@ -108,7 +114,7 @@ export class Text extends React.Component<TextProps> {
     const { text, breakMode, componentProps } = this.props;
 
     return (
-      <ReactText style={this.textStyle} numberOfLines={breakMode ? 1 : undefined} ellipsizeMode={breakMode} {...(componentProps || {})}>
+      <ReactText style={this.textStyle} numberOfLines={breakMode !== 'wrap' && !!breakMode ? 1 : undefined} ellipsizeMode={breakMode === 'wrap' ? undefined : breakMode} {...(componentProps || {})}>
         {text}
       </ReactText>
     );
