@@ -135,7 +135,7 @@ export default class TestLogin extends React.Component<{
 
     return (
       <ViewWrapper topBackgroundColor="#000000" statusBarStyle="light-content">
-        <TopNavigationBarLogin title={afterReset ? 'Your new password has been activated' : 'Log in to IBM Carbon React Native Test App'} backText="Back" backOnPress={afterReset ? undefined : goHome} subTitle={this.helperText} />
+        <TopNavigationBarLogin title={afterReset ? 'Your new password has been activated' : 'Log in to Carbon for Mobile'} backText="Back" backOnPress={afterReset ? undefined : goHome} subTitle={this.helperText} />
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={this.styles.container} style={this.styles.view}>
           {error && <Notification style={this.styles.error} title="Error" kind="error" subTitle="Invalid ID or password" lowContrast={true} onDismiss={() => this.setState({ error: false })} />}
           <TextInput label="ID" autoCapitalize="none" autoCorrect={false} value={id} required={true} onChangeText={(value) => this.setState({ id: value, error: false })} getErrorText={(value) => (value ? '' : 'ID is required')} />

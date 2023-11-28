@@ -23,7 +23,7 @@ export default class TestLandinView extends React.Component<{
 
     return (
       <>
-        <LandingView productImage={require('../assets/productImage.png')} companyImage={require('../assets/companyImage.png')} longProductName="IBM Carbon React Native Test App" versionText="Version 12.23.98 (152669)" copyrightText="Copyright © 2022 IBM" continueText="Continue" continueOnPress={this.onContinue} privacyPolicyText="Privacy Policy" privacyPolicyOnPress={this.onPrivacyPolicy} />
+        <LandingView productImage={require('../assets/productImage.png')} companyImage={require('../assets/companyImage.png')} longProductName="Product Name" versionText="Version 12.23.98 (152669)" copyrightText="Copyright © 2023 COMPANY" continueText="Continue" continueOnPress={this.onContinue} privacyPolicyText="Privacy Policy" privacyPolicyOnPress={this.onPrivacyPolicy} />
         {showPrivacy && (
           <DocumentViewer
             source={testDocument}
