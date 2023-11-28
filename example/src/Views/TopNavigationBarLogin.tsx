@@ -85,7 +85,7 @@ export default class TestTopNavigationBarLogin extends React.Component {
     const { rightSide, showSubTitle, showBack } = this.state;
 
     return {
-      title: 'Log in to IBM Product Name',
+      title: 'Log in to Product Name',
       subTitle: showSubTitle ? (
         <ReactText>
           <Text style={styles.subTitleText} text="Don't have an account? " />

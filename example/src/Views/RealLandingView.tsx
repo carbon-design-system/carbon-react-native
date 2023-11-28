@@ -72,7 +72,7 @@ export default class RealLandingView extends React.Component<{
           companyImage={require('../assets/companyImage.png')}
           longProductName="Carbon for Mobile"
           versionText={`Version ${version} (${versionCode})`}
-          copyrightText="Copyright © 2022 IBM"
+          copyrightText="Copyright © 2023 IBM"
           continueText="Continue"
           continueDisabled={loading}
           continueOnPress={() => {

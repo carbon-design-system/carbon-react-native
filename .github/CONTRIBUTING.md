@@ -23,16 +23,16 @@ choose from but some popular options are
 [VSCode](https://code.visualstudio.com/), [Atom](https://atom.io), and
 [Sublime](https://www.sublimetext.com/).
 
-With that all in place, you're ready to start contributing to Carbon React Native!
+With that all in place, you're ready to start contributing to Carbon for React Native!
 
 ## - Setting up your environment -
 
 ### 1. Fork the repo:
 
 Go to
-[Carbon's React Native repository on GitHub](https://github.com/carbon-design-system/carbon-react-native)
+[Carbons for React Native repository on GitHub](https://github.com/carbon-design-system/carbon-react-native)
 and click the `Fork` button in the top-right corner. This will create a copy
-repo of Carbon React Native associated with your account.
+repo of Carbon for React Native associated with your account.
 
 ### 2. Clone your fork:
 
