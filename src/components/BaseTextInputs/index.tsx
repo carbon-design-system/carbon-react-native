@@ -85,16 +85,16 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     helperText: {
       color: getColor('textHelper'),
       marginTop: 8,
-      marginBottom: fullBleed ? 8 : undefined,
+      marginBottom: fullBleed ? 20 : undefined,
     },
     errorText: {
       color: getColor('textError'),
       marginTop: 8,
-      marginBottom: fullBleed ? 8 : undefined,
+      marginBottom: fullBleed ? 20 : undefined,
     },
     warningText: {
       marginTop: 8,
-      marginBottom: fullBleed ? 8 : undefined,
+      marginBottom: fullBleed ? 20 : undefined,
     },
     textBox: baseTextBox,
     textBoxDisabled: {
@@ -135,7 +135,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     errorIcon: {
       position: 'absolute',
       padding: 13,
-      top: 0,
+      top: fullBleed ? '100%' : 0,
       right: 0,
     },
     numberActions: {

@@ -348,6 +348,32 @@ export default class TestButton extends React.Component {
             this.alert('Long pressed long text with icon');
           }}
         />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          kind="high-contrast"
+          icon={AddIcon}
+          text="High contrast"
+          onPress={() => {
+            this.alert('Pressed high contrast');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed high contrast');
+          }}
+        />
+        <Button
+          style={itemStyle}
+          disabled={disabled}
+          kind="high-contrast-inverse"
+          icon={AddIcon}
+          text="High contrast inverse"
+          onPress={() => {
+            this.alert('Pressed high contrast inverse');
+          }}
+          onLongPress={() => {
+            this.alert('Long pressed high contrast inverse');
+          }}
+        />
       </ScrollView>
     );
   }

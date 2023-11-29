@@ -2,7 +2,7 @@ import React, { Ref } from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableStateCallbackType, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
-import { getColor } from '../../styles/colors';
+import { ThemeChoices, getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 
 /** Props for Button component */
@@ -16,7 +16,7 @@ export type ButtonProps = {
   /** Indicate if button is disabled */
   disabled?: boolean;
   /** Button kind. Primary is default */
-  kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost' | 'danger-tertiary' | 'danger-ghost';
+  kind?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost' | 'danger-tertiary' | 'danger-ghost' | 'high-contrast' | 'high-contrast-inverse';
   /** Text type to render (Standard is default)  */
   textType?: TextTypes;
   /** onPress event */
@@ -37,6 +37,8 @@ export type ButtonProps = {
   disableDesignPadding?: boolean;
   /** Break mode used on string type content (default is tail) */
   breakMode?: TextBreakModes;
+  /** Force theme color (useful for rendering on light items in other mode) */
+  forceTheme?: ThemeChoices;
 };
 
 /**
@@ -68,37 +70,44 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private getBackgroundColor(active?: boolean): string {
-    const { kind, disabled } = this.props;
+    const { kind, disabled, forceTheme } = this.props;
 
     switch (kind) {
       case 'secondary':
-        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonSecondaryActive' : 'buttonSecondary');
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonSecondaryActive' : 'buttonSecondary', forceTheme);
       case 'tertiary':
-        return active ? getColor('buttonTertiaryActive') : 'transparent';
+        return active ? getColor('buttonTertiaryActive', forceTheme) : 'transparent';
+      case 'high-contrast':
+        return active ? getColor('buttonHighContrastActive', forceTheme) : 'transparent';
+      case 'high-contrast-inverse':
+        return active ? getColor('buttonHighContrastInverseActive', forceTheme) : 'transparent';
       case 'danger':
-        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonDangerActive' : 'buttonDangerPrimary');
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonDangerActive' : 'buttonDangerPrimary', forceTheme);
       case 'ghost':
-        return active ? getColor('layerActive01') : 'transparent';
+        return active ? getColor('layerActive01', forceTheme) : 'transparent';
       case 'danger-ghost':
       case 'danger-tertiary':
-        return active ? getColor('buttonDangerActive') : 'transparent';
+        return active ? getColor('buttonDangerActive', forceTheme) : 'transparent';
       case 'primary':
       default:
-        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonPrimaryActive' : 'buttonPrimary');
+        return getColor(disabled ? 'buttonDisabled' : active ? 'buttonPrimaryActive' : 'buttonPrimary', forceTheme);
     }
   }
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
+    const { kind } = this.props;
+    const keepBorder = ['high-contrast', 'high-contrast-inverse'].includes(kind as string);
+
     return state.pressed
       ? {
           backgroundColor: this.getBackgroundColor(true),
-          borderWidth: 0,
+          borderWidth: keepBorder ? 1 : 0,
         }
       : undefined;
   };
 
   private get buttonStyle(): StyleProp<ViewStyle> {
-    const { kind, style, disabled, iconOnlyMode, icon, overrideColor, disableDesignPadding } = this.props;
+    const { kind, style, disabled, iconOnlyMode, icon, overrideColor, disableDesignPadding, forceTheme } = this.props;
     let finalStyle: any = {};
 
     switch (kind) {
@@ -114,7 +123,27 @@ export class Button extends React.Component<ButtonProps> {
         finalStyle = styleReferenceBreaker(
           {
             backgroundColor: this.getBackgroundColor(),
-            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary'),
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary', forceTheme),
+            borderWidth: 1,
+          },
+          this.basicButton
+        );
+        break;
+      case 'high-contrast':
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: this.getBackgroundColor(),
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonHighContrast', forceTheme),
+            borderWidth: 1,
+          },
+          this.basicButton
+        );
+        break;
+      case 'high-contrast-inverse':
+        finalStyle = styleReferenceBreaker(
+          {
+            backgroundColor: this.getBackgroundColor(),
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonHighContrastInverse', forceTheme),
             borderWidth: 1,
           },
           this.basicButton
@@ -124,7 +153,7 @@ export class Button extends React.Component<ButtonProps> {
         finalStyle = styleReferenceBreaker(
           {
             backgroundColor: this.getBackgroundColor(),
-            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerSecondary'),
+            borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerSecondary', forceTheme),
             borderWidth: 1,
           },
           this.basicButton
@@ -183,21 +212,25 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private get iconTextColor(): string {
-    const { kind, disabled, overrideColor } = this.props;
+    const { kind, disabled, overrideColor, forceTheme } = this.props;
 
     switch (kind) {
       case 'danger-ghost':
       case 'danger-tertiary':
-        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonDangerSecondary');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonDangerSecondary', forceTheme);
       case 'tertiary':
-        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonTertiary');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonTertiary', forceTheme);
+      case 'high-contrast':
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonHighContrast', forceTheme);
+      case 'high-contrast-inverse':
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'buttonHighContrastInverse', forceTheme);
       case 'ghost':
-        return overrideColor || getColor(disabled ? 'textDisabled' : 'linkPrimary');
+        return overrideColor || getColor(disabled ? 'textDisabled' : 'linkPrimary', forceTheme);
       case 'primary':
       case 'secondary':
       case 'danger':
       default:
-        return overrideColor || getColor(disabled ? 'textOnColorDisabled' : 'textOnColor');
+        return overrideColor || getColor(disabled ? 'textOnColorDisabled' : 'textOnColor', forceTheme);
     }
   }
 
@@ -208,6 +241,8 @@ export class Button extends React.Component<ButtonProps> {
     switch (kind) {
       case 'tertiary':
       case 'ghost':
+      case 'high-contrast':
+      case 'high-contrast-inverse':
         finalStyle = styleReferenceBreaker({
           color: this.iconTextColor,
           textAlign: 'left',
