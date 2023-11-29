@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View } from 'react-native';
-import { getColor } from '../../styles/colors';
+import { getColor, shadowStyle } from '../../styles/colors';
 import { createIcon, styleReferenceBreaker } from '../../helpers';
 import { Text } from '../Text';
 import ErrorIcon from '@carbon/icons/es/error--filled/20';
@@ -30,8 +30,10 @@ export type NotificationProps = {
   onDismissText?: string;
   /** Indicate if low contrast mode should be used */
   lowContrast?: boolean;
-  /** Indicatre if items should stack instead of being side by side */
+  /** Indicate if items should stack instead of being side by side */
   multiLine?: boolean;
+  /** Indicates if drop shadow should be added (for floating notifications) */
+  dropShadow?: boolean;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -44,16 +46,27 @@ export type NotificationProps = {
  * Notification component is "InlineNotification" by default and can be
  * used as "ToastNotification" by using multiLine flag and setting max width (follow Carbon web for Toast).
  *
+ * Buttons (actionArea) in Notifications can require some funky color enforcing due to light theme use in non standard background colors. See the Example app for real world examples. Example usage:
+ *
+ * ```javascript
+ *   <Button forceTheme={lowContrast ? 'light' : undefined} kind={lowContrast ? 'high-contrast' : 'high-contrast-inverse'} style={this.styles.button} onPress={this.actionCallback} text="Action" />
+ * ```
+ *
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Notification.tsx | Example code}
  */
 export class Notification extends React.Component<NotificationProps> {
   private get styles() {
+    const { multiLine, dropShadow } = this.props;
+
     return StyleSheet.create({
-      wrapper: {
-        borderLeftWidth: 3,
-        paddingLeft: 16,
-        flexDirection: 'row',
-      },
+      wrapper: Object.assign(
+        {
+          borderLeftWidth: 3,
+          paddingLeft: 16,
+          flexDirection: 'row' as const,
+        },
+        dropShadow ? shadowStyle : {}
+      ),
       icon: {
         paddingTop: 14,
         paddingBottom: 14,
@@ -62,7 +75,7 @@ export class Notification extends React.Component<NotificationProps> {
       content: {
         paddingTop: 14,
         paddingBottom: 14,
-        paddingRight: 16,
+        paddingRight: multiLine ? 0 : 16,
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',

@@ -11,6 +11,7 @@ export default class TestNotification extends React.Component {
     longSubTitle: false,
     lowContrast: false,
     multiLine: false,
+    shadow: false,
   };
 
   private get styles() {
@@ -41,7 +42,7 @@ export default class TestNotification extends React.Component {
   };
 
   render(): React.ReactNode {
-    const { showSubtitle, showAction, showDismiss, lowContrast, multiLine, longTitle, longSubTitle } = this.state;
+    const { showSubtitle, showAction, showDismiss, lowContrast, multiLine, longTitle, longSubTitle, shadow } = this.state;
     const types: NotificationTypes[] = ['info', 'error', 'warning', 'success'];
 
     return (
@@ -53,8 +54,9 @@ export default class TestNotification extends React.Component {
         <Checkbox checked={multiLine} id="multi" onPress={(value) => this.setState({ multiLine: value })} label="Multi line mode" />
         <Checkbox checked={longTitle} id="long-title" onPress={(value) => this.setState({ longTitle: value })} label="Very long title" />
         <Checkbox checked={longSubTitle} id="long-sub" onPress={(value) => this.setState({ longSubTitle: value })} label="Very long sub title" />
+        <Checkbox checked={shadow} id="lshadow" onPress={(value) => this.setState({ shadow: value })} label="Render shadow" />
         {types.map((type) => {
-          return <Notification style={this.styles.baseSpacing} key={type} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Button kind={multiLine ? 'tertiary' : 'ghost'} overrideColor={getColor('linkInverse')} style={this.styles.button} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
+          return <Notification style={this.styles.baseSpacing} key={type} dropShadow={shadow} kind={type} multiLine={multiLine} lowContrast={lowContrast} actionArea={showAction ? <Button forceTheme={lowContrast && multiLine ? 'light' : undefined} kind={multiLine ? (lowContrast ? 'high-contrast' : 'high-contrast-inverse') : 'ghost'} overrideColor={multiLine ? undefined : getColor('linkInverse')} style={this.styles.button} onPress={this.actionCallback} text="Action" /> : undefined} title={longTitle ? 'Awesome notification with a crazy long title that is really weird just to be long' : 'Awesome notification'} subTitle={showSubtitle ? (longSubTitle ? 'Useful subtitle information about this notification with even longer info that will be useful for testing extreme edge cases.' : 'Useful subtitle information about this notification') : undefined} onDismiss={showDismiss ? this.onDismiss : undefined} />;
         })}
       </ScrollView>
     );

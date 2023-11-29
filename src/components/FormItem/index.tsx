@@ -18,6 +18,7 @@ import { Slider } from '../Slider';
  * `password` - secure text input. Use textInputProps for advanced controls.
  * `textarea` - plain text input with multi line support. Use textInputProps for advanced controls.
  * `toggle` - Toggle field
+ * `toggle-inline` - Toggle inline (single line) field. Label and toggle are on single line (not stacked)
  * `header` - Header with text and supported secondary text. This is for logical breaking up of form items.
  * `static` - Static data to render (view only)
  * `slider` - Slider bar to render
@@ -25,7 +26,7 @@ import { Slider } from '../Slider';
  * `button` - Button to render. Supports icon via `buttonIcon`.
  * `divider` - Empty space to divide form items.
  */
-export type FormItemType = 'text' | 'password' | 'text-area' | 'number' | 'date' | 'toggle' | 'header' | 'header-compact' | 'static' | 'slider' | 'checkbox' | 'button' | 'divider';
+export type FormItemType = 'text' | 'password' | 'text-area' | 'number' | 'date' | 'toggle' | 'toggle-inline' | 'header' | 'header-compact' | 'static' | 'slider' | 'checkbox' | 'button' | 'divider';
 
 /** Props for FormItem component */
 export type FormItemProps = {
@@ -59,7 +60,7 @@ export type FormItemProps = {
   toggleValueText?: (value: boolean) => string;
   /** Override icon for select item (default is Checkbox) */
   overrideActiveCheckboxIcon?: CarbonIcon;
-  /** Indicate that toggle or checkbox should render on the left side. Default is right */
+  /** Indicate that toggle or checkbox should render on the left side. Default is right. This does not apply to `toggle-inline` */
   renderToggleCheckboxLeft?: boolean;
   /** Slider props for customizing slider */
   sliderProps?: {
@@ -106,7 +107,7 @@ export class FormItem extends React.Component<FormItemProps> {
 
   private get noDirectLabel(): boolean {
     const { type } = this.props;
-    return ['header', 'header-compact', 'divider', 'button', 'checkbox'].includes(type);
+    return ['header', 'header-compact', 'divider', 'button', 'checkbox', 'toggle-inline'].includes(type);
   }
 
   private get mainColor(): string {
@@ -172,6 +173,18 @@ export class FormItem extends React.Component<FormItemProps> {
         paddingTop: 13,
         paddingBottom: 13,
         paddingLeft: renderToggleCheckboxLeft ? 30 : undefined,
+      },
+      toggleInlineText: {
+        paddingTop: 13,
+        paddingBottom: 13,
+        marginRight: 12,
+        color: getColor(disabled ? 'textDisabled' : 'textSecondary'),
+      },
+      toggleInlineLabel: {
+        color: this.mainColor,
+        flex: 1,
+        paddingTop: 13,
+        paddingBottom: 13,
       },
       toggleWrapper: {
         paddingTop: 0,
@@ -262,15 +275,20 @@ export class FormItem extends React.Component<FormItemProps> {
   }
 
   private get toggleContent(): React.ReactNode {
-    const { label, textBreakMode, disabled, value, toggleValueText, renderToggleCheckboxLeft } = this.props;
+    const { label, textBreakMode, disabled, value, toggleValueText, renderToggleCheckboxLeft, type } = this.props;
+    const inline = type === 'toggle-inline';
 
     const changeValue = (textValue: boolean) => {
       this.triggerChange(textValue);
     };
 
-    const items = [<Text key="label" text={typeof toggleValueText === 'function' ? toggleValueText(!!value) : String(value)} style={this.styles.toggleText} breakMode={textBreakMode} />, <Toggle key="toggle" label={label || ''} style={this.styles.toggleWrapper} toggleWrapperStyle={this.styles.toggleDirectWrapper} hideLabel={true} disabled={disabled} toggled={!!value} onChange={changeValue} />];
+    const items = [<Text key="label" text={typeof toggleValueText === 'function' ? toggleValueText(!!value) : String(value)} style={inline ? this.styles.toggleInlineText : this.styles.toggleText} breakMode={textBreakMode} />, <Toggle key="toggle" label={label || ''} style={this.styles.toggleWrapper} toggleWrapperStyle={this.styles.toggleDirectWrapper} hideLabel={true} disabled={disabled} toggled={!!value} onChange={changeValue} />];
 
-    return renderToggleCheckboxLeft ? items.reverse() : items;
+    if (inline) {
+      items.unshift(<Text style={this.styles.toggleInlineLabel} text={label} />);
+    }
+
+    return renderToggleCheckboxLeft && !inline ? items.reverse() : items;
   }
 
   private get staticContent(): React.ReactNode {
@@ -339,6 +357,7 @@ export class FormItem extends React.Component<FormItemProps> {
         content = this.headerContent;
         break;
       case 'toggle':
+      case 'toggle-inline':
         content = this.toggleContent;
         finalStyle.flexDirection = 'row';
         break;

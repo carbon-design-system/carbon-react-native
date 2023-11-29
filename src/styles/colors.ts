@@ -79,6 +79,10 @@ export const componentsG10: { [key: string]: string } = {
   buttonTertiary: '#0f62fe',
   buttonTertiaryHover: '#0353e9',
   buttonTertiaryActive: '#002d9c',
+  buttonHighContrastActive: '#c6c6c6',
+  buttonHighContrast: '#393939',
+  buttonHighContrastInverseActive: '#8d8d8d',
+  buttonHighContrastInverse: '#f4f4f4',
   buttonDangerPrimary: '#da1e28',
   buttonDangerSecondary: '#da1e28',
   buttonDangerHover: '#ba1b23',
@@ -138,6 +142,10 @@ export const componentsG100: { [key: string]: string } = {
   buttonTertiary: '#ffffff',
   buttonTertiaryHover: '#f4f4f4',
   buttonTertiaryActive: '#c6c6c6',
+  buttonHighContrastActive: '#393939',
+  buttonHighContrast: '#f4f4f4',
+  buttonHighContrastInverseActive: '#E8E8E8',
+  buttonHighContrastInverse: '#393939',
   buttonDangerPrimary: '#da1e28',
   buttonDangerSecondary: '#fa4d56',
   buttonDangerHover: '#ba1b23',
@@ -218,7 +226,8 @@ export const getColor = (token: string, overrideTheme?: ThemeChoices): string =>
 /** Carbon Drop shadow standard (down direction) */
 export const shadowStyle = {
   elevation: 2,
-  shadowOpacity: 0.1,
+  shadowOpacity: 0.3,
+  shadowColor: '#000000',
   shadowOffset: {
     width: 2,
     height: 3,

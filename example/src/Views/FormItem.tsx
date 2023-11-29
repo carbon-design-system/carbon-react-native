@@ -32,6 +32,7 @@ export default class TestFormItem extends React.Component {
     birthDay: '',
     toggleTest: false,
     renderLeft: false,
+    toggleInlineTest: false,
     volume: '35',
     paymentType: 'card',
   };
@@ -41,7 +42,7 @@ export default class TestFormItem extends React.Component {
   };
 
   render(): React.ReactNode {
-    const { firstName, password, textArea, age, birthDay, toggleTest, volume, paymentType, renderLeft } = this.state;
+    const { firstName, password, textArea, age, birthDay, toggleTest, volume, paymentType, renderLeft, toggleInlineTest } = this.state;
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
@@ -51,6 +52,7 @@ export default class TestFormItem extends React.Component {
         <FormItem type="checkbox" renderToggleCheckboxLeft={renderLeft} overrideActiveCheckboxIcon={RadioIcon} label="Cash on delivery" value={paymentType === 'cash'} onChange={() => this.setState({ paymentType: 'cash' })} />
         <FormItem type="header" label="Example header" helperText="Helper text to explain what the form section below includes" />
         <FormItem type="text" label="First name" helperText="This will be your first name" value={firstName} onChange={(value) => this.setState({ firstName: value })} textInputProps={{ required: true, getErrorText: () => 'Item is required', placeholder: 'Required' }} />
+        <FormItem type="toggle-inline" label="Inline toggle" value={toggleInlineTest} renderToggleCheckboxLeft={renderLeft} onChange={(value) => this.setState({ toggleInlineTest: value })} toggleValueText={(value) => (value ? 'Yes' : 'No')} />
         <FormItem type="toggle" label="Raise to wake" value={toggleTest} renderToggleCheckboxLeft={renderLeft} onChange={(value) => this.setState({ toggleTest: value })} toggleValueText={(value) => (value ? 'On' : 'Off')} />
         <FormItem type="toggle" label="Move to left" helperText="Move checkbox/toggle to left side" value={renderLeft} renderToggleCheckboxLeft={renderLeft} onChange={(value) => this.setState({ renderLeft: value })} toggleValueText={(value) => (value ? 'On' : 'Off')} />
         <FormItem type="password" label="Password" value={password} onChange={(value) => this.setState({ password: value })} />
