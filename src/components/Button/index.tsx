@@ -95,13 +95,10 @@ export class Button extends React.Component<ButtonProps> {
   }
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
-    const { kind } = this.props;
-    const keepBorder = ['high-contrast', 'high-contrast-inverse'].includes(kind as string);
-
     return state.pressed
       ? {
           backgroundColor: this.getBackgroundColor(true),
-          borderWidth: keepBorder ? 1 : 0,
+          borderColor: 'rgba(0, 0, 0, 0)',
         }
       : undefined;
   };
