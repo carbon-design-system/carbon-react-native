@@ -96,7 +96,7 @@ export class Button extends React.Component<ButtonProps> {
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
     const { kind } = this.props;
-    const keepBorder = ['high-contrast', 'high-contrast-inverse'].includes(kind as string);
+    const keepBorder = ['high-contrast', 'high-contrast-inverse', 'tertiary', 'danger-tertiary'].includes(kind as string);
 
     return state.pressed
       ? {
