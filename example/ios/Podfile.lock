@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - carbon-react-native (8.0.14):
+  - carbon-react-native (8.0.19):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -675,7 +675,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  carbon-react-native: 01f347a2201c5b17a2dd34953c1e5c89237f5044
+  carbon-react-native: ba001ce130b4394b41b9f6a15e77a9afdf903213
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 5fbbff1d7734827299274638deb8ba3024f6c597
