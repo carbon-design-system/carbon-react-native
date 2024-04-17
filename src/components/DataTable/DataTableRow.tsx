@@ -30,8 +30,7 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
     return StyleSheet.create({
       wrapper: {
         backgroundColor: getColor('layer01'),
-        maxHeight: 48,
-        height: 48,
+        minHeight: 48,
         flexDirection: 'row',
         width: '100%',
         borderTopColor: getColor('borderSubtle00'),
