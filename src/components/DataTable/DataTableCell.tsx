@@ -40,11 +40,11 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
 
     return StyleSheet.create({
       wrapper: {
-        height: 48,
         padding: noPadding ? 0 : 16,
         paddingBottom: noPadding ? 0 : 15,
         paddingTop: noPadding ? 0 : 15,
         flex: 1,
+        justifyContent: 'center',
       },
     });
   }

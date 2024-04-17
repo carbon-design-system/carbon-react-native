@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable, Checkbox, DataTableHeaderSelected } from '@carbon/react-native';
+import { DataTableCell, DataTableRow, DataTableHeader, DataTableHeaderProps, DataTable, Checkbox, DataTableHeaderSelected, Text } from '@carbon/react-native';
 import AddIcon from '@carbon/icons/es/add/20';
 import SearchIcon from '@carbon/icons/es/search/20';
 import SettingsIcon from '@carbon/icons/es/settings/20';
@@ -94,7 +94,7 @@ export default class TestDataTable extends React.Component {
           </DataTableRow>
           <DataTableRow>
             <DataTableCell noPadding={true} width={48} content={<Checkbox style={styles.checkbox} hideLabel={true} label="Checkbox row 2" id="checkbox-2" onPress={(value) => this.setState({ checked2: value })} checked={checked2} />} />
-            <DataTableCell onPress={() => this.alert('Pressed long name cell')} content="Jack Long name that is going to be too big for screen" />
+            <DataTableCell onPress={() => this.alert('Pressed long name cell')} content={<Text text="Testing larger text" type="heading-03" />} />
             <DataTableCell content="3/4/1985" width={100} />
           </DataTableRow>
           <DataTableRow onPress={() => this.alert('Pressed row 3')}>
