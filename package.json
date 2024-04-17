@@ -1,6 +1,6 @@
 {
   "name": "@carbon/react-native",
-  "version": "8.0.22",
+  "version": "8.0.24",
   "description": "Carbon for React Native Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -42,7 +42,10 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/carbon-design-system/carbon-react-native",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbon-design-system/carbon-react-native.git"
+  },
   "author": "IBM <david.bradshaw@ibm.com>",
   "license": "Apache-2.0",
   "bugs": {
