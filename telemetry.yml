@@ -405,3 +405,6 @@ collect:
         - light-content
   npm:
     dependencies: null
+  js:
+    functions: {}
+    tokens: null
