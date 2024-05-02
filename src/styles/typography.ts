@@ -5,6 +5,8 @@
  * If you want to use other fonts you can download them and store them in your app and follow same directions on README.
  */
 
+import { Dimensions } from 'react-native';
+
 /** Font weights supported */
 export type FontWeights = 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
 
@@ -39,6 +41,14 @@ export const overrideFonts = (overrides: FontDefinitionOverrides): void => {
   if (overrides && typeof overrides === 'object') {
     overrideFontDefinition = overrides;
   }
+};
+
+/**
+ * Indicate if font scaling is on
+ * @returns boolean indicating if font scaling is in use
+ */
+export const fontScalingActive = (): boolean => {
+  return Dimensions.get('screen').fontScale > 1;
 };
 
 /** Font light styling */

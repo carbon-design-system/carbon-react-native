@@ -85,8 +85,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
         borderBottomWidth: 1,
       },
       headerWrapper: {
-        height: 48,
-        maxHeight: 48,
+        minHeight: 48,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
