@@ -4,7 +4,7 @@ import { getColor } from '../../styles/colors';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
 import { Text } from '../Text';
-import { SemiBoldFont } from '../../styles/typography';
+import { SemiBoldFont, fontScalingActive } from '../../styles/typography';
 
 /** Props for BottomNavigationBar component */
 export type BottomNavigationBarProps = {
@@ -54,6 +54,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
 
   private get items(): React.ReactNode {
     const { items } = this.props;
+    const fontScaling = fontScalingActive();
 
     return items.map((item, index) => {
       const finalStyles = styleReferenceBreaker(this.styles.itemStyle, item.style);
@@ -80,7 +81,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
       return (
         <Pressable key={index} style={(state) => pressableFeedbackStyle(state, finalStyles, getStateStyle)} disabled={item.disabled} onPress={item.onPress} onLongPress={item.onLongPress} accessibilityLabel={item.text} accessibilityRole="tab" {...(item.componentProps || {})}>
           <View style={this.styles.icon}>{createIcon(item.icon, 20, 20, finalColor)}</View>
-          <Text style={styleReferenceBreaker(useActiveText ? this.styles.textActive : {}, { color: finalColor, textAlign: 'center' })} text={item.text} type="label-01" breakMode="tail" />
+          {!fontScaling && <Text style={styleReferenceBreaker(useActiveText ? this.styles.textActive : {}, { color: finalColor, textAlign: 'center' })} text={item.text} type="label-01" breakMode="tail" />}
         </Pressable>
       );
     });
