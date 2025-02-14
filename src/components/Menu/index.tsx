@@ -33,7 +33,7 @@ export class Menu extends React.Component<MenuProps> {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style } = this.props;
     const finalItems = items || [];
 

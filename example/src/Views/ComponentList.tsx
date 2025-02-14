@@ -113,7 +113,7 @@ export default class TestComponentList extends React.Component<TestComponentList
     return <ErrorState style={this.styles.noResults} type="empty" title="No results" subTitle="Try changing your search term or using more generic terms." />;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { viewList, listView } = this.props;
     const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.container);
 

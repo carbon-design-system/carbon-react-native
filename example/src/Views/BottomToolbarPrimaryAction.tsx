@@ -54,7 +54,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, type, noItems, disabledAction } = this.state;
 
     const textTypes: any = {

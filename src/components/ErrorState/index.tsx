@@ -80,7 +80,7 @@ export class ErrorState extends React.Component<ErrorStateProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, title, subTitle, errorCode, imageStyle, noImage } = this.props;
 
     return (

@@ -164,7 +164,7 @@ export class Tooltip extends React.Component<TooltipProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { content, componentProps, style, contentStyle, linkProps, buttonProps, closeText } = this.props;
     const { open } = this.state;
 

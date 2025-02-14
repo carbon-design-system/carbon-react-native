@@ -120,7 +120,7 @@ export default class TestTopNavigationBar extends React.Component {
     };
   }
 
-  render(): React.ReactNode {
+  render() {
     const { leftSide, rightSide, showSubTitle, headingMode, showSearchBox, showSwitch, disableItems, activeIcon } = this.state;
 
     return (

@@ -140,7 +140,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, title, reasoning, additionalReasoning, continueText, cancelText, imageStyle } = this.props;
 
     return (

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 });
 
 export default class TestIcons extends React.Component {
-  render(): React.ReactNode {
+  render() {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <View style={styles.itemStyle}>{createIcon(AddIcon, 32, 32)}</View>

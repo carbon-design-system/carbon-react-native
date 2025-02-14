@@ -8,7 +8,7 @@ import { TextInputProps } from '../../types/shared';
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/TextInput.tsx | Example code}
  */
 export class TextInput extends React.Component<TextInputProps> {
-  render(): React.ReactNode {
+  render() {
     return <BaseTextInput type="text" {...this.props} />;
   }
 }

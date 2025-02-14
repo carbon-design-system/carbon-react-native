@@ -228,7 +228,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { text, disabled, componentProps, style, leftIcon, rightIcon, hasChevron, lastItem, rightText, onPress, onLongPress } = this.props;
     const finalStyle = styleReferenceBreaker(this.styles.wrapper);
 

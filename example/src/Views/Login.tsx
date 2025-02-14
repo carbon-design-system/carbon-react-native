@@ -129,7 +129,7 @@ export default class TestLogin extends React.Component<{
     return !(id && password);
   }
 
-  render(): React.ReactNode {
+  render() {
     const { openCreate, id, password, rememberId, error } = this.state;
     const { goHome, afterReset } = this.props;
 

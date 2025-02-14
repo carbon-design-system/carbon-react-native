@@ -94,7 +94,7 @@ export default class TestMenu extends React.Component {
     return results;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showIcons, changeIconColor, showDivider } = this.state;
 
     return (

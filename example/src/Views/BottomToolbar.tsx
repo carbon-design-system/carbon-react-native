@@ -107,7 +107,7 @@ export default class TestBottomToolbar extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, type } = this.state;
 
     const textTypes: any = {

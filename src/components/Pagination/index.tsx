@@ -69,7 +69,7 @@ export class Pagination extends React.Component<PaginationProps> {
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, paginationText, totalPages } = this.props;
     const elements: React.ReactNode[] = [];
 

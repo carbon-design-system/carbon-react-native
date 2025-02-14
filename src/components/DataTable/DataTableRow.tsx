@@ -43,7 +43,7 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, onPress, onLongPress, rowText, children } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 

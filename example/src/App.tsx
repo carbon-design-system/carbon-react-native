@@ -314,7 +314,7 @@ export default class App extends React.Component {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { view, firstLoad, loading, openThemeChoice } = this.state;
 
     if (loading) {

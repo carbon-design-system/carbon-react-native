@@ -78,7 +78,7 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
 
     return (

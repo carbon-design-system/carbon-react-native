@@ -79,7 +79,7 @@ export class List extends React.Component<ListProps> {
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style } = this.props;
 
     return (

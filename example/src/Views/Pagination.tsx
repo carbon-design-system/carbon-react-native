@@ -24,7 +24,7 @@ export default class TestPagination extends React.Component {
     page3: 1,
   };
 
-  render(): React.ReactNode {
+  render() {
     const { page1, page2, page3 } = this.state;
 
     return (

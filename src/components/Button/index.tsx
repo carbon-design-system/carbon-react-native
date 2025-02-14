@@ -274,7 +274,7 @@ export class Button extends React.Component<ButtonProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef, breakMode } = this.props;
 
     return (

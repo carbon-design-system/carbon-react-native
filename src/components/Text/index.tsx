@@ -110,7 +110,7 @@ export class Text extends React.Component<TextProps> {
     return Object.assign(finalStyle, { color: getColor('textPrimary') }, style);
   }
 
-  render(): React.ReactNode {
+  render() {
     const { text, breakMode, componentProps } = this.props;
 
     return (

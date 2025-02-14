@@ -56,7 +56,7 @@ export default class TestDataTable extends React.Component {
     };
   }
 
-  render(): React.ReactNode {
+  render() {
     const { checked1, checked2, checked3 } = this.state;
 
     const checkedCount = (checked1 ? 1 : 0) + (checked2 ? 1 : 0) + (checked3 ? 1 : 0);

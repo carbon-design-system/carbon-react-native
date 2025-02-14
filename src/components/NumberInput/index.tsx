@@ -8,7 +8,7 @@ import { TextInputProps } from '../../types/shared';
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/NumberInput.tsx | Example code}
  */
 export class NumberInput extends React.Component<TextInputProps> {
-  render(): React.ReactNode {
+  render() {
     return <BaseTextInput type="number" {...this.props} />;
   }
 }

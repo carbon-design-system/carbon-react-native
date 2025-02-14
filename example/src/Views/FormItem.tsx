@@ -41,7 +41,7 @@ export default class TestFormItem extends React.Component {
     Alert.alert(text);
   };
 
-  render(): React.ReactNode {
+  render() {
     const { firstName, password, textArea, age, birthDay, toggleTest, volume, paymentType, renderLeft, toggleInlineTest } = this.state;
 
     return (

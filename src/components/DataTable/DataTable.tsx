@@ -28,7 +28,7 @@ export class DataTable extends React.Component<DataTableProps> {
       },
     });
   }
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, children } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 

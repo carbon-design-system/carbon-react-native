@@ -69,7 +69,7 @@ export default class RealLandingView extends React.Component<Props, State> {
       });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showPrivacy, showAcceptTerms, loading } = this.state;
     const { continueAction } = this.props;
 

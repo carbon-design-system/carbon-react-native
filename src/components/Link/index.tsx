@@ -102,7 +102,7 @@ export class Link extends React.Component<LinkProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, leftIcon, rightIcon, iconSize, backButtonMode, forwardRef } = this.props;
     const androidBack = !!(backButtonMode && Platform.OS === 'android');
 

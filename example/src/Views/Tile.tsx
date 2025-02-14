@@ -24,7 +24,7 @@ export default class TestTile extends React.Component {
     Alert.alert(text);
   };
 
-  render(): React.ReactNode {
+  render() {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <View style={styles.baseSpacing}>

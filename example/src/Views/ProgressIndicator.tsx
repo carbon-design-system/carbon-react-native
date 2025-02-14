@@ -23,7 +23,7 @@ export default class TestProgressIndicator extends React.Component {
     openControl: false,
   };
 
-  render(): React.ReactNode {
+  render() {
     const { openControl } = this.state;
 
     return (

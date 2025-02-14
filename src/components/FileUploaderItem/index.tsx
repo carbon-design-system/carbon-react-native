@@ -121,7 +121,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     return null;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, name } = this.props;
 
     return (

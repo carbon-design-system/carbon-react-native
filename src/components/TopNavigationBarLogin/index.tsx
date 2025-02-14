@@ -113,7 +113,7 @@ export class TopNavigationBarLogin extends React.Component<TopNavigationBarLogin
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
 
     return (

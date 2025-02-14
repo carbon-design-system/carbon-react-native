@@ -27,7 +27,7 @@ export default class TestButton extends React.Component {
     Alert.alert(text);
   };
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, not100 } = this.state;
     const itemStyle: ViewStyle = styleReferenceBreaker(styles.baseSpacing);
 

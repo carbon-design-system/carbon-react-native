@@ -87,7 +87,7 @@ export class BottomNavigationBar extends React.Component<BottomNavigationBarProp
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
 
     return (

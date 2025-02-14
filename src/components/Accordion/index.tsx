@@ -112,7 +112,7 @@ export class Accordion extends React.Component<AccordionProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, disabled, title, children, firstAccordion, textBreakMode } = this.props;
     const { open } = this.state;
     const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);

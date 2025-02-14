@@ -49,7 +49,7 @@ export default class TestList extends React.Component {
     return results;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { unordered, nested, longList } = this.state;
 
     return (

@@ -66,7 +66,7 @@ export default class TestModal extends React.Component {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open, showDescription, hasPrimary, hasSecondary, hasInputContent } = this.state;
 
     return (

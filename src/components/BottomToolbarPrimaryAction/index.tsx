@@ -153,7 +153,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 

@@ -69,7 +69,7 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
     const finalStyles = StyleSheet.flatten<ViewStyle>([this.styles.wrapper, style]);
 

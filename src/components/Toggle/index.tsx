@@ -75,7 +75,7 @@ export class Toggle extends React.Component<ToggleProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled, toggleWrapperStyle } = this.props;
 
     return (

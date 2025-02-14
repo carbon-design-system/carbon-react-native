@@ -143,7 +143,7 @@ export class LandingView extends React.Component<LandingViewProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { longProductName, copyrightText, versionText, privacyPolicyText, privacyPolicyOnPress, privacyPolicyOnLongPress, continueText, continueOnLongPress, continueOnPress, continueDisabled } = this.props;
 
     return (

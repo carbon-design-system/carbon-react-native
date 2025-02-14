@@ -26,7 +26,7 @@ export class Overlay extends React.Component<OverlayProps> {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
 
     return <View style={[this.styles.wrapper, style]} {...(componentProps || {})} />;

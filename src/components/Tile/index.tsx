@@ -46,7 +46,7 @@ export class Tile extends React.Component<TileProps> {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { children, componentProps, style, type, onPress, onLongPress, tileText } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 

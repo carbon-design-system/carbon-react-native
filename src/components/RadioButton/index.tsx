@@ -47,7 +47,7 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
     if (typeof onLongPress === 'function') onLongPress(id, event);
   };
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, componentProps, label, accessibleText, hideLabel, style } = this.props;
 
     return (

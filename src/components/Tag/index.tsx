@@ -173,7 +173,7 @@ export class Tag extends React.Component<TagProps> {
     return null;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { title, componentProps, style, breakMode } = this.props;
     const textStyle = StyleSheet.flatten([this.styles.textStyle, { color: this.textColor }]);
     const wrapperStyle = StyleSheet.flatten([this.styles.wrapper, style, { backgroundColor: this.backgroundColor }]);

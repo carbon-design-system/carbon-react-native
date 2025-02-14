@@ -58,7 +58,7 @@ export class DataTableHeader extends React.Component<DataTableHeaderProps> {
     return null;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 

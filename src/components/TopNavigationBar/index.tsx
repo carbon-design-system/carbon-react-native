@@ -212,7 +212,7 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
 
     return (

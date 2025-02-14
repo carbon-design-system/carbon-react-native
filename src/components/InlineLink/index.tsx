@@ -63,7 +63,7 @@ export class InlineLink extends React.Component<InlineLinkProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { text, onLongPress, textType, style } = this.props;
 
     return <Text type={textType} text={text} style={[this.styles.wrapper, style]} componentProps={{ accessibilityLabel: text, accessibilityRole: 'link', onPress: this.onPress, onLongPress: onLongPress }} />;

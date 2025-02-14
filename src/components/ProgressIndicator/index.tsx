@@ -156,7 +156,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, disabled, title, children, firstStep, subText } = this.props;
     const { open } = this.state;
     const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);

@@ -191,7 +191,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open } = this.state;
     const { text, textBreakMode, leftIcon, disabled, children, componentProps, style, rightIcon, onLongPress } = this.props;
 

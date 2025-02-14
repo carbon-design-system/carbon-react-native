@@ -32,7 +32,7 @@ export default class TestErrorState extends React.Component {
     noImage: false,
   };
 
-  render(): React.ReactNode {
+  render() {
     const { hasSubtitle, type, hasErrorCode, noImage } = this.state;
 
     return (

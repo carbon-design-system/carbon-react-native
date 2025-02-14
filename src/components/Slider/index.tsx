@@ -236,7 +236,7 @@ export class Slider extends React.Component<SliderProps> {
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { label, disabled, hideLabel, hideTextInput, accessibleText, style, value } = this.props;
 
     return (

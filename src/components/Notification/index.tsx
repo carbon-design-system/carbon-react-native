@@ -206,7 +206,7 @@ export class Notification extends React.Component<NotificationProps> {
     return null;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style } = this.props;
     const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);
     finalStyle.backgroundColor = this.backgroundColor;

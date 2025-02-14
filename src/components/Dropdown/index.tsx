@@ -190,7 +190,7 @@ export class Dropdown extends React.Component<DropdownProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style, label, helperText, value, onChange, disabled, closeText, valueToText, unsetText } = this.props;
     const { open } = this.state;
     const finalStyle = styleReferenceBreaker(disabled ? this.textInputStyles.textBoxDisabled : this.textInputStyles.textBox);

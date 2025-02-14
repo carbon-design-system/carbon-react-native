@@ -306,7 +306,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     );
   }
 
-  render(): ReactNode {
+  render() {
     const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink, fullBleedCallback, warningText } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';

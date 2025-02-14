@@ -87,7 +87,7 @@ export default class TestContentSwitcher extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { disableSecond, currentIndexA, currentIndexB, currentIndexC } = this.state;
 
     return (

@@ -198,7 +198,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, navigationFooter, renderChildComponent } = this.props;
 
     return (

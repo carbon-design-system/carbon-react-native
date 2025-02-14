@@ -74,7 +74,7 @@ export class ViewWrapper extends React.Component<ViewWrapperProps> {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { children, componentProps, statusBarStyle } = this.props;
 
     return (

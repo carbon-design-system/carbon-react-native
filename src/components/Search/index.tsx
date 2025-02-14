@@ -132,7 +132,7 @@ export class Search extends React.Component<SearchProps> {
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={finalStyle} iconOnlyMode={true} kind="ghost" icon={SearchIcon} text={searchIconText || defaultText.search} onPress={onSubmitEditing} />;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { label, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, disabled, labelBreakMode, buttonProps } = this.props;
     const { hasFocus } = this.state;
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);

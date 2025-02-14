@@ -121,7 +121,7 @@ export class Tabs extends React.Component<TabsProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style, scrollMode } = this.props;
     const content = (items || []).map((item, index) => this.getTab(item, index));
 

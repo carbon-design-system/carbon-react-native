@@ -89,7 +89,7 @@ export class WebHeader extends React.Component<WebHeaderProps> {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { mainName, secondaryName, actions, style, componentProps } = this.props;
 
     return (

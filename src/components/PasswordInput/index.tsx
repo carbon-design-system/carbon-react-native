@@ -9,7 +9,7 @@ import { TextInputProps } from '../../types/shared';
  */
 
 export class PasswordInput extends React.Component<TextInputProps> {
-  render(): React.ReactNode {
+  render() {
     return <BaseTextInput type="password" {...this.props} />;
   }
 }

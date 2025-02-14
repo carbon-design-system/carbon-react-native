@@ -111,7 +111,7 @@ export class UiPanel extends React.Component<UiPanelProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open, items, style, componentProps, onClose, onCloseText, closeOnNoChildrenPress } = this.props;
 
     return (

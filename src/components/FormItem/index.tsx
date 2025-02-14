@@ -407,7 +407,7 @@ export class FormItem extends React.Component<FormItemProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, lastItem, label, helperText, type, onLongPress, disabled } = this.props;
     const { active, error } = this.state;
     const finalStyle: ViewStyle = styleReferenceBreaker(this.wrapperStyle);

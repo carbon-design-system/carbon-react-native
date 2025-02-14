@@ -283,7 +283,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     if (!this.useSystemActionSheet) {
       return this.customActionSheet;
     }

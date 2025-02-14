@@ -92,7 +92,7 @@ export class DataTableHeaderSelected extends React.Component<DataTableHeaderSele
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, itemsSelectedText } = this.props;
     const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
