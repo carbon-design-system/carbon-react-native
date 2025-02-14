@@ -155,7 +155,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
       ?.filter((item) => !item.hidden)
       .map((item, index) => {
         const finalTextStyle = styleReferenceBreaker(this.styles.childText);
-        const finalStyle = styleReferenceBreaker(this.styles.nestedItem);
+        const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.nestedItem);
 
         finalStyle.paddingLeft = item.leftIcon ? 24 : 72;
 
@@ -174,7 +174,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
         };
 
         return (
-          <Pressable key={index} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(finalStyle, item.style), this.getStateStyle)} accessibilityRole="button" accessibilityLabel={item.text} onPress={onPress} onLongPress={item.onLongPress} disabled={item.disabled} {...(item.componentProps || {})}>
+          <Pressable key={index} style={(state) => pressableFeedbackStyle(state, [finalStyle, item.style], this.getStateStyle)} accessibilityRole="button" accessibilityLabel={item.text} onPress={onPress} onLongPress={item.onLongPress} disabled={item.disabled} {...(item.componentProps || {})}>
             {!!item.leftIcon && <View style={this.styles.icon}>{createIcon(item.leftIcon, 20, 20, this.itemColor(item.disabled))}</View>}
             <Text breakMode={item.textBreakMode} style={finalTextStyle} text={item.text} />
             {!!item.rightIcon && <View style={this.styles.icon}>{createIcon(item.rightIcon, 20, 20, this.itemColor(item.disabled))}</View>}
@@ -197,7 +197,7 @@ export class UiPanelItem extends React.Component<UiPanelItemProps> {
 
     return (
       <View>
-        <Pressable style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style), this.getStateStyle)} accessibilityRole="button" accessibilityLabel={text} onPress={this.pressParent} onLongPress={onLongPress} disabled={disabled} {...(componentProps || {})}>
+        <Pressable style={(state) => pressableFeedbackStyle(state, [this.styles.wrapper, style], this.getStateStyle)} accessibilityRole="button" accessibilityLabel={text} onPress={this.pressParent} onLongPress={onLongPress} disabled={disabled} {...(componentProps || {})}>
           {open && <View style={this.styles.openIndicator} />}
           {!!leftIcon && <View style={this.styles.icon}>{createIcon(leftIcon, 20, 20, this.itemColor())}</View>}
           <Text breakMode={textBreakMode} type="heading-compact-02" style={this.styles.primaryText} text={text} />

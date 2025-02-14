@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import { MenuItem, MenuItemProps } from '../MenuItem';
 
 /** Props for Menu component */
@@ -39,7 +38,7 @@ export class Menu extends React.Component<MenuProps> {
     const finalItems = items || [];
 
     return (
-      <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <ScrollView bounces={false} style={[this.styles.wrapper, style]} accessibilityRole="menu" {...(componentProps || {})}>
         {finalItems.map((item, index) => (
           <MenuItem key={index} {...item} lastItem={index === finalItems.length - 1} />
         ))}

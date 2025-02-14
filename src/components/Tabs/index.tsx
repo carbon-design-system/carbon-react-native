@@ -127,14 +127,14 @@ export class Tabs extends React.Component<TabsProps> {
 
     if (scrollMode) {
       return (
-        <ScrollView contentContainerStyle={this.styles.scrollWrapper} bounces={false} horizontal={true} style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
+        <ScrollView contentContainerStyle={this.styles.scrollWrapper} bounces={false} horizontal={true} style={[this.styles.wrapper, style]} accessibilityRole="tablist" {...(componentProps || {})}>
           {content}
         </ScrollView>
       );
     }
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="tablist" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="tablist" {...(componentProps || {})}>
         {content}
       </View>
     );

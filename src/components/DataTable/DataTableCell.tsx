@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle } from '../../helpers';
 import { Text, TextBreakModes } from '../Text';
 
 /** Props for DataTableCell component */
@@ -71,12 +71,9 @@ export class DataTableCell extends React.Component<DataTableCellProps> {
 
   render(): React.ReactNode {
     const { componentProps, style, type, onPress, onLongPress, cellText, content, width } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten<ViewStyle>([this.styles.wrapper, style]);
 
-    if (type === 'header') {
-      finalStyles.backgroundColor = getColor('layerAccent01');
-    }
-
+    if (type === 'header') finalStyles.backgroundColor = getColor('layerAccent01');
     finalStyles.maxWidth = width;
 
     const finalProps = {

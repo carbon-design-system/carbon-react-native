@@ -159,7 +159,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
   render(): React.ReactNode {
     const { componentProps, style, disabled, title, children, firstStep, subText } = this.props;
     const { open } = this.state;
-    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstStep) {
       finalStyle.borderTopColor = getColor('borderSubtle00');
@@ -167,7 +167,7 @@ export class ProgressIndicator extends React.Component<ProgressIndicatorProps> {
     }
 
     return (
-      <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
+      <View style={[finalStyle, style]} {...(componentProps || {})}>
         <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action, this.getStateStyle)} accessibilityLabel={title} accessibilityHint={subText} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           {this.stepIcon}
           <View style={this.styles.actionText}>

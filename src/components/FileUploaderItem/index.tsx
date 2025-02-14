@@ -1,7 +1,7 @@
 import React from 'react';
 import { GestureResponderEvent, StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon } from '../../helpers';
 import { Text } from '../Text';
 import { Button } from '../Button';
 import { defaultText } from '../../constants/defaultText';
@@ -125,7 +125,7 @@ export class FileUploaderItem extends React.Component<FileUploaderItemProps> {
     const { componentProps, style, name } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} {...(componentProps || {})}>
         <View style={this.styles.mainWrapper}>
           <Text style={this.styles.text} text={name} breakMode="middle" />
           {this.visualIndicator}

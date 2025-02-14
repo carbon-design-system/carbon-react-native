@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle, PressableStateCallbackType } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 
@@ -93,7 +93,7 @@ export class WebHeader extends React.Component<WebHeaderProps> {
     const { mainName, secondaryName, actions, style, componentProps } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.header, style)} accessibilityRole="header" {...(componentProps || {})}>
+      <View style={[this.styles.header, style]} accessibilityRole="header" {...(componentProps || {})}>
         <View style={this.styles.textWrapper}>
           <View style={this.styles.mainName}>
             <Text type="body-01" style={this.styles.mainNameText} text={mainName} />

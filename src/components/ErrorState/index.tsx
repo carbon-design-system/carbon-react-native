@@ -1,6 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, ImageSourcePropType, Image } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
+import { type ViewProps, type StyleProp, StyleSheet, type ViewStyle, View, type ImageSourcePropType, Image, type ImageStyle } from 'react-native';
 import { Text } from '../Text';
 const accessImage = require('./access_error.png');
 const emptyImage = require('./empty_error.png');
@@ -24,7 +23,7 @@ export type ErrorStateProps = {
   /** Custom image (override type image) */
   customImage?: ImageSourcePropType;
   /** Custom image styles */
-  imageStyle?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
   /** Style to set on the item */
   style?: StyleProp<ViewStyle>;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
@@ -85,8 +84,8 @@ export class ErrorState extends React.Component<ErrorStateProps> {
     const { componentProps, style, title, subTitle, errorCode, imageStyle, noImage } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={title} accessibilityHint={subTitle + ' ' + errorCode} accessibilityRole="summary" {...(componentProps || {})}>
-        {!noImage && <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.image} />}
+      <View style={[this.styles.wrapper, style]} accessibilityLabel={title} accessibilityHint={subTitle + ' ' + errorCode} accessibilityRole="summary" {...(componentProps || {})}>
+        {!noImage && <Image resizeMode="contain" style={[this.styles.image, imageStyle]} source={this.image} />}
         <View style={this.styles.textWrapper}>
           <Text style={this.styles.title} text={title} type="heading-04" />
           {!!subTitle && <Text style={this.styles.subTitle} text={subTitle} />}

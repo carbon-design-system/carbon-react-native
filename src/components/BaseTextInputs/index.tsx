@@ -1,5 +1,5 @@
-import React from 'react';
-import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
+import React, { type ReactNode } from 'react';
+import { type PressableStateCallbackType, type NativeSyntheticEvent, type StyleProp, type TextInputFocusEventData, type ViewStyle, type TextStyle, View, Platform, StyleSheet, Pressable, TextInput as ReactTextInput } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -35,7 +35,7 @@ type BaseTextInputProps = {
  */
 export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
   // React Native on iOS
-  const baseTextBox: any = {
+  const baseTextBox: TextStyle = {
     ...BodyCompact02(),
     height: 48,
     backgroundColor: getColor('field01'),
@@ -159,6 +159,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     },
   });
 };
+type TextInputStyles = ReturnType<typeof getTextInputStyle>;
 
 /**
  * @ignore
@@ -173,9 +174,8 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     revealPassword: false,
   };
 
-  private get styles() {
+  private get styles(): TextInputStyles {
     const { light, labelLink, fullBleedCallback } = this.props;
-
     return getTextInputStyle(light, !!labelLink, !!fullBleedCallback);
   }
 
@@ -224,22 +224,22 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     this.setState({ dirty: true });
   };
 
-  private get passwordReveal(): React.ReactNode {
+  private get passwordReveal(): ReactNode {
     const { revealPassword } = this.state;
     const { togglePasswordText, disabled } = this.props;
 
     return <Button overrideColor={disabled ? getColor('iconDisabled') : getColor('iconSecondary')} disabled={disabled} style={this.styles.passwordRevealButton} iconOnlyMode={true} kind="ghost" icon={revealPassword ? ViewOffIcon : ViewIcon} text={togglePasswordText || defaultText.passwordRevealButton} onPress={() => this.setState({ revealPassword: !revealPassword })} />;
   }
 
-  private get dateIcon(): React.ReactNode {
+  private get dateIcon(): ReactNode {
     const { disabled } = this.props;
 
     return <View style={this.styles.dateIcon}>{createIcon(CalendarIcon, 20, 20, disabled ? getColor('iconDisabled') : getColor('iconSecondary'))}</View>;
   }
 
-  private get baseErrorWarningStyle() {
+  private get baseErrorWarningStyle(): ViewStyle {
     const { type } = this.props;
-    let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
+    let errorIconStyle: ViewStyle = styleReferenceBreaker(this.styles.errorIcon);
 
     if (type === 'password' || type === 'date') {
       errorIconStyle.right = 48;
@@ -254,11 +254,11 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     return errorIconStyle;
   }
 
-  private get errorIndicator(): React.ReactNode {
+  private get errorIndicator(): ReactNode {
     return <View style={this.baseErrorWarningStyle}>{createIcon(ErrorIcon, 20, 20, getColor('supportError'))}</View>;
   }
 
-  private get warningIndicator(): React.ReactNode {
+  private get warningIndicator(): ReactNode {
     return <View style={this.baseErrorWarningStyle}>{createIcon(WarningIcon, 20, 20, getColor('supportWarning'))}</View>;
   }
 
@@ -278,7 +278,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     this.onChange(String(valueNumber - 1));
   };
 
-  private get numberActions(): React.ReactNode {
+  private get numberActions(): ReactNode {
     const { numberRules, value, disabled, incrementNumberText, decrementNumberText } = this.props;
 
     const valueNumber = Number.isNaN(Number(value)) ? 0 : Number(value);
@@ -288,7 +288,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
       return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
     };
 
-    const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown, text: string): React.ReactNode => {
+    const getPressable = (onPress: () => void, pressableDisabled: boolean, icon: unknown, text: string): ReactNode => {
       const finalDisabled = pressableDisabled || disabled || false;
       return (
         <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.numberActionsButton, getStateStyle)} onPress={onPress} disabled={finalDisabled} accessibilityLabel={text} accessibilityHint={value}>
@@ -306,7 +306,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     );
   }
 
-  render(): React.ReactNode {
+  render(): ReactNode {
     const { label, helperText, getErrorText, value, autoCorrect, autoCapitalize, placeholder, maxLength, onSubmitEditing, componentProps, style, required, disabled, isInvalid, type, textAreaMinHeight, labelBreakMode, labelLink, fullBleedCallback, warningText } = this.props;
     const { hasFocus, dirty, revealPassword } = this.state;
     const password = type === 'password';
@@ -343,11 +343,11 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     }
 
     if (error) {
-      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 25;
+      textBoxStyle.paddingRight = (typeof textBoxStyle.paddingRight === 'number' ? textBoxStyle.paddingRight : 0) + 25;
     }
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)}>
+      <View style={[this.styles.wrapper, style]}>
         {!!(label || labelLink) && (
           <View style={this.styles.labelWrapper}>
             {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}

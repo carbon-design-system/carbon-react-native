@@ -76,7 +76,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
   }
 
   private getItems(items: ToolbarButton[], type: 'right' | 'left'): React.ReactNode {
-    const finalWrapperStyles = styleReferenceBreaker(this.styles.itemWrapper);
+    const finalWrapperStyles: ViewStyle = styleReferenceBreaker(this.styles.itemWrapper);
 
     if (type === 'right') {
       finalWrapperStyles.justifyContent = 'flex-end';
@@ -88,7 +88,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
       <View style={finalWrapperStyles}>
         {items.map((item, index) => {
           const iconMode = !!item.icon;
-          const finalStyles = styleReferenceBreaker(iconMode ? this.styles.itemIconStyle : this.styles.itemTextStyle, item.style);
+          const finalStyles = StyleSheet.flatten([iconMode ? this.styles.itemIconStyle : this.styles.itemTextStyle, item.style]);
           let finalColor = getColor('iconPrimary');
 
           if (item.disabled) {
@@ -155,7 +155,7 @@ export class BottomToolbarPrimaryAction extends React.Component<BottomToolbarPri
 
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
     return (
       <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 
 /** Props for Overlay component */
 export type OverlayProps = {
@@ -30,6 +29,6 @@ export class Overlay extends React.Component<OverlayProps> {
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
 
-    return <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})} />;
+    return <View style={[this.styles.wrapper, style]} {...(componentProps || {})} />;
   }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
-import { createIcon, styleReferenceBreaker } from '../../helpers';
+import { createIcon } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import CheckboxIcon from '@carbon/icons/es/checkbox/20';
@@ -49,7 +49,7 @@ export type CheckboxRadioProps = {
  *
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Checkbox.tsx | Example code}
  */
-export class Checkbox extends React.Component<CheckboxRadioProps> {
+export class Checkbox extends Component<CheckboxRadioProps> {
   private get styles() {
     return StyleSheet.create({
       wrapper: checkboxRadioBaseStyle,
@@ -61,19 +61,17 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
     });
   }
 
-  private get textStyle(): StyleProp<TextStyle> {
+  private get textStyle(): TextStyle {
     const { disabled } = this.props;
 
-    let finalStyle: any = {
+    return {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
       marginLeft: 8,
       lineHeight: 20,
     };
-
-    return StyleSheet.create(finalStyle);
   }
 
-  private get checkbox(): React.ReactNode {
+  private get checkbox(): ReactNode {
     const { checked, disabled } = this.props;
     const finalParams = [20, 20, disabled ? getColor('iconDisabled') : getColor('iconPrimary')];
 
@@ -96,12 +94,12 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, componentProps, label, accessibleText, hideLabel, style, tooltipProps, wrapperStyle } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.checkboxWrapper, wrapperStyle)}>
-        <Pressable style={styleReferenceBreaker(this.styles.wrapper, style)} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
+      <View style={[this.styles.checkboxWrapper, wrapperStyle]}>
+        <Pressable style={[this.styles.wrapper, style]} disabled={disabled} accessibilityLabel={accessibleText || defaultText.checkbox} accessibilityHint={label} accessibilityRole="checkbox" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {this.checkbox}
           {!hideLabel && <Text style={this.textStyle} text={label} />}
         </Pressable>

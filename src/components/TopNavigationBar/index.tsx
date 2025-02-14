@@ -8,7 +8,7 @@ import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
 import { RegularFont } from '../../styles/typography';
 
-export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
+export const headerBarGetItems = (items: NavigationButton[], style: ViewStyle, itemStyle: ViewStyle, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
   const finalWrapperStyles = styleReferenceBreaker(style);
 
   if (type === 'right') {
@@ -20,7 +20,7 @@ export const headerBarGetItems = (items: NavigationButton[], style: unknown, ite
   return (
     <View style={finalWrapperStyles}>
       {items.map((item, index) => {
-        const finalStyles = styleReferenceBreaker(itemStyle, item.style);
+        const finalStyles: ViewStyle = StyleSheet.flatten([itemStyle, item.style]);
         let finalColor = getColor('iconPrimary', forceDarkMode ? 'dark' : undefined);
 
         if (item.disabled) {
@@ -214,10 +214,9 @@ export class TopNavigationBar extends React.Component<TopNavigationBarProps> {
 
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (
-      <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="toolbar" {...(componentProps || {})}>
         {this.mainView}
       </View>
     );

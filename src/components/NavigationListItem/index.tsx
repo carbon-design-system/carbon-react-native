@@ -8,7 +8,7 @@ import ChevronRightIcon from '@carbon/icons/es/chevron--right/20';
 import { Checkbox, CheckboxRadioProps } from '../Checkbox';
 import { RadioButton } from '../RadioButton';
 
-export const getNavigationListItemStyle = () => {
+export const getNavigationListItemStyle = (): ViewStyle => {
   return {
     flexDirection: 'row' as const,
     alignItems: 'flex-start' as const,
@@ -239,7 +239,7 @@ export class NavigationListItem extends React.Component<NavigationListItemProps>
     const mainIsClickable = !!(typeof onPress === 'function' || typeof onLongPress === 'function');
 
     return (
-      <View style={styleReferenceBreaker(finalStyle, style)}>
+      <View style={[finalStyle, style]}>
         {this.selectableAreaSide === 'left' && this.selectableArea}
         <Pressable disabled={disabled} style={(state) => (mainIsClickable ? pressableFeedbackStyle(state, this.styles.pressableStyle, this.getStateStyle) : this.styles.pressableStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={this.onLongPress} {...(componentProps || {})}>
           {!!leftIcon && <View style={this.styles.leftIcon}>{createIcon(leftIcon, 20, 20, this.textIconColor)}</View>}

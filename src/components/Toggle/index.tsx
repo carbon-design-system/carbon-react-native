@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Switch, SwitchProps, View, ViewStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import { getTextInputStyle } from '../BaseTextInputs';
 import { Text } from '../Text';
 
@@ -80,9 +79,9 @@ export class Toggle extends React.Component<ToggleProps> {
     const { disabled, componentProps, hideLabel, label, helperText, style, selectedLabelText, toggled, toggleWrapperStyle } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>
+      <View style={[this.styles.wrapper, style]} accessible={true} accessibilityLabel={label} accessibilityHint={helperText}>
         {!!(label && !hideLabel) && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
-        <View style={styleReferenceBreaker(this.styles.switchWrapper, toggleWrapperStyle)}>
+        <View style={[this.styles.switchWrapper, toggleWrapperStyle]}>
           <Switch value={toggled} onValueChange={this.onChange} disabled={disabled} trackColor={this.trackColor} thumbColor={getColor('iconOnColor')} {...(componentProps || {})} />
           {!!selectedLabelText && <Text style={this.styles.selectedText} text={toggled ? selectedLabelText.on : selectedLabelText.off} />}
         </View>

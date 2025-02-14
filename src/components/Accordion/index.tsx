@@ -115,7 +115,7 @@ export class Accordion extends React.Component<AccordionProps> {
   render(): React.ReactNode {
     const { componentProps, style, disabled, title, children, firstAccordion, textBreakMode } = this.props;
     const { open } = this.state;
-    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);
 
     if (firstAccordion) {
       finalStyle.borderTopColor = getColor('borderSubtle00');
@@ -123,7 +123,7 @@ export class Accordion extends React.Component<AccordionProps> {
     }
 
     return (
-      <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
+      <View style={[finalStyle, style]} {...(componentProps || {})}>
         <Pressable style={(state) => pressableFeedbackStyle(state, this.styles.action, this.getStateStyle)} accessibilityLabel={title} accessibilityRole="togglebutton" onPress={this.toggleDropdown} disabled={disabled}>
           <Text style={this.styles.textItem} text={title} breakMode={textBreakMode} />
           {this.accordionIcon}

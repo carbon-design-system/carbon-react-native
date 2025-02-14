@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, GestureResponderEvent, Pressable, ViewProps, View, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle } from '../../helpers';
 
 /** Props for DataTableRow component */
 export type DataTableRowProps = {
@@ -35,7 +35,7 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
         width: '100%',
         borderTopColor: getColor('borderSubtle00'),
         borderTopWidth: 1,
-      },
+      } satisfies ViewStyle,
     });
   }
 
@@ -45,7 +45,7 @@ export class DataTableRow extends React.Component<DataTableRowProps> {
 
   render(): React.ReactNode {
     const { componentProps, style, onPress, onLongPress, rowText, children } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
     if (onPress || onLongPress) {
       return (

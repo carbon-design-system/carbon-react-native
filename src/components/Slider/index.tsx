@@ -1,7 +1,6 @@
 import React from 'react';
 import { LayoutChangeEvent, PanResponder, PanResponderGestureState, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { defaultText } from '../../constants/defaultText';
-import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text } from '../Text';
 import { TextInput } from '../TextInput';
@@ -241,7 +240,7 @@ export class Slider extends React.Component<SliderProps> {
     const { label, disabled, hideLabel, hideTextInput, accessibleText, style, value } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
+      <View style={[this.styles.wrapper, style]} accessibilityLabel={accessibleText || defaultText.slider} accessibilityHint={label}>
         {!hideLabel && <Text style={this.styles.label} type="label-01" text={label} />}
         <View style={this.styles.sliderOuterWrapper}>
           {this.slider}

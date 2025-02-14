@@ -1,7 +1,7 @@
 import React, { Ref } from 'react';
 import { GestureResponderEvent, Keyboard, Platform, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 
@@ -83,11 +83,11 @@ export class Link extends React.Component<LinkProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { textStyle, disabled } = this.props;
 
-    let finalStyle: any = {
+    let finalStyle: TextStyle = {
       color: disabled ? getColor('textDisabled') : this.textIconColor,
     };
 
-    return StyleSheet.create(styleReferenceBreaker(finalStyle, textStyle));
+    return StyleSheet.flatten([finalStyle, textStyle]);
   }
 
   private onPress = (event: GestureResponderEvent): void => {
@@ -107,7 +107,7 @@ export class Link extends React.Component<LinkProps> {
     const androidBack = !!(backButtonMode && Platform.OS === 'android');
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style))} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, [this.styles.wrapper, style])} accessibilityLabel={text} accessibilityRole="link" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
         {!!(leftIcon && !backButtonMode) && <View style={this.styles.leftIcon}>{createIcon(leftIcon, iconSize || 20, iconSize || 20, this.textIconColor)}</View>}
         {backButtonMode && <Text type={textType} style={this.styles.backArrowStyle} text={'\u2190'} />}
         {!androidBack && <Text type={textType} style={this.textStyle} text={text} breakMode={textBreakMode} />}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent, ViewProps, StyleProp, StyleSheet, View, ViewStyle, Pressable, PressableStateCallbackType } from 'react-native';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle } from '../../helpers';
 import CloseIcon from '@carbon/icons/es/close/20';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes } from '../Text';
@@ -62,9 +62,7 @@ export class Tag extends React.Component<TagProps> {
   private get activeColor(): string {
     const { disabled, tagType } = this.props;
 
-    if (disabled) {
-      return getColor('layer01');
-    }
+    if (disabled) return getColor('layer01');
 
     switch (tagType) {
       case 'red':
@@ -96,9 +94,7 @@ export class Tag extends React.Component<TagProps> {
   private get textColor(): string {
     const { disabled, tagType } = this.props;
 
-    if (disabled) {
-      return getColor('textDisabled');
-    }
+    if (disabled) return getColor('textDisabled');
 
     switch (tagType) {
       case 'red':
@@ -130,9 +126,7 @@ export class Tag extends React.Component<TagProps> {
   private get backgroundColor(): string {
     const { disabled, tagType } = this.props;
 
-    if (disabled) {
-      return getColor('layer01');
-    }
+    if (disabled) return getColor('layer01');
 
     switch (tagType) {
       case 'red':
@@ -181,10 +175,8 @@ export class Tag extends React.Component<TagProps> {
 
   render(): React.ReactNode {
     const { title, componentProps, style, breakMode } = this.props;
-    const textStyle = styleReferenceBreaker(this.styles.textStyle);
-    const wrapperStyle = styleReferenceBreaker(this.styles.wrapper, style);
-    wrapperStyle.backgroundColor = this.backgroundColor;
-    textStyle.color = this.textColor;
+    const textStyle = StyleSheet.flatten([this.styles.textStyle, { color: this.textColor }]);
+    const wrapperStyle = StyleSheet.flatten([this.styles.wrapper, style, { backgroundColor: this.backgroundColor }]);
 
     return (
       <View style={wrapperStyle} {...(componentProps || {})}>

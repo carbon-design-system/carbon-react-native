@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-const {execSync} = require('child_process');
-const fs = require('fs');
+const { execSync} = require('node:child_process');
+const fs = require('node:fs');
+
 const gradleRegex = /versionCode [0-9]+\n/;
 const plistFile = 'example/ios/CarbonReactNativeExample/Info.plist';
 const gradleFile = 'example/android/app/build.gradle';

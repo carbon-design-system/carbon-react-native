@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Image, LayoutChangeEvent, View } from 'react-native';
+import { StyleSheet, ScrollView, Image, LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import { ErrorState, getColor, NavigationListItem, styleReferenceBreaker, Text, ThemeChoices, Tile } from '@carbon/react-native';
 import type { ComponentItem } from '../App';
 
@@ -115,7 +115,7 @@ export default class TestComponentList extends React.Component<TestComponentList
 
   render(): React.ReactNode {
     const { viewList, listView } = this.props;
-    const finalStyle = styleReferenceBreaker(this.styles.container);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.container);
 
     if (listView) {
       finalStyle.paddingTop = 32;

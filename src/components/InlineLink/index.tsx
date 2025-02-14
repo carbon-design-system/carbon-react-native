@@ -1,6 +1,5 @@
 import React from 'react';
 import { GestureResponderEvent, Keyboard, StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextTypes } from '../Text';
 
@@ -67,6 +66,6 @@ export class InlineLink extends React.Component<InlineLinkProps> {
   render(): React.ReactNode {
     const { text, onLongPress, textType, style } = this.props;
 
-    return <Text type={textType} text={text} style={styleReferenceBreaker(this.styles.wrapper, style)} componentProps={{ accessibilityLabel: text, accessibilityRole: 'link', onPress: this.onPress, onLongPress: onLongPress }} />;
+    return <Text type={textType} text={text} style={[this.styles.wrapper, style]} componentProps={{ accessibilityLabel: text, accessibilityRole: 'link', onPress: this.onPress, onLongPress: onLongPress }} />;
   }
 }

@@ -144,7 +144,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
 
   private get headerBar(): React.ReactNode {
     const { title, dismissText, onDismiss } = this.props;
-    const baseStyle = styleReferenceBreaker(this.styles.baseHeader);
+    const baseStyle: ViewStyle = styleReferenceBreaker(this.styles.baseHeader);
 
     if (this.androidViewType) {
       baseStyle.borderTopRightRadius = undefined;
@@ -164,7 +164,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
 
   private get mainView(): React.ReactNode {
     const { source, disableContainerPadding, sourceNode, disableScrollView } = this.props;
-    const containerStyle = styleReferenceBreaker(this.styles.contentContainer);
+    const containerStyle: ViewStyle = styleReferenceBreaker(this.styles.contentContainer);
 
     if (disableContainerPadding) {
       containerStyle.paddingRight = 0;
@@ -175,7 +175,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
 
     if (sourceNode) {
       if (disableScrollView) {
-        return <View style={styleReferenceBreaker(this.styles.noScrollView, containerStyle)}>{sourceNode}</View>;
+        return <View style={[this.styles.noScrollView, containerStyle]}>{sourceNode}</View>;
       }
 
       return (
@@ -206,7 +206,7 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
         <Overlay style={this.styles.blurBackground} />
         <BottomSafeAreaColorOverride color={navigationFooter ? getColor('layer01') : getColor('background')} />
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
+          <View style={[this.styles.wrapper, style]} {...(componentProps || {})}>
             {this.headerBar}
             {this.mainView}
           </View>

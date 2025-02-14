@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, GestureResponderEvent } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import type { NavigationButton } from '../../types/navigation';
 import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
@@ -116,10 +115,9 @@ export class TopNavigationBarLogin extends React.Component<TopNavigationBarLogin
 
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (
-      <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="toolbar" {...(componentProps || {})}>
         {this.baseHeader}
         {this.pageHeader}
       </View>

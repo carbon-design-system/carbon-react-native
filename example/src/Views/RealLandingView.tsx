@@ -8,10 +8,18 @@ import { termsConditions } from '../constants/termsConditions';
 
 const storageKey = '@carbon-react-native-example/accepted-terms';
 
-export default class RealLandingView extends React.Component<{
-  continueAction: () => void;
-}> {
-  state = {
+interface State {
+  showPrivacy: boolean;
+  showAcceptTerms: boolean;
+  loading: boolean;
+}
+
+interface Props {
+  continueAction(): void;
+}
+
+export default class RealLandingView extends React.Component<Props, State> {
+  readonly state: State = {
     showPrivacy: false,
     showAcceptTerms: false,
     loading: true,

@@ -3,7 +3,9 @@ import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
 import type { CarbonIcon } from '../types/shared';
-import { Linking, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import { Linking, PressableStateCallbackType, type StyleProp, type ViewStyle, type TextStyle, type ImageStyle } from 'react-native';
+
+export type AnyStyle = ViewStyle | TextStyle | ImageStyle;
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -23,6 +25,7 @@ export const logIssue = (issue: string, data: unknown): void => {
  * @param width - width of the icon, defaults to 100% (numbers are pixels but percent in string format are supported).
  * @param height - height of the icon, defaults to 100% (numbers are pixels but percent in string format are supported).
  * @param color - color of the icon, deafults to `icon-primary` from Carbon colors for the current theme.
+ * @param key - key to use for the icon (useful for caching)
  *
  * @returns - React Node to render on the screen.  If the icon fails to be created an X icon is rendered.
  */
@@ -41,13 +44,13 @@ export const createIcon = (icon: CarbonIcon, width?: string | number, height?: s
 
 /**
  * This breaks reference to the original object for style manipulation.
- * TODO: find out prper flow from community.
+ * TODO: find a proper flow from the community.
  *
  * @param style - Style to break reference to
  * @param extraStyle - Style to break reference to
  * @returns - broken reference for the style
  */
-export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
+export const styleReferenceBreaker = <T extends AnyStyle>(style: T, extraStyle?: null | T): T => {
   let finalStyle = Object.assign({}, style || {});
   finalStyle = Object.assign(finalStyle, extraStyle || {});
 

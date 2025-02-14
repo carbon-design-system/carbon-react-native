@@ -49,7 +49,7 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
 
     return items.map((item, index) => {
       const iconMode = !!item.icon;
-      const finalStyles = styleReferenceBreaker(iconMode ? this.styles.itemIconStyle : this.styles.itemTextStyle, item.style);
+      const finalStyles: ViewStyle = styleReferenceBreaker(iconMode ? this.styles.itemIconStyle : this.styles.itemTextStyle, item.style);
       let finalColor = getColor('iconPrimary');
 
       if (item.disabled) {
@@ -80,10 +80,9 @@ export class BottomToolbar extends React.Component<BottomToolbarProps> {
 
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
 
     return (
-      <View style={finalStyles} accessibilityRole="toolbar" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="toolbar" {...(componentProps || {})}>
         {this.items}
       </View>
     );

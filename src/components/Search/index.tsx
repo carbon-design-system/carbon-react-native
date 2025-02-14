@@ -123,7 +123,7 @@ export class Search extends React.Component<SearchProps> {
 
   private get searchIcon(): React.ReactNode {
     const { disabled, searchIconText, onSubmitEditing } = this.props;
-    const finalStyle = styleReferenceBreaker(this.styles.passwordRevealButton);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.passwordRevealButton);
 
     finalStyle.right = undefined;
     finalStyle.left = 0;
@@ -147,10 +147,10 @@ export class Search extends React.Component<SearchProps> {
     textBoxStyle.paddingRight = 50;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style || {})} accessibilityLabel={label}>
+      <View style={[this.styles.wrapper, style || {}]} accessibilityLabel={label}>
         {!!label && <Text style={this.styles.label} type="label-02" text={label} breakMode={labelBreakMode} />}
         <View style={this.localStyles.textBoxArea}>
-          <View style={styleReferenceBreaker(this.styles.textBoxWrapper, this.localStyles.textBoxWrapper)} accessibilityLabel={label}>
+          <View style={[this.styles.textBoxWrapper, this.localStyles.textBoxWrapper]} accessibilityLabel={label}>
             <ReactTextInput editable={!disabled} autoCapitalize={autoCapitalize} style={textBoxStyle} value={value} onSubmitEditing={onSubmitEditing} onChangeText={this.onChange} autoCorrect={autoCorrect} placeholder={placeholder} placeholderTextColor={getColor('textPlaceholder')} onBlur={this.onBlur} onFocus={this.onFocus} maxLength={maxLength} textAlignVertical="top" {...(componentProps || {})} />
             {this.searchIcon}
             {!!value && this.clearText}

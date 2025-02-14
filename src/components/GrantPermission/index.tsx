@@ -1,8 +1,7 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { modalPresentations } from '../../constants/constants';
-import { styleReferenceBreaker } from '../../helpers';
 import { zIndexes } from '../../styles/z-index';
 import { Button } from '../Button';
 import { Text } from '../Text';
@@ -28,7 +27,7 @@ export type GrantPermissionProps = {
   /** Custom image (override type image) */
   customImage?: ImageSourcePropType;
   /** Custom image styles */
-  imageStyle?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
   /** Callback when flow finishes.  Returns success variable indicating if user accepted or refused to move forward with permission flow */
   resultsCallback: (result: boolean) => void;
   /** Style to set on the item */
@@ -147,14 +146,14 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} animationType="slide">
         <SafeAreaView style={this.styles.safeAreaWrapper}>
-          <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
+          <View style={[this.styles.wrapper, style]} {...(componentProps || {})}>
             <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" bounces={false} style={this.styles.contentWrapper} contentContainerStyle={this.styles.contentWrapperScroll}>
               <View style={this.styles.textWrapper}>
                 <Text style={this.styles.title} text={title} type="heading-05" />
                 <Text style={this.styles.reasoning} text={reasoning} type="body-02" />
                 {!!additionalReasoning && <Text style={this.styles.reasoning} text={additionalReasoning} type="body-02" />}
               </View>
-              <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.imageSource} />
+              <Image resizeMode="contain" style={[this.styles.image, imageStyle]} source={this.imageSource} />
             </ScrollView>
             <Button style={this.styles.action} onPress={this.accept} text={continueText} />
             <Button style={this.styles.action} kind="secondary" onPress={this.reject} text={cancelText} />

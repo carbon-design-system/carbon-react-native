@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleProp, StyleSheet, ViewProps, ViewStyle, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
 import CircleIcon from '@carbon/icons/es/circle--solid/20';
 
@@ -78,7 +78,7 @@ export class Pagination extends React.Component<PaginationProps> {
     }
 
     return (
-      <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.wrapper, style)} contentContainerStyle={this.styles.wrapperContent} {...(componentProps || {})} accessibilityLabel={paginationText || defaultText.pagination} horizontal={true}>
+      <ScrollView bounces={false} style={[this.styles.wrapper, style]} contentContainerStyle={this.styles.wrapperContent} {...(componentProps || {})} accessibilityLabel={paginationText || defaultText.pagination} horizontal={true}>
         {elements.map((item) => item)}
       </ScrollView>
     );

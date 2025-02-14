@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, SafeAreaView, Pressable, View, Animated } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import { UiPanelItem, UiPanelItemProps } from '../UiPanelItem';
 import { modalPresentations } from '../../constants/constants';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
@@ -124,7 +123,7 @@ export class UiPanel extends React.Component<UiPanelProps> {
               <View style={this.styles.innerWrapping}>
                 <Pressable style={this.styles.pressableTop} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
                 <Pressable style={this.styles.pressableRight} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
-                <ScrollView bounces={false} style={styleReferenceBreaker(this.styles.panelWrapper, style)} contentContainerStyle={this.styles.panelWrapperInner} accessibilityRole="menu" {...(componentProps || {})}>
+                <ScrollView bounces={false} style={[this.styles.panelWrapper, style]} contentContainerStyle={this.styles.panelWrapperInner} accessibilityRole="menu" {...(componentProps || {})}>
                   {(items || [])
                     .filter((item) => !item.hidden)
                     .map((item, index) => (

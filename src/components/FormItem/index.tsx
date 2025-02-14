@@ -122,7 +122,7 @@ export class FormItem extends React.Component<FormItemProps> {
     const noBottomPadding = this.noBottomPadding;
     const helperTextColor = getColor(disabled ? 'textDisabled' : 'textHelper');
 
-    const baseWrapper = styleReferenceBreaker(getNavigationListItemStyle(), {
+    const baseWrapper = styleReferenceBreaker<ViewStyle>(getNavigationListItemStyle(), {
       flexDirection: 'column',
       padding: 14,
       paddingRight: noRightPadding ? 0 : 16,
@@ -323,7 +323,7 @@ export class FormItem extends React.Component<FormItemProps> {
     const items = [
       <View style={this.styles.checkboxTextWrapper} key="label">
         <Text text={label} breakMode={textBreakMode} />
-        {!!helperText && <Text type="helper-text-02" style={styleReferenceBreaker(getTextInputStyle().helperText, this.styles.checkboxHelperText)} text={helperText} />}
+        {!!helperText && <Text type="helper-text-02" style={[getTextInputStyle().helperText, this.styles.checkboxHelperText]} text={helperText} />}
       </View>,
       createIcon(value ? overrideActiveCheckboxIcon || CheckmarkIcon : EmptyCheckmarkIcon, 20, 20, this.mainColor, 'icon'),
     ];
@@ -349,7 +349,7 @@ export class FormItem extends React.Component<FormItemProps> {
   private get contentArea(): React.ReactNode {
     const { type } = this.props;
     let content: React.ReactNode = null;
-    const finalStyle = styleReferenceBreaker(this.styles.contentArea);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.contentArea);
 
     switch (type) {
       case 'header':
@@ -410,7 +410,7 @@ export class FormItem extends React.Component<FormItemProps> {
   render(): React.ReactNode {
     const { componentProps, style, lastItem, label, helperText, type, onLongPress, disabled } = this.props;
     const { active, error } = this.state;
-    const finalStyle = styleReferenceBreaker(this.wrapperStyle);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.wrapperStyle);
 
     if (lastItem) {
       finalStyle.borderBottomWidth = 0;
@@ -430,13 +430,13 @@ export class FormItem extends React.Component<FormItemProps> {
       <>
         {!!(label && !this.noDirectLabel) && <Text type="label-02" style={getTextInputStyle().label} text={label} />}
         {this.contentArea}
-        {!!(helperText && !this.noDirectHelperText) && <Text type="helper-text-02" style={styleReferenceBreaker(getTextInputStyle().helperText, this.styles.helperText)} text={helperText} />}
+        {!!(helperText && !this.noDirectHelperText) && <Text type="helper-text-02" style={[getTextInputStyle().helperText, this.styles.helperText]} text={helperText} />}
       </>
     );
 
     if (type === 'button') {
       return (
-        <Pressable style={styleReferenceBreaker(finalStyle, style)} disabled={disabled} accessibilityLabel={label} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+        <Pressable style={[finalStyle, style]} disabled={disabled} accessibilityLabel={label} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
           {primaryContent}
         </Pressable>
       );
@@ -447,7 +447,7 @@ export class FormItem extends React.Component<FormItemProps> {
     }
 
     return (
-      <View style={styleReferenceBreaker(finalStyle, style)} {...(componentProps || {})}>
+      <View style={[finalStyle, style]} {...(componentProps || {})}>
         {primaryContent}
       </View>
     );

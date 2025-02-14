@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle } from '../../helpers';
 import { Text, TextTypes } from '../Text';
 
 /** An item to pass to content switcher */
@@ -30,13 +30,17 @@ export type ContentSwitcherProps = {
   componentProps?: ViewProps;
 };
 
+interface State {
+  currentIndex: number;
+}
+
 /**
  * ContentSwitcher component for rendering the content switcher
  *
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/ContentSwitcher.tsx | Example code}
  */
-export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
-  state = {
+export class ContentSwitcher extends Component<ContentSwitcherProps, State> {
+  readonly state: State = {
     currentIndex: 0,
   };
 
@@ -85,20 +89,18 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     });
   };
 
-  private getSwitcher(item: SwitcherItem, index: number): React.ReactNode {
+  private getSwitcher(item: SwitcherItem, index: number): ReactNode {
     const { currentIndex } = this.state;
     const { items } = this.props;
     const selected = index === currentIndex;
     const finalItem = items.length === index + 1;
-    const finalStyle = styleReferenceBreaker(selected ? this.styles.selectedItem : this.styles.item);
+    const finalStyle = StyleSheet.flatten<ViewStyle>(selected ? this.styles.selectedItem : this.styles.item);
     const textStyle = {
       color: selected ? getColor('textInverse') : getColor('textSecondary'),
     };
 
     if (item.disabled) {
-      if (selected) {
-        finalStyle.backgroundColor = getColor('buttonDisabled');
-      }
+      if (selected) finalStyle.backgroundColor = getColor('buttonDisabled');
 
       finalStyle.borderColor = getColor('buttonDisabled');
       textStyle.color = getColor('textDisabled');
@@ -148,11 +150,11 @@ export class ContentSwitcher extends React.Component<ContentSwitcherProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style } = this.props;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="menu" {...(componentProps || {})}>
         {(items || []).map((item, index) => this.getSwitcher(item, index))}
       </View>
     );

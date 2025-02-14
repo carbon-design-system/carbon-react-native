@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, View, ViewProps } from 'react-native';
-import { styleReferenceBreaker } from '../../helpers';
 
 /** Props for DataTable component */
 export type DataTableProps = {
@@ -31,7 +30,7 @@ export class DataTable extends React.Component<DataTableProps> {
   }
   render(): React.ReactNode {
     const { componentProps, style, children } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
     return (
       <View style={finalStyles} {...(componentProps || {})}>

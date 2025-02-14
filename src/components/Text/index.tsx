@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleProp, StyleSheet, Text as ReactText, TextProps as ReactTextProps, TextStyle } from 'react-native';
+import { type StyleProp, Text as ReactText, type TextProps as ReactTextProps, type TextStyle, type ViewStyle } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Body01, Body02, BodyCompact01, BodyCompact02, Code01, Code02, Heading01, Heading02, Heading03, Heading04, Heading05, Heading06, Heading07, HeadingCompact01, HeadingCompact02, HelperText01, HelperText02, Label01, Label02, Legal01, Legal02 } from '../../styles/typography';
@@ -38,7 +38,7 @@ export type TextProps = {
 export class Text extends React.Component<TextProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { type, style } = this.props;
-    let finalStyle: any = {};
+    let finalStyle: ViewStyle = {};
 
     switch (type) {
       case 'code-01':
@@ -107,7 +107,7 @@ export class Text extends React.Component<TextProps> {
         break;
     }
 
-    return StyleSheet.create(Object.assign(finalStyle, { color: getColor('textPrimary') }, style));
+    return Object.assign(finalStyle, { color: getColor('textPrimary') }, style);
   }
 
   render(): React.ReactNode {

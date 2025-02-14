@@ -166,9 +166,9 @@ export class Notification extends React.Component<NotificationProps> {
   private get notificationContent(): React.ReactNode {
     const { title, subTitle, actionArea, multiLine } = this.props;
     const textStype = { color: this.textColor, marginRight: 16 };
-    const wrapper = styleReferenceBreaker(this.styles.content);
-    const textWrapper = styleReferenceBreaker(this.styles.textWrapper);
-    const hasAction = !!actionArea;
+    const wrapper: ViewStyle = styleReferenceBreaker(this.styles.content);
+    const textWrapper: ViewStyle = styleReferenceBreaker(this.styles.textWrapper);
+    const hasAction: boolean = !!actionArea;
 
     if (multiLine) {
       wrapper.flexDirection = 'column';
@@ -208,12 +208,12 @@ export class Notification extends React.Component<NotificationProps> {
 
   render(): React.ReactNode {
     const { componentProps, style } = this.props;
-    const finalStyle = styleReferenceBreaker(this.styles.wrapper);
+    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.wrapper);
     finalStyle.backgroundColor = this.backgroundColor;
     finalStyle.borderLeftColor = this.accentColor;
 
     return (
-      <View style={styleReferenceBreaker(finalStyle, style)} accessibilityRole="alert" {...(componentProps || {})}>
+      <View style={[finalStyle, style]} accessibilityRole="alert" {...(componentProps || {})}>
         <View style={this.styles.icon}>{this.icon}</View>
         {this.notificationContent}
         {this.dismissArea}

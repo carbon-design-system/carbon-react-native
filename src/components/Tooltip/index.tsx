@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, Pressable, Modal as ReactModal, Dimensions, DimensionValue } from 'react-native';
 import { getColor, shadowStyle } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { zIndexes } from '../../styles/z-index';
 import { defaultText } from '../../constants/defaultText';
@@ -170,13 +169,13 @@ export class Tooltip extends React.Component<TooltipProps> {
     const { open } = this.state;
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="menu" {...(componentProps || {})}>
         <View>
           {linkProps ? <Link {...linkProps} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} /> : <Button {...(buttonProps || { text: '' })} overrideColor={buttonProps?.iconOnlyMode ? (open ? getColor('iconPrimary') : getColor('iconSecondary')) : undefined} onPress={this.toggleTooltip} forwardRef={this.setFormItemRef} />}
           {open && (
             <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={() => this.setState({ open: false })}>
               <Pressable style={this.styles.closeModal} accessibilityRole="button" accessibilityLabel={closeText || defaultText.close} onPress={this.closeTooltip} />
-              <View style={styleReferenceBreaker(this.styles.tooltipWrapper, contentStyle)}>
+              <View style={[this.styles.tooltipWrapper, contentStyle]}>
                 <View style={this.styles.caret} />
                 {content}
               </View>
