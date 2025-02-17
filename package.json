@@ -1,6 +1,7 @@
 {
   "name": "@carbon/react-native",
   "version": "8.1.5",
+  "root": true,
   "description": "Carbon for React Native Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

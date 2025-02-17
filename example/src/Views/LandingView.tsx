@@ -18,7 +18,7 @@ export default class TestLandinView extends React.Component<{
     this.setState({ showPrivacy: true });
   };
 
-  render(): React.ReactNode {
+  render() {
     const { showPrivacy } = this.state;
 
     return (

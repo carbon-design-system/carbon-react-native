@@ -3,14 +3,13 @@ import * as g10 from '@carbon/themes/src/g10.js';
 import * as g100 from '@carbon/themes/src/g100.js';
 import { logIssue } from '../helpers';
 
-/** Theme choices available */
 export type ThemeChoices = 'light' | 'dark';
-/** Theme definition */
-export type ThemeDefinition = { [key: string]: string };
+export type ThemeDefinition = Record<string, string>;
+export type ThemeOverride = Partial<ThemeDefinition>;
 
 let themeOverride: ThemeChoices | null = null;
-let lightThemeOverride: ThemeDefinition = {};
-let darkThemeOverride: ThemeDefinition = {};
+let lightThemeOverride: ThemeOverride = {};
+let darkThemeOverride: ThemeOverride = {};
 
 /**
  * Set the theme to use for all subsequent calls to the color getter.
@@ -33,10 +32,8 @@ export const forceTheme = (theme: ThemeChoices | null): void => {
  *
  * @param themeDefinition - Partial or full set of theme tokens to override.
  */
-export const overrideLightTheme = (themeDefinition: ThemeDefinition): void => {
-  if (themeDefinition && typeof themeDefinition === 'object') {
-    lightThemeOverride = themeDefinition;
-  }
+export const overrideLightTheme = (themeDefinition: ThemeOverride): void => {
+  lightThemeOverride = themeDefinition;
 };
 
 /**
@@ -47,10 +44,8 @@ export const overrideLightTheme = (themeDefinition: ThemeDefinition): void => {
  *
  * @param themeDefinition - Partial or full set of theme tokens to override.
  */
-export const overrideDarkTheme = (themeDefinition: ThemeDefinition): void => {
-  if (themeDefinition && typeof themeDefinition === 'object') {
-    lightThemeOverride = themeDefinition;
-  }
+export const overrideDarkTheme = (themeDefinition: ThemeOverride): void => {
+  darkThemeOverride = themeDefinition;
 };
 
 /**
@@ -58,18 +53,15 @@ export const overrideDarkTheme = (themeDefinition: ThemeDefinition): void => {
  * @returns boolean indicating if dark mode is used for the system
  */
 export const useDarkMode = (): boolean => {
-  if (themeOverride) {
-    return themeOverride === 'dark';
-  }
-
+  if (themeOverride) return themeOverride === 'dark';
   return Appearance.getColorScheme() === 'dark';
 };
 
 /**
  * @ignore
  * Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now
- *  */
-export const componentsG10: { [key: string]: string } = {
+ */
+export const componentsG10: ThemeDefinition = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -131,8 +123,8 @@ export const componentsG10: { [key: string]: string } = {
 /**
  * @ignore
  * Component colors are not part of themes and are in the main library; which is quite large. So hardcoding for now
- *  */
-export const componentsG100: { [key: string]: string } = {
+ */
+export const componentsG100: ThemeDefinition = {
   buttonPrimary: '#0f62fe',
   buttonPrimaryHover: '#0353e9',
   buttonPrimaryActive: '#002d9c',
@@ -200,19 +192,14 @@ export const componentsG100: { [key: string]: string } = {
  */
 export const getColor = (token: string, overrideTheme?: ThemeChoices): string => {
   let foundLightColor = lightThemeOverride[token] || g10[token] || componentsG10[token];
-  let foundDarkColor = darkThemeOverride[token] || g100[token] || componentsG100[token];
-
   if (!foundLightColor) {
-    logIssue('getColor: could not find requested color in light theme.', {
-      token,
-    });
+    logIssue('getColor: could not find requested color in light theme.', { token });
     foundLightColor = '#161616';
   }
 
+  let foundDarkColor = darkThemeOverride[token] || g100[token] || componentsG100[token];
   if (!foundDarkColor) {
-    logIssue('getColor: could not find requested color in dark theme.', {
-      token,
-    });
+    logIssue('getColor: could not find requested color in dark theme.', { token });
     foundLightColor = '#f4f4f4';
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Alert } from 'react-native';
+import { StyleSheet, ScrollView, Alert, ViewStyle } from 'react-native';
 import { Button, Checkbox, styleReferenceBreaker } from '@carbon/react-native';
 import AddIcon from '@carbon/icons/es/add/20';
 
@@ -27,13 +27,11 @@ export default class TestButton extends React.Component {
     Alert.alert(text);
   };
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, not100 } = this.state;
-    const itemStyle = styleReferenceBreaker(styles.baseSpacing);
+    const itemStyle: ViewStyle = styleReferenceBreaker(styles.baseSpacing);
 
-    if (not100) {
-      itemStyle.alignSelf = 'flex-start';
-    }
+    if (not100) itemStyle.alignSelf = 'flex-start';
 
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>

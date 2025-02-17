@@ -41,7 +41,7 @@ export default class TestNotification extends React.Component {
     Alert.alert('Pressed action');
   };
 
-  render(): React.ReactNode {
+  render() {
     const { showSubtitle, showAction, showDismiss, lowContrast, multiLine, longTitle, longSubTitle, shadow } = this.state;
     const types: NotificationTypes[] = ['info', 'error', 'warning', 'success'];
 

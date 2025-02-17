@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { Animated, Easing, StyleProp, View, ViewStyle } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import { getColor } from '../../styles/colors';
@@ -26,10 +26,10 @@ export type LoadingProps = {
  *
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Loading.tsx | Example code}
  */
-export class Loading extends React.Component<LoadingProps> {
+export class Loading extends Component<LoadingProps> {
   private animatedValue = new Animated.Value(0);
 
-  private get largeLoading(): React.ReactNode {
+  private get largeLoading(): ReactNode {
     return (
       <Svg height="84" width="84" viewBox="0 0 84 84">
         <G stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -41,7 +41,7 @@ export class Loading extends React.Component<LoadingProps> {
     );
   }
 
-  private get mediumLoading(): React.ReactNode {
+  private get mediumLoading(): ReactNode {
     return (
       <Svg height="32" width="32" viewBox="0 0 32 32">
         <G>
@@ -53,7 +53,7 @@ export class Loading extends React.Component<LoadingProps> {
     );
   }
 
-  private get smallLoading(): React.ReactNode {
+  private get smallLoading(): ReactNode {
     return (
       <Svg height="16" width="16" viewBox="0 0 16 16">
         <G stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -80,7 +80,7 @@ export class Loading extends React.Component<LoadingProps> {
     }
   }
 
-  private animateSpin = () => {
+  private animateSpin = (): void => {
     this.animatedValue.setValue(0);
 
     Animated.timing(this.animatedValue, {
@@ -92,7 +92,7 @@ export class Loading extends React.Component<LoadingProps> {
     }).start(() => this.animateSpin());
   };
 
-  private get animatedStyle(): any {
+  private get animatedStyle(): ViewStyle {
     return {
       width: this.size,
       height: this.size,
@@ -107,7 +107,7 @@ export class Loading extends React.Component<LoadingProps> {
     };
   }
 
-  private get mainView(): React.ReactNode {
+  private get mainView(): ReactNode {
     const { type } = this.props;
 
     switch (type) {
@@ -125,7 +125,7 @@ export class Loading extends React.Component<LoadingProps> {
     this.animateSpin();
   }
 
-  render(): React.ReactNode {
+  render() {
     const { loadingText, style } = this.props;
 
     return (

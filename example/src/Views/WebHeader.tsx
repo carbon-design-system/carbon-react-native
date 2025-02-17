@@ -44,7 +44,7 @@ export default class TestWebHeader extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showActions } = this.state;
 
     return (

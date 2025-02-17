@@ -110,7 +110,7 @@ export default class TestBottomNavigationBar extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { total, currentPage, disabled } = this.state;
 
     const itemsToUse = this.items.slice(0, Number(total));

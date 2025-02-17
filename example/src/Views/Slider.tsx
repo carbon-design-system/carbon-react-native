@@ -31,7 +31,7 @@ export default class TestSlider extends React.Component {
     this.setState({ [field]: value });
   };
 
-  render(): React.ReactNode {
+  render() {
     const { value1, value2, value3, value4 } = this.state;
 
     return (

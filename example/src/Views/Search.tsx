@@ -29,7 +29,7 @@ export default class TestSearch extends React.Component {
     this.setState({ [field]: value });
   };
 
-  render(): React.ReactNode {
+  render() {
     const { value1, value2, value3, value4, value5, value6 } = this.state;
 
     return (

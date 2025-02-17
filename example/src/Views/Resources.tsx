@@ -115,7 +115,7 @@ export default class TestResources extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showTerms, showPrivacy, showThirdParty } = this.state;
 
     return (

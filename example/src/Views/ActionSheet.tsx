@@ -84,7 +84,7 @@ export default class TestActionSheet extends React.Component {
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open, showBody, forceCustom, lotItems, dangerItem, imageSupport, showDivider, fullBleed } = this.state;
 
     return (

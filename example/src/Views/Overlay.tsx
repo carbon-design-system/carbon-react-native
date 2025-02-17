@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 export default class TestOverlay extends React.Component {
-  render(): React.ReactNode {
+  render() {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Overlay style={styles.overlay} />

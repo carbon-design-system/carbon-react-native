@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, ScrollView, GestureResponderEvent } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { styleReferenceBreaker } from '../../helpers';
 import { Button, ButtonProps } from '../Button';
 import { Text } from '../Text';
 
@@ -93,9 +92,9 @@ export class DataTableHeaderSelected extends React.Component<DataTableHeaderSele
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, itemsSelectedText } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
     return (
       <View style={finalStyles} {...(componentProps || {})} accessibilityRole="menubar">

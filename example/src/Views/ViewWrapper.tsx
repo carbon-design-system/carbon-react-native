@@ -32,7 +32,7 @@ export default class TestViewWrapper extends React.Component<{
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { topNavColor, topCustomColor, bottomNavColor, bottomCustomColor, statusBar } = this.state;
     const { goHome } = this.props;
     let statusBarType = undefined as 'dark-content' | 'light-content' | undefined;

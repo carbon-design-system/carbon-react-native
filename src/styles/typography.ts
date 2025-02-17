@@ -5,7 +5,7 @@
  * If you want to use other fonts you can download them and store them in your app and follow same directions on README.
  */
 
-import { Dimensions } from 'react-native';
+import { Dimensions, type TextStyle } from 'react-native';
 
 /** Font weights supported */
 export type FontWeights = 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
@@ -92,7 +92,7 @@ export const MonoRegularFont = (): FontDefinition => {
 };
 
 /** Code-01 text style (Productive) */
-export const Code01 = () => {
+export const Code01 = (): TextStyle => {
   return {
     fontSize: 12,
     lineHeight: 16,
@@ -102,7 +102,7 @@ export const Code01 = () => {
 };
 
 /** Code-02 text style (Expressive) */
-export const Code02 = () => {
+export const Code02 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 20,
@@ -112,7 +112,7 @@ export const Code02 = () => {
 };
 
 /** Label-01 text style (Productive) */
-export const Label01 = () => {
+export const Label01 = (): TextStyle => {
   return {
     fontSize: 12,
     lineHeight: 16,
@@ -122,7 +122,7 @@ export const Label01 = () => {
 };
 
 /** Label-02 text style (Expressive) */
-export const Label02 = () => {
+export const Label02 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 18,
@@ -132,7 +132,7 @@ export const Label02 = () => {
 };
 
 /** Helper-text-01 text style (Productive) */
-export const HelperText01 = () => {
+export const HelperText01 = (): TextStyle => {
   return {
     fontSize: 12,
     lineHeight: 16,
@@ -142,7 +142,7 @@ export const HelperText01 = () => {
 };
 
 /** Helper-text-02 text style (Expressive) */
-export const HelperText02 = () => {
+export const HelperText02 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 18,
@@ -152,7 +152,7 @@ export const HelperText02 = () => {
 };
 
 /** Legal-01 text style (Productive) */
-export const Legal01 = () => {
+export const Legal01 = (): TextStyle => {
   return {
     fontSize: 12,
     lineHeight: 16,
@@ -162,7 +162,7 @@ export const Legal01 = () => {
 };
 
 /** Legal-02 text style (Expressive) */
-export const Legal02 = () => {
+export const Legal02 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 18,
@@ -172,7 +172,7 @@ export const Legal02 = () => {
 };
 
 /** Body-compact-01 text style (Productive) */
-export const BodyCompact01 = () => {
+export const BodyCompact01 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 18,
@@ -182,7 +182,7 @@ export const BodyCompact01 = () => {
 };
 
 /** Body-compact-02 text style (Expressive) */
-export const BodyCompact02 = () => {
+export const BodyCompact02 = (): TextStyle => {
   return {
     fontSize: 16,
     lineHeight: 22,
@@ -192,7 +192,7 @@ export const BodyCompact02 = () => {
 };
 
 /** Body-01 text style (Productive) */
-export const Body01 = () => {
+export const Body01 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 20,
@@ -202,7 +202,7 @@ export const Body01 = () => {
 };
 
 /** Body-02 text style (Expressive) */
-export const Body02 = () => {
+export const Body02 = (): TextStyle => {
   return {
     fontSize: 16,
     lineHeight: 24,
@@ -212,7 +212,7 @@ export const Body02 = () => {
 };
 
 /** Heading-compact-01 text style (Productive) */
-export const HeadingCompact01 = () => {
+export const HeadingCompact01 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 18,
@@ -222,7 +222,7 @@ export const HeadingCompact01 = () => {
 };
 
 /** Heading-compact-02 text style (Expressive) */
-export const HeadingCompact02 = () => {
+export const HeadingCompact02 = (): TextStyle => {
   return {
     fontSize: 16,
     lineHeight: 22,
@@ -232,7 +232,7 @@ export const HeadingCompact02 = () => {
 };
 
 /** Heading-01 text style (Productive) */
-export const Heading01 = () => {
+export const Heading01 = (): TextStyle => {
   return {
     fontSize: 14,
     lineHeight: 20,
@@ -242,7 +242,7 @@ export const Heading01 = () => {
 };
 
 /** Heading-02 text style (Expressive) */
-export const Heading02 = () => {
+export const Heading02 = (): TextStyle => {
   return {
     fontSize: 16,
     lineHeight: 24,
@@ -252,7 +252,7 @@ export const Heading02 = () => {
 };
 
 /** Heading-03 text style (Productive) */
-export const Heading03 = () => {
+export const Heading03 = (): TextStyle => {
   return {
     fontSize: 20,
     lineHeight: 28,
@@ -262,7 +262,7 @@ export const Heading03 = () => {
 };
 
 /** Heading-04 text style (Productive) */
-export const Heading04 = () => {
+export const Heading04 = (): TextStyle => {
   return {
     fontSize: 28,
     lineHeight: 36,
@@ -272,7 +272,7 @@ export const Heading04 = () => {
 };
 
 /** Heading-05 text style (Productive) */
-export const Heading05 = () => {
+export const Heading05 = (): TextStyle => {
   return {
     fontSize: 32,
     lineHeight: 40,
@@ -282,7 +282,7 @@ export const Heading05 = () => {
 };
 
 /** Heading-06 text style (Productive) */
-export const Heading06 = () => {
+export const Heading06 = (): TextStyle => {
   return {
     fontSize: 42,
     lineHeight: 50,
@@ -292,7 +292,7 @@ export const Heading06 = () => {
 };
 
 /** Heading-07 text style (Productive) */
-export const Heading07 = () => {
+export const Heading07 = (): TextStyle => {
   return {
     fontSize: 54,
     lineHeight: 64,

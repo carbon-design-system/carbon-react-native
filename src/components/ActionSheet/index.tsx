@@ -215,7 +215,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
               <View style={this.styles.optionsWrapper}>
                 <ScrollView bounces={false} style={this.styles.options}>
                   {options.map((item, index) => {
-                    const finalStyle = styleReferenceBreaker(this.styles.option);
+                    const finalStyle: ViewStyle = styleReferenceBreaker(this.styles.option);
                     const lastItem = index === options.length - 1;
 
                     let imageItem: React.ReactNode | undefined;
@@ -283,7 +283,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     if (!this.useSystemActionSheet) {
       return this.customActionSheet;
     }

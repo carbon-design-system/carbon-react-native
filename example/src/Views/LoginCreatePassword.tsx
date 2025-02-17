@@ -71,7 +71,7 @@ export default class TestLoginCreatePassword extends React.Component<{
     return value ? (this.invalidPassword ? 'Password must meet the following crieria:' : '') : 'Password is required';
   };
 
-  render(): React.ReactNode {
+  render() {
     const { password } = this.state;
 
     return (

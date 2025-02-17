@@ -190,7 +190,7 @@ export class Dropdown extends React.Component<DropdownProps> {
     }
   };
 
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style, label, helperText, value, onChange, disabled, closeText, valueToText, unsetText } = this.props;
     const { open } = this.state;
     const finalStyle = styleReferenceBreaker(disabled ? this.textInputStyles.textBoxDisabled : this.textInputStyles.textBox);
@@ -223,7 +223,7 @@ export class Dropdown extends React.Component<DropdownProps> {
     });
 
     return (
-      <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityRole="menu" {...(componentProps || {})}>
+      <View style={[this.styles.wrapper, style]} accessibilityRole="menu" {...(componentProps || {})}>
         {!!label && <Text style={this.textInputStyles.label} type="label-02" text={label} />}
         <View style={this.styles.innerWrapper}>
           <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, finalStyle, this.getStateStyle)} accessibilityLabel={label} accessibilityHint={currentText} onPress={this.toggleDropdown} ref={this.setFormItemRef}>

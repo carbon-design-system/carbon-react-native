@@ -23,7 +23,7 @@ export default class TestFileUploaderItem extends React.Component {
     deletedItem2: false,
   };
 
-  render(): React.ReactNode {
+  render() {
     const { deletedItem, deletedItem2 } = this.state;
 
     return (

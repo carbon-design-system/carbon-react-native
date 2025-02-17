@@ -1,7 +1,7 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, View, GestureResponderEvent, Pressable, PressableStateCallbackType } from 'react-native';
 import { getColor } from '../../styles/colors';
-import { pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { pressableFeedbackStyle } from '../../helpers';
 import { defaultText } from '../../constants/defaultText';
 
 /** Props for Tile component */
@@ -46,9 +46,9 @@ export class Tile extends React.Component<TileProps> {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { children, componentProps, style, type, onPress, onLongPress, tileText } = this.props;
-    const finalStyles = styleReferenceBreaker(this.styles.wrapper, style);
+    const finalStyles = StyleSheet.flatten([this.styles.wrapper, style]);
 
     switch (type) {
       case 'scroll':

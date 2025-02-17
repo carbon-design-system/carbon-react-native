@@ -100,7 +100,7 @@ export class AcceptTerms extends React.Component<AcceptTermsProps> {
     return <BottomToolbar items={items} />;
   }
 
-  render(): React.ReactNode {
+  render() {
     const { componentProps, style, title, source, disableContainerPadding, forceView } = this.props;
 
     return <DocumentViewer title={title} source={source} style={style} componentProps={componentProps} disableContainerPadding={disableContainerPadding} forceView={forceView} navigationFooter={this.footer} renderChildComponent={this.disagreeModal} />;

@@ -60,7 +60,7 @@ export default class TestTooltip extends React.Component {
     );
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showWithActions } = this.state;
 
     return (

@@ -35,7 +35,7 @@ export default class TestDocumentViewer extends React.Component {
     this.setState({ open: true });
   };
 
-  render(): React.ReactNode {
+  render() {
     const { open, forceIos, forceAndroid, loadSite, loadCustomWebView } = this.state;
     let forceType = undefined as 'android' | 'ios' | undefined;
 

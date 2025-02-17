@@ -106,7 +106,7 @@ export class Modal extends React.Component<ModalProps> {
     return state.pressed ? { backgroundColor: getColor('buttonSecondaryActive') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { open, title, description, primaryActionOnPress, primaryActionText, secondaryActionOnPress, secondaryActionText, children } = this.props;
 
     if (!open) {

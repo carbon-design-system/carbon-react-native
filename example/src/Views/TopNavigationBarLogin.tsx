@@ -99,7 +99,7 @@ export default class TestTopNavigationBarLogin extends React.Component {
     };
   }
 
-  render(): React.ReactNode {
+  render() {
     const { rightSide, showSubTitle, disableItems, activeIcon, showBack } = this.state;
 
     return (

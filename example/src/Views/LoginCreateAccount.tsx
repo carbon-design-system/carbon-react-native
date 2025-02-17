@@ -92,7 +92,7 @@ export class TestSignUpForm extends React.Component<{
     return !(!this.invalidPassword && email && firstName && lastName && country && state && phone && password && terms);
   }
 
-  render(): React.ReactNode {
+  render() {
     const { email, firstName, lastName, company, jobTitle, address, address2, city, country, state, phone, password, informEmail, informMail, informPhone, terms, openTerms } = this.state;
 
     const countries = [
@@ -173,7 +173,7 @@ export default class TestLoginCreateAccount extends React.Component {
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { openCreate } = this.state;
 
     return (

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType, View } from 'react-native';
-import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
+import { createIcon, pressableFeedbackStyle } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
 import { CarbonIcon } from '../../types/shared';
@@ -40,7 +40,7 @@ export type MenuItemProps = {
  *
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/Menu.tsx | Example code}
  */
-export class MenuItem extends React.Component<MenuItemProps> {
+export class MenuItem extends Component<MenuItemProps> {
   private get styles() {
     const { divider, lastItem } = this.props;
 
@@ -62,50 +62,37 @@ export class MenuItem extends React.Component<MenuItemProps> {
 
   private get textColor(): string {
     const { disabled } = this.props;
-
     return getColor(disabled ? 'textDisabled' : 'textSecondary');
   }
 
   private get iconColor(): string {
     const { iconColor, disabled } = this.props;
-
-    if (disabled) {
-      return this.textColor;
-    }
-
-    return iconColor || this.textColor;
+    return disabled ? this.textColor : iconColor || this.textColor;
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    let finalStyle: any = {
+    return {
       color: this.textColor,
       flex: 1,
     };
-
-    return StyleSheet.create(finalStyle);
   }
 
   private onPress = (event: GestureResponderEvent): void => {
     const { dismissKeyboardOnPress, onPress } = this.props;
 
-    if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') {
-      Keyboard.dismiss();
-    }
-
-    if (typeof onPress === 'function') {
-      onPress(event);
-    }
+    if (dismissKeyboardOnPress && typeof Keyboard?.dismiss === 'function') Keyboard.dismiss();
+    if (typeof onPress === 'function') onPress(event);
   };
 
   private getStateStyle = (state: PressableStateCallbackType): StyleProp<ViewStyle> => {
     return state.pressed ? { backgroundColor: getColor('layerActive01') } : undefined;
   };
 
-  render(): React.ReactNode {
+  render() {
     const { text, disabled, onLongPress, componentProps, textType, style, textBreakMode, icon } = this.props;
 
     return (
-      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, styleReferenceBreaker(this.styles.wrapper, style), this.getStateStyle)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
+      <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, [this.styles.wrapper, style], this.getStateStyle)} accessibilityLabel={text} accessibilityRole="menuitem" onPress={this.onPress} onLongPress={onLongPress} {...(componentProps || {})}>
         {!!icon && <View style={this.styles.icon}>{createIcon(icon, 20, 20, this.iconColor)}</View>}
         <Text breakMode={textBreakMode} type={textType} style={this.textStyle} text={text} />
       </Pressable>

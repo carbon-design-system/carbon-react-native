@@ -23,7 +23,7 @@ export default class TestRadioButton extends React.Component {
     this.setState({ value: field });
   };
 
-  render(): React.ReactNode {
+  render() {
     const { value } = this.state;
 
     return (

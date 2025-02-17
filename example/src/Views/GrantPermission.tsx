@@ -63,7 +63,7 @@ export default class TestGrantPermission extends React.Component {
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open, type } = this.state;
 
     return (

@@ -80,7 +80,7 @@ export default class TestOverrideTheme extends React.Component<{ reloadView: () 
     reloadView();
   };
 
-  render(): React.ReactNode {
+  render() {
     return (
       <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
         <Text style={styles.baseSpacing} text="Override theme using options below. Theme will be set to this until you kill the app or reset." />

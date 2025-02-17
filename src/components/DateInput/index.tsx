@@ -8,7 +8,7 @@ import { TextInputProps } from '../../types/shared';
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/DateInput.tsx | Example code}
  */
 export class DateInput extends React.Component<TextInputProps> {
-  render(): React.ReactNode {
+  render() {
     return <BaseTextInput type="date" {...this.props} />;
   }
 }

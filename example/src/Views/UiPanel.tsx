@@ -155,7 +155,7 @@ export default class TestUiPanel extends React.Component<{
     ];
   }
 
-  render(): React.ReactNode {
+  render() {
     const { open, hasLeftIcon, hideFourthItem, hasChildRightIcon, autoCloseNoChild } = this.state;
     const { goHome } = this.props;
 

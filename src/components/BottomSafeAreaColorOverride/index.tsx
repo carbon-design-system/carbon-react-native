@@ -72,7 +72,7 @@ export class BottomSafeAreaColorOverride extends React.Component<BottomSafeAreaC
     });
   }
 
-  render(): React.ReactNode {
+  render() {
     const { backgroundOverlay } = this.props;
 
     if (this.isPortrait) {

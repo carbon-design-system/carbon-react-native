@@ -43,7 +43,7 @@ export default class TestAcceptTerms extends React.Component {
     Alert.alert(result ? 'You accepted the terms' : 'You did not accept the terms', result ? 'Your app show save they have accepted and never show again unless terms change.' : 'Your app should exit or return to landing.');
   };
 
-  render(): React.ReactNode {
+  render() {
     const { open, forceIos, forceAndroid, loadSite } = this.state;
     let forceType = undefined as 'android' | 'ios' | undefined;
 

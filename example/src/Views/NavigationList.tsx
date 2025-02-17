@@ -75,7 +75,7 @@ export default class TestNavigationLisst extends React.Component {
     };
   }
 
-  render(): React.ReactNode {
+  render() {
     const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType, reverseSubText, hasRightText, hasUnreadBadge } = this.state;
 
     return (

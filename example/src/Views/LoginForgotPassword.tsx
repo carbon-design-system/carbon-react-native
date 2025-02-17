@@ -109,7 +109,7 @@ export default class TestLoginForgotPassword extends React.Component<{
     }
   }
 
-  render(): React.ReactNode {
+  render() {
     const { enterCode } = this.state;
 
     return (

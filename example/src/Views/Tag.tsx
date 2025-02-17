@@ -28,7 +28,7 @@ export default class TestTag extends React.Component {
 
   private textTypes = ['red', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'gray', 'cool-gray', 'warm-gray', 'high-contrast'];
 
-  render(): React.ReactNode {
+  render() {
     const { disabled, showFilterClose, showWrapping } = this.state;
 
     return (

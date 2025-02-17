@@ -18,7 +18,7 @@ export type NavigationListProps = {
  * {@link https://github.com/carbon-design-system/carbon-react-native/blob/main/example/src/Views/NavigationList.tsx | Example code}
  */
 export class NavigationList extends React.Component<NavigationListProps> {
-  render(): React.ReactNode {
+  render() {
     const { items, componentProps, style } = this.props;
     const allItems = items || [];
 
