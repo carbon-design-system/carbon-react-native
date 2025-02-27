@@ -49,7 +49,7 @@ export const overrideLightTheme = (themeDefinition: ThemeDefinition): void => {
  */
 export const overrideDarkTheme = (themeDefinition: ThemeDefinition): void => {
   if (themeDefinition && typeof themeDefinition === 'object') {
-    lightThemeOverride = themeDefinition;
+    darkThemeOverride = themeDefinition;
   }
 };
 
