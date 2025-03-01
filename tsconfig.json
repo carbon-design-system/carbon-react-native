@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@carbon/react-native": ["./src/index"]
+      "@carbon/react-native": ["./src2/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
