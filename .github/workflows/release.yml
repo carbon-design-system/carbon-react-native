@@ -28,7 +28,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && npm --prefix ./example ci
 
       - name: Configure git
         uses: oleksiyrudenko/gha-git-credentials@v2.1
