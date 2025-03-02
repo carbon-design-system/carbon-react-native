@@ -57,7 +57,6 @@
     "@carbon/themes": "^11.47.0",
     "@commitlint/config-conventional": "^19.7.1",
     "@eslint/js": "^9.21.0",
-    "@evilmartians/lefthook": "^1.11.2",
     "@release-it/conventional-changelog": "^10.0.0",
     "@types/jest": "^29.5.14",
     "@types/react": "19.0.0",
