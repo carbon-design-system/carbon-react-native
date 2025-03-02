@@ -6,7 +6,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "pods": "pod-install --quiet"
   },
   "license": "Apache-2.0",
@@ -29,6 +29,7 @@
     "@react-native-community/cli-platform-ios": "15.0.1",
     "@react-native/babel-preset": "0.78.0",
     "@react-native/metro-config": "0.78.0",
-    "@react-native/typescript-config": "0.78.0"
+    "@react-native/typescript-config": "0.78.0",
+    "@tsconfig/react-native": "^3.0.5"
   }
 }
