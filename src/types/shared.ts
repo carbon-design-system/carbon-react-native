@@ -1,6 +1,6 @@
 import { LinkProps } from '../components/Link';
 import { TextBreakModes } from '../components/Text';
-import { NativeSyntheticEvent, TextInputProps as ReactTextInputProps, StyleProp, TextInputFocusEventData, ViewStyle } from 'react-native';
+import { NativeSyntheticEvent, TextInputProps as ReactTextInputProps, StyleProp, TextInputFocusEventData, ViewStyle, TextStyle } from 'react-native';
 
 /**
  * Icon type to pass to components that take icon directly.
@@ -11,6 +11,9 @@ export type CarbonIcon = unknown;
 
 /** Basic text input types */
 export type BaseTextInputTypes = 'text' | 'text-area' | 'password' | 'number' | 'date';
+
+/** Basic style handling for style prop and raw style */
+export type StylePassing = StyleProp<ViewStyle|TextStyle>|ViewStyle|TextStyle;
 
 /** Shared props for Text, Password and TextArea */
 export type TextInputProps = {

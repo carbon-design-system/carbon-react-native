@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { modalPresentations } from '../../constants/constants';
 import { styleReferenceBreaker } from '../../helpers';
@@ -156,7 +156,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
                 <Text style={this.styles.reasoning} text={reasoning} type="body-02" />
                 {!!additionalReasoning && <Text style={this.styles.reasoning} text={additionalReasoning} type="body-02" />}
               </View>
-              <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.imageSource} />
+              <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle) as ImageStyle} source={this.imageSource} />
             </ScrollView>
             <Button style={this.styles.action} onPress={this.accept} text={continueText} />
             <Button style={this.styles.action} kind="secondary" onPress={this.reject} text={cancelText} />

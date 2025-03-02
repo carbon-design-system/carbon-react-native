@@ -202,7 +202,7 @@ export class FormItem extends React.Component<FormItemProps> {
         color: helperTextColor,
       },
       checkboxButton: {
-        ...baseWrapper,
+        ...(baseWrapper as ViewStyle),
         flex: 1,
         flexDirection: 'row',
       },

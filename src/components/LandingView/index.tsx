@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, Dimensions, EmitterSubscription, ScrollView, ImageSourcePropType, GestureResponderEvent } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, EmitterSubscription, ScrollView, ImageSourcePropType, GestureResponderEvent, ImageStyle } from 'react-native';
 import ArrowRightIcon from '@carbon/icons/es/arrow--right/20';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -125,8 +125,8 @@ export class LandingView extends React.Component<LandingViewProps> {
 
     return (
       <View style={this.styles.logoArea}>
-        {companyImage && <Image resizeMode="contain" style={companyImageStyle} source={companyImage} />}
-        <Image resizeMode="contain" style={productImageStyle} source={productImage} />
+        {companyImage && <Image resizeMode="contain" style={companyImageStyle as ImageStyle} source={companyImage} />}
+        <Image resizeMode="contain" style={productImageStyle as ImageStyle} source={productImage} />
       </View>
     );
   }

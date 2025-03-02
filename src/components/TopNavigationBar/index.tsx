@@ -7,8 +7,9 @@ import { Button } from '../Button';
 import { Link, LinkProps } from '../Link';
 import { Text } from '../Text';
 import { RegularFont } from '../../styles/typography';
+import { StylePassing } from 'src/types/shared';
 
-export const headerBarGetItems = (items: NavigationButton[], style: unknown, itemStyle: unknown, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
+export const headerBarGetItems = (items: NavigationButton[], style: StylePassing, itemStyle: StylePassing, type: 'right' | 'left', forceDarkMode?: boolean): React.ReactNode => {
   const finalWrapperStyles = styleReferenceBreaker(style);
 
   if (type === 'right') {

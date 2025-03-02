@@ -362,7 +362,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     }
 
     if (error) {
-      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 25;
+      textBoxStyle.paddingRight = (Number(textBoxStyle.paddingRight) || 0) + 25;
     }
 
     return (

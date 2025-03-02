@@ -23,13 +23,13 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { disabled } = this.props;
 
-    const finalStyle = {
+    const finalStyle: TextStyle = {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
       marginLeft: 8,
       lineHeight: 20,
     };
 
-    return StyleSheet.create(finalStyle);
+    return finalStyle;
   }
 
   private get radioButton(): React.ReactNode {
