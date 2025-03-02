@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import { ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton, getColor } from '@carbon/react-native';
+import { ToolbarButton, Checkbox, BottomToolbarPrimaryAction, RadioButton, getColor, BottomToolbarPrimaryActionPosition } from '@carbon/react-native';
 import DashboardIcon from '@carbon/icons/es/dashboard/20';
 import MapIcon from '@carbon/icons/es/map/20';
 import AddIcon from '@carbon/icons/es/add/24';
@@ -27,7 +27,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
   state = {
     disabled: false,
     disabledAction: false,
-    type: 'center',
+    type: 'center' as BottomToolbarPrimaryActionPosition,
     noItems: false,
   };
 
@@ -87,7 +87,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
           <Checkbox checked={disabledAction} id="disabledAction" onPress={(value) => this.setState({ disabledAction: value })} label="Disable primary action" />
           <Checkbox checked={noItems} id="noItems" onPress={(value) => this.setState({ noItems: value })} label="No items only primary action" />
         </ScrollView>
-        <BottomToolbarPrimaryAction leftItems={itemsToUseLeft} disabled={disabledAction} rightItems={itemsToUseRight} position={type as any} icon={AddIcon} text="Primary action" onPress={() => Alert.alert('Pressed primary button')} />
+        <BottomToolbarPrimaryAction leftItems={itemsToUseLeft} disabled={disabledAction} rightItems={itemsToUseRight} position={type} icon={AddIcon} text="Primary action" onPress={() => Alert.alert('Pressed primary button')} />
         <View style={styles.appBreaker} />
       </View>
     );

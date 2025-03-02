@@ -1,4 +1,4 @@
-import { Appearance } from 'react-native';
+import { Appearance, ColorValue } from 'react-native';
 import * as g10 from '@carbon/themes/src/g10.js';
 import * as g100 from '@carbon/themes/src/g100.js';
 import { logIssue } from '../helpers';
@@ -198,7 +198,7 @@ export const componentsG100: { [key: string]: string } = {
  * @param token - the Carbon (@carbon/theme you have installed) token name in camel case.
  * @param overrideTheme - force return of specific theme color (will ignore system)
  */
-export const getColor = (token: string, overrideTheme?: ThemeChoices): string => {
+export const getColor = (token: string, overrideTheme?: ThemeChoices): ColorValue&string => {
   let foundLightColor = lightThemeOverride[token] || g10[token] || componentsG10[token];
   let foundDarkColor = darkThemeOverride[token] || g100[token] || componentsG100[token];
 
@@ -213,7 +213,7 @@ export const getColor = (token: string, overrideTheme?: ThemeChoices): string =>
     logIssue('getColor: could not find requested color in dark theme.', {
       token,
     });
-    foundLightColor = '#f4f4f4';
+    foundDarkColor = '#f4f4f4';
   }
 
   if (overrideTheme) {

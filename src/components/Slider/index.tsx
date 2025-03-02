@@ -78,7 +78,7 @@ export class Slider extends React.Component<SliderProps> {
   private capValueWithinRange = (value: number) => {
     const { minValue, maxValue } = this.props;
 
-    let rounded = Math.round(value);
+    const rounded = Math.round(value);
 
     if (rounded < minValue) {
       return minValue;

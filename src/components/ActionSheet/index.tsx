@@ -166,7 +166,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
           if (action) {
             action.onPress();
           }
-        }
+        },
       );
     }
   };

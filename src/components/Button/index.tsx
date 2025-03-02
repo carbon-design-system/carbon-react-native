@@ -116,7 +116,7 @@ export class Button extends React.Component<ButtonProps> {
           {
             backgroundColor: this.getBackgroundColor(),
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'tertiary':
@@ -126,7 +126,7 @@ export class Button extends React.Component<ButtonProps> {
             borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonTertiary', forceTheme),
             borderWidth: 1,
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'high-contrast':
@@ -136,7 +136,7 @@ export class Button extends React.Component<ButtonProps> {
             borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonHighContrast', forceTheme),
             borderWidth: 1,
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'high-contrast-inverse':
@@ -146,7 +146,7 @@ export class Button extends React.Component<ButtonProps> {
             borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonHighContrastInverse', forceTheme),
             borderWidth: 1,
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'danger-tertiary':
@@ -156,7 +156,7 @@ export class Button extends React.Component<ButtonProps> {
             borderColor: getColor(disabled ? 'buttonDisabled' : 'buttonDangerSecondary', forceTheme),
             borderWidth: 1,
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'danger':
@@ -164,7 +164,7 @@ export class Button extends React.Component<ButtonProps> {
           {
             backgroundColor: this.getBackgroundColor(),
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'danger-ghost':
@@ -172,7 +172,7 @@ export class Button extends React.Component<ButtonProps> {
           {
             backgroundColor: this.getBackgroundColor(),
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'ghost':
@@ -180,7 +180,7 @@ export class Button extends React.Component<ButtonProps> {
           {
             backgroundColor: this.getBackgroundColor(),
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
       case 'primary':
@@ -189,7 +189,7 @@ export class Button extends React.Component<ButtonProps> {
           {
             backgroundColor: this.getBackgroundColor(),
           },
-          this.basicButton
+          this.basicButton,
         );
         break;
     }

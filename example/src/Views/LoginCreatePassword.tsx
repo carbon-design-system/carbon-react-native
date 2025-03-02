@@ -56,7 +56,7 @@ export default class TestLoginCreatePassword extends React.Component<{
 
   private get passwordRules(): React.ReactNode {
     const { password } = this.state;
-    const items = [<Text text="Eight characters minimum" style={password?.length >= 8 ? this.styles.rulePassed : undefined} />, <Text text="One uppercase letter" style={password.match(/[A-Z]/)?.length ? this.styles.rulePassed : undefined} />, <Text text="One lowercase letter" style={password.match(/[a-z]/)?.length ? this.styles.rulePassed : undefined} />, <Text text="One number" style={password.match(/[0-9]/)?.length ? this.styles.rulePassed : undefined} />];
+    const items = [<Text text="Eight characters minimum" key="1" style={password?.length >= 8 ? this.styles.rulePassed : undefined} />, <Text text="One uppercase letter" key="2" style={password.match(/[A-Z]/)?.length ? this.styles.rulePassed : undefined} />, <Text text="One lowercase letter" key="3" style={password.match(/[a-z]/)?.length ? this.styles.rulePassed : undefined} />, <Text text="One number" key="4" style={password.match(/[0-9]/)?.length ? this.styles.rulePassed : undefined} />];
 
     return <List style={this.styles.passwordRules} type="unordered" items={items} />;
   }

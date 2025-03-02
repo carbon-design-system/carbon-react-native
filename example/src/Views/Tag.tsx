@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Tag, Checkbox } from '@carbon/react-native';
+import { Tag, Checkbox, TagTypes } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {
@@ -26,7 +26,7 @@ export default class TestTag extends React.Component {
     showWrapping: false,
   };
 
-  private textTypes = ['red', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'gray', 'cool-gray', 'warm-gray', 'high-contrast'];
+  private textTypes: TagTypes[] = ['red', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'gray', 'cool-gray', 'warm-gray', 'high-contrast'];
 
   render(): React.ReactNode {
     const { disabled, showFilterClose, showWrapping } = this.state;
@@ -38,7 +38,7 @@ export default class TestTag extends React.Component {
         <Checkbox checked={showWrapping} id="showWrapping" onPress={(value) => this.setState({ showWrapping: value })} label="Make all wrap" />
         <Tag style={styles.tags} title="Default with long text that is really long and probably going to wrap." breakMode={showWrapping ? 'wrap' : undefined} disabled={disabled} onClosePress={showFilterClose ? () => Alert.alert('Pressed filter close', 'default') : undefined} />
         {this.textTypes.map((type) => (
-          <Tag key={type} style={styles.baseSpacing} tagType={type as any} title={type} disabled={disabled} breakMode={showWrapping ? 'wrap' : undefined} onClosePress={showFilterClose ? () => Alert.alert('Pressed filter close', type) : undefined} />
+          <Tag key={type} style={styles.baseSpacing} tagType={type} title={type} disabled={disabled} breakMode={showWrapping ? 'wrap' : undefined} onClosePress={showFilterClose ? () => Alert.alert('Pressed filter close', type) : undefined} />
         ))}
       </ScrollView>
     );

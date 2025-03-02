@@ -239,7 +239,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
 
   private get baseErrorWarningStyle() {
     const { type } = this.props;
-    let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
+    const errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
 
     if (type === 'password' || type === 'date') {
       errorIconStyle.right = 48;
@@ -314,7 +314,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     const date = type === 'date';
     const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
-    let error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
+    const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
     const fullBleedMode = typeof fullBleedCallback === 'function';
 
     if (fullBleedMode) {

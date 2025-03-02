@@ -24,7 +24,6 @@ export default class TestTabs extends React.Component {
     disableSecond: false,
   };
   private onChange = (index: number, item: TabItem): void => {
-    console.log(`Pressed to tab to ${item.text}`);
     this.setState({ [item.data as string]: index });
   };
 

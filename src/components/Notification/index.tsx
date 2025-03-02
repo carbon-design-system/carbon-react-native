@@ -65,7 +65,7 @@ export class Notification extends React.Component<NotificationProps> {
           paddingLeft: 16,
           flexDirection: 'row' as const,
         },
-        dropShadow ? shadowStyle : {}
+        dropShadow ? shadowStyle : {},
       ),
       icon: {
         paddingTop: 14,

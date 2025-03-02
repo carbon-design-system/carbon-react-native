@@ -11,10 +11,12 @@ const filePermissionImage = require('./file_permission.png');
 const locationPermissionImage = require('./location_permission.png');
 const notificationsPermissionImage = require('./notifications_permission.png');
 
+export type GrantPermissiontypes = 'files' | 'camera' | 'notifications' | 'location';
+
 /** Props for GrantPermission component */
 export type GrantPermissionProps = {
   /** The type of permission.  This will prefill image and style. You can override image for any other custom cases and leave this undefined. */
-  type?: 'files' | 'camera' | 'notifications' | 'location';
+  type?: GrantPermissiontypes;
   /** Title for view (usually "Grant access" or similar) */
   title: string;
   /** Reasoning for needing permission (Ex: "In order for us to retrieve the content you intend to upload, we will need access to your photos. This will be used for upload purposes only.") */

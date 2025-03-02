@@ -23,7 +23,7 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { disabled } = this.props;
 
-    let finalStyle: any = {
+    const finalStyle = {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
       marginLeft: 8,
       lineHeight: 20,
@@ -34,9 +34,9 @@ export class RadioButton extends React.Component<CheckboxRadioProps> {
 
   private get radioButton(): React.ReactNode {
     const { checked, disabled } = this.props;
-    const finalParams = [20, 20, disabled ? getColor('iconDisabled') : getColor('iconPrimary')];
+    const color = disabled ? getColor('iconDisabled') : getColor('iconPrimary');
 
-    return <View>{checked ? createIcon(RadioButtonCheckedIcon, ...finalParams) : createIcon(RadioButtonIcon, ...finalParams)}</View>;
+    return <View>{checked ? createIcon(RadioButtonCheckedIcon, 20, 20, color) : createIcon(RadioButtonIcon, 20, 20, color)}</View>;
   }
 
   private onPress = (event: GestureResponderEvent): void => {

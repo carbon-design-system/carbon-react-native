@@ -27,7 +27,6 @@ export default class TestContentSwitcher extends React.Component {
     disableSecond: false,
   };
   private onChange = (index: number, item: SwitcherItem): void => {
-    console.log(`Pressed to switch to ${item.text}`);
     this.setState({ [item.data as string]: index });
   };
 

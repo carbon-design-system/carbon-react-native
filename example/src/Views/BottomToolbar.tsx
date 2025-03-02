@@ -111,7 +111,7 @@ export default class TestBottomToolbar extends React.Component {
     const { disabled, type } = this.state;
 
     const textTypes: any = {
-      'even': 'Even distributed items',
+      even: 'Even distributed items',
       'left-right': 'Left right aligned icons',
       'left-right-text': 'Left right aligned text',
       'left-right-center': 'Left right and center aligned icons',

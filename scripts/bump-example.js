@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const {execSync} = require('child_process');
 const fs = require('fs');
 const gradleRegex = /versionCode [0-9]+\n/;

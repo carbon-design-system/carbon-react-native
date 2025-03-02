@@ -7,10 +7,12 @@ import { Button } from '../Button';
 import { Link } from '../Link';
 import type { CarbonIcon } from '../../types/shared';
 
+export type BottomToolbarPrimaryActionPosition = 'center' | 'right' | 'left';
+
 /** Props for BottomToolbarPrimaryAction component */
 export type BottomToolbarPrimaryActionProps = {
   /** Position of primary action (default is center) */
-  position?: 'center' | 'right' | 'left';
+  position?: BottomToolbarPrimaryActionPosition;
   /** Icon to load for the primary action (size 24) */
   icon: CarbonIcon;
   /** Text to use to describe the primary action (for accessibility) */
