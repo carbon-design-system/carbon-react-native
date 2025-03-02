@@ -3,7 +3,7 @@ import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
 import type { CarbonIcon } from '../types/shared';
-import { ColorValue, Linking, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import { ColorValue, Linking, PressableStateCallbackType, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -47,7 +47,7 @@ export const createIcon = (icon: CarbonIcon, width?: string | number, height?: s
  * @param extraStyle - Style to break reference to
  * @returns - broken reference for the style
  */
-export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
+export const styleReferenceBreaker = (style: StyleProp<ViewStyle|TextStyle>|ViewStyle|TextStyle, extraStyle?: StyleProp<ViewStyle|TextStyle>|ViewStyle|TextStyle): StyleProp<ViewStyle|TextStyle>|ViewStyle|TextStyle => {
   let finalStyle = Object.assign({}, style || {});
   finalStyle = Object.assign(finalStyle, extraStyle || {});
 

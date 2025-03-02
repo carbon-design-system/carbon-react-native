@@ -108,7 +108,7 @@ export class Button extends React.Component<ButtonProps> {
 
   private get buttonStyle(): StyleProp<ViewStyle> {
     const { kind, style, disabled, iconOnlyMode, icon, overrideColor, disableDesignPadding, forceTheme } = this.props;
-    let finalStyle: any = {};
+    let finalStyle: ViewStyle = {};
 
     switch (kind) {
       case 'secondary':
@@ -208,7 +208,7 @@ export class Button extends React.Component<ButtonProps> {
       finalStyle.borderColor = overrideColor;
     }
 
-    return StyleSheet.create(styleReferenceBreaker(finalStyle, style));
+    return styleReferenceBreaker(finalStyle, style);
   }
 
   private get iconTextColor(): string {
@@ -236,7 +236,7 @@ export class Button extends React.Component<ButtonProps> {
 
   private get textStyle(): StyleProp<TextStyle> {
     const { kind } = this.props;
-    let finalStyle: any = {};
+    let finalStyle: TextStyle = {};
 
     switch (kind) {
       case 'tertiary':
@@ -259,7 +259,7 @@ export class Button extends React.Component<ButtonProps> {
         break;
     }
 
-    return StyleSheet.create(finalStyle);
+    return finalStyle;
   }
 
   private onPress = (event: GestureResponderEvent): void => {

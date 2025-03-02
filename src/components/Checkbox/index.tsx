@@ -64,13 +64,14 @@ export class Checkbox extends React.Component<CheckboxRadioProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { disabled } = this.props;
 
-    const finalStyle: any = {
+    const finalStyle: TextStyle = {
       color: getColor(disabled ? 'textDisabled' : 'textPrimary'),
       marginLeft: 8,
       lineHeight: 20,
+      maxWidth: '100%',
     };
 
-    return StyleSheet.create(finalStyle);
+    return finalStyle;
   }
 
   private get checkbox(): React.ReactNode {

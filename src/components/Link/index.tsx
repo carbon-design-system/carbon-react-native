@@ -83,11 +83,11 @@ export class Link extends React.Component<LinkProps> {
   private get textStyle(): StyleProp<TextStyle> {
     const { textStyle, disabled } = this.props;
 
-    const finalStyle: any = {
+    const finalStyle: TextStyle = {
       color: disabled ? getColor('textDisabled') : this.textIconColor,
     };
 
-    return StyleSheet.create(styleReferenceBreaker(finalStyle, textStyle));
+    return styleReferenceBreaker(finalStyle, textStyle);
   }
 
   private onPress = (event: GestureResponderEvent): void => {

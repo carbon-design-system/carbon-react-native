@@ -57,7 +57,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
   render(): React.ReactNode {
     const { disabled, type, noItems, disabledAction } = this.state;
 
-    const textTypes: any = {
+    const textTypes: {[key: string]: string} = {
       center: 'Center button',
       left: 'Left button',
       right: 'Right button',
@@ -81,7 +81,7 @@ export default class TestBottomToolbarPrimaryAction extends React.Component {
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
           {Object.keys(textTypes).map((item) => (
-            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({ type: item })} />
+            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item] || ''} onPress={() => this.setState({ type: item })} />
           ))}
           <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
           <Checkbox checked={disabledAction} id="disabledAction" onPress={(value) => this.setState({ disabledAction: value })} label="Disable primary action" />

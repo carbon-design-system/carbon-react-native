@@ -201,14 +201,14 @@ export default class App extends React.Component {
   private get topNavProps(): TopNavigationBarProps {
     const { view, topView, filterTerm } = this.state;
 
-    const pageNames: any = {
+    const pageNames: {[key: string]: string} = {
       layouts: 'Layouts',
       components: 'Components',
       resources: 'Resources',
     };
 
     return {
-      title: view || pageNames[topView],
+      title: view || pageNames[topView] || '',
       rightItems: [
         {
           text: 'Change theme',
@@ -220,7 +220,7 @@ export default class App extends React.Component {
       ],
       leftLink: view
         ? {
-            text: pageNames[topView],
+            text: pageNames[topView] || '',
             onPress: this.clearView,
             backButtonMode: true,
             iconSize: 15,

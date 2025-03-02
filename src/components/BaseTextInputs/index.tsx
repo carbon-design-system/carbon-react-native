@@ -1,5 +1,5 @@
 import React from 'react';
-import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
+import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, TextStyle, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -33,9 +33,28 @@ type BaseTextInputProps = {
  *
  * @returns React style item
  */
-export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
+export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean): {
+  wrapper: ViewStyle;
+  labelWrapper: ViewStyle;
+  label: TextStyle;
+  helperText: TextStyle;
+  errorText: TextStyle;
+  warningText: TextStyle;
+  textBox: TextStyle;
+  textBoxDisabled: TextStyle;
+  textBoxActive: TextStyle;
+  textBoxError: TextStyle;
+  textBoxWrapper: ViewStyle;
+  passwordRevealButton: ViewStyle;
+  dateIcon: ViewStyle;
+  errorIcon: ViewStyle;
+  numberActions: ViewStyle;
+  numberActionsDivider: ViewStyle;
+  numberActionsButton: ViewStyle;
+  labelLink: ViewStyle;
+} => {
   // React Native on iOS
-  const baseTextBox: any = {
+  const baseTextBox: TextStyle = {
     ...BodyCompact02(),
     height: 48,
     backgroundColor: getColor('field01'),
@@ -68,7 +87,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     baseTextBox.paddingRight = 0;
   }
 
-  return StyleSheet.create({
+  return {
     wrapper: {
       paddingTop: hasLabelLink ? undefined : 22,
     },
@@ -157,7 +176,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
       paddingBottom: 0,
       paddingTop: 30,
     },
-  });
+  };
 };
 
 /**

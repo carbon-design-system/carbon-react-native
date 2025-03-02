@@ -77,12 +77,12 @@ export class MenuItem extends React.Component<MenuItemProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    const finalStyle: any = {
+    const finalStyle: TextStyle = {
       color: this.textColor,
       flex: 1,
     };
 
-    return StyleSheet.create(finalStyle);
+    return finalStyle;
   }
 
   private onPress = (event: GestureResponderEvent): void => {
