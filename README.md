@@ -70,6 +70,8 @@ yarn add @carbon/react-native
    - `react-native-svg`
    - `react-native-webview`
 
+**Important**: This library does not support EXPO by default. This library is designed and developed without EXPO.  If you are using EXPO you will need to do additioanl items to alter the build and setup to make it work. Please do not open tickets about issues with EXPO, the app is only tested to run with React Native.
+
 ## Recommended Settings
 
 For best experience with navigation we recommend for Android setting `android:windowSoftInputMode="adjustPan"` in your AndroidManifest file. This will prevent the bottom navigation from pushing up. Other known mechanisms exist and you should consider keyboard overlay for developing input areas.

@@ -11,7 +11,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 64,
   },
-  itemStyle: {},
+  itemStyle: {
+    paddingRight: 16,
+  },
 });
 
 export default class TestCheckbox extends React.Component {

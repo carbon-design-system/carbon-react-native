@@ -1,5 +1,5 @@
 import React from 'react';
-import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, StyleSheet, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
+import { PressableStateCallbackType, NativeSyntheticEvent, StyleProp, TextStyle, TextInputFocusEventData, View, ViewStyle, TextInput as ReactTextInput, Pressable, Platform } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Button } from '../Button';
@@ -33,9 +33,28 @@ type BaseTextInputProps = {
  *
  * @returns React style item
  */
-export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean) => {
+export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullBleed?: boolean): {
+  wrapper: ViewStyle;
+  labelWrapper: ViewStyle;
+  label: TextStyle;
+  helperText: TextStyle;
+  errorText: TextStyle;
+  warningText: TextStyle;
+  textBox: TextStyle;
+  textBoxDisabled: TextStyle;
+  textBoxActive: TextStyle;
+  textBoxError: TextStyle;
+  textBoxWrapper: ViewStyle;
+  passwordRevealButton: ViewStyle;
+  dateIcon: ViewStyle;
+  errorIcon: ViewStyle;
+  numberActions: ViewStyle;
+  numberActionsDivider: ViewStyle;
+  numberActionsButton: ViewStyle;
+  labelLink: ViewStyle;
+} => {
   // React Native on iOS
-  const baseTextBox: any = {
+  const baseTextBox: TextStyle = {
     ...BodyCompact02(),
     height: 48,
     backgroundColor: getColor('field01'),
@@ -68,7 +87,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     baseTextBox.paddingRight = 0;
   }
 
-  return StyleSheet.create({
+  return {
     wrapper: {
       paddingTop: hasLabelLink ? undefined : 22,
     },
@@ -157,7 +176,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
       paddingBottom: 0,
       paddingTop: 30,
     },
-  });
+  };
 };
 
 /**
@@ -239,7 +258,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
 
   private get baseErrorWarningStyle() {
     const { type } = this.props;
-    let errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
+    const errorIconStyle = styleReferenceBreaker(this.styles.errorIcon);
 
     if (type === 'password' || type === 'date') {
       errorIconStyle.right = 48;
@@ -314,7 +333,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     const date = type === 'date';
     const number = type === 'number';
     let textBoxStyle = styleReferenceBreaker(this.styles.textBox);
-    let error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
+    const error = !!(required && dirty && !value) || (dirty && typeof isInvalid === 'function' && isInvalid(value));
     const fullBleedMode = typeof fullBleedCallback === 'function';
 
     if (fullBleedMode) {
@@ -343,7 +362,7 @@ export class BaseTextInput extends React.Component<BaseTextInputProps & TextInpu
     }
 
     if (error) {
-      textBoxStyle.paddingRight = (textBoxStyle.paddingRight || 0) + 25;
+      textBoxStyle.paddingRight = (Number(textBoxStyle.paddingRight) || 0) + 25;
     }
 
     return (

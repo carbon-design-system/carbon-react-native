@@ -42,17 +42,17 @@ export default class TestNavigationLisst extends React.Component {
     hasUnreadBadge: false,
   };
 
-  private checkBoxMap: any = {};
+  private checkBoxMap: {[key: string] : boolean} = {};
 
   private getProps(text: string): NavigationListItemProps {
     const { showSubText, hasLeftIcon, hasRightIcon, hasChevron, actionType, currentSelected, reverseSubText, hasRightText, hasUnreadBadge } = this.state;
-    let selectSide = undefined as any;
-    let selectType = undefined as any;
+    let selectSide: 'right' | 'left' | undefined = undefined;
+    let selectType: 'radio' | 'checkbox' | undefined = undefined;
 
     if (actionType !== 'none' && actionType.includes('-')) {
       const split = actionType.split('-');
-      selectSide = split[0];
-      selectType = split[1];
+      selectSide = split[0] as 'right' | 'left';
+      selectType = split[1] as 'radio' | 'checkbox';
     }
 
     return {

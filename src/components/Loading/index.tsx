@@ -92,7 +92,7 @@ export class Loading extends React.Component<LoadingProps> {
     }).start(() => this.animateSpin());
   };
 
-  private get animatedStyle(): any {
+  private get animatedStyle(): ViewStyle {
     return {
       width: this.size,
       height: this.size,

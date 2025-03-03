@@ -110,8 +110,8 @@ export default class TestBottomToolbar extends React.Component {
   render(): React.ReactNode {
     const { disabled, type } = this.state;
 
-    const textTypes: any = {
-      'even': 'Even distributed items',
+    const textTypes: {[key: string]: string} = {
+      even: 'Even distributed items',
       'left-right': 'Left right aligned icons',
       'left-right-text': 'Left right aligned text',
       'left-right-center': 'Left right and center aligned icons',
@@ -138,7 +138,7 @@ export default class TestBottomToolbar extends React.Component {
       <View style={styles.parentView}>
         <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container} style={styles.view}>
           {Object.keys(textTypes).map((item) => (
-            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item]} onPress={() => this.setState({ type: item })} />
+            <RadioButton key={item} checked={type === item} id={item} label={textTypes[item] || ''} onPress={() => this.setState({ type: item })} />
           ))}
           <Checkbox checked={disabled} id="disabled" onPress={(value) => this.setState({ disabled: value })} label="Disable second item" />
         </ScrollView>

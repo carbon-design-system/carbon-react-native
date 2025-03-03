@@ -2,8 +2,8 @@ import React from 'react';
 import { toString } from '@carbon/icon-helpers';
 import { SvgXml } from 'react-native-svg';
 import { getColor } from '../styles/colors';
-import type { CarbonIcon } from '../types/shared';
-import { Linking, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import type { CarbonIcon, StylePassing } from '../types/shared';
+import { ColorValue, Linking, PressableStateCallbackType, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 /**
  * Log issues in console or other system that happen during the use of the library
@@ -26,7 +26,7 @@ export const logIssue = (issue: string, data: unknown): void => {
  *
  * @returns - React Node to render on the screen.  If the icon fails to be created an X icon is rendered.
  */
-export const createIcon = (icon: CarbonIcon, width?: string | number, height?: string | number, color?: string, key?: string | number): React.ReactNode => {
+export const createIcon = (icon: CarbonIcon, width?: string | number, height?: string | number, color?: ColorValue, key?: string | number): React.ReactNode => {
   try {
     const iconString = toString(icon) as string;
 
@@ -47,11 +47,11 @@ export const createIcon = (icon: CarbonIcon, width?: string | number, height?: s
  * @param extraStyle - Style to break reference to
  * @returns - broken reference for the style
  */
-export const styleReferenceBreaker = (style: any, extraStyle?: any): any => {
+export const styleReferenceBreaker = (style: StylePassing, extraStyle?: StylePassing): StyleProp<ViewStyle|TextStyle>&ViewStyle&TextStyle => {
   let finalStyle = Object.assign({}, style || {});
   finalStyle = Object.assign(finalStyle, extraStyle || {});
 
-  return finalStyle;
+  return finalStyle as StyleProp<ViewStyle|TextStyle>&ViewStyle&TextStyle;
 };
 
 /**

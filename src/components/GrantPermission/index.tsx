@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
 import { getColor } from '../../styles/colors';
 import { modalPresentations } from '../../constants/constants';
 import { styleReferenceBreaker } from '../../helpers';
@@ -11,10 +11,12 @@ const filePermissionImage = require('./file_permission.png');
 const locationPermissionImage = require('./location_permission.png');
 const notificationsPermissionImage = require('./notifications_permission.png');
 
+export type GrantPermissiontypes = 'files' | 'camera' | 'notifications' | 'location';
+
 /** Props for GrantPermission component */
 export type GrantPermissionProps = {
   /** The type of permission.  This will prefill image and style. You can override image for any other custom cases and leave this undefined. */
-  type?: 'files' | 'camera' | 'notifications' | 'location';
+  type?: GrantPermissiontypes;
   /** Title for view (usually "Grant access" or similar) */
   title: string;
   /** Reasoning for needing permission (Ex: "In order for us to retrieve the content you intend to upload, we will need access to your photos. This will be used for upload purposes only.") */
@@ -154,7 +156,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
                 <Text style={this.styles.reasoning} text={reasoning} type="body-02" />
                 {!!additionalReasoning && <Text style={this.styles.reasoning} text={additionalReasoning} type="body-02" />}
               </View>
-              <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.imageSource} />
+              <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle) as ImageStyle} source={this.imageSource} />
             </ScrollView>
             <Button style={this.styles.action} onPress={this.accept} text={continueText} />
             <Button style={this.styles.action} kind="secondary" onPress={this.reject} text={cancelText} />

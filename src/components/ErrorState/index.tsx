@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, ImageSourcePropType, Image } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, View, ImageSourcePropType, Image, ImageStyle } from 'react-native';
 import { styleReferenceBreaker } from '../../helpers';
 import { Text } from '../Text';
 const accessImage = require('./access_error.png');
@@ -86,7 +86,7 @@ export class ErrorState extends React.Component<ErrorStateProps> {
 
     return (
       <View style={styleReferenceBreaker(this.styles.wrapper, style)} accessibilityLabel={title} accessibilityHint={subTitle + ' ' + errorCode} accessibilityRole="summary" {...(componentProps || {})}>
-        {!noImage && <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle)} source={this.image} />}
+        {!noImage && <Image resizeMode="contain" style={styleReferenceBreaker(this.styles.image, imageStyle) as ImageStyle} source={this.image} />}
         <View style={this.styles.textWrapper}>
           <Text style={this.styles.title} text={title} type="heading-04" />
           {!!subTitle && <Text style={this.styles.subTitle} text={subTitle} />}

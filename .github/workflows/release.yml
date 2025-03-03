@@ -28,9 +28,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: |
-          yarn install --cwd example --frozen-lockfile
-          yarn install --frozen-lockfile
+        run: npm ci && npm --prefix ./example ci
 
       - name: Configure git
         uses: oleksiyrudenko/gha-git-credentials@v2.1
@@ -53,7 +51,7 @@ jobs:
       - name: Deploy to Github & NPM 🚀
         run: |
           npm set "//registry.npmjs.org/:_authToken" ${{ secrets.NPM_TOKEN }}
-          yarn release --ci
+          npm run release -- --ci
         env:
           GITHUB_TOKEN: ${{ secrets.DCO_PERSONAL_ACCESS_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

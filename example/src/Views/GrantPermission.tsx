@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Alert } from 'react-native';
-import { Button, GrantPermission, RadioButton, Text } from '@carbon/react-native';
+import { Button, GrantPermission, GrantPermissiontypes, RadioButton, Text } from '@carbon/react-native';
 
 const styles = StyleSheet.create({
   view: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 export default class TestGrantPermission extends React.Component {
   state = {
     open: false,
-    type: 'files' as any,
+    type: 'files' as GrantPermissiontypes,
   };
 
   private open = (): void => {

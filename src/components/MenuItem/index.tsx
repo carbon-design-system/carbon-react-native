@@ -1,5 +1,5 @@
 import React from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType, View } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, StyleProp, StyleSheet, TextStyle, ViewStyle, PressableStateCallbackType, View, ColorValue } from 'react-native';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { getColor } from '../../styles/colors';
 import { Text, TextBreakModes, TextTypes } from '../Text';
@@ -60,13 +60,13 @@ export class MenuItem extends React.Component<MenuItemProps> {
     });
   }
 
-  private get textColor(): string {
+  private get textColor(): ColorValue {
     const { disabled } = this.props;
 
     return getColor(disabled ? 'textDisabled' : 'textSecondary');
   }
 
-  private get iconColor(): string {
+  private get iconColor(): ColorValue {
     const { iconColor, disabled } = this.props;
 
     if (disabled) {
@@ -77,12 +77,12 @@ export class MenuItem extends React.Component<MenuItemProps> {
   }
 
   private get textStyle(): StyleProp<TextStyle> {
-    let finalStyle: any = {
+    const finalStyle: TextStyle = {
       color: this.textColor,
       flex: 1,
     };
 
-    return StyleSheet.create(finalStyle);
+    return finalStyle;
   }
 
   private onPress = (event: GestureResponderEvent): void => {
