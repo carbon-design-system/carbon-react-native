@@ -9,7 +9,7 @@ jobs:
     if:
       github.actor != 'carbon-bot'
       &&	!contains(github.event.head_commit.message, 'ci-skip')
-    name: Create release - Node.js v18.16.1
+    name: Create release - Node.js
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,10 +21,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node.js 18.16.1
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.16.1'
+          node-version: '22.14.0'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
