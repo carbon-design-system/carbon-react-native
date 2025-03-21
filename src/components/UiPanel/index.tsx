@@ -1,5 +1,6 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, SafeAreaView, Pressable, View, Animated } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, Pressable, View, Animated } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { UiPanelItem, UiPanelItemProps } from '../UiPanelItem';

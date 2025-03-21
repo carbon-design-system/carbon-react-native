@@ -1,5 +1,6 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, SafeAreaView, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor } from '../../styles/colors';
 import { modalPresentations } from '../../constants/constants';
 import { styleReferenceBreaker } from '../../helpers';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ViewProps, StyleSheet, SafeAreaView, StatusBar, View } from 'react-native';
+import { ViewProps, StyleSheet, StatusBar, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor, useDarkMode } from '../../styles/colors';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 
