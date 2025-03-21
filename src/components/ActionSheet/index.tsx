@@ -1,5 +1,6 @@
 import React from 'react';
-import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, SafeAreaView, Image, ImageSourcePropType } from 'react-native';
+import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, Image, ImageSourcePropType } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';

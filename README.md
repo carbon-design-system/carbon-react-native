@@ -69,6 +69,7 @@ yarn add @carbon/react-native
    - `@carbon/icon-helpers`
    - `react-native-svg`
    - `react-native-webview`
+   - `react-native-safe-area-context`
 
 **Important**: This library does not support EXPO by default. This library is designed and developed without EXPO.  If you are using EXPO you will need to do additioanl items to alter the build and setup to make it work. Please do not open tickets about issues with EXPO, the app is only tested to run with React Native.
 

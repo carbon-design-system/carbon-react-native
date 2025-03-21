@@ -1,5 +1,6 @@
 import React from 'react';
-import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, Platform, SafeAreaView, View, ScrollView } from 'react-native';
+import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, Platform, View, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styleReferenceBreaker } from '../../helpers';
 import { Overlay } from '../Overlay';
 import CloseIcon from '@carbon/icons/es/close/20';

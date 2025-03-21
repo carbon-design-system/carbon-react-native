@@ -1,5 +1,6 @@
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, SafeAreaView, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { zIndexes } from '../../styles/z-index';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
