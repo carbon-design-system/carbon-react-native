@@ -1,5 +1,5 @@
 import React, { Ref } from 'react';
-import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableStateCallbackType, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { GestureResponderEvent, Keyboard, Pressable, PressableProps, PressableStateCallbackType, StyleProp, StyleSheet, TextProps as ReactTextProps, TextStyle, View, ViewStyle } from 'react-native';
 import type { CarbonIcon } from '../../types/shared';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { ThemeChoices, getColor } from '../../styles/colors';
@@ -31,6 +31,8 @@ export type ButtonProps = {
   overrideColor?: string;
   /** Direct props to set on the React Native component (including iOS and Android specific props). Most use cases should not need this. */
   componentProps?: PressableProps;
+  /** Direct props to set on the React Native component for Text (including iOS and Android specific props). Most use cases should not need this. */
+  textComponentProps?: ReactTextProps;
   /** Ref property for parent */
   forwardRef?: Ref<View>;
   /** Disable extra padding on right of buttons */
@@ -275,11 +277,11 @@ export class Button extends React.Component<ButtonProps> {
   };
 
   render(): React.ReactNode {
-    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef, breakMode } = this.props;
+    const { text, disabled, onLongPress, componentProps, icon, iconOnlyMode, textType, forwardRef, breakMode, textComponentProps } = this.props;
 
     return (
       <Pressable disabled={disabled} style={(state) => pressableFeedbackStyle(state, this.buttonStyle, this.getStateStyle)} accessibilityLabel={text} accessibilityRole="button" onPress={this.onPress} onLongPress={onLongPress} ref={forwardRef} {...(componentProps || {})}>
-        {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode={breakMode || 'tail'} />}
+        {!iconOnlyMode && <Text type={textType || 'body-compact-02'} style={this.textStyle} text={text} breakMode={breakMode || 'tail'} componentProps={textComponentProps} />}
         {!!icon && <View style={this.styles.iconStyle}>{createIcon(icon, 20, 20, this.iconTextColor)}</View>}
       </Pressable>
     );

@@ -7,7 +7,7 @@ import ChevronUpIcon from '@carbon/icons/es/chevron--up/20';
 import CheckmarkIcon from '@carbon/icons/es/checkmark--outline/20';
 import ErrorIcon from '@carbon/icons/es/error--outline/20';
 import PendingIcon from '@carbon/icons/es/circle-dash/20';
-import ActiveIcon from '@carbon/icons/es/circle--filled/20';
+import ActiveIcon from '@carbon/icons/es/incomplete/20';
 import { Text } from '../Text';
 
 /** Props for ProgressIndicator component */
