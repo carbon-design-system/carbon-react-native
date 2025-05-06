@@ -1,6 +1,5 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, Platform, View, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { styleReferenceBreaker } from '../../helpers';
 import { Overlay } from '../Overlay';
 import CloseIcon from '@carbon/icons/es/close/20';
@@ -13,6 +12,7 @@ import type { WebViewSource } from 'react-native-webview/lib/WebViewTypes';
 import { defaultText } from '../../constants/defaultText';
 import { zIndexes } from '../../styles/z-index';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 
 /** Soource of DocumentViewer either string or WebView source */
 export type DocumentViewerSource = string | WebViewSource;
@@ -206,13 +206,13 @@ export class DocumentViewer extends React.Component<DocumentViewerProps> {
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} animationType="slide">
         <Overlay style={this.styles.blurBackground} />
         <BottomSafeAreaColorOverride color={navigationFooter ? getColor('layer01') : getColor('background')} />
-        <SafeAreaView style={this.styles.safeAreaWrapper}>
+        <SafeAreaWrapper style={this.styles.safeAreaWrapper}>
           <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
             {this.headerBar}
             {this.mainView}
           </View>
           {!!navigationFooter && navigationFooter}
-        </SafeAreaView>
+        </SafeAreaWrapper>
         {!!renderChildComponent && renderChildComponent}
       </ReactModal>
     );

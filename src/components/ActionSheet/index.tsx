@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActionSheetIOS, Platform, Pressable, PressableStateCallbackType, StyleProp, ViewStyle, ScrollView, StyleSheet, View, Modal as ReactModal, Image, ImageSourcePropType } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { createIcon, pressableFeedbackStyle, styleReferenceBreaker } from '../../helpers';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
@@ -8,6 +7,7 @@ import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 import { zIndexes } from '../../styles/z-index';
 import type { CarbonIcon } from '../../types/shared';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 
 /** Item to pass to ActionSheet */
 export type ActionSheetItem = {
@@ -204,7 +204,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} onRequestClose={cancel.onPress}>
         <Overlay style={this.styles.blurBackground} />
-        <SafeAreaView style={this.styles.safeAreaWrapper}>
+        <SafeAreaWrapper style={this.styles.safeAreaWrapper}>
           {invisibleButton}
           <View style={this.styles.containerWrapper}>
             {invisibleButton}
@@ -263,7 +263,7 @@ export class ActionSheet extends React.Component<ActionSheetProps> {
               </Pressable>
             </View>
           </View>
-        </SafeAreaView>
+        </SafeAreaWrapper>
       </ReactModal>
     );
   }

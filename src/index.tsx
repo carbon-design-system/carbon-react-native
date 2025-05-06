@@ -49,6 +49,7 @@ export * from './components/Tooltip';
 export * from './components/DateInput';
 export * from './components/Slider';
 export * from './components/FormItem';
+export * from './components/SafeAreaWrapper';
 
 // Style exports
 export * from './styles/colors';
