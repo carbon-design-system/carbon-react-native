@@ -1,12 +1,12 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, View, Modal as ReactModal, GestureResponderEvent, PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { zIndexes } from '../../styles/z-index';
 import { modalPresentations } from '../../constants/constants';
 import { getColor } from '../../styles/colors';
 import { Overlay } from '../Overlay';
 import { Text } from '../Text';
 import { pressableFeedbackStyle } from '../../helpers';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 
 /** Props for Modal component */
 export type ModalProps = {
@@ -120,7 +120,7 @@ export class Modal extends React.Component<ModalProps> {
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true}>
         <Overlay style={this.styles.blurBackground} />
-        <SafeAreaView style={this.styles.safeAreaWrapper}>
+        <SafeAreaWrapper style={this.styles.safeAreaWrapper}>
           <View style={this.styles.wrapper}>
             <View style={this.styles.headerArea}>
               <Text type="heading-03" text={title} />
@@ -144,7 +144,7 @@ export class Modal extends React.Component<ModalProps> {
               </View>
             )}
           </View>
-        </SafeAreaView>
+        </SafeAreaWrapper>
       </ReactModal>
     );
   }

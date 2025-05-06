@@ -1,6 +1,5 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, ScrollView, Modal as ReactModal, Pressable, View, Animated } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor } from '../../styles/colors';
 import { styleReferenceBreaker } from '../../helpers';
 import { UiPanelItem, UiPanelItemProps } from '../UiPanelItem';
@@ -8,6 +7,7 @@ import { modalPresentations } from '../../constants/constants';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
 import { defaultText } from '../../constants/defaultText';
 import { zIndexes } from '../../styles/z-index';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 
 /** Props for UiPanel component */
 export type UiPanelProps = {
@@ -121,7 +121,7 @@ export class UiPanel extends React.Component<UiPanelProps> {
         <ReactModal supportedOrientations={modalPresentations} transparent={true}>
           <Animated.View style={[this.styles.animatedWrapper, { opacity: this.animatedValue }]}>
             <BottomSafeAreaColorOverride color={getColor('layer01')} marginRight={48} backgroundOverlay={true} />
-            <SafeAreaView style={this.styles.safeAreaWrapper}>
+            <SafeAreaWrapper style={this.styles.safeAreaWrapper}>
               <View style={this.styles.innerWrapping}>
                 <Pressable style={this.styles.pressableTop} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
                 <Pressable style={this.styles.pressableRight} accessibilityRole="button" accessibilityLabel={onCloseText || defaultText.close} onPress={onClose} />
@@ -133,7 +133,7 @@ export class UiPanel extends React.Component<UiPanelProps> {
                     ))}
                 </ScrollView>
               </View>
-            </SafeAreaView>
+            </SafeAreaWrapper>
           </Animated.View>
         </ReactModal>
       )

@@ -1,12 +1,12 @@
 import React from 'react';
 import { ViewProps, StyleProp, StyleSheet, ViewStyle, Modal as ReactModal, View, EmitterSubscription, Dimensions, Image, ScrollView, ImageSourcePropType, ImageStyle } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor } from '../../styles/colors';
 import { modalPresentations } from '../../constants/constants';
 import { styleReferenceBreaker } from '../../helpers';
 import { zIndexes } from '../../styles/z-index';
 import { Button } from '../Button';
 import { Text } from '../Text';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 const cameraPermissionImage = require('./camera_permission.png');
 const filePermissionImage = require('./file_permission.png');
 const locationPermissionImage = require('./location_permission.png');
@@ -149,7 +149,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
 
     return (
       <ReactModal style={this.styles.modal} supportedOrientations={modalPresentations} transparent={true} animationType="slide">
-        <SafeAreaView style={this.styles.safeAreaWrapper}>
+        <SafeAreaWrapper style={this.styles.safeAreaWrapper}>
           <View style={styleReferenceBreaker(this.styles.wrapper, style)} {...(componentProps || {})}>
             <ScrollView keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" bounces={false} style={this.styles.contentWrapper} contentContainerStyle={this.styles.contentWrapperScroll}>
               <View style={this.styles.textWrapper}>
@@ -162,7 +162,7 @@ export class GrantPermission extends React.Component<GrantPermissionProps> {
             <Button style={this.styles.action} onPress={this.accept} text={continueText} />
             <Button style={this.styles.action} kind="secondary" onPress={this.reject} text={cancelText} />
           </View>
-        </SafeAreaView>
+        </SafeAreaWrapper>
       </ReactModal>
     );
   }

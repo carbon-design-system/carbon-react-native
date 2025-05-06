@@ -1,8 +1,8 @@
 import React from 'react';
 import { ViewProps, StyleSheet, StatusBar, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getColor, useDarkMode } from '../../styles/colors';
 import { BottomSafeAreaColorOverride } from '../BottomSafeAreaColorOverride';
+import { SafeAreaWrapper } from '../SafeAreaWrapper';
 
 /** Props for ViewWrapper component */
 export type ViewWrapperProps = {
@@ -81,10 +81,10 @@ export class ViewWrapper extends React.Component<ViewWrapperProps> {
     return (
       <View style={this.styles.wrapper}>
         {this.needsBottomCover && <BottomSafeAreaColorOverride color={this.bottomColor} />}
-        <SafeAreaView style={this.styles.safeWrapper} accessibilityRole="menu" {...(componentProps || {})}>
+        <SafeAreaWrapper style={this.styles.safeWrapper} {...(componentProps || {})}>
           <StatusBar backgroundColor={this.topColor} animated={true} barStyle={statusBarStyle || (useDarkMode() ? 'light-content' : 'dark-content')} />
           <View style={this.styles.childrenWrapper}>{children}</View>
-        </SafeAreaView>
+        </SafeAreaWrapper>
       </View>
     );
   }
