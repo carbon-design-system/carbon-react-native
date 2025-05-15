@@ -74,7 +74,7 @@
     "react-native-safe-area-context": "^5.4.0",
     "react-native-svg": "^15.11.2",
     "react-native-webview": "^13.13.5",
-    "release-it": "^18.1.2",
+    "release-it": "^19.0.2",
     "typedoc": "^0.28.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.0"
