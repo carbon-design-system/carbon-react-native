@@ -62,6 +62,7 @@ export const getTextInputStyle = (light?: boolean, hasLabelLink?: boolean, fullB
     color: getColor('textPrimary'),
     borderBottomColor: getColor('borderStrong02'),
     borderBottomWidth: 1,
+    borderWidth: Platform.select({ios:2,android:0}),
     paddingRight: 16,
     paddingLeft: 18,
   };
