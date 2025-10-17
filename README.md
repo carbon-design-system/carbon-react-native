@@ -7,7 +7,7 @@
   Carbon for React Native
 </h1>
 
-> The React Native implementation of the [Carbon Design System](https://github.com/carbon-design-system/carbon)
+> The React Native implementation of the [Carbon Design System](https://github.com/carbon-design-system/carbon).
 
 <p align="center">
   <a href="https://github.com/carbon-design-system/carbon-react-native/blob/main/LICENSE">
