@@ -60,7 +60,7 @@ jobs:
       - name: Run tests
         run: npm run test --coverage
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: code-coverage-report
           path: coverage
